@@ -4,6 +4,75 @@ import {Box, Button, Container, Grid, styled, Typography} from '@mui/material';
 import {Form} from 'react-final-form';
 import MyTextField from '../components/Fields/MyTextField';
 import MySelect from '../components/Fields/MySelect';
+import CardSlider, {CardItemType} from '../components/CardSlider';
+import segnaposto from '../assets/img/segnaposto.jpeg';
+
+const cards: CardItemType[] = [
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 1',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+  },
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 2',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+  },
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 3',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+  },
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 4',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+  },
+];
 
 const Home: NextPage = () => {
   return (
@@ -63,6 +132,7 @@ const Home: NextPage = () => {
           </Grid>
         </Container>
       </Intro>
+      <CardSlider cards={cards} autoPlay />
     </Layout>
   );
 };

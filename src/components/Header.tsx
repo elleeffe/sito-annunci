@@ -31,6 +31,7 @@ const Wrap = styled(Box)(({theme}) => ({
   left: 0,
   width: '100%',
   background: theme.palette.background.default,
+  zIndex: 100,
 }));
 
 const Inner = styled(Container)(() => ({

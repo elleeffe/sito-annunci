@@ -12,6 +12,14 @@ export const button: Components['MuiButton'] = {
         boxShadow: 'none',
       },
     },
+    sizeSmall: {
+      padding: '5px 20px',
+      fontSize: '0.9rem',
+      svg: {
+        width: '0.8em',
+        height: '0.8em',
+      },
+    },
     text: {
       padding: '11px 20px',
     },

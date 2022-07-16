@@ -7,6 +7,16 @@ export const button: Components['MuiButton'] = {
       textTransform: 'initial',
       padding: '10px 20px',
       fontSize: '1rem',
+      boxShadow: 'none',
+      '&:hover': {
+        boxShadow: 'none',
+      },
+    },
+    text: {
+      padding: '11px 20px',
+    },
+    containedPrimary: {
+      color: '#fff',
     },
   },
 };

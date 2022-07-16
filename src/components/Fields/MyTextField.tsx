@@ -36,7 +36,14 @@ const MyTextField = ({
       InputProps={{
         startAdornment: iconComp,
       }}
-      sx={spacingBottom ? {marginBottom: '40px'} : undefined}
+      sx={{
+        marginBottom: spacingBottom ? '40px' : undefined,
+        '& .MuiInputBase-root': {
+          '&:hover fieldset': {
+            borderColor: 'primary.main',
+          },
+        },
+      }}
     />
   );
 };

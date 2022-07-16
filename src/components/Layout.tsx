@@ -57,11 +57,7 @@ const Layout = ({title, description, image, twitter, children}: Props) => {
         <meta name="twitter:image" content={twitter?.image || logo} />
       </Head>
       <Header />
-      <Container
-        sx={{backgroundColor: 'background.default', paddingTop: '100px'}}
-      >
-        {children}
-      </Container>
+      {children}
     </>
   );
 };

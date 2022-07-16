@@ -1,7 +1,9 @@
 import {PaletteOptions} from '@mui/material/styles';
-import {indigo, lightBlue} from '@mui/material/colors';
 
 export const palette: PaletteOptions = {
+  primary: {
+    main: '#42a5f5',
+  },
   error: {
     main: '#E58282',
   },

@@ -5,7 +5,7 @@ import {formHelperText} from './helperText';
 import {palette} from './palette';
 import {select} from './select';
 import {textField} from './textfield';
-import {typography, typographyStyle} from './typography';
+// import {typography} from './typography';
 
 export const getTheme = (mode: PaletteMode) => {
   const theme = createTheme({
@@ -13,9 +13,9 @@ export const getTheme = (mode: PaletteMode) => {
       mode,
       ...(mode === 'light' ? {...palette} : {...palette}),
     },
-    typography,
+    // typography,
     components: {
-      MuiTypography: typographyStyle,
+      // MuiTypography: typographyStyle,
       MuiTextField: textField,
       MuiSelect: select,
       MuiFormHelperText: formHelperText,

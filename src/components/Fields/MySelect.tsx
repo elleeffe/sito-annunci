@@ -58,7 +58,12 @@ const MySelect = ({
       const value = selected as string;
       if (value.length === 0) {
         return (
-          <MenuItem>
+          <MenuItem
+            sx={{
+              '&:hover': {backgroundColor: 'transparent'},
+              '& .MuiTouchRipple-root': {display: 'none'},
+            }}
+          >
             {iconComp && <ListItemIcon>{iconComp}</ListItemIcon>}
             <ListItemText sx={{color: 'text.disabled'}}>
               {placeholder}
@@ -67,7 +72,12 @@ const MySelect = ({
         );
       }
       return (
-        <MenuItem>
+        <MenuItem
+          sx={{
+            '&:hover': {backgroundColor: 'transparent'},
+            '& .MuiTouchRipple-root': {display: 'none'},
+          }}
+        >
           {iconComp && <ListItemIcon>{iconComp}</ListItemIcon>}
           <ListItemText>
             {options.find((el) => el.value === value)?.label}

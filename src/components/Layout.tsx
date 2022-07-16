@@ -2,6 +2,7 @@ import React, {PropsWithChildren, useMemo} from 'react';
 import Head from 'next/head';
 import logo from '../../public/logo.svg';
 import {Container} from '@mui/material';
+import Header from './Header';
 
 interface Props extends PropsWithChildren<{}> {
   title?: string;
@@ -16,12 +17,12 @@ interface Props extends PropsWithChildren<{}> {
 
 const Layout = ({title, description, image, twitter, children}: Props) => {
   const pageTitle = useMemo(
-    () => (title ? `${title} | DevMap` : 'DevMap - Da definire'),
+    () => (title ? `${title} | Titolo` : 'Titolo - Da definire'),
     [title]
   );
 
   const pageDesc = useMemo(
-    () => (description ? description : 'DevMap - Da definire'),
+    () => (description ? description : 'Titolo - Da definire'),
     [description]
   );
 
@@ -33,7 +34,7 @@ const Layout = ({title, description, image, twitter, children}: Props) => {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content={pageDesc} />
-        <link rel="canonical" href="https://devmap.it" />
+        <link rel="canonical" href="" />
         <link rel="apple-touch-icon" href="/favicon.ico" />
         <meta property="og:type" content="website" />
         <meta name="og:title" property="og:title" content={pageTitle} />
@@ -44,18 +45,21 @@ const Layout = ({title, description, image, twitter, children}: Props) => {
         />
         <meta property="og:image" content={image || logo} />
         <meta property="og:site_name" content="DevMap" />
-        <meta property="og:url" content="https://devmap.it" />
+        <meta property="og:url" content="" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content={twitter?.title || pageTitle} />
         <meta
           name="twitter:description"
           content={twitter?.description || pageDesc}
         />
-        <meta name="twitter:site" content="https://devmap.it" />
+        <meta name="twitter:site" content="" />
         <meta name="twitter:creator" content="Lorenzo Faenzi" />
         <meta name="twitter:image" content={twitter?.image || logo} />
       </Head>
-      <Container sx={{backgroundColor: 'background.default'}}>
+      <Header />
+      <Container
+        sx={{backgroundColor: 'background.default', paddingTop: '100px'}}
+      >
         {children}
       </Container>
     </>

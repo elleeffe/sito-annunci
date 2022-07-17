@@ -2,10 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Box, Button, Container, IconButton, styled} from '@mui/material';
 import {Add, Login} from '@mui/icons-material';
 import {TitleH6} from './MyTypography';
+import {useRouter} from 'next/router';
 
 const Header = () => {
   const [scrolled, setScrolled] = useState<boolean>(false);
   const [mobile, setMobile] = useState<boolean>(false);
+
+  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () =>
@@ -30,8 +33,6 @@ const Header = () => {
     };
   }, []);
 
-  console.log(mobile);
-
   return (
     <Wrap isScrolled={scrolled}>
       <Inner>
@@ -47,7 +48,11 @@ const Header = () => {
             Inserisci annuncio
           </Button>
           {mobile ? (
-            <IconButton size="small" color="primary">
+            <IconButton
+              size="small"
+              color="primary"
+              onClick={() => router.push('/auth')}
+            >
               <Login />
             </IconButton>
           ) : (
@@ -55,6 +60,7 @@ const Header = () => {
               endIcon={<Login />}
               size={scrolled || mobile ? 'small' : 'medium'}
               sx={{transition: 'all 100ms linear'}}
+              onClick={() => router.push('/auth')}
             >
               Accedi
             </Button>

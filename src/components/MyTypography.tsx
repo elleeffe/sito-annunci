@@ -8,8 +8,7 @@ export const TitleH1 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '60px',
-  color: theme.palette.text.primary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
   [theme.breakpoints.down('md')]: {
     fontSize: '50px',
   },
@@ -20,8 +19,7 @@ export const TitleH2 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '50px',
-  color: theme.palette.text.primary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
   [theme.breakpoints.down('md')]: {
     fontSize: '40px',
   },
@@ -32,8 +30,7 @@ export const TitleH3 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '40px',
-  color: theme.palette.text.primary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
   [theme.breakpoints.down('md')]: {
     fontSize: '30px',
   },
@@ -44,8 +41,7 @@ export const TitleH4 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '40px',
-  color: theme.palette.text.primary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
   [theme.breakpoints.down('md')]: {
     fontSize: '30px',
   },
@@ -56,24 +52,24 @@ export const TitleH5 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontWeight: 600,
   lineHeight: 1.3,
   fontSize: '30px',
-  color: theme.palette.text.primary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
   [theme.breakpoints.down('md')]: {
     fontSize: '26px',
   },
 }));
 TitleH5.defaultProps = {variant: 'h5'};
 
-export const TitleH6 = styled(Typography)<Props>(({theme, isWhite}) => ({
-  fontWeight: 600,
-  lineHeight: 1.3,
-  fontSize: '30px',
-  color: theme.palette.text.primary,
-  ...(isWhite && {color: '#fff'}),
-  [theme.breakpoints.down('md')]: {
-    fontSize: '26px',
-  },
-}));
+export const TitleH6 = styled(Typography)<Props & {isSmall?: boolean}>(
+  ({theme, isWhite, isSmall, color}) => ({
+    fontWeight: 600,
+    lineHeight: 1.3,
+    ...(isSmall ? {fontSize: '26px'} : {fontSize: '30px'}),
+    ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
+    [theme.breakpoints.down('md')]: {
+      ...(isSmall ? {fontSize: '22px'} : {fontSize: '26px'}),
+    },
+  })
+);
 TitleH6.defaultProps = {variant: 'h6'};
 
 export const Subtitle1 = styled(Typography)<Props>(({theme, isWhite}) => ({
@@ -81,8 +77,11 @@ export const Subtitle1 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontSize: '18px',
   fontWeight: 400,
   fontFamily: 'Rubik',
-  color: theme.palette.text.secondary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite
+    ? {color: '#fff'}
+    : {
+        color: theme.palette.text.secondary,
+      }),
   [theme.breakpoints.down('md')]: {
     fontSize: '16px',
   },
@@ -94,8 +93,11 @@ export const Subtitle2 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontSize: '16px',
   fontWeight: 400,
   fontFamily: 'Rubik',
-  color: theme.palette.text.secondary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite
+    ? {color: '#fff'}
+    : {
+        color: theme.palette.text.secondary,
+      }),
   [theme.breakpoints.down('md')]: {
     fontSize: '14px',
   },
@@ -107,8 +109,11 @@ export const Body1 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontSize: '16px',
   fontWeight: 300,
   fontFamily: 'Rubik',
-  color: theme.palette.text.secondary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite
+    ? {color: '#fff'}
+    : {
+        color: theme.palette.text.secondary,
+      }),
   [theme.breakpoints.down('md')]: {
     fontSize: '14px',
   },
@@ -120,8 +125,11 @@ export const Body2 = styled(Typography)<Props>(({theme, isWhite}) => ({
   fontSize: '14px',
   fontWeight: 300,
   fontFamily: 'Rubik',
-  color: theme.palette.text.secondary,
-  ...(isWhite && {color: '#fff'}),
+  ...(isWhite
+    ? {color: '#fff'}
+    : {
+        color: theme.palette.text.secondary,
+      }),
   [theme.breakpoints.down('md')]: {
     fontSize: '12px',
   },

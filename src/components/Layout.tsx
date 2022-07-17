@@ -5,6 +5,7 @@ import Header from './Header';
 import Footer from './Footer';
 
 interface Props extends PropsWithChildren<{}> {
+  hideHeader?: boolean;
   title?: string;
   description?: string;
   image?: string;
@@ -15,7 +16,14 @@ interface Props extends PropsWithChildren<{}> {
   };
 }
 
-const Layout = ({title, description, image, twitter, children}: Props) => {
+const Layout = ({
+  hideHeader,
+  title,
+  description,
+  image,
+  twitter,
+  children,
+}: Props) => {
   const pageTitle = useMemo(
     () => (title ? `${title} | Titolo` : 'Titolo - Da definire'),
     [title]
@@ -56,9 +64,9 @@ const Layout = ({title, description, image, twitter, children}: Props) => {
         <meta name="twitter:creator" content="Lorenzo Faenzi" />
         <meta name="twitter:image" content={twitter?.image || logo} />
       </Head>
-      <Header />
+      {!hideHeader && <Header />}
       {children}
-      <Footer />
+      {!hideHeader && <Footer />}
     </>
   );
 };

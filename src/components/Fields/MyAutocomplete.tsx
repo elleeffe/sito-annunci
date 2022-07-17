@@ -115,7 +115,7 @@ const MyAutocomplete = ({
         input.onFocus();
         setHover(true);
       }}
-      clearIcon={<Close className="autocomplete-icon" color={color} />}
+      clearIcon={<Close className="untouchable-icon" color={color} />}
       renderInput={(params) => (
         <TextField
           {...params}
@@ -131,13 +131,13 @@ const MyAutocomplete = ({
                     color={color}
                     size={20}
                     sx={{marginRight: '8px'}}
-                    className="autocomplete-icon"
+                    className="untouchable-icon"
                   />
                 )}
                 {params.InputProps.endAdornment}
                 <SearchOutlined
                   color={hover ? color : 'disabled'}
-                  className="autocomplete-icon"
+                  className="untouchable-icon"
                 />
               </>
             ),
@@ -175,7 +175,7 @@ export default MyAutocomplete;
 
 const StyledAutocomplete = styled(Autocomplete)<{$spacingBottom?: boolean}>(
   ({theme, $spacingBottom}) => ({
-    marginBottom: $spacingBottom ? '40px' : undefined,
+    marginBottom: $spacingBottom ? '25px' : undefined,
     '& .MuiAutocomplete-inputRoot': {
       padding: '6px 9px',
       paddingRight: '9px !important',

@@ -7,8 +7,8 @@ const Footer = () => {
     <Wrap>
       <Container
         sx={{
-          paddingTop: '100px',
-          paddingBottom: '50px',
+          paddingTop: '80px',
+          paddingBottom: '80px',
         }}
       >
         <Grid container justifyContent="space-between">
@@ -22,21 +22,21 @@ const Footer = () => {
             </TitleH6>
             <Subtitle1 gutterBottom>support@prolancer.com</Subtitle1>
           </Grid>
-          <Grid item sm={12} md={5}>
+          <Grid item xs={12} md={5}>
             <Grid container>
               <Grid item xs={12}>
                 <TitleH6 gutterBottom sx={{marginTop: '15px'}}>
                   Categorie
                 </TitleH6>
               </Grid>
-              <Grid item xs={12} sm={4} md={6}>
+              <Grid item xs={6} sm={4} md={6}>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>
               </Grid>
-              <Grid item xs={12} sm={4} md={6}>
+              <Grid item xs={6} sm={4} md={6}>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>
                 <Subtitle1 gutterBottom>Categoria</Subtitle1>

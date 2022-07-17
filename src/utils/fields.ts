@@ -2,7 +2,7 @@ import {FieldMetaState} from 'react-final-form';
 import validate from 'validate.js';
 
 export const muiErrorConverter = (
-  meta: FieldMetaState<string | number | undefined>
+  meta: FieldMetaState<string | number | boolean | undefined>
 ) => {
   const error = !!(
     (meta.touched && meta.error) ||
@@ -58,14 +58,32 @@ export const createPasswordValidator = (value: string) => {
   return undefined;
 };
 
-export const isRequired = (value: string | Date | undefined) =>
-  validate.single(value, {
+export const isRequired = (value: string | Date | boolean | undefined) => {
+  if (typeof value === 'boolean') {
+    return value ? '' : 'Campo obbligatorio';
+  }
+  return validate.single(value, {
     presence: {
       presence: true,
       allowEmpty: false,
       message: 'Campo obbligatorio',
     },
   });
+};
+
+export const passwordEqualityValidator = (value: string, toCompare: string) => {
+  if (!!toCompare) {
+    return validate.single(toCompare, {
+      presence: {
+        presence: true,
+        allowEmpty: false,
+        message: 'Campo obbligatorio',
+      },
+    });
+  }
+
+  return value !== toCompare ? 'Password non corrispondente' : '';
+};
 
 export const numberValidator = (value: string, required: boolean) => {
   if (required) {

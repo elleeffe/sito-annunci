@@ -12,7 +12,7 @@ export const textField: Components['MuiTextField'] = {
         },
       },
       '& .Mui-error': {
-        '& svg:not(.autocomplete-icon)': {
+        '& svg:not(.untouchable-icon)': {
           color: (palette.error as SimplePaletteColorOptions).main,
         },
       },

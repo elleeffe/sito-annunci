@@ -38,7 +38,7 @@ const SimpleCard = ({card}: Props) => {
   return (
     <Card
       sx={{
-        maxWidth: 345,
+        maxWidth: 450,
         margin: '0 10px 50px 10px',
         boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
         borderRadius: '10px',

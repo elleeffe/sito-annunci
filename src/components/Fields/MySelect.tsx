@@ -92,7 +92,7 @@ const MySelect = ({
     <FormControl
       error={error}
       fullWidth
-      sx={spacingBottom ? {marginBottom: '40px'} : undefined}
+      sx={spacingBottom ? {marginBottom: '25px'} : undefined}
     >
       <StyledSelect
         {...input}
@@ -128,7 +128,7 @@ const MySelect = ({
           </MenuItem>
         ))}
       </StyledSelect>
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {!!helperText && <FormHelperText>{helperText}</FormHelperText>}
     </FormControl>
   );
 };

@@ -10,7 +10,7 @@ import segnapostoCta from '../assets/img/segnaposto-cta.png';
 import {CardItemType} from '../components/SimpleCard';
 import CallToAction from '../components/CallToAction';
 import MyAutocomplete from '../components/Fields/MyAutocomplete';
-import {Subtitle1, TitleH1, TitleH2, TitleH3} from '../components/MyTypography';
+import {Subtitle1, TitleH1, TitleH2} from '../components/MyTypography';
 
 const cards: CardItemType[] = [
   {

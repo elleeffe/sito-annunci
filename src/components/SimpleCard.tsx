@@ -1,5 +1,6 @@
-import React, {useCallback, useMemo} from 'react';
+import React from 'react';
 import {
+  Box,
   Button,
   ButtonProps,
   Card,
@@ -9,6 +10,8 @@ import {
   Typography,
 } from '@mui/material';
 import * as icons from '@mui/icons-material';
+import PersonPinIcon from '@mui/icons-material/PersonPin';
+import MyIcon from './MyIcon';
 
 export type CardItemType = {
   img: {
@@ -24,6 +27,7 @@ export type CardItemType = {
     icon?: keyof typeof icons;
     variant?: ButtonProps['variant'];
   };
+  totalAds?: number;
 };
 
 type Props = {
@@ -31,40 +35,6 @@ type Props = {
 };
 
 const SimpleCard = ({card}: Props) => {
-  const getIcon = useCallback(
-    (
-      color: ButtonProps['color'],
-      icon?: keyof typeof icons,
-      variant?: ButtonProps['variant']
-    ) => {
-      if (icon) {
-        const Icon = icons[icon];
-        return (
-          <Icon
-            sx={{
-              color: () => {
-                if (!color && !variant) {
-                  return 'primary';
-                }
-                if (!color && variant === 'contained') {
-                  return '#fff';
-                }
-                return color;
-              },
-            }}
-          />
-        );
-      }
-      return undefined;
-    },
-    []
-  );
-
-  const icon = useMemo(
-    () => getIcon(card.button.color, card.button.icon, card.button.variant),
-    [card.button.color, card.button.icon, card.button.variant, getIcon]
-  );
-
   return (
     <Card
       sx={{
@@ -80,9 +50,20 @@ const SimpleCard = ({card}: Props) => {
         image={card.img.src}
       />
       <CardContent sx={{padding: '15px'}}>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography gutterBottom variant="h5">
           {card.title}
         </Typography>
+        {card.totalAds && (
+          <Box display="flex" alignItems="center" sx={{marginBottom: '10px'}}>
+            <PersonPinIcon
+              color="primary"
+              sx={{width: '20px', height: '20px', marginRight: '5px'}}
+            />
+            <Typography variant="subtitle2">
+              <span>{card.totalAds} annunci caricati</span>
+            </Typography>
+          </Box>
+        )}
         <Typography variant="body2" color="text.secondary">
           {card.caption}
         </Typography>
@@ -92,7 +73,13 @@ const SimpleCard = ({card}: Props) => {
           variant={card.button.variant}
           size="small"
           color={card.button.color}
-          endIcon={icon}
+          endIcon={
+            <MyIcon
+              variant={card.button.variant}
+              color={card.button.color}
+              icon={card.button.icon}
+            />
+          }
         >
           {card.button.caption}
         </Button>

@@ -4,8 +4,11 @@ import {Box, Button, Container, Grid, styled, Typography} from '@mui/material';
 import {Form} from 'react-final-form';
 import MyTextField from '../components/Fields/MyTextField';
 import MySelect from '../components/Fields/MySelect';
-import CardSlider, {CardItemType} from '../components/CardSlider';
+import CardSlider from '../components/CardSlider';
 import segnaposto from '../assets/img/segnaposto.jpeg';
+import segnapostoCta from '../assets/img/segnaposto-cta.png';
+import {CardItemType} from '../components/SimpleCard';
+import CallToAction from '../components/CallToAction';
 
 const cards: CardItemType[] = [
   {
@@ -23,6 +26,7 @@ const cards: CardItemType[] = [
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },
+    totalAds: 1034,
   },
   {
     img: {
@@ -39,6 +43,7 @@ const cards: CardItemType[] = [
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },
+    totalAds: 884,
   },
   {
     img: {
@@ -55,6 +60,7 @@ const cards: CardItemType[] = [
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },
+    totalAds: 239,
   },
   {
     img: {
@@ -71,6 +77,7 @@ const cards: CardItemType[] = [
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },
+    totalAds: 587,
   },
 ];
 
@@ -133,6 +140,22 @@ const Home: NextPage = () => {
         </Container>
       </Intro>
       <CardSlider cards={cards} autoPlay />
+      <CallToAction
+        variant="primary"
+        title="Find the talent needed to get your business growing."
+        subtitle="Advertise your jobs to millions of monthly users and search 15.8 million CVs"
+        button={{
+          caption: 'Pubblica annuncio',
+          action: () => {},
+          icon: 'ArrowForwardIos',
+          variant: 'contained',
+          color: 'warning',
+        }}
+        img={{
+          src: segnapostoCta.src,
+          alt: 'segnaposto-cta',
+        }}
+      />
     </Layout>
   );
 };

@@ -32,6 +32,7 @@ const CardSlider = ({cards, autoPlay}: Props) => {
           }
         }
         loop
+        scrollbar={{draggable: true}}
       >
         {cards.map((card) => {
           return (

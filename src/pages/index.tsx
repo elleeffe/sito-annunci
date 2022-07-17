@@ -10,18 +10,7 @@ import segnapostoCta from '../assets/img/segnaposto-cta.png';
 import {CardItemType} from '../components/SimpleCard';
 import CallToAction from '../components/CallToAction';
 import MyAutocomplete from '../components/Fields/MyAutocomplete';
-import {
-  Body1,
-  Body2,
-  Subtitle1,
-  Subtitle2,
-  TitleH1,
-  TitleH2,
-  TitleH3,
-  TitleH4,
-  TitleH5,
-  TitleH6,
-} from '../components/MyTypography';
+import {Subtitle1, TitleH1, TitleH2, TitleH3} from '../components/MyTypography';
 
 const cards: CardItemType[] = [
   {
@@ -161,38 +150,8 @@ const Home: NextPage = () => {
       </Intro>
       <Container sx={{paddingTop: '100px'}}>
         <Grid container justifyContent="center">
-          <TitleH1 gutterBottom sx={{width: '100%'}}>
-            Variant h1
-          </TitleH1>
-          <TitleH2 gutterBottom sx={{width: '100%'}}>
-            Variant h2
-          </TitleH2>
-          <TitleH3 gutterBottom sx={{width: '100%'}}>
-            Variant h3
-          </TitleH3>
-          <TitleH4 gutterBottom sx={{width: '100%'}}>
-            Variant h4
-          </TitleH4>
-          <TitleH5 gutterBottom sx={{width: '100%'}}>
-            Variant h5
-          </TitleH5>
-          <TitleH6 gutterBottom sx={{width: '100%'}}>
-            Variant h6
-          </TitleH6>
-          <Subtitle1 gutterBottom sx={{width: '100%'}}>
-            Variant subtitle 1
-          </Subtitle1>
-          <Subtitle2 gutterBottom sx={{width: '200%'}}>
-            Variant subtitle 1
-          </Subtitle2>
-          <Body1 gutterBottom sx={{width: '200%'}}>
-            Variant body 1
-          </Body1>
-          <Body2 gutterBottom sx={{width: '200%'}}>
-            Variant body 2
-          </Body2>
           <Grid item sm={10} md={8} textAlign="center">
-            <TitleH3 gutterBottom>Our categories</TitleH3>
+            <TitleH2 gutterBottom>Our categories</TitleH2>
             <Subtitle1>
               Uniquely promote adaptive quality vectors rather than stand-alone
               e-markets. pontificate alternative architectures whereas iterate.

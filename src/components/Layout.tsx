@@ -1,7 +1,6 @@
 import React, {PropsWithChildren, useMemo} from 'react';
 import Head from 'next/head';
 import logo from '../../public/logo.svg';
-import {Container} from '@mui/material';
 import Header from './Header';
 import Footer from './Footer';
 

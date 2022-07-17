@@ -41,6 +41,7 @@ const SimpleCard = ({card}: Props) => {
         maxWidth: 345,
         margin: '0 10px 50px 10px',
         boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+        borderRadius: '10px',
       }}
     >
       <CardMedia
@@ -49,7 +50,7 @@ const SimpleCard = ({card}: Props) => {
         height="250"
         image={card.img.src}
       />
-      <CardContent sx={{padding: '15px'}}>
+      <CardContent sx={{padding: '25px'}}>
         <TitleH5 gutterBottom>{card.title}</TitleH5>
         {card.totalAds && (
           <Box display="flex" alignItems="center" sx={{marginBottom: '10px'}}>
@@ -64,7 +65,7 @@ const SimpleCard = ({card}: Props) => {
         )}
         <Body2 color="text.secondary">{card.caption}</Body2>
       </CardContent>
-      <CardActions sx={{padding: '15px'}}>
+      <CardActions sx={{padding: '0px 25px 25px'}}>
         <Button
           variant={card.button.variant}
           size="small"

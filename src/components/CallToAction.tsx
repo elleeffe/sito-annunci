@@ -3,7 +3,7 @@ import * as icons from '@mui/icons-material';
 import {Box, Button, Container, Grid, styled} from '@mui/material';
 import MyIcon from './MyIcon';
 import Image from 'next/image';
-import {Subtitle1, TitleH4} from './MyTypography';
+import {Subtitle1, TitleH3} from './MyTypography';
 
 type Props = {
   variant: 'primary' | 'secondary';
@@ -85,7 +85,7 @@ const ImageWrap = styled(Box)(({theme}) => ({
   },
 }));
 
-const CtaTitle = styled(TitleH4)(({theme}) => ({
+const CtaTitle = styled(TitleH3)(({theme}) => ({
   marginBottom: '25px',
   [theme.breakpoints.down('md')]: {
     marginBottom: '15px',

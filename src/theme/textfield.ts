@@ -8,7 +8,7 @@ export const textField: Components['MuiTextField'] = {
         borderRadius: '28px',
         paddingLeft: '15px',
         input: {
-          padding: '13.5px 15px 13.5px 10px',
+          padding: '13.5px 15px 13.5px 6px',
         },
       },
       '& .Mui-error': {

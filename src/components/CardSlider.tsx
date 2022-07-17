@@ -48,7 +48,7 @@ const CardSlider = ({cards, autoPlay}: Props) => {
 export default CardSlider;
 
 const Wrap = styled(Container)(({theme}) => ({
-  padding: '100px 0',
+  padding: '50px 0 100px',
   '& .swiper-slide': {
     display: 'flex',
     alignItems: 'center',

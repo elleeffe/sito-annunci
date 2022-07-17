@@ -88,9 +88,13 @@ const Home: NextPage = () => {
       <Intro>
         <Container>
           <Grid container justifyContent="center">
-            <Grid item lg={10}>
-              <Typography variant="h2" textAlign="center">
+            <Grid item lg={10} textAlign="center">
+              <Typography variant="h3" gutterBottom>
                 The Easiest Way to Get Your New Job
+              </Typography>
+              <Typography variant="subtitle1">
+                Work with talented people at the most affordable price to get
+                the most out of your time and cost
               </Typography>
               <FilterWrap container columnSpacing={2} rowSpacing={2}>
                 <Form onSubmit={console.log}>
@@ -143,6 +147,19 @@ const Home: NextPage = () => {
           </Grid>
         </Container>
       </Intro>
+      <Container sx={{paddingTop: '100px'}}>
+        <Grid container justifyContent="center">
+          <Grid item sm={10} md={8} textAlign="center">
+            <Typography variant="h3" gutterBottom>
+              Our categories
+            </Typography>
+            <Typography variant="subtitle1">
+              Uniquely promote adaptive quality vectors rather than stand-alone
+              e-markets. pontificate alternative architectures whereas iterate.
+            </Typography>
+          </Grid>
+        </Grid>
+      </Container>
       <CardSlider cards={cards} autoPlay />
       <CallToAction
         variant="primary"

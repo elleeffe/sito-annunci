@@ -45,6 +45,7 @@ const MyAutocomplete = ({
   spacingBottom,
 }: Props) => {
   const [searchString, setSearchString] = useState<string>('');
+  const [hover, setHover] = useState<boolean>(false);
   const autocompleteRef = useRef();
   const {input, meta} = useField(name, {validate});
 
@@ -91,9 +92,11 @@ const MyAutocomplete = ({
 
   return (
     <StyledAutocomplete
-      spacingBottom={spacingBottom}
+      $spacingBottom={spacingBottom}
       value={input.value || null}
       freeSolo={true}
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
       ref={autocompleteRef}
       selectOnFocus={true}
       options={listOption}
@@ -104,7 +107,14 @@ const MyAutocomplete = ({
       onChange={(_, value) => handleSelected(value as Option)}
       loading={loading}
       loadingText="Ricerca in corso..."
-      onBlur={input.onBlur}
+      onBlur={() => {
+        input.onBlur();
+        setHover(false);
+      }}
+      onFocus={() => {
+        input.onFocus();
+        setHover(true);
+      }}
       clearIcon={<Close className="autocomplete-icon" color={color} />}
       renderInput={(params) => (
         <TextField
@@ -125,7 +135,10 @@ const MyAutocomplete = ({
                   />
                 )}
                 {params.InputProps.endAdornment}
-                <SearchOutlined color={color} className="autocomplete-icon" />
+                <SearchOutlined
+                  color={hover ? color : 'disabled'}
+                  className="autocomplete-icon"
+                />
               </>
             ),
           }}
@@ -160,9 +173,9 @@ const MyAutocomplete = ({
 
 export default MyAutocomplete;
 
-const StyledAutocomplete = styled(Autocomplete)<{spacingBottom?: boolean}>(
-  ({theme, spacingBottom}) => ({
-    marginBottom: spacingBottom ? '40px' : undefined,
+const StyledAutocomplete = styled(Autocomplete)<{$spacingBottom?: boolean}>(
+  ({theme, $spacingBottom}) => ({
+    marginBottom: $spacingBottom ? '40px' : undefined,
     '& .MuiAutocomplete-inputRoot': {
       padding: '6px 9px',
       paddingRight: '9px !important',

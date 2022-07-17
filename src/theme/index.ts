@@ -13,9 +13,10 @@ export const getTheme = (mode: PaletteMode) => {
       mode,
       ...(mode === 'light' ? {...palette} : {...palette}),
     },
-    // typography,
+    typography: {
+      fontFamily: ['"Poppins"', '"Rubik"'].join(','),
+    },
     components: {
-      // MuiTypography: typographyStyle,
       MuiTextField: textField,
       MuiSelect: select,
       MuiFormHelperText: formHelperText,

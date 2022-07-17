@@ -9,6 +9,7 @@ import segnaposto from '../assets/img/segnaposto.jpeg';
 import segnapostoCta from '../assets/img/segnaposto-cta.png';
 import {CardItemType} from '../components/SimpleCard';
 import CallToAction from '../components/CallToAction';
+import MyAutocomplete from '../components/Fields/MyAutocomplete';
 
 const cards: CardItemType[] = [
   {
@@ -93,46 +94,49 @@ const Home: NextPage = () => {
               </Typography>
               <FilterWrap container columnSpacing={2} rowSpacing={2}>
                 <Form onSubmit={console.log}>
-                  {({handleSubmit}) => (
-                    <>
-                      <Grid item xs={12} sm={4} md={3}>
-                        <MyTextField
-                          name="keyword"
-                          placeholder="Sto cercando..."
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} md={3}>
-                        <MySelect
-                          name="category"
-                          placeholder="Categoria"
-                          options={[
-                            {value: '', label: 'Nessuna categoria'},
-                            {value: 'donna', label: 'Donna'},
-                            {value: 'uomo', label: 'Uomo'},
-                          ]}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={4} md={3}>
-                        <MySelect
-                          name="city"
-                          placeholder="Città"
-                          options={[
-                            {value: 'roma', label: 'Roma'},
-                            {value: 'napoli', label: 'Napoli'},
-                          ]}
-                        />
-                      </Grid>
-                      <Grid item xs={12} sm={12} md={3}>
-                        <Button
-                          variant="contained"
-                          onClick={handleSubmit}
-                          sx={{width: '100%'}}
-                        >
-                          Cerca
-                        </Button>
-                      </Grid>
-                    </>
-                  )}
+                  {({handleSubmit, values}) => {
+                    // console.log({values});
+                    return (
+                      <>
+                        <Grid item xs={12} sm={4} md={3}>
+                          <MyTextField
+                            name="keyword"
+                            placeholder="Sto cercando..."
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={4} md={3}>
+                          <MySelect
+                            name="category"
+                            placeholder="Categoria"
+                            options={[
+                              {value: '', label: 'Nessuna categoria'},
+                              {value: 'donna', label: 'Donna'},
+                              {value: 'uomo', label: 'Uomo'},
+                            ]}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={4} md={3}>
+                          <MyAutocomplete
+                            name="city"
+                            placeholder="Città"
+                            options={[
+                              {value: 'roma', label: 'Roma'},
+                              {value: 'napoli', label: 'Napoli'},
+                            ]}
+                          />
+                        </Grid>
+                        <Grid item xs={12} sm={12} md={3}>
+                          <Button
+                            variant="contained"
+                            onClick={handleSubmit}
+                            sx={{width: '100%'}}
+                          >
+                            Cerca
+                          </Button>
+                        </Grid>
+                      </>
+                    );
+                  }}
                 </Form>
               </FilterWrap>
             </Grid>

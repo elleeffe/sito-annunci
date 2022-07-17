@@ -1,7 +1,9 @@
 import {FieldMetaState} from 'react-final-form';
 import validate from 'validate.js';
 
-export const muiErrorConverter = (meta: FieldMetaState<string | number>) => {
+export const muiErrorConverter = (
+  meta: FieldMetaState<string | number | undefined>
+) => {
   const error = !!(
     (meta.touched && meta.error) ||
     (!meta.dirtySinceLastSubmit && meta.submitError)

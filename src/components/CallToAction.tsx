@@ -1,16 +1,9 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import * as icons from '@mui/icons-material';
-import {
-  Box,
-  Button,
-  ButtonProps,
-  Container,
-  Grid,
-  Typography,
-  styled,
-} from '@mui/material';
+import {Box, Button, Container, Grid, styled} from '@mui/material';
 import MyIcon from './MyIcon';
 import Image from 'next/image';
+import {Subtitle1, TitleH4} from './MyTypography';
 
 type Props = {
   variant: 'primary' | 'secondary';
@@ -19,9 +12,7 @@ type Props = {
   button: {
     caption: string;
     action: () => void;
-    color?: ButtonProps['color'];
     icon?: keyof typeof icons;
-    variant?: ButtonProps['variant'];
   };
   img: {
     src: string;
@@ -30,20 +21,26 @@ type Props = {
 };
 
 const CallToAction = ({variant, title, subtitle, button, img}: Props) => {
+  const buttonColor = useMemo(() => {
+    if (variant === 'primary') {
+      return 'warning';
+    }
+    return 'primary';
+  }, [variant]);
   return (
     <Container sx={{paddingBottom: '100px'}}>
       <Wrap container variant={variant}>
         <Grid item sm={11} md={10} lg={8}>
-          <CtaTypography variant="h4">{title}</CtaTypography>
-          <CtaTypography variant="subtitle1">{subtitle}</CtaTypography>
+          <CtaTitle isWhite={variant === 'primary'}>{title}</CtaTitle>
+          <CtaSubtitle isWhite={variant === 'primary'}>{subtitle}</CtaSubtitle>
           <Button
-            variant={button.variant || 'contained'}
+            variant="contained"
             onClick={button.action}
-            color={button.color || 'primary'}
+            color={buttonColor}
             endIcon={
               <MyIcon
-                variant={button.variant}
-                color={button.color}
+                variant="contained"
+                color={buttonColor}
                 icon={button.icon}
               />
             }
@@ -88,7 +85,14 @@ const ImageWrap = styled(Box)(({theme}) => ({
   },
 }));
 
-const CtaTypography = styled(Typography)(({theme}) => ({
+const CtaTitle = styled(TitleH4)(({theme}) => ({
+  marginBottom: '25px',
+  [theme.breakpoints.down('md')]: {
+    marginBottom: '15px',
+  },
+}));
+
+const CtaSubtitle = styled(Subtitle1)(({theme}) => ({
   marginBottom: '25px',
   [theme.breakpoints.down('md')]: {
     marginBottom: '15px',

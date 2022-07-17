@@ -7,11 +7,11 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Typography,
 } from '@mui/material';
 import * as icons from '@mui/icons-material';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import MyIcon from './MyIcon';
+import {Body2, Subtitle2, TitleH5} from './MyTypography';
 
 export type CardItemType = {
   img: {
@@ -50,23 +50,19 @@ const SimpleCard = ({card}: Props) => {
         image={card.img.src}
       />
       <CardContent sx={{padding: '15px'}}>
-        <Typography gutterBottom variant="h5">
-          {card.title}
-        </Typography>
+        <TitleH5 gutterBottom>{card.title}</TitleH5>
         {card.totalAds && (
           <Box display="flex" alignItems="center" sx={{marginBottom: '10px'}}>
             <PersonPinIcon
               color="primary"
               sx={{width: '20px', height: '20px', marginRight: '5px'}}
             />
-            <Typography variant="subtitle2">
+            <Subtitle2>
               <span>{card.totalAds} annunci caricati</span>
-            </Typography>
+            </Subtitle2>
           </Box>
         )}
-        <Typography variant="body2" color="text.secondary">
-          {card.caption}
-        </Typography>
+        <Body2 color="text.secondary">{card.caption}</Body2>
       </CardContent>
       <CardActions sx={{padding: '15px'}}>
         <Button

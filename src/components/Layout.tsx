@@ -3,6 +3,7 @@ import Head from 'next/head';
 import logo from '../../public/logo.svg';
 import {Container} from '@mui/material';
 import Header from './Header';
+import Footer from './Footer';
 
 interface Props extends PropsWithChildren<{}> {
   title?: string;
@@ -58,6 +59,7 @@ const Layout = ({title, description, image, twitter, children}: Props) => {
       </Head>
       <Header />
       {children}
+      <Footer />
     </>
   );
 };

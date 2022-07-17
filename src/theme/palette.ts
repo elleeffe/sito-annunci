@@ -5,15 +5,19 @@ export const palette: PaletteOptions = {
     main: '#42a5f5',
   },
   error: {
-    main: '#E58282',
+    main: '#F5174A',
   },
   warning: {
-    main: '#FDD981',
+    main: '#F78F0D',
   },
   success: {
-    main: '#88BB8A',
+    main: '#1BBB69',
   },
   info: {
     main: '#81D4FA',
+  },
+  text: {
+    primary: '#333333',
+    secondary: '#4A6375',
   },
 };

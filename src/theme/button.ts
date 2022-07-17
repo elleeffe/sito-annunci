@@ -23,7 +23,7 @@ export const button: Components['MuiButton'] = {
     text: {
       padding: '11px 20px',
     },
-    containedPrimary: {
+    contained: {
       color: '#fff',
     },
   },

@@ -138,6 +138,7 @@ export default MySelect;
 const StyledSelect = styled(Select)(({theme}) => ({
   borderRadius: '28px',
   '& .MuiSelect-select': {
+    textAlign: 'left',
     padding: 0,
     '& .MuiMenuItem-root': {
       padding: '13px 15px',

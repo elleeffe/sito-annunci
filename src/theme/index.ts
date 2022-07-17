@@ -5,7 +5,7 @@ import {formHelperText} from './helperText';
 import {palette} from './palette';
 import {select} from './select';
 import {textField} from './textfield';
-// import {typography} from './typography';
+import {typography, typographyStyle} from './typography';
 
 export const getTheme = (mode: PaletteMode) => {
   const theme = createTheme({
@@ -13,15 +13,14 @@ export const getTheme = (mode: PaletteMode) => {
       mode,
       ...(mode === 'light' ? {...palette} : {...palette}),
     },
-    typography: {
-      fontFamily: ['"Poppins"', '"Rubik"'].join(','),
-    },
+    typography: typography,
     components: {
       MuiTextField: textField,
       MuiSelect: select,
       MuiFormHelperText: formHelperText,
       MuiButton: button,
       MuiFormControl: formControl,
+      MuiTypography: typographyStyle,
     },
   });
 

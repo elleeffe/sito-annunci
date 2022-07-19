@@ -137,8 +137,6 @@ const TabPanel = styled(Box)(({theme}) => ({
   padding: '25px',
   textAlign: 'center',
   display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
   flexDirection: 'column',
   minHeight: '450px',
 }));

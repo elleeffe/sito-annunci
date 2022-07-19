@@ -23,7 +23,7 @@ const MyCheckbox = ({
   color = 'primary',
   validate,
 }: Props) => {
-  const {input, meta} = useField(name, {validate});
+  const {input, meta} = useField(name, {validate, type: 'checkbox'});
 
   const {helperText} = useMemo(() => muiErrorConverter(meta), [meta]);
 
@@ -42,11 +42,7 @@ const MyCheckbox = ({
         control={
           <Checkbox
             size="small"
-            checked={!!input.value}
-            value={!!input.value}
-            onChange={input.onChange}
-            onBlur={input.onBlur}
-            onFocus={input.onFocus}
+            {...input}
             disabled={disabled}
             color={color}
             sx={{padding: '5px'}}

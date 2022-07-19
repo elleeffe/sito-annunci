@@ -146,7 +146,9 @@ const MyTextField = ({
 
 export default MyTextField;
 
-const Instruction = styled(Body2)<{isActive: boolean}>(({theme, isActive}) => ({
+const Instruction = styled(Body2, {
+  shouldForwardProp: (prop) => prop !== 'isActive',
+})<{isActive: boolean}>(({theme, isActive}) => ({
   display: 'flex',
   color: theme.palette.text.primary,
   '& .MuiSvgIcon-root': {

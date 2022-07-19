@@ -4,7 +4,9 @@ type Props = {
   isWhite?: boolean;
 };
 
-export const TitleH1 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const TitleH1 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '60px',
@@ -15,7 +17,9 @@ export const TitleH1 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 TitleH1.defaultProps = {variant: 'h1'};
 
-export const TitleH2 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const TitleH2 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '50px',
@@ -26,7 +30,9 @@ export const TitleH2 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 TitleH2.defaultProps = {variant: 'h2'};
 
-export const TitleH3 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const TitleH3 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '40px',
@@ -37,7 +43,9 @@ export const TitleH3 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 TitleH3.defaultProps = {variant: 'h3'};
 
-export const TitleH4 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const TitleH4 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   fontWeight: 700,
   lineHeight: 1.3,
   fontSize: '40px',
@@ -48,7 +56,9 @@ export const TitleH4 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 TitleH4.defaultProps = {variant: 'h4'};
 
-export const TitleH5 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const TitleH5 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   fontWeight: 600,
   lineHeight: 1.3,
   fontSize: '30px',
@@ -59,20 +69,22 @@ export const TitleH5 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 TitleH5.defaultProps = {variant: 'h5'};
 
-export const TitleH6 = styled(Typography)<Props & {isSmall?: boolean}>(
-  ({theme, isWhite, isSmall, color}) => ({
-    fontWeight: 600,
-    lineHeight: 1.3,
-    ...(isSmall ? {fontSize: '24px'} : {fontSize: '30px'}),
-    ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
-    [theme.breakpoints.down('md')]: {
-      ...(isSmall ? {fontSize: '20px'} : {fontSize: '26px'}),
-    },
-  })
-);
+export const TitleH6 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isSmall' && prop !== 'isWhite',
+})<Props & {isSmall?: boolean}>(({theme, isWhite, isSmall}) => ({
+  fontWeight: 600,
+  lineHeight: 1.3,
+  ...(isSmall ? {fontSize: '24px'} : {fontSize: '30px'}),
+  ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
+  [theme.breakpoints.down('md')]: {
+    ...(isSmall ? {fontSize: '20px'} : {fontSize: '26px'}),
+  },
+}));
 TitleH6.defaultProps = {variant: 'h6'};
 
-export const Subtitle1 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const Subtitle1 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   lineHeight: 1.3,
   fontSize: '18px',
   fontWeight: 400,
@@ -88,7 +100,9 @@ export const Subtitle1 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 Subtitle1.defaultProps = {variant: 'subtitle1'};
 
-export const Subtitle2 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const Subtitle2 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   lineHeight: 1.3,
   fontSize: '16px',
   fontWeight: 400,
@@ -104,7 +118,9 @@ export const Subtitle2 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 Subtitle2.defaultProps = {variant: 'subtitle2'};
 
-export const Body1 = styled(Typography)<Props>(({theme, isWhite}) => ({
+export const Body1 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite',
+})<Props>(({theme, isWhite}) => ({
   lineHeight: 1.3,
   fontSize: '16px',
   fontWeight: 300,
@@ -120,20 +136,20 @@ export const Body1 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 Body1.defaultProps = {variant: 'body1'};
 
-export const Body2 = styled(Typography)<Props & {isSmall?: boolean}>(
-  ({theme, isWhite, isSmall}) => ({
-    lineHeight: 1.3,
-    ...(isSmall ? {fontSize: '12px'} : {fontSize: '14px'}),
-    fontWeight: 300,
-    fontFamily: 'Rubik',
-    ...(isWhite
-      ? {color: '#fff'}
-      : {
-          color: theme.palette.text.secondary,
-        }),
-    [theme.breakpoints.down('md')]: {
-      ...(isSmall ? {fontSize: '10px'} : {fontSize: '12px'}),
-    },
-  })
-);
+export const Body2 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isSmall' && prop !== 'isWhite',
+})<Props & {isSmall?: boolean}>(({theme, isWhite, isSmall}) => ({
+  lineHeight: 1.3,
+  ...(isSmall ? {fontSize: '12px'} : {fontSize: '14px'}),
+  fontWeight: 300,
+  fontFamily: 'Rubik',
+  ...(isWhite
+    ? {color: '#fff'}
+    : {
+        color: theme.palette.text.secondary,
+      }),
+  [theme.breakpoints.down('md')]: {
+    ...(isSmall ? {fontSize: '10px'} : {fontSize: '12px'}),
+  },
+}));
 Body2.defaultProps = {variant: 'body2'};

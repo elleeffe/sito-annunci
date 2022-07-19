@@ -38,15 +38,6 @@ const Header = () => {
       <Inner>
         <TitleH6>Logo</TitleH6>
         <Box display="flex" alignItems="center">
-          <Button
-            size={scrolled || mobile ? 'small' : 'medium'}
-            variant="outlined"
-            endIcon={<Add />}
-            sx={{marginRight: '10px', transition: 'all 100ms linear'}}
-            color="warning"
-          >
-            Inserisci annuncio
-          </Button>
           {mobile ? (
             <IconButton
               size="small"
@@ -65,6 +56,15 @@ const Header = () => {
               Accedi
             </Button>
           )}
+          <Button
+            size={scrolled || mobile ? 'small' : 'medium'}
+            variant="contained"
+            endIcon={<Add />}
+            sx={{marginLeft: '10px', transition: 'all 100ms linear'}}
+            color="warning"
+          >
+            Pubblica annuncio
+          </Button>
         </Box>
       </Inner>
     </Wrap>

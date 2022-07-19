@@ -92,7 +92,7 @@ const MyAutocomplete = ({
 
   return (
     <StyledAutocomplete
-      $spacingBottom={spacingBottom}
+      spacingBottom={spacingBottom}
       value={input.value || null}
       freeSolo={true}
       onMouseEnter={() => setHover(true)}
@@ -173,29 +173,29 @@ const MyAutocomplete = ({
 
 export default MyAutocomplete;
 
-const StyledAutocomplete = styled(Autocomplete)<{$spacingBottom?: boolean}>(
-  ({theme, $spacingBottom}) => ({
-    marginBottom: $spacingBottom ? '25px' : undefined,
-    '& .MuiAutocomplete-inputRoot': {
-      padding: '6px 9px',
-      paddingRight: '9px !important',
+const StyledAutocomplete = styled(Autocomplete, {
+  shouldForwardProp: (prop) => prop !== 'spacingBottom',
+})<{spacingBottom?: boolean}>(({theme, spacingBottom}) => ({
+  marginBottom: spacingBottom ? '25px' : undefined,
+  '& .MuiAutocomplete-inputRoot': {
+    padding: '6px 9px',
+    paddingRight: '9px !important',
+  },
+  '& .MuiAutocomplete-endAdornment': {
+    position: 'initial',
+    marginRight: '5px',
+  },
+  '& .MuiIconButton-root': {
+    height: 'auto',
+    width: 'auto',
+    '&: hover': {
+      boxShadow: 'unset',
     },
-    '& .MuiAutocomplete-endAdornment': {
-      position: 'initial',
-      marginRight: '5px',
+    '&.MuiAutocomplete-popupIndicator': {
+      display: 'none',
     },
-    '& .MuiIconButton-root': {
-      height: 'auto',
-      width: 'auto',
-      '&: hover': {
-        boxShadow: 'unset',
-      },
-      '&.MuiAutocomplete-popupIndicator': {
-        display: 'none',
-      },
-      '& .MuiTouchRipple-root': {
-        display: 'none',
-      },
+    '& .MuiTouchRipple-root': {
+      display: 'none',
     },
-  })
-);
+  },
+}));

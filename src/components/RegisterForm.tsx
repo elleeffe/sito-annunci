@@ -15,7 +15,7 @@ const RegisterForm = () => {
           pristine,
           values,
         }) => (
-          <form onSubmit={handleSubmit} style={{flex: 1, display: 'flex'}}>
+          <form onSubmit={handleSubmit}>
             <MyTextField
               validate={emailValidator}
               name="email"
@@ -27,8 +27,8 @@ const RegisterForm = () => {
               validate={createPasswordValidator}
               name="password"
               placeholder="Password"
-              spacingBottom
               type="password"
+              instructions
             />
             <MyTextField
               validate={(value) =>
@@ -44,6 +44,7 @@ const RegisterForm = () => {
               disabled={pristine || hasValidationErrors}
               variant="contained"
               loading={submitting}
+              sx={{width: '100%'}}
             >
               Crea account
             </MyButton>

@@ -63,10 +63,10 @@ export const TitleH6 = styled(Typography)<Props & {isSmall?: boolean}>(
   ({theme, isWhite, isSmall, color}) => ({
     fontWeight: 600,
     lineHeight: 1.3,
-    ...(isSmall ? {fontSize: '26px'} : {fontSize: '30px'}),
+    ...(isSmall ? {fontSize: '24px'} : {fontSize: '30px'}),
     ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
     [theme.breakpoints.down('md')]: {
-      ...(isSmall ? {fontSize: '22px'} : {fontSize: '26px'}),
+      ...(isSmall ? {fontSize: '20px'} : {fontSize: '26px'}),
     },
   })
 );
@@ -120,18 +120,20 @@ export const Body1 = styled(Typography)<Props>(({theme, isWhite}) => ({
 }));
 Body1.defaultProps = {variant: 'body1'};
 
-export const Body2 = styled(Typography)<Props>(({theme, isWhite}) => ({
-  lineHeight: 1.3,
-  fontSize: '14px',
-  fontWeight: 300,
-  fontFamily: 'Rubik',
-  ...(isWhite
-    ? {color: '#fff'}
-    : {
-        color: theme.palette.text.secondary,
-      }),
-  [theme.breakpoints.down('md')]: {
-    fontSize: '12px',
-  },
-}));
+export const Body2 = styled(Typography)<Props & {isSmall?: boolean}>(
+  ({theme, isWhite, isSmall}) => ({
+    lineHeight: 1.3,
+    ...(isSmall ? {fontSize: '12px'} : {fontSize: '14px'}),
+    fontWeight: 300,
+    fontFamily: 'Rubik',
+    ...(isWhite
+      ? {color: '#fff'}
+      : {
+          color: theme.palette.text.secondary,
+        }),
+    [theme.breakpoints.down('md')]: {
+      ...(isSmall ? {fontSize: '10px'} : {fontSize: '12px'}),
+    },
+  })
+);
 Body2.defaultProps = {variant: 'body2'};

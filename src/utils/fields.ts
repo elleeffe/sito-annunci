@@ -46,6 +46,9 @@ export const createPasswordValidator = (value: string) => {
   if (!!check1) {
     return check1;
   }
+  if (value.search(/[a-z]/) < 0) {
+    return 'Inserire almeno una lettera minuscola';
+  }
   if (value.search(/[A-Z]/) < 0) {
     return 'Inserire almeno una lettera maiuscola';
   }

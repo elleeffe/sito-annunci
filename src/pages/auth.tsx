@@ -5,7 +5,6 @@ import {TitleH6} from '../components/MyTypography';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {useRouter} from 'next/router';
 import {Login, PersonAddAlt1} from '@mui/icons-material';
-import AuthForm from '../components/LoginForm';
 import LoginForm from '../components/LoginForm';
 import RegisterForm from '../components/RegisterForm';
 
@@ -40,7 +39,12 @@ const Auth: NextPage = () => {
       <Box
         display="flex"
         alignItems="space-between"
-        sx={{background: '#fff', height: '70px', width: '100%'}}
+        sx={{
+          background: '#fff',
+          height: '70px',
+          width: '100%',
+          marginBottom: '15px',
+        }}
       >
         <Container
           sx={{
@@ -61,13 +65,7 @@ const Auth: NextPage = () => {
           </Button>
         </Container>
       </Box>
-      <Box
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        flex={1}
-        width="100%"
-      >
+      <Box display="flex" justifyContent="center" flex={1} width="100%">
         <StyledPaper>
           <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
             <Tabs value={tab} onChange={handleChangeTab} variant="fullWidth">
@@ -95,7 +93,7 @@ const Auth: NextPage = () => {
           </Box>
           {tab === 0 && (
             <TabPanel>
-              <TitleH6 isSmall sx={{marginBottom: '25px'}}>
+              <TitleH6 isSmall sx={{marginBottom: '15px'}}>
                 Accedi al tuo account
               </TitleH6>
               <LoginForm />
@@ -103,7 +101,7 @@ const Auth: NextPage = () => {
           )}
           {tab === 1 && (
             <TabPanel>
-              <TitleH6 isSmall sx={{marginBottom: '25px'}}>
+              <TitleH6 isSmall sx={{marginBottom: '15px'}}>
                 Crea il tuo account
               </TitleH6>
               <RegisterForm />
@@ -120,9 +118,6 @@ export default Auth;
 const Wrap = styled(Box)(({theme}) => ({
   width: '100vw',
   height: '100vh',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
   background: theme.palette.primary.main,
 }));
 
@@ -134,7 +129,7 @@ const StyledPaper = styled(Paper)(({theme}) => ({
 }));
 
 const TabPanel = styled(Box)(({theme}) => ({
-  padding: '25px',
+  padding: '15px 25px 25px',
   textAlign: 'center',
   display: 'flex',
   flexDirection: 'column',

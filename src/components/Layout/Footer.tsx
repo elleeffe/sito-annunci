@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Grid, styled, Box} from '@mui/material';
-import {Subtitle1, Subtitle2, TitleH4, TitleH6} from './MyTypography';
+import {Subtitle1, Subtitle2, TitleH4, TitleH6} from '../MyTypography';
 
 const Footer = () => {
   return (

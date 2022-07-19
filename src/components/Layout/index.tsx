@@ -1,11 +1,12 @@
 import React, {PropsWithChildren, useMemo} from 'react';
 import Head from 'next/head';
-import logo from '../../public/logo.svg';
+import logo from '../../../public/logo.svg';
 import Header from './Header';
 import Footer from './Footer';
 
 interface Props extends PropsWithChildren<{}> {
   hideHeader?: boolean;
+  hidePublish?: boolean;
   title?: string;
   description?: string;
   image?: string;
@@ -18,6 +19,7 @@ interface Props extends PropsWithChildren<{}> {
 
 const Layout = ({
   hideHeader,
+  hidePublish,
   title,
   description,
   image,
@@ -64,7 +66,7 @@ const Layout = ({
         <meta name="twitter:creator" content="Lorenzo Faenzi" />
         <meta name="twitter:image" content={twitter?.image || logo} />
       </Head>
-      {!hideHeader && <Header />}
+      {!hideHeader && <Header hidePublish={hidePublish} />}
       {children}
       {!hideHeader && <Footer />}
     </>

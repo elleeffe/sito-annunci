@@ -5,8 +5,8 @@ import {TitleH6} from '../components/MyTypography';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import {useRouter} from 'next/router';
 import {Login, PersonAddAlt1} from '@mui/icons-material';
-import LoginForm from '../components/LoginForm';
-import RegisterForm from '../components/RegisterForm';
+import LoginForm from '../components/Forms/LoginForm';
+import RegisterForm from '../components/Forms/RegisterForm';
 
 const Auth: NextPage = () => {
   const [mobile, setMobile] = useState<boolean>(false);
@@ -93,17 +93,11 @@ const Auth: NextPage = () => {
           </Box>
           {tab === 0 && (
             <TabPanel>
-              <TitleH6 isSmall sx={{marginBottom: '15px'}}>
-                Accedi al tuo account
-              </TitleH6>
               <LoginForm />
             </TabPanel>
           )}
           {tab === 1 && (
             <TabPanel>
-              <TitleH6 isSmall sx={{marginBottom: '15px'}}>
-                Crea il tuo account
-              </TitleH6>
               <RegisterForm />
             </TabPanel>
           )}
@@ -134,4 +128,8 @@ const TabPanel = styled(Box)(({theme}) => ({
   display: 'flex',
   flexDirection: 'column',
   minHeight: '450px',
+  overflow: 'auto',
+  '@media (max-height:700px)': {
+    maxHeight: '500px',
+  },
 }));

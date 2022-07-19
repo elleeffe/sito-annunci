@@ -27,8 +27,6 @@ const MyCheckbox = ({
 
   const {helperText} = useMemo(() => muiErrorConverter(meta), [meta]);
 
-  console.log(helperText);
-
   return (
     <FormGroup
       sx={{

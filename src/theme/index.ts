@@ -1,4 +1,5 @@
 import {createTheme} from '@mui/material';
+import {alert} from './alert';
 import {button} from './button';
 import {formControl} from './formControl';
 import {formHelperText} from './helperText';
@@ -19,5 +20,6 @@ export const theme = createTheme({
     MuiFormControl: formControl,
     MuiTypography: typographyStyle,
     MuiTab: tab,
+    MuiAlert: alert,
   },
 });

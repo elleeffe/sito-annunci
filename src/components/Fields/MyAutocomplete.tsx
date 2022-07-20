@@ -1,10 +1,4 @@
-import React, {
-  SyntheticEvent,
-  useCallback,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {
   Autocomplete,
   CircularProgress,
@@ -44,38 +38,20 @@ const MyAutocomplete = ({
   loading,
   spacingBottom,
 }: Props) => {
+  const {input, meta} = useField(name, {validate});
   const [searchString, setSearchString] = useState<string>('');
   const [hover, setHover] = useState<boolean>(false);
   const autocompleteRef = useRef();
-  const {input, meta} = useField(name, {validate});
-
-  const getOptionLabel = (option: Option) => {
-    if (typeof option === 'string') {
-      return option;
-    }
-    return option.value || '';
-  };
-
-  const handleChange = useCallback(
-    (e: SyntheticEvent, querystr: string) => {
-      if (!querystr || !e) {
-        setSearchString(input.value || '');
-      }
-      onType && onType(querystr);
-      setSearchString(querystr);
-    },
-    [onType, input]
-  );
 
   const handleSelected = useCallback(
-    (value: Option) => {
-      if (value === null) {
+    (option: Option) => {
+      if (option === null) {
         input.onChange(undefined);
         setSearchString('');
         return;
       }
-      setSearchString(value.value);
-      input.onChange(value.value);
+      setSearchString(option.label);
+      input.onChange(option.value);
     },
     [input]
   );
@@ -93,8 +69,8 @@ const MyAutocomplete = ({
   return (
     <StyledAutocomplete
       spacingBottom={spacingBottom}
-      value={input.value || null}
-      freeSolo={true}
+      value={searchString}
+      freeSolo
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       ref={autocompleteRef}
@@ -102,11 +78,10 @@ const MyAutocomplete = ({
       options={listOption}
       disabled={disabled}
       placeholder={placeholder}
-      getOptionLabel={(option) => getOptionLabel(option as Option)}
-      onInputChange={handleChange}
       onChange={(_, value) => handleSelected(value as Option)}
       loading={loading}
       loadingText="Ricerca in corso..."
+      disableClearable={searchString === ''}
       onBlur={() => {
         input.onBlur();
         setHover(false);
@@ -115,7 +90,9 @@ const MyAutocomplete = ({
         input.onFocus();
         setHover(true);
       }}
-      clearIcon={<Close className="untouchable-icon" color={color} />}
+      clearIcon={
+        <Close className="untouchable-icon autocomplete-icon" color={color} />
+      }
       renderInput={(params) => (
         <TextField
           {...params}

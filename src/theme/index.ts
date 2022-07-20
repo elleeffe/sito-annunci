@@ -3,6 +3,7 @@ import {alert} from './alert';
 import {button} from './button';
 import {formControl} from './formControl';
 import {formHelperText} from './helperText';
+import {buttonBase} from './buttonBase';
 import {palette} from './palette';
 import {select} from './select';
 import {tab} from './tab';
@@ -21,5 +22,6 @@ export const theme = createTheme({
     MuiTypography: typographyStyle,
     MuiTab: tab,
     MuiAlert: alert,
+    MuiButtonBase: buttonBase,
   },
 });

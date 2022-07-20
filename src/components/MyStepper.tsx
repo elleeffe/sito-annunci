@@ -15,9 +15,12 @@ type StepType = {
   label: string;
   screen: React.ReactNode;
   action?: () => void;
+  loading?: boolean;
+  disabled?: boolean;
 };
 
 type Props = {
+  alternativeLabel?: boolean;
   steps: StepType[];
   final: {
     screen: React.ReactNode;
@@ -33,7 +36,7 @@ type Props = {
   };
 };
 
-const MyStepper = ({steps, final}: Props) => {
+const MyStepper = ({alternativeLabel, steps, final}: Props) => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   const handleNext = () => {
@@ -47,6 +50,7 @@ const MyStepper = ({steps, final}: Props) => {
   return (
     <Wrap>
       <Stepper
+        alternativeLabel={alternativeLabel}
         activeStep={activeStep}
         sx={{
           marginBottom: '25px',
@@ -76,6 +80,7 @@ const MyStepper = ({steps, final}: Props) => {
               color={final.button.color || 'primary'}
               disabled={activeStep === 0}
               onClick={handleBack}
+              size={final.button.size || 'medium'}
             >
               <ArrowBack />
             </IconButton>
@@ -94,6 +99,8 @@ const MyStepper = ({steps, final}: Props) => {
               <IconButton
                 color={final.button.color || 'primary'}
                 onClick={handleNext}
+                size={final.button.size || 'medium'}
+                disabled={steps[activeStep].disabled}
               >
                 <ArrowForward />
               </IconButton>

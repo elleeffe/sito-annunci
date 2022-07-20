@@ -83,7 +83,8 @@ const Header = ({hidePublish}: Props) => {
             )}
             <IconButton
               color="primary"
-              size={scrolled || mobile ? 'small' : 'medium'}
+              // size={scrolled || mobile ? 'small' : 'medium'}
+              size="small"
               onClick={handleClick}
             >
               <Login />

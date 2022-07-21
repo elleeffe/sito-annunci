@@ -1,5 +1,7 @@
 import {
+  Box,
   ButtonProps,
+  Chip,
   FormControl,
   FormHelperText,
   ListItemIcon,
@@ -26,7 +28,7 @@ type Props = {
   color?: ButtonProps['color'];
 };
 
-const MySelect = ({
+const MyMultipleSelect = ({
   name,
   validate,
   options,
@@ -56,8 +58,8 @@ const MySelect = ({
 
   const displaySelected = useCallback(
     (selected: unknown) => {
-      const value = selected as string;
-      if (value.length === 0) {
+      const value = selected as string[];
+      if (!value.length) {
         return (
           <MenuItem
             sx={{
@@ -73,20 +75,21 @@ const MySelect = ({
         );
       }
       return (
-        <MenuItem
-          sx={{
-            '&:hover': {backgroundColor: 'transparent'},
-            '& .MuiTouchRipple-root': {display: 'none'},
-          }}
+        <Box
+          sx={{display: 'flex', flexWrap: 'wrap', padding: '9px 9px 0px 9px'}}
         >
-          {iconComp && <ListItemIcon>{iconComp}</ListItemIcon>}
-          <ListItemText>
-            {options.find((el) => el.value === value)?.label}
-          </ListItemText>
-        </MenuItem>
+          {value.map((el) => (
+            <Chip
+              key={el}
+              label={el}
+              sx={{marginBottom: '9px', marginRight: '9px'}}
+              onClick={(e) => e.stopPropagation()}
+            />
+          ))}
+        </Box>
       );
     },
-    [options, placeholder, iconComp]
+    [placeholder, iconComp]
   );
 
   return (
@@ -97,8 +100,10 @@ const MySelect = ({
     >
       <StyledSelect
         {...input}
+        value={input.value || []}
         onChange={handleChange}
         displayEmpty
+        multiple
         renderValue={displaySelected}
         MenuProps={{
           sx: {
@@ -133,7 +138,7 @@ const MySelect = ({
   );
 };
 
-export default MySelect;
+export default MyMultipleSelect;
 
 const StyledSelect = styled(Select)(({theme}) => ({
   borderRadius: '28px',
@@ -150,6 +155,9 @@ const StyledSelect = styled(Select)(({theme}) => ({
   },
   '& .MuiMenuItem-root': {
     borderRadius: '28px',
+  },
+  '& .MuiSelect-icon': {
+    top: '13px',
   },
   '&.Mui-error': {
     'svg:not(.MuiSelect-icon)': {

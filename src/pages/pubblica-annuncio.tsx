@@ -1,20 +1,15 @@
-import React, {useCallback} from 'react';
+import React from 'react';
 import type {NextPage} from 'next';
 import {Box, Paper, styled} from '@mui/material';
 import Layout from '../components/Layout';
 import PublishForm from '../components/Forms/PublishForm';
 
 const Publish: NextPage = () => {
-  const handleSubmit = useCallback(
-    async (values: any) => console.log(values),
-    []
-  );
-
   return (
     <Layout hidePublish>
       <Wrap>
         <StyledPaper>
-          <PublishForm handleSubmit={handleSubmit} />
+          <PublishForm />
         </StyledPaper>
       </Wrap>
     </Layout>
@@ -25,8 +20,9 @@ export default Publish;
 
 const Wrap = styled(Box)(({theme}) => ({
   width: '100vw',
-  height: '100vh',
+  minHeight: '100vh',
   paddingTop: '100px',
+  paddingBottom: '50px',
   background: theme.palette.primary.main,
 }));
 

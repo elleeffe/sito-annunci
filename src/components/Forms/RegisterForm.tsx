@@ -1,5 +1,6 @@
 import {Alert} from '@mui/material';
 import {FORM_ERROR} from 'final-form';
+import {useRouter} from 'next/router';
 import React, {useCallback} from 'react';
 import {Form} from 'react-final-form';
 import {
@@ -14,9 +15,16 @@ import MyButton from '../MyButton';
 import {TitleH6} from '../MyTypography';
 
 const RegisterForm = () => {
+  const router = useRouter();
+
   const handleSubmit = useCallback(async (values: any) => {
     try {
       console.log(values);
+      // const response = await axios.post('/api/signup', {data: values})
+      // router.push({
+      //   pathname: '/auth',
+      //   query: {tab: 'register'},
+      // })
     } catch (e) {
       console.log(e);
       //TODO

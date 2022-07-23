@@ -4,6 +4,7 @@ import {CircularProgress, Box} from '@mui/material';
 
 import {fetchUser} from '../utils/api';
 import Layout from './Layout';
+import axios from 'axios';
 
 interface Props {
   children: React.ReactElement;
@@ -16,12 +17,11 @@ const AuthLoading = ({children}: Props) => {
   useEffect(() => {
     (async () => {
       try {
-        const userInfo = await fetchUser();
-        setUser(userInfo);
-
-        setLoading(false);
+        // const response = await axios.post('/api/check-session');
+        // setUser(response);
       } catch (e) {
         console.log(e);
+      } finally {
         setLoading(false);
       }
     })();

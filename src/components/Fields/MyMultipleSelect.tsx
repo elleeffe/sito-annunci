@@ -51,10 +51,13 @@ const MyMultipleSelect = ({
 
   const handleChange = useCallback(
     (event: SelectChangeEvent<unknown>) => {
+      console.log(event.target.value);
       input.onChange(event.target.value);
     },
     [input]
   );
+
+  console.log(input.value);
 
   const displaySelected = useCallback(
     (selected: unknown) => {

@@ -83,12 +83,16 @@ export const TitleH6 = styled(Typography, {
 TitleH6.defaultProps = {variant: 'h6'};
 
 export const Subtitle1 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite',
-})<Props>(({theme, isWhite}) => ({
+  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isPoppins',
+})<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
   lineHeight: 1.3,
   fontSize: '18px',
   fontWeight: 400,
-  fontFamily: 'Rubik',
+  ...(isPoppins
+    ? {fontFamily: 'Poppins'}
+    : {
+        fontFamily: 'Rubik',
+      }),
   ...(isWhite
     ? {color: '#fff'}
     : {
@@ -101,12 +105,16 @@ export const Subtitle1 = styled(Typography, {
 Subtitle1.defaultProps = {variant: 'subtitle1'};
 
 export const Subtitle2 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite',
-})<Props>(({theme, isWhite}) => ({
+  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isPoppins',
+})<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
   lineHeight: 1.3,
   fontSize: '16px',
   fontWeight: 400,
-  fontFamily: 'Rubik',
+  ...(isPoppins
+    ? {fontFamily: 'Poppins'}
+    : {
+        fontFamily: 'Rubik',
+      }),
   ...(isWhite
     ? {color: '#fff'}
     : {
@@ -119,12 +127,16 @@ export const Subtitle2 = styled(Typography, {
 Subtitle2.defaultProps = {variant: 'subtitle2'};
 
 export const Body1 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite',
-})<Props>(({theme, isWhite}) => ({
+  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isPoppins',
+})<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
   lineHeight: 1.3,
   fontSize: '16px',
   fontWeight: 300,
-  fontFamily: 'Rubik',
+  ...(isPoppins
+    ? {fontFamily: 'Poppins'}
+    : {
+        fontFamily: 'Rubik',
+      }),
   ...(isWhite
     ? {color: '#fff'}
     : {
@@ -137,19 +149,26 @@ export const Body1 = styled(Typography, {
 Body1.defaultProps = {variant: 'body1'};
 
 export const Body2 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isSmall' && prop !== 'isWhite',
-})<Props & {isSmall?: boolean}>(({theme, isWhite, isSmall}) => ({
-  lineHeight: 1.3,
-  ...(isSmall ? {fontSize: '12px'} : {fontSize: '14px'}),
-  fontWeight: 300,
-  fontFamily: 'Rubik',
-  ...(isWhite
-    ? {color: '#fff'}
-    : {
-        color: theme.palette.text.secondary,
-      }),
-  [theme.breakpoints.down('md')]: {
-    ...(isSmall ? {fontSize: '10px'} : {fontSize: '12px'}),
-  },
-}));
+  shouldForwardProp: (prop) =>
+    prop !== 'isSmall' && prop !== 'isWhite' && prop !== 'isPoppins',
+})<Props & {isSmall?: boolean; isPoppins?: boolean}>(
+  ({theme, isWhite, isSmall, isPoppins}) => ({
+    lineHeight: 1.3,
+    ...(isSmall ? {fontSize: '12px'} : {fontSize: '14px'}),
+    fontWeight: 300,
+    ...(isPoppins
+      ? {fontFamily: 'Poppins'}
+      : {
+          fontFamily: 'Rubik',
+        }),
+    ...(isWhite
+      ? {color: '#fff'}
+      : {
+          color: theme.palette.text.secondary,
+        }),
+    [theme.breakpoints.down('md')]: {
+      ...(isSmall ? {fontSize: '10px'} : {fontSize: '12px'}),
+    },
+  })
+);
 Body2.defaultProps = {variant: 'body2'};

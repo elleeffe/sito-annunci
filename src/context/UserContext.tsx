@@ -3,17 +3,17 @@ import {ThemeProvider} from '@mui/material';
 import {theme} from '../theme';
 
 export type UserContextType = {
-  user: any | null;
-  setUser: React.Dispatch<any | null>;
+  user?: User;
+  setUser: React.Dispatch<User | undefined>;
 };
 
 export const UserContext = createContext<UserContextType>({
-  user: null,
+  user: undefined,
   setUser: () => {},
 });
 
 export const UserProvider = ({children}: {children: JSX.Element}) => {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | undefined>();
 
   return (
     <UserContext.Provider

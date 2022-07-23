@@ -1,17 +1,29 @@
+import {useCallback} from 'react';
 import {Form} from 'react-final-form';
 import MyStepper from '../../MyStepper';
 import InformationStep from './InformationStep';
 
 type Props = {
-  handleSubmit: (values: any) => Promise<{
-    'FINAL_FORM/form-error': string;
-  } | void>;
+  initialValues?: Ads;
 };
 
-const PublishForm = ({handleSubmit}: Props) => {
+const PublishForm = ({initialValues}: Props) => {
+  const handleSubmit = useCallback(
+    async (values: any) => console.log(values),
+    []
+  );
+
   return (
-    <Form onSubmit={handleSubmit}>
-      {({handleSubmit, submitting, hasValidationErrors, pristine, values}) => {
+    <Form onSubmit={handleSubmit} initialValues={initialValues}>
+      {({
+        handleSubmit,
+        submitting,
+        hasValidationErrors,
+        pristine,
+        values,
+        form,
+      }) => {
+        console.log(values);
         return (
           <form onSubmit={(e) => e.preventDefault()}>
             <MyStepper

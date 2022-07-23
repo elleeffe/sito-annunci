@@ -11,6 +11,7 @@ import {CardItemType} from '../components/SimpleCard';
 import CallToAction from '../components/CallToAction';
 import MyAutocomplete from '../components/Fields/MyAutocomplete';
 import {Subtitle1, TitleH1, TitleH2} from '../components/MyTypography';
+import {categoryOptions, cityOptions} from '../utils/config';
 
 const cards: CardItemType[] = [
   {
@@ -100,7 +101,7 @@ const Home: NextPage = () => {
               <FilterWrap container columnSpacing={2} rowSpacing={2}>
                 <Form onSubmit={console.log}>
                   {({handleSubmit, values}) => {
-                    // console.log({values});
+                    console.log({values});
                     return (
                       <>
                         <Grid item xs={12} sm={4} md={3}>
@@ -113,21 +114,14 @@ const Home: NextPage = () => {
                           <MySelect
                             name="category"
                             placeholder="Categoria"
-                            options={[
-                              {value: '', label: 'Nessuna categoria'},
-                              {value: 'donna', label: 'Donna'},
-                              {value: 'uomo', label: 'Uomo'},
-                            ]}
+                            options={categoryOptions}
                           />
                         </Grid>
                         <Grid item xs={12} sm={4} md={3}>
                           <MyAutocomplete
                             name="city"
                             placeholder="Città"
-                            options={[
-                              {value: 'roma', label: 'Roma'},
-                              {value: 'napoli', label: 'Napoli'},
-                            ]}
+                            options={cityOptions}
                           />
                         </Grid>
                         <Grid item xs={12} sm={12} md={3}>

@@ -13,21 +13,30 @@ import {styled, Box, Alert} from '@mui/material';
 import MyCheckbox from '../Fields/MyCheckbox';
 import RecoveryForm from './RecoveryForm';
 import {FORM_ERROR} from 'final-form';
+import {useUser} from '../../context/UserContext';
 
 const LoginForm = () => {
   const [recovery, setRecovery] = useState<boolean>(false);
 
-  const handleSubmit = useCallback(async (values: any) => {
-    try {
-      console.log(values);
-    } catch (e) {
-      console.log(e);
-      //TODO
-      return {
-        [FORM_ERROR]: 'Ops, qualcosa è andato storto. Riprovare',
-      };
-    }
-  }, []);
+  const {setUser} = useUser();
+
+  const handleSubmit = useCallback(
+    async (values: any) => {
+      try {
+        console.log(values);
+        // const response = await axios.post('/api/login', {credentials: values})
+        // setUser(response);
+        setTimeout(() => setUser({email: 'lorenzo@faenzi.com'}), 2000);
+      } catch (e) {
+        console.log(e);
+        //TODO
+        return {
+          [FORM_ERROR]: 'Ops, qualcosa è andato storto. Riprovare',
+        };
+      }
+    },
+    [setUser]
+  );
 
   if (recovery) {
     return <RecoveryForm onClose={() => setRecovery(false)} />;

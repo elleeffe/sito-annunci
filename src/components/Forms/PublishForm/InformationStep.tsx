@@ -1,6 +1,6 @@
 import {Box, Grid} from '@mui/material';
 import {categoryOptions, cityOptions} from '../../../utils/config';
-import {isRequired} from '../../../utils/fields';
+import {isRequired, numberValueValidator} from '../../../utils/fields';
 import MyAutocomplete from '../../Fields/MyAutocomplete';
 import MyCustoMultipleSelect from '../../Fields/MyCustoMultipleSelect';
 import MyMultipleSelect from '../../Fields/MyMultipleSelect';
@@ -14,11 +14,25 @@ const InformationStep = () => {
       <Body2 marginBottom="25px">* Campi obbligatori</Body2>
       <Grid container columnSpacing={3} rowSpacing={3} marginBottom="25px">
         <Grid item xs={12}>
+          <MyTextField
+            name="title"
+            placeholder="Titolo annuncio*"
+            validate={isRequired}
+          />
+        </Grid>
+        <Grid item xs={12} sm={9}>
           <MyMultipleSelect
             name="category"
             placeholder="Categorie*"
             validate={isRequired}
             options={categoryOptions}
+          />
+        </Grid>
+        <Grid item xs={3}>
+          <MyTextField
+            name="age"
+            placeholder="Eta*"
+            validate={(value) => numberValueValidator(18, value, true)}
           />
         </Grid>
         <Grid item xs={12} md={6}>

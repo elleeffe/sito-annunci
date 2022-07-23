@@ -115,6 +115,24 @@ export const numberValidator = (value: string, required: boolean) => {
   });
 };
 
+export const numberValueValidator = (
+  minValue: number,
+  value: string,
+  required: boolean
+) => {
+  const check = numberValidator(value, required);
+  if (check) {
+    return check;
+  }
+  if (parseInt(value) < minValue) {
+    return 'Minore di ' + minValue;
+  }
+  if (parseInt(value) >= 100) {
+    return 'Numero non valido';
+  }
+  return undefined;
+};
+
 export const wordValidator = (value: string) =>
   validate.single(value, {
     presence: {

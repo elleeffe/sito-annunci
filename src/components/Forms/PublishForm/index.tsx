@@ -1,3 +1,4 @@
+import {useMediaQuery} from '@mui/material';
 import {useCallback} from 'react';
 import {Form} from 'react-final-form';
 import MyStepper from '../../MyStepper';
@@ -8,6 +9,8 @@ type Props = {
 };
 
 const PublishForm = ({initialValues}: Props) => {
+  const match = useMediaQuery('(max-width:600px)');
+
   const handleSubmit = useCallback(
     async (values: any) => console.log(values),
     []
@@ -28,13 +31,14 @@ const PublishForm = ({initialValues}: Props) => {
           <form onSubmit={(e) => e.preventDefault()}>
             <MyStepper
               alternativeLabel
+              hideLabel={match}
               steps={[
                 {
                   label: 'Informazioni',
                   screen: <InformationStep />,
                   action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
-                  disabled: hasValidationErrors || pristine,
+                  disabled: hasValidationErrors,
                 },
                 {
                   label: 'Aggiungi foto',

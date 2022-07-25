@@ -1,6 +1,11 @@
 import {Box, Grid} from '@mui/material';
 import {categoryOptions, cityOptions} from '../../../utils/config';
-import {isRequired, numberValueValidator} from '../../../utils/fields';
+import {
+  emailValidator,
+  isRequired,
+  numberValidator,
+  numberValueValidator,
+} from '../../../utils/fields';
 import MyAutocomplete from '../../Fields/MyAutocomplete';
 import MyCustoMultipleSelect from '../../Fields/MyCustoMultipleSelect';
 import MyMultipleSelect from '../../Fields/MyMultipleSelect';
@@ -10,9 +15,9 @@ import {Body2, TitleH6} from '../../MyTypography';
 const InformationStep = () => {
   return (
     <Box display="flex" flexDirection="column">
-      <TitleH6 marginBottom="25px">Informazioni annuncio</TitleH6>
-      <Body2 marginBottom="25px">* Campi obbligatori</Body2>
-      <Grid container columnSpacing={3} rowSpacing={3} marginBottom="25px">
+      <TitleH6 marginBottom="20px">Informazioni annuncio</TitleH6>
+      <Body2 marginBottom="20px">* Campi obbligatori</Body2>
+      <Grid container columnSpacing={3} rowSpacing={3} marginBottom="50px">
         <Grid item xs={12}>
           <MyTextField
             name="title"
@@ -50,6 +55,24 @@ const InformationStep = () => {
           <MyCustoMultipleSelect
             name="areas"
             placeholder="Zone e quartieri vicino a te"
+          />
+        </Grid>
+      </Grid>
+      <TitleH6 marginBottom="20px">Contatti annuncio</TitleH6>
+      <Body2 marginBottom="20px">* Campi obbligatori</Body2>
+      <Grid container columnSpacing={3} rowSpacing={3} marginBottom="25px">
+        <Grid item xs={12}>
+          <MyTextField
+            name="email"
+            placeholder="Email*"
+            validate={emailValidator}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <MyTextField
+            name="phone"
+            placeholder="Telefono"
+            validate={(value) => numberValidator(value, false)}
           />
         </Grid>
       </Grid>

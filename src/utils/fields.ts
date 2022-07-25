@@ -89,6 +89,7 @@ export const passwordEqualityValidator = (value: string, toCompare: string) => {
 };
 
 export const numberValidator = (value: string, required: boolean) => {
+  console.log({required});
   if (required) {
     return validate.single(value, {
       presence: {

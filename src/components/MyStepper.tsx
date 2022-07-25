@@ -17,9 +17,11 @@ type StepType = {
   action?: () => void;
   loading?: boolean;
   disabled?: boolean;
+  hideLabel?: boolean;
 };
 
 type Props = {
+  hideLabel?: boolean;
   alternativeLabel?: boolean;
   steps: StepType[];
   final: {
@@ -36,7 +38,7 @@ type Props = {
   };
 };
 
-const MyStepper = ({alternativeLabel, steps, final}: Props) => {
+const MyStepper = ({alternativeLabel, steps, final, hideLabel}: Props) => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
   const handleNext = () => {
@@ -60,7 +62,9 @@ const MyStepper = ({alternativeLabel, steps, final}: Props) => {
           const stepProps: {completed?: boolean} = {};
           return (
             <Step key={step.label} {...stepProps}>
-              <StyledLabel color={final.button.color}>{step.label}</StyledLabel>
+              <StyledLabel color={final.button.color}>
+                {!hideLabel && step.label}
+              </StyledLabel>
             </Step>
           );
         })}

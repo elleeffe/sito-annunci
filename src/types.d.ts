@@ -11,4 +11,5 @@ type Ads = {
   city: string;
   address?: string;
   areas?: string;
+  contactType: ContactType;
 };

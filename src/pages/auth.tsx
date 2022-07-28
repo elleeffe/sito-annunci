@@ -25,7 +25,7 @@ const Auth: NextPage = () => {
   );
 
   useEffect(() => {
-    setTab(() => (router.query.tab === 'login' ? 0 : 1));
+    setTab(() => (router.query.tab === 'register' ? 1 : 0));
     const handleResize = () =>
       setMobile(window.matchMedia('(max-width: 600px)').matches);
 
@@ -72,7 +72,7 @@ const Auth: NextPage = () => {
               sx={{transition: 'all 100ms linear'}}
               onClick={() => router.push('/')}
             >
-              Vai al sito
+              {router.query.tab ? 'Torna ' : 'Vai '} al sito
             </Button>
           </Container>
         </Box>

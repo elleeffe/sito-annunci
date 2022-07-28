@@ -61,15 +61,20 @@ export const createPasswordValidator = (value: string) => {
   return undefined;
 };
 
-export const isRequired = (value: string | Date | boolean | undefined) => {
+export const isRequired = (
+  value: string | Date | boolean | undefined,
+  message?: string
+) => {
+  console.log({value, message});
+  const finalMessage = message || 'Campo obbligatorio';
   if (typeof value === 'boolean') {
-    return value ? '' : 'Campo obbligatorio';
+    return value ? '' : finalMessage;
   }
   return validate.single(value, {
     presence: {
       presence: true,
       allowEmpty: false,
-      message: 'Campo obbligatorio',
+      message: finalMessage,
     },
   });
 };
@@ -89,7 +94,6 @@ export const passwordEqualityValidator = (value: string, toCompare: string) => {
 };
 
 export const numberValidator = (value: string, required: boolean) => {
-  console.log({required});
   if (required) {
     return validate.single(value, {
       presence: {

@@ -2,6 +2,7 @@ import {
   ButtonProps,
   FormControl,
   FormHelperText,
+  InputLabel,
   ListItemIcon,
   ListItemText,
   MenuItem,
@@ -9,7 +10,7 @@ import {
   SelectChangeEvent,
   styled,
 } from '@mui/material';
-import {useCallback, useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {useField} from 'react-final-form';
 import {muiErrorConverter} from '../../utils/fields';
 import * as icons from '@mui/icons-material';
@@ -24,6 +25,8 @@ type Props = {
   icon?: keyof typeof icons;
   spacingBottom?: boolean;
   color?: ButtonProps['color'];
+  label?: string;
+  id: string;
 };
 
 const MySelect = ({
@@ -33,8 +36,12 @@ const MySelect = ({
   placeholder,
   icon,
   spacingBottom,
+  label,
+  id,
   color = 'primary',
 }: Props) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
   const {input, meta} = useField(name, {validate});
 
   const {error, helperText} = useMemo(() => muiErrorConverter(meta), [meta]);
@@ -66,7 +73,9 @@ const MySelect = ({
             }}
           >
             {iconComp && <ListItemIcon>{iconComp}</ListItemIcon>}
-            <ListItemText sx={{color: 'text.disabled'}}>
+            <ListItemText
+              sx={{color: isFocused ? 'text.disabled' : 'transparent'}}
+            >
               {placeholder}
             </ListItemText>
           </MenuItem>
@@ -86,7 +95,7 @@ const MySelect = ({
         </MenuItem>
       );
     },
-    [options, placeholder, iconComp]
+    [options, placeholder, iconComp, isFocused]
   );
 
   return (
@@ -95,11 +104,22 @@ const MySelect = ({
       fullWidth
       sx={spacingBottom ? {marginBottom: '25px'} : undefined}
     >
+      {label && <InputLabel id={id + '-label'}>{label}</InputLabel>}
       <StyledSelect
         {...input}
         onChange={handleChange}
         displayEmpty
         renderValue={displaySelected}
+        label={label}
+        labelId={id + '-label'}
+        onFocus={() => {
+          input.onFocus();
+          setIsFocused(true);
+        }}
+        onBlur={() => {
+          input.onBlur();
+          setIsFocused(false);
+        }}
         MenuProps={{
           sx: {
             '& .MuiPaper-root': {

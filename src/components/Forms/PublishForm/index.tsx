@@ -28,7 +28,7 @@ const PublishForm = ({initialValues}: Props) => {
       }) => {
         console.log(values);
         return (
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form onSubmit={handleSubmit}>
             <MyStepper
               alternativeLabel
               hideLabel={match}

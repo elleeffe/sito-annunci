@@ -12,7 +12,7 @@ import {muiErrorConverter} from '../../utils/fields';
 
 type Props = {
   name: string;
-  label: string;
+  label?: string;
   validate?: (value: string) => string;
   disabled?: boolean;
   spacingBottom?: boolean;
@@ -42,7 +42,7 @@ const MySwitch = ({
     <FormControl
       error={error}
       fullWidth
-      sx={spacingBottom ? {marginBottom: '25px'} : undefined}
+      sx={spacingBottom ? {marginBottom: '30px'} : undefined}
     >
       <FormGroup>
         <FormControlLabel
@@ -54,6 +54,8 @@ const MySwitch = ({
             '& .MuiTypography-root': {
               fontWeight: '300',
             },
+            marginRight: 0,
+            marginLeft: 0,
           }}
         />
       </FormGroup>

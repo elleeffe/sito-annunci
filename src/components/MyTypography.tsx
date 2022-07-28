@@ -129,7 +129,7 @@ Subtitle2.defaultProps = {variant: 'subtitle2'};
 export const Body1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isPoppins',
 })<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
-  lineHeight: 1.3,
+  lineHeight: 1.4,
   fontSize: '16px',
   fontWeight: 300,
   ...(isPoppins
@@ -153,7 +153,7 @@ export const Body2 = styled(Typography, {
     prop !== 'isSmall' && prop !== 'isWhite' && prop !== 'isPoppins',
 })<Props & {isSmall?: boolean; isPoppins?: boolean}>(
   ({theme, isWhite, isSmall, isPoppins}) => ({
-    lineHeight: 1.3,
+    lineHeight: 1.4,
     ...(isSmall ? {fontSize: '12px'} : {fontSize: '14px'}),
     fontWeight: 300,
     ...(isPoppins

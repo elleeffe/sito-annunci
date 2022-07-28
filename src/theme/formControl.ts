@@ -18,6 +18,10 @@ export const formControl: Components['MuiFormControl'] = {
         '&.Mui-focused': {
           transform: 'translate(14px, -9px) scale(0.75)',
         },
+
+        '&.MuiFormLabel-filled': {
+          transform: 'translate(14px, -9px) scale(0.75)',
+        },
       },
     },
   },

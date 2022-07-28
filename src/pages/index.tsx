@@ -112,6 +112,7 @@ const Home: NextPage = () => {
                         </Grid>
                         <Grid item xs={12} sm={4} md={3}>
                           <MySelect
+                            id="category"
                             name="category"
                             placeholder="Categoria"
                             options={categoryOptions}

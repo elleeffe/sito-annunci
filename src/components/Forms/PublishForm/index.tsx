@@ -2,13 +2,23 @@ import {useMediaQuery} from '@mui/material';
 import {useCallback} from 'react';
 import {Form} from 'react-final-form';
 import MyStepper from '../../MyStepper';
+import ConfirmStep from './ConfirmStep';
+import ImagesStep from './ImagesStep';
 import InformationStep from './InformationStep';
+import VisibilityStep from './VisibilityStep';
 
 type Props = {
-  initialValues?: Ads;
+  initialAds?: Ads;
 };
 
-const PublishForm = ({initialValues}: Props) => {
+type FormValues = Ads & {
+  privacyConsens?: boolean;
+  marketing?: boolean;
+  specialData?: boolean;
+  imageConsens?: boolean;
+};
+
+const PublishForm = ({initialAds}: Props) => {
   const match = useMediaQuery('(max-width:600px)');
 
   const handleSubmit = useCallback(
@@ -17,7 +27,7 @@ const PublishForm = ({initialValues}: Props) => {
   );
 
   return (
-    <Form onSubmit={handleSubmit} initialValues={initialValues}>
+    <Form<FormValues> onSubmit={handleSubmit} initialValues={initialAds}>
       {({
         handleSubmit,
         submitting,
@@ -35,28 +45,28 @@ const PublishForm = ({initialValues}: Props) => {
               steps={[
                 {
                   label: 'Informazioni',
-                  screen: <InformationStep />,
+                  screen: <InformationStep hideConsens={!!initialAds} />,
                   action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
                   disabled: hasValidationErrors,
                 },
                 {
                   label: 'Aggiungi foto',
-                  screen: <h1>Aggiungi foto</h1>,
+                  screen: <ImagesStep />,
                   action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
                   disabled: hasValidationErrors || pristine,
                 },
                 {
                   label: 'Visibilità',
-                  screen: <h1>Visibilità</h1>,
+                  screen: <VisibilityStep />,
                   action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
                   disabled: hasValidationErrors || pristine,
                 },
                 {
                   label: 'Conferma',
-                  screen: <h1>Conferma</h1>,
+                  screen: <ConfirmStep />,
                   action: () => {},
                 },
               ]}

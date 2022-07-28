@@ -13,7 +13,11 @@ import MySwitch from '../../Fields/MySwitch';
 import MyTextField from '../../Fields/MyTextField';
 import {Body1, Body2, TitleH6} from '../../MyTypography';
 
-const InformationStep = () => {
+type Props = {
+  hideConsens: boolean;
+};
+
+const InformationStep = ({hideConsens}: Props) => {
   return (
     <Box display="flex" flexDirection="column" marginBottom="30px">
       <TitleH6 marginBottom="20px">Informazioni annuncio</TitleH6>
@@ -35,6 +39,7 @@ const InformationStep = () => {
             rows={8}
             placeholder="Una questo spazio per descrivere te stesso, il tuo corpo, per parlare delle tue specialità, cosa ti piace..."
             validate={(value) => isRequired(value)}
+            sx={{'& .MuiInputBase-root': {borderRadius: '10px !important'}}}
           />
         </Grid>
         <Grid item xs={12} sm={9}>
@@ -104,75 +109,86 @@ const InformationStep = () => {
           </Box>
         </Grid>
       </Grid>
-      <Grid container item xs={12} marginBottom="30px">
-        <Grid item xs={12} sm>
-          <MySwitch
-            name="privacyConsens"
-            validate={(value) => isRequired(value, 'Concedi')}
-          />
-        </Grid>
-        <Grid item xs={12} sm={11}>
-          <Body1 marginTop="8px" gutterBottom>
-            <b>Termini, condizioni e informativa sulla privacy*</b>
-          </Body1>
-          <Body2>
-            Ho letto{' '}
+      {!hideConsens && (
+        <>
+          <Grid container item xs={12} marginBottom="30px">
+            <Grid item xs={12} sm>
+              <MySwitch
+                name="privacyConsens"
+                validate={(value) => isRequired(value, 'Concedi')}
+              />
+            </Grid>
+            <Grid item xs={12} sm={11}>
+              <Body1 marginTop="8px" gutterBottom>
+                <b>Termini, condizioni e informativa sulla privacy*</b>
+              </Body1>
+              <Body2>
+                Ho letto{' '}
+                <StyledButton type="button">
+                  Termini e condizioni d’uso
+                </StyledButton>{' '}
+                e{' '}
+                <StyledButton type="button">
+                  Informativa sulla privacy
+                </StyledButton>{' '}
+                e autorizzo il trattamento dei miei dati personali per la
+                fornitura di questo servizio web.
+              </Body2>
+            </Grid>
+          </Grid>
+          <StyledGrid container item xs={12}>
+            <Grid item xs={12} sm>
+              <MySwitch name="specialData" />
+            </Grid>
+            <Grid item xs={12} sm={11}>
+              <Body1 marginTop="8px" gutterBottom>
+                <b>Categorie speciali di dati personali</b>
+              </Body1>
+              <Body2>
+                Autorizzo l'elaborazione dei miei dati personali appartenenti a
+                Categorie speciali &#40;es. stile di vita e comportamento
+                sessuale&#41; al fine di pubblicare un annuncio su questo sito
+                web &#40;
+                <StyledButton type="button">
+                  Normativa sulla privacy
+                </StyledButton>
+                &#41;. Se l'autorizzazione non viene data, assicurati che il tuo
+                annuncio non contenga alcun dato personale appartenente a
+                Categorie speciali.
+              </Body2>
+            </Grid>
+          </StyledGrid>
+          <Grid container item xs={12}>
+            <Grid item xs={12} sm>
+              <MySwitch name="marketing" />
+            </Grid>
+            <Grid item xs={12} sm={11}>
+              <Body1 marginTop="8px" gutterBottom>
+                <b>Comunicazioni Marketing</b>
+              </Body1>
+              <Body2>
+                Autorizzo la Società al trattamento dei miei dati di contatto
+                per finalità di marketing e comunicazione pubblicitaria &#40;
+                <StyledButton type="button">
+                  Informativa sulla privacy
+                </StyledButton>
+                &#41;.
+              </Body2>
+            </Grid>
+          </Grid>
+          <Body2 marginTop="30px" sx={{color: 'text.disabled'}}>
+            Gli ultimi due permessi sono <b>facoltativi</b>, per maggiori
+            informazioni o per revocare il consenso alla Società, vi invitiamo a
+            consultare l’informativa sul
             <StyledButton type="button">
-              Termini e condizioni d’uso
-            </StyledButton>{' '}
-            e{' '}
-            <StyledButton type="button">Informativa sulla privacy</StyledButton>{' '}
-            e autorizzo il trattamento dei miei dati personali per la fornitura
-            di questo servizio web.
+              trattamento dei dati personali
+            </StyledButton>
+            . La revoca del consenso non influirà sulla legalità di qualsiasi
+            attività di trattamento da noi effettuata prima del ritiro di tale
+            consenso.
           </Body2>
-        </Grid>
-      </Grid>
-      <StyledGrid container item xs={12}>
-        <Grid item xs={12} sm>
-          <MySwitch name="specialData" />
-        </Grid>
-        <Grid item xs={12} sm={11}>
-          <Body1 marginTop="8px" gutterBottom>
-            <b>Categorie speciali di dati personali</b>
-          </Body1>
-          <Body2>
-            Autorizzo l'elaborazione dei miei dati personali appartenenti a
-            Categorie speciali &#40;es. stile di vita e comportamento
-            sessuale&#41; al fine di pubblicare un annuncio sul Sito web &#40;
-            <StyledButton type="button">Normativa sulla privacy</StyledButton>
-            &#41;. Se l'autorizzazione non viene data, assicurati che il tuo
-            annuncio non contenga alcun dato personale appartenente a Categorie
-            speciali.
-          </Body2>
-        </Grid>
-      </StyledGrid>
-      <Grid container item xs={12}>
-        <Grid item xs={12} sm>
-          <MySwitch name="marketing" />
-        </Grid>
-        <Grid item xs={12} sm={11}>
-          <Body1 marginTop="8px" gutterBottom>
-            <b>Comunicazioni Marketing</b>
-          </Body1>
-          <Body2>
-            Autorizzo la Società al trattamento dei miei dati di contatto per
-            finalità di marketing e comunicazione pubblicitaria &#40;
-            <StyledButton type="button">Informativa sulla privacy</StyledButton>
-            &#41;.
-          </Body2>
-        </Grid>
-      </Grid>
-      <Body2 marginTop="30px" sx={{color: 'text.disabled'}}>
-        Gli ultimi due permessi sono <b>facoltativi</b>, per maggiori
-        informazioni o per revocare il consenso alla Società, vi invitiamo a
-        consultare l’informativa sul
-        <StyledButton type="button">
-          trattamento dei dati personali
-        </StyledButton>
-        . La revoca del consenso non influirà sulla legalità di qualsiasi
-        attività di trattamento da noi effettuata prima del ritiro di tale
-        consenso.
-      </Body2>
+        </>
+      )}
     </Box>
   );
 };
@@ -182,7 +198,7 @@ export default InformationStep;
 const StyledGrid = styled(Grid)(({theme}) => ({
   paddingTop: '30px',
   marginBottom: '30px',
-  borderTopColor: 'text.disabled',
+  borderTopColor: theme.palette.text.disabled,
   borderTopStyle: 'solid',
   borderTopWidth: '1px',
 }));

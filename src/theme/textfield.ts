@@ -11,6 +11,9 @@ export const textField: Components['MuiTextField'] = {
           padding: '13.5px 15px 13.5px 6px',
         },
       },
+      '& .MuiInputBase-multiline': {
+        borderRadius: '15px',
+      },
       '& .Mui-error': {
         '& .Mui-SvgIcon-root:not(.untouchable-icon)': {
           color: (palette.error as SimplePaletteColorOptions).main,

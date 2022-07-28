@@ -78,7 +78,7 @@ const Header = ({hidePublish}: Props) => {
                 color="warning"
                 onClick={() => router.push('/')}
               >
-                Torna al sito
+                Vai al sito
               </Button>
             )}
             <IconButton

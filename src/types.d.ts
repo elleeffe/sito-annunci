@@ -7,9 +7,13 @@ type Category = 'categoria-1' | 'categoria-2';
 type City = 'roma' | 'napoli' | 'milano';
 
 type Ads = {
+  title: string;
+  content: string;
   category: Category[];
   city: string;
   address?: string;
   areas?: string;
-  contactType: ContactType;
+  email: string;
+  phone?: string;
+  images: File[];
 };

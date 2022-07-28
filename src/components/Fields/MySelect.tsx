@@ -61,6 +61,13 @@ const MySelect = ({
     [input]
   );
 
+  const placeholderColor = useMemo(() => {
+    if (!!label) {
+      return isFocused ? 'text.disabled' : 'transparent';
+    }
+    return 'text.disabled';
+  }, [label, isFocused]);
+
   const displaySelected = useCallback(
     (selected: unknown) => {
       const value = selected as string;
@@ -74,7 +81,9 @@ const MySelect = ({
           >
             {iconComp && <ListItemIcon>{iconComp}</ListItemIcon>}
             <ListItemText
-              sx={{color: isFocused ? 'text.disabled' : 'transparent'}}
+              sx={{
+                color: placeholderColor,
+              }}
             >
               {placeholder}
             </ListItemText>
@@ -95,7 +104,7 @@ const MySelect = ({
         </MenuItem>
       );
     },
-    [options, placeholder, iconComp, isFocused]
+    [options, placeholder, iconComp, placeholderColor]
   );
 
   return (

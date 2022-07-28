@@ -17,6 +17,7 @@ type Props = TextFieldProps & {
   icon?: keyof typeof icons;
   spacingBottom?: boolean;
   instructions?: boolean;
+  label?: string;
 };
 
 const MyTextField = ({
@@ -75,7 +76,7 @@ const MyTextField = ({
           ),
         }}
         sx={{
-          marginBottom: spacingBottom ? '25px' : undefined,
+          marginBottom: spacingBottom ? '30px' : undefined,
           '& .MuiInputBase-root': {
             '&:hover fieldset': {
               borderColor: 'primary.main',

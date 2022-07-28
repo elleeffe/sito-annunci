@@ -21,6 +21,7 @@ type Props = TextFieldProps & {
   spacingBottom?: boolean;
   instructions?: boolean;
   disabled?: BlobOptions;
+  label?: string;
 };
 
 const MyCustoMultipleSelect = ({
@@ -30,6 +31,7 @@ const MyCustoMultipleSelect = ({
   spacingBottom,
   instructions,
   disabled,
+  label,
   ...props
 }: Props) => {
   const [textValue, setTextValue] = useState<string>('');
@@ -76,6 +78,7 @@ const MyCustoMultipleSelect = ({
           onChange={(e) => setTextValue(e.target.value)}
           value={textValue}
           disabled={disabled}
+          label={label}
           InputProps={{
             startAdornment: iconStart,
           }}

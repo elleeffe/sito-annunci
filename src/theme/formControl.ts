@@ -12,6 +12,13 @@ export const formControl: Components['MuiFormControl'] = {
           borderColor: (palette.primary as SimplePaletteColorOptions).main,
         },
       },
+      '& .MuiInputLabel-formControl': {
+        transform: 'translate(21px, 14px) scale(1)',
+
+        '&.Mui-focused': {
+          transform: 'translate(14px, -9px) scale(0.75)',
+        },
+      },
     },
   },
 };

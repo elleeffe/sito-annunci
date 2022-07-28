@@ -25,6 +25,7 @@ type Props = {
   color?: 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning';
   loading?: boolean;
   spacingBottom?: boolean;
+  label?: string;
 };
 
 const MyAutocomplete = ({
@@ -37,6 +38,7 @@ const MyAutocomplete = ({
   color = 'primary',
   loading,
   spacingBottom,
+  label,
 }: Props) => {
   const {input, meta} = useField(name, {validate});
   const [searchString, setSearchString] = useState<string>('');
@@ -99,6 +101,7 @@ const MyAutocomplete = ({
           {...muiErrorConverter(meta)}
           value={searchString}
           placeholder={placeholder}
+          label={label}
           InputProps={{
             ...params.InputProps,
             endAdornment: (

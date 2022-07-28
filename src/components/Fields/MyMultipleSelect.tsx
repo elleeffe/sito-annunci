@@ -4,6 +4,7 @@ import {
   Chip,
   FormControl,
   FormHelperText,
+  InputLabel,
   ListItemIcon,
   ListItemText,
   MenuItem,
@@ -11,7 +12,7 @@ import {
   SelectChangeEvent,
   styled,
 } from '@mui/material';
-import {useCallback, useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {useField} from 'react-final-form';
 import {muiErrorConverter} from '../../utils/fields';
 import * as icons from '@mui/icons-material';
@@ -26,6 +27,8 @@ type Props = {
   icon?: keyof typeof icons;
   spacingBottom?: boolean;
   color?: ButtonProps['color'];
+  label?: string;
+  id: string;
 };
 
 const MyMultipleSelect = ({
@@ -35,8 +38,12 @@ const MyMultipleSelect = ({
   placeholder,
   icon,
   spacingBottom,
+  label,
+  id,
   color = 'primary',
 }: Props) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
   const {input, meta} = useField(name, {validate});
 
   const {error, helperText} = useMemo(() => muiErrorConverter(meta), [meta]);
@@ -57,8 +64,6 @@ const MyMultipleSelect = ({
     [input]
   );
 
-  console.log(input.value);
-
   const displaySelected = useCallback(
     (selected: unknown) => {
       const value = selected as string[];
@@ -71,7 +76,9 @@ const MyMultipleSelect = ({
             }}
           >
             {iconComp && <ListItemIcon>{iconComp}</ListItemIcon>}
-            <ListItemText sx={{color: 'text.disabled'}}>
+            <ListItemText
+              sx={{color: isFocused ? 'text.disabled' : 'transparent'}}
+            >
               {placeholder}
             </ListItemText>
           </MenuItem>
@@ -92,7 +99,7 @@ const MyMultipleSelect = ({
         </Box>
       );
     },
-    [placeholder, iconComp]
+    [placeholder, iconComp, isFocused]
   );
 
   return (
@@ -101,12 +108,23 @@ const MyMultipleSelect = ({
       fullWidth
       sx={spacingBottom ? {marginBottom: '25px'} : undefined}
     >
+      {label && <InputLabel id={id + '-label'}>{label}</InputLabel>}
       <StyledSelect
         {...input}
         value={input.value || []}
         onChange={handleChange}
         displayEmpty
         multiple
+        label={label}
+        labelId={id + '-label'}
+        onFocus={() => {
+          input.onFocus();
+          setIsFocused(true);
+        }}
+        onBlur={() => {
+          input.onBlur();
+          setIsFocused(false);
+        }}
         renderValue={displaySelected}
         MenuProps={{
           sx: {

@@ -12,7 +12,7 @@ export const textField: Components['MuiTextField'] = {
         },
       },
       '& .Mui-error': {
-        '& svg:not(.untouchable-icon)': {
+        '& .Mui-SvgIcon-root:not(.untouchable-icon)': {
           color: (palette.error as SimplePaletteColorOptions).main,
         },
       },

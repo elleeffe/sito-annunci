@@ -27,8 +27,9 @@ const CallToAction = ({variant, title, subtitle, button, img}: Props) => {
     }
     return 'primary';
   }, [variant]);
+
   return (
-    <Container sx={{paddingBottom: '100px'}}>
+    <Container>
       <Wrap container variant={variant}>
         <Grid item sm={11} md={10} lg={8}>
           <CtaTitle isWhite={variant === 'primary'}>{title}</CtaTitle>

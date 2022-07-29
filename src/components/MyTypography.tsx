@@ -133,7 +133,7 @@ export const Body1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isPoppins',
 })<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
   lineHeight: 1.4,
-  fontSize: '16px',
+  fontSize: '15px',
   fontWeight: 300,
   ...(isPoppins
     ? {fontFamily: 'Poppins'}
@@ -146,7 +146,7 @@ export const Body1 = styled(Typography, {
         color: theme.palette.text.secondary,
       }),
   [theme.breakpoints.down('md')]: {
-    fontSize: '14px',
+    fontSize: '13px',
   },
 }));
 Body1.defaultProps = {variant: 'body1'};
@@ -157,7 +157,7 @@ export const Body2 = styled(Typography, {
 })<Props & {isSmall?: boolean; isPoppins?: boolean}>(
   ({theme, isWhite, isSmall, isPoppins}) => ({
     lineHeight: 1.4,
-    ...(isSmall ? {fontSize: '12px'} : {fontSize: '14px'}),
+    ...(isSmall ? {fontSize: '11px'} : {fontSize: '13px'}),
     fontWeight: 300,
     ...(isPoppins
       ? {fontFamily: 'Poppins'}
@@ -170,8 +170,31 @@ export const Body2 = styled(Typography, {
           color: theme.palette.text.secondary,
         }),
     [theme.breakpoints.down('md')]: {
-      ...(isSmall ? {fontSize: '10px'} : {fontSize: '12px'}),
+      ...(isSmall ? {fontSize: '9px'} : {fontSize: '11px'}),
     },
   })
 );
 Body2.defaultProps = {variant: 'body2'};
+
+export const StyledButton = styled('button', {
+  shouldForwardProp: (prop) => prop !== 'isSmall',
+})<{isSmall?: boolean}>(({theme, isSmall}) => ({
+  color: theme.palette.warning.main,
+  border: 'unset',
+  background: 'transparent',
+  cursor: 'pointer',
+  padding: 0,
+  ...(isSmall
+    ? {fontSize: '13px'}
+    : {
+        fontSize: '15px',
+      }),
+
+  '&:hover': {
+    textDecoration: 'underline',
+  },
+
+  [theme.breakpoints.down('md')]: {
+    ...(isSmall ? {fontSize: '11px'} : {fontSize: '13px'}),
+  },
+}));

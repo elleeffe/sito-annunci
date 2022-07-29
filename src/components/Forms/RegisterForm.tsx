@@ -20,11 +20,6 @@ const RegisterForm = () => {
   const handleSubmit = useCallback(async (values: any) => {
     try {
       console.log(values);
-      // const response = await axios.post('/api/signup', {data: values})
-      // router.push({
-      //   pathname: '/auth',
-      //   query: {tab: 'register'},
-      // })
     } catch (e) {
       console.log(e);
       //TODO

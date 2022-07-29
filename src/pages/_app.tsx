@@ -6,9 +6,9 @@ import '../theme/index.css';
 function MyApp({Component, pageProps}: AppProps) {
   return (
     <UserProvider>
-      {/* <AuthLoading> */}
-      <Component {...pageProps} />
-      {/* </AuthLoading> */}
+      <AuthLoading>
+        <Component {...pageProps} />
+      </AuthLoading>
     </UserProvider>
   );
 }

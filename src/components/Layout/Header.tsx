@@ -1,4 +1,6 @@
 import React, {useCallback, useEffect, useState} from 'react';
+import {useRouter} from 'next/router';
+import Link from 'next/link';
 import {
   Box,
   Button,
@@ -11,8 +13,7 @@ import {
   styled,
 } from '@mui/material';
 import {Add, ArrowBack, Login, PersonAddAlt1} from '@mui/icons-material';
-import {TitleH6} from '../MyTypography';
-import {useRouter} from 'next/router';
+import {Subtitle1, TitleH6} from '../MyTypography';
 
 type Props = {
   hidePublish?: boolean;
@@ -56,7 +57,11 @@ const Header = ({hidePublish}: Props) => {
     <>
       <Wrap isScrolled={scrolled}>
         <Inner>
-          <TitleH6>Logo</TitleH6>
+          <Box display="flex" alignItems="center">
+            <Link href="/">
+              <TitleH6 sx={{cursor: 'pointer'}}>Logo</TitleH6>
+            </Link>
+          </Box>
           <Box display="flex" alignItems="center">
             {!hidePublish ? (
               <Button

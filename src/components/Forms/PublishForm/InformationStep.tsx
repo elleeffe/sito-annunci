@@ -11,7 +11,7 @@ import MyCustoMultipleSelect from '../../Fields/MyCustoMultipleSelect';
 import MySelect from '../../Fields/MySelect';
 import MySwitch from '../../Fields/MySwitch';
 import MyTextField from '../../Fields/MyTextField';
-import {Body1, Body2, TitleH6} from '../../MyTypography';
+import {Body1, Body2, StyledButton, TitleH6} from '../../MyTypography';
 
 type Props = {
   hideConsens: boolean;
@@ -124,11 +124,11 @@ const InformationStep = ({hideConsens}: Props) => {
               </Body1>
               <Body2>
                 Ho letto{' '}
-                <StyledButton type="button">
+                <StyledButton isSmall type="button">
                   Termini e condizioni d’uso
                 </StyledButton>{' '}
                 e{' '}
-                <StyledButton type="button">
+                <StyledButton isSmall type="button">
                   Informativa sulla privacy
                 </StyledButton>{' '}
                 e autorizzo il trattamento dei miei dati personali per la
@@ -149,7 +149,7 @@ const InformationStep = ({hideConsens}: Props) => {
                 Categorie speciali &#40;es. stile di vita e comportamento
                 sessuale&#41; al fine di pubblicare un annuncio su questo sito
                 web &#40;
-                <StyledButton type="button">
+                <StyledButton isSmall type="button">
                   Normativa sulla privacy
                 </StyledButton>
                 &#41;. Se l'autorizzazione non viene data, assicurati che il tuo
@@ -169,7 +169,7 @@ const InformationStep = ({hideConsens}: Props) => {
               <Body2>
                 Autorizzo la Società al trattamento dei miei dati di contatto
                 per finalità di marketing e comunicazione pubblicitaria &#40;
-                <StyledButton type="button">
+                <StyledButton isSmall type="button">
                   Informativa sulla privacy
                 </StyledButton>
                 &#41;.
@@ -180,7 +180,7 @@ const InformationStep = ({hideConsens}: Props) => {
             Gli ultimi due permessi sono <b>facoltativi</b>, per maggiori
             informazioni o per revocare il consenso alla Società, vi invitiamo a
             consultare l’informativa sul{' '}
-            <StyledButton type="button">
+            <StyledButton isSmall type="button">
               trattamento dei dati personali
             </StyledButton>
             . La revoca del consenso non influirà sulla legalità di qualsiasi
@@ -201,15 +201,4 @@ const StyledGrid = styled(Grid)(({theme}) => ({
   borderTopColor: theme.palette.text.disabled,
   borderTopStyle: 'solid',
   borderTopWidth: '1px',
-}));
-
-const StyledButton = styled('button')(({theme}) => ({
-  color: theme.palette.warning.main,
-  border: 'unset',
-  background: 'transparent',
-  cursor: 'pointer',
-  padding: 0,
-  '&:hover': {
-    textDecoration: 'underline',
-  },
 }));

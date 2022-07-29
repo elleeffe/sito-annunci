@@ -12,6 +12,12 @@ export const button: Components['MuiButton'] = {
       '& .MuiCircularProgress-root': {
         color: '#fff',
       },
+      a: {
+        color: 'inherit',
+        '&:hover': {
+          textDecoration: 'none',
+        },
+      },
     },
     sizeMedium: {
       padding: '0px 20px',

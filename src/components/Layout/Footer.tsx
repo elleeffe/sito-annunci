@@ -25,7 +25,7 @@ const Footer = () => {
           <Grid item xs={12} md={5}>
             <Grid container>
               <Grid item xs={12}>
-                <TitleH6 gutterBottom sx={{marginTop: '15px'}}>
+                <TitleH6 gutterBottom sx={{marginTop: '10px'}}>
                   Categorie
                 </TitleH6>
               </Grid>

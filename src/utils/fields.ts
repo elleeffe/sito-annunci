@@ -2,7 +2,14 @@ import {FieldMetaState} from 'react-final-form';
 import validate from 'validate.js';
 
 export const muiErrorConverter = (
-  meta: FieldMetaState<string | number | boolean | undefined>
+  meta: FieldMetaState<
+    | string
+    | number
+    | boolean
+    | undefined
+    | {name: string; base64: string}[]
+    | string[]
+  >
 ) => {
   const error = !!(
     (meta.touched && meta.error) ||
@@ -65,7 +72,6 @@ export const isRequired = (
   value: string | Date | boolean | undefined,
   message?: string
 ) => {
-  console.log({value, message});
   const finalMessage = message || 'Campo obbligatorio';
   if (typeof value === 'boolean') {
     return value ? '' : finalMessage;
@@ -150,3 +156,12 @@ export const wordValidator = (value: string) =>
       message: 'Carattere non valido',
     },
   });
+
+export const imageValidator = (
+  value: {name: string; base64: string}[] | undefined
+) => {
+  if (!value || !value?.length) {
+    return 'Campo obbligatorio';
+  }
+  return '';
+};

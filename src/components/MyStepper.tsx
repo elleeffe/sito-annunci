@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {
   Stepper,
   Step,
@@ -41,13 +41,19 @@ type Props = {
 const MyStepper = ({alternativeLabel, steps, final, hideLabel}: Props) => {
   const [activeStep, setActiveStep] = useState<number>(0);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  };
+  const stepAction = useMemo(() => {
+    const currentStep = steps[activeStep];
+    return currentStep.action;
+  }, [steps, activeStep]);
 
-  const handleBack = () => {
+  const handleNext = useCallback(() => {
+    stepAction && stepAction();
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  }, [stepAction]);
+
+  const handleBack = useCallback(() => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
-  };
+  }, []);
 
   return (
     <Wrap>

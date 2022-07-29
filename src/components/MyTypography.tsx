@@ -14,6 +14,9 @@ export const TitleH1 = styled(Typography, {
   [theme.breakpoints.down('md')]: {
     fontSize: '50px',
   },
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '40px',
+  },
 }));
 TitleH1.defaultProps = {variant: 'h1'};
 

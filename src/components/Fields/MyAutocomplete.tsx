@@ -41,7 +41,9 @@ const MyAutocomplete = ({
   label,
 }: Props) => {
   const {input, meta} = useField(name, {validate});
-  const [searchString, setSearchString] = useState<string>('');
+  const [searchString, setSearchString] = useState<string>(
+    () => options.find((el) => el.value === input.value)?.label || ''
+  );
   const [hover, setHover] = useState<boolean>(false);
   const autocompleteRef = useRef();
 

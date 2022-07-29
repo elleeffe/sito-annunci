@@ -21,22 +21,14 @@ type FormValues = Ads & {
 const PublishForm = ({initialAds}: Props) => {
   const match = useMediaQuery('(max-width:600px)');
 
-  const handleSubmit = useCallback(
-    async (values: any) => console.log(values),
-    []
-  );
+  const handleSubmit = useCallback(async (values: any) => {
+    console.log({submitValues: values});
+  }, []);
 
   return (
     <Form<FormValues> onSubmit={handleSubmit} initialValues={initialAds}>
-      {({
-        handleSubmit,
-        submitting,
-        hasValidationErrors,
-        pristine,
-        values,
-        form,
-      }) => {
-        console.log(values);
+      {({handleSubmit, submitting, hasValidationErrors, pristine, values}) => {
+        console.log({values});
         return (
           <form onSubmit={handleSubmit}>
             <MyStepper
@@ -46,13 +38,19 @@ const PublishForm = ({initialAds}: Props) => {
                 {
                   label: 'Informazioni',
                   screen: <InformationStep hideConsens={!!initialAds} />,
-                  action: !submitting ? handleSubmit : undefined,
+                  action: handleSubmit,
                   loading: submitting,
                   disabled: hasValidationErrors,
                 },
                 {
                   label: 'Aggiungi foto',
-                  screen: <ImagesStep />,
+                  screen: (
+                    <ImagesStep
+                      hideConsens={!!initialAds}
+                      disabledCover={!!values.cover}
+                      disabledImages={values.images?.length === 5}
+                    />
+                  ),
                   action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
                   disabled: hasValidationErrors || pristine,

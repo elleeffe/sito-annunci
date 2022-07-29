@@ -2,18 +2,21 @@ type User = {
   email: string;
 };
 
-type Category = 'categoria-1' | 'categoria-2';
+type Category = 'all' | 'categoria-1' | 'categoria-2';
 
 type City = 'roma' | 'napoli' | 'milano';
 
 type Ads = {
   title: string;
   content: string;
-  category: Category[];
-  city: string;
+  category: Omit<Category, 'all'>;
+  city: City;
+  age: number;
   address?: string;
-  areas?: string;
+  areas?: string[];
   email: string;
   phone?: string;
-  images: File[];
+  cover: {name: string; base64: string}[];
+  images?: {name: string; base64: string}[];
+  whatsapp?: boolean;
 };

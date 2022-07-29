@@ -1,4 +1,6 @@
+import {useCallback} from 'react';
 import type {NextPage} from 'next';
+import {useRouter} from 'next/router';
 import Layout from '../components/Layout';
 import {Box, Button, Container, Grid, styled} from '@mui/material';
 import {Form} from 'react-final-form';
@@ -84,7 +86,20 @@ const cards: CardItemType[] = [
   },
 ];
 
+type FormValues = {
+  category: Category;
+  city: City;
+  keyword: string;
+};
+
 const Home: NextPage = () => {
+  const router = useRouter();
+
+  const handleSubmit = useCallback(
+    (values: FormValues) => console.log(values),
+    []
+  );
+
   return (
     <Layout>
       <Intro>
@@ -98,19 +113,15 @@ const Home: NextPage = () => {
                 Work with talented people at the most affordable price to get
                 the most out of your time and cost
               </Subtitle1>
-              <FilterWrap container columnSpacing={2} rowSpacing={2}>
-                <Form onSubmit={console.log}>
-                  {({handleSubmit, values}) => {
-                    console.log({values});
-                    return (
-                      <>
-                        <Grid item xs={12} sm={4} md={3}>
-                          <MyTextField
-                            name="keyword"
-                            placeholder="Sto cercando..."
-                          />
-                        </Grid>
-                        <Grid item xs={12} sm={4} md={3}>
+              <Form<FormValues>
+                onSubmit={handleSubmit}
+                initialValues={{category: 'all'}}
+              >
+                {({handleSubmit}) => {
+                  return (
+                    <form onSubmit={handleSubmit}>
+                      <FilterWrap container columnSpacing={2} rowSpacing={2}>
+                        <Grid item xs={12} md={3}>
                           <MySelect
                             id="category"
                             name="category"
@@ -118,14 +129,20 @@ const Home: NextPage = () => {
                             options={categoryOptions}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={4} md={3}>
+                        <Grid item xs={12} md={3}>
                           <MyAutocomplete
                             name="city"
                             placeholder="Città"
                             options={cityOptions}
                           />
                         </Grid>
-                        <Grid item xs={12} sm={12} md={3}>
+                        <Grid item xs={12} md={3}>
+                          <MyTextField
+                            name="keyword"
+                            placeholder="Sto cercando..."
+                          />
+                        </Grid>
+                        <Grid item xs={12} md={3}>
                           <Button
                             variant="contained"
                             onClick={handleSubmit}
@@ -134,11 +151,11 @@ const Home: NextPage = () => {
                             Cerca
                           </Button>
                         </Grid>
-                      </>
-                    );
-                  }}
-                </Form>
-              </FilterWrap>
+                      </FilterWrap>
+                    </form>
+                  );
+                }}
+              </Form>
             </Grid>
           </Grid>
         </Container>
@@ -161,7 +178,7 @@ const Home: NextPage = () => {
         subtitle="Advertise your jobs to millions of monthly users and search 15.8 million CVs"
         button={{
           caption: 'Pubblica annuncio',
-          action: () => {},
+          action: () => router.push('/pubblica-annuncio'),
           icon: 'ArrowForwardIos',
         }}
         img={{
@@ -176,10 +193,12 @@ const Home: NextPage = () => {
 export default Home;
 
 const Intro = styled(Box)(({theme}) => ({
-  height: '100vh',
+  minHeight: '100vh',
   display: 'flex',
   alignItems: 'center',
   background: theme.palette.primary.main,
+  paddingTop: '100px',
+  paddingBottom: '100px',
 }));
 
 const FilterWrap = styled(Grid)(({theme}) => ({

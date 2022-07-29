@@ -33,4 +33,8 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   borderRadius: '10px',
   margin: '0 auto',
   padding: '25px',
+
+  [theme.breakpoints.down('sm')]: {
+    padding: '20px 10px',
+  },
 }));

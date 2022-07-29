@@ -1,4 +1,5 @@
 export const categoryOptions: {value: Category; label: string}[] = [
+  {value: 'all', label: 'Tutte le categorie'},
   {
     value: 'categoria-1',
     label: 'Categoria 1',

@@ -37,7 +37,7 @@ const InformationStep = ({hideConsens}: Props) => {
             multiline
             label="Contenuto*"
             rows={8}
-            placeholder="Una questo spazio per descrivere te stesso, il tuo corpo, per parlare delle tue specialità, cosa ti piace..."
+            placeholder="Usa questo spazio per descrivere te stesso, il tuo corpo, per parlare delle tue specialità, cosa ti piace..."
             validate={(value) => isRequired(value)}
             sx={{'& .MuiInputBase-root': {borderRadius: '10px !important'}}}
           />
@@ -52,7 +52,7 @@ const InformationStep = ({hideConsens}: Props) => {
             label="Categoria*"
           />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={3}>
           <MyTextField
             name="age"
             label="Eta*"
@@ -179,7 +179,7 @@ const InformationStep = ({hideConsens}: Props) => {
           <Body2 marginTop="30px" sx={{color: 'text.disabled'}}>
             Gli ultimi due permessi sono <b>facoltativi</b>, per maggiori
             informazioni o per revocare il consenso alla Società, vi invitiamo a
-            consultare l’informativa sul
+            consultare l’informativa sul{' '}
             <StyledButton type="button">
               trattamento dei dati personali
             </StyledButton>

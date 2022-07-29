@@ -16,7 +16,7 @@ import {Body1} from '../MyTypography';
 
 type Props = TextFieldProps & {
   name: string;
-  validate?: (value: string) => string;
+  validate?: (value: string[]) => string;
   icon?: keyof typeof icons;
   spacingBottom?: boolean;
   instructions?: boolean;
@@ -35,8 +35,8 @@ const MyCustoMultipleSelect = ({
   ...props
 }: Props) => {
   const [textValue, setTextValue] = useState<string>('');
-  const [areas, setAreas] = useState<string[]>([]);
   const {input, meta} = useField(name, {validate});
+  const [areas, setAreas] = useState<string[]>(() => input.value || []);
 
   const iconStart = useMemo(() => {
     if (icon) {

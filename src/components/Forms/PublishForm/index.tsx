@@ -57,10 +57,12 @@ const PublishForm = ({initialAds}: Props) => {
                 },
                 {
                   label: 'Visibilità',
-                  screen: <VisibilityStep />,
+                  screen: (
+                    <VisibilityStep showTime={!!values.visibilityOption} />
+                  ),
                   action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
-                  disabled: hasValidationErrors || pristine,
+                  disabled: hasValidationErrors,
                 },
                 {
                   label: 'Conferma',

@@ -20,7 +20,7 @@ type Props = {
   };
 };
 
-const CallToAction = ({variant, title, subtitle, button, img}: Props) => {
+const HeroBanner = ({variant, title, subtitle, button, img}: Props) => {
   const buttonColor = useMemo(() => {
     if (variant === 'primary') {
       return 'warning';
@@ -32,8 +32,10 @@ const CallToAction = ({variant, title, subtitle, button, img}: Props) => {
     <Container>
       <Wrap container variant={variant}>
         <Grid item sm={11} md={10} lg={8}>
-          <CtaTitle isWhite={variant === 'primary'}>{title}</CtaTitle>
-          <CtaSubtitle isWhite={variant === 'primary'}>{subtitle}</CtaSubtitle>
+          <HeroTitle isWhite={variant === 'primary'}>{title}</HeroTitle>
+          <HeroSubtitle isWhite={variant === 'primary'}>
+            {subtitle}
+          </HeroSubtitle>
           <Button
             variant="contained"
             onClick={button.action}
@@ -57,19 +59,20 @@ const CallToAction = ({variant, title, subtitle, button, img}: Props) => {
   );
 };
 
-export default CallToAction;
+export default HeroBanner;
 
-const Wrap = styled(Grid)<{variant: 'primary' | 'secondary'}>(
-  ({theme, variant}) => ({
-    backgroundColor: theme.palette[variant].main,
-    padding: '50px',
-    borderRadius: '25px',
-    position: 'relative',
-    [theme.breakpoints.down('md')]: {
-      padding: '25px',
-    },
-  })
-);
+const Wrap = styled(Grid, {
+  shouldForwardProp: (prop) => prop !== 'variant',
+})<{variant: 'primary' | 'secondary'}>(({theme, variant}) => ({
+  backgroundColor: theme.palette[variant].main,
+  padding: '50px',
+  borderRadius: '25px',
+  position: 'relative',
+
+  [theme.breakpoints.down('md')]: {
+    padding: '25px',
+  },
+}));
 
 const ImageWrap = styled(Box)(({theme}) => ({
   position: 'absolute',
@@ -86,14 +89,14 @@ const ImageWrap = styled(Box)(({theme}) => ({
   },
 }));
 
-const CtaTitle = styled(TitleH3)(({theme}) => ({
+const HeroTitle = styled(TitleH3)(({theme}) => ({
   marginBottom: '25px',
   [theme.breakpoints.down('md')]: {
     marginBottom: '15px',
   },
 }));
 
-const CtaSubtitle = styled(Subtitle1)(({theme}) => ({
+const HeroSubtitle = styled(Subtitle1)(({theme}) => ({
   marginBottom: '25px',
   [theme.breakpoints.down('md')]: {
     marginBottom: '15px',

@@ -30,7 +30,7 @@ const MyRadio = ({label, name, validate, options}: Props) => {
         {...input}
         sx={{width: '100%', justifyContent: 'space-between'}}
       >
-        {options.map((option, index) => (
+        {options.map((option) => (
           <FormControlLabel
             key={option.value}
             value={option.value}

@@ -27,6 +27,7 @@ type Props = {
   color?: ButtonProps['color'];
   label?: string;
   id: string;
+  disabled?: boolean;
 };
 
 const MySelect = ({
@@ -39,6 +40,7 @@ const MySelect = ({
   label,
   id,
   color = 'primary',
+  disabled,
 }: Props) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -121,6 +123,7 @@ const MySelect = ({
         renderValue={displaySelected}
         label={label}
         labelId={id + '-label'}
+        disabled={disabled}
         onFocus={() => {
           input.onFocus();
           setIsFocused(true);

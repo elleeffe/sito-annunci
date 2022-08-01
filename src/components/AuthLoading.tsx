@@ -149,7 +149,6 @@ const ModalWrap = styled(Box)(({theme}) => ({
   position: 'fixed',
   top: 0,
   left: 0,
-  zIndex: 1000,
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',

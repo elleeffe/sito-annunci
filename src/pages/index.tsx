@@ -10,7 +10,7 @@ import CardSlider from '../components/CardSlider';
 import segnaposto from '../assets/img/segnaposto.jpeg';
 import segnapostoCta from '../assets/img/segnaposto-cta.png';
 import {CardItemType} from '../components/SimpleCard';
-import CallToAction from '../components/CallToAction';
+import HeroBanner from '../components/HeroBanner';
 import MyAutocomplete from '../components/Fields/MyAutocomplete';
 import {Subtitle1, TitleH1, TitleH2} from '../components/MyTypography';
 import {categoryOptions, cityOptions} from '../utils/config';
@@ -172,7 +172,7 @@ const Home: NextPage = () => {
         </Grid>
       </Container>
       <CardSlider cards={cards} autoPlay />
-      <CallToAction
+      <HeroBanner
         variant="primary"
         title="Find the talent needed to get your business growing."
         subtitle="Advertise your jobs to millions of monthly users and search 15.8 million CVs"

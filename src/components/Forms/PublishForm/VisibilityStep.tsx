@@ -3,7 +3,7 @@ import {timeRangeOptions, visibilityOptions} from '../../../utils/config';
 import {isRequired} from '../../../utils/fields';
 import MyRadioCard from '../../Fields/MyRadioCard';
 import MySelect from '../../Fields/MySelect';
-import MiniHeroBanner from '../../MiniHeroBanner';
+import MiniHeroBanner from '../../Hero/MiniHeroBanner';
 import {TitleH6} from '../../MyTypography';
 
 type Props = {

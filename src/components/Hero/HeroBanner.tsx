@@ -1,9 +1,9 @@
 import React, {useMemo} from 'react';
 import * as icons from '@mui/icons-material';
 import {Box, Button, Container, Grid, styled} from '@mui/material';
-import MyIcon from './MyIcon';
+import MyIcon from '../MyIcon';
 import Image from 'next/image';
-import {Subtitle1, TitleH3} from './MyTypography';
+import {Subtitle1, TitleH3} from '../MyTypography';
 
 type Props = {
   variant: 'primary' | 'secondary';

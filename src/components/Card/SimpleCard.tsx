@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import * as icons from '@mui/icons-material';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
-import MyIcon from './MyIcon';
-import {Body2, Subtitle2, TitleH5} from './MyTypography';
+import MyIcon from '../MyIcon';
+import {Body2, Subtitle2, TitleH5} from '../MyTypography';
 
 export type CardItemType = {
   img: {

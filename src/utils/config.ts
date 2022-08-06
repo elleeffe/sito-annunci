@@ -1,3 +1,6 @@
+import segnaposto from '../assets/img/segnaposto.jpeg';
+import {CardItemType} from '../components/Card/SimpleCard';
+
 export const categoryOptions: {value: Category; label: string}[] = [
   {value: 'all', label: 'Tutte le categorie'},
   {
@@ -74,4 +77,75 @@ export const timeRangeOptions: {value: TimeRange; label: string}[] = [
     label: '05:00 - 17:00',
   },
   {value: 'timerange-2', label: '17:00 - 05:00'},
+];
+
+export const cards: CardItemType[] = [
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 1',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+    totalAds: 1034,
+  },
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 2',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+    totalAds: 884,
+  },
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 3',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+    totalAds: 239,
+  },
+  {
+    img: {
+      src: segnaposto.src,
+      alt: 'segnaposto',
+    },
+
+    title: 'Titolo card 4',
+    caption:
+      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
+    button: {
+      caption: 'Scopri di più',
+      action: () => {},
+      icon: 'ArrowForwardIos',
+      variant: 'contained',
+    },
+    totalAds: 587,
+  },
 ];

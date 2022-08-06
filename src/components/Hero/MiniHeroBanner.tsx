@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 import {styled, Box} from '@mui/material';
-import {Body2, StyledButton, Subtitle1} from './MyTypography';
+import {Body2, StyledButton, Subtitle1} from '../MyTypography';
 
 type Props = {
   variant: 'primary' | 'secondary';

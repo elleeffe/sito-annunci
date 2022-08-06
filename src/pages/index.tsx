@@ -6,85 +6,12 @@ import {Box, Button, Container, Grid, styled} from '@mui/material';
 import {Form} from 'react-final-form';
 import MyTextField from '../components/Fields/MyTextField';
 import MySelect from '../components/Fields/MySelect';
-import CardSlider from '../components/CardSlider';
-import segnaposto from '../assets/img/segnaposto.jpeg';
+import CardSlider from '../components/Card/CardSlider';
 import segnapostoCta from '../assets/img/segnaposto-cta.png';
-import {CardItemType} from '../components/SimpleCard';
-import HeroBanner from '../components/HeroBanner';
+import HeroBanner from '../components/Hero/HeroBanner';
 import MyAutocomplete from '../components/Fields/MyAutocomplete';
 import {Subtitle1, TitleH1, TitleH2} from '../components/MyTypography';
-import {categoryOptions, cityOptions} from '../utils/config';
-
-const cards: CardItemType[] = [
-  {
-    img: {
-      src: segnaposto.src,
-      alt: 'segnaposto',
-    },
-
-    title: 'Titolo card 1',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-    button: {
-      caption: 'Scopri di più',
-      action: () => {},
-      icon: 'ArrowForwardIos',
-      variant: 'contained',
-    },
-    totalAds: 1034,
-  },
-  {
-    img: {
-      src: segnaposto.src,
-      alt: 'segnaposto',
-    },
-
-    title: 'Titolo card 2',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-    button: {
-      caption: 'Scopri di più',
-      action: () => {},
-      icon: 'ArrowForwardIos',
-      variant: 'contained',
-    },
-    totalAds: 884,
-  },
-  {
-    img: {
-      src: segnaposto.src,
-      alt: 'segnaposto',
-    },
-
-    title: 'Titolo card 3',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-    button: {
-      caption: 'Scopri di più',
-      action: () => {},
-      icon: 'ArrowForwardIos',
-      variant: 'contained',
-    },
-    totalAds: 239,
-  },
-  {
-    img: {
-      src: segnaposto.src,
-      alt: 'segnaposto',
-    },
-
-    title: 'Titolo card 4',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
-    button: {
-      caption: 'Scopri di più',
-      action: () => {},
-      icon: 'ArrowForwardIos',
-      variant: 'contained',
-    },
-    totalAds: 587,
-  },
-];
+import {cards, categoryOptions, cityOptions} from '../utils/config';
 
 type FormValues = {
   category: Category;
@@ -96,8 +23,14 @@ const Home: NextPage = () => {
   const router = useRouter();
 
   const handleSubmit = useCallback(
-    (values: FormValues) => console.log(values),
-    []
+    (values: FormValues) => {
+      if (values.category === 'all') {
+        router.push(`/categorie`);
+      } else {
+        router.push(`/categorie/${values.category}`);
+      }
+    },
+    [router]
   );
 
   return (

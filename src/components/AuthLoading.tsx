@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, PropsWithChildren} from 'react';
 import axios from 'axios';
 import {useUser} from '../context/UserContext';
 import {CircularProgress, Box, styled, Paper, Button} from '@mui/material';
@@ -7,13 +7,16 @@ import Layout from './Layout';
 import {Body1, StyledButton, Subtitle1, TitleH3} from './MyTypography';
 import {useRouter} from 'next/router';
 
-interface Props {
-  children: React.ReactElement;
-}
+export const LoadingScreen = () => (
+  <Wrap>
+    <CircularProgress color="primary" size={50} />
+  </Wrap>
+);
+
 const sleep = (ms: number) =>
   new Promise((res, rej) => setTimeout(() => rej(''), ms));
 
-const AuthLoading = ({children}: Props) => {
+const AuthLoading = ({children}: PropsWithChildren) => {
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState<boolean>(true);
 
@@ -53,13 +56,7 @@ const AuthLoading = ({children}: Props) => {
   }, [router]);
 
   if (loading) {
-    return (
-      <Layout hideHeader>
-        <Wrap>
-          <CircularProgress color="primary" size={50} />
-        </Wrap>
-      </Layout>
-    );
+    return <Layout hideHeader></Layout>;
   }
 
   if (modal) {

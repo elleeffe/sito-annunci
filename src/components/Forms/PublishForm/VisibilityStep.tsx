@@ -30,7 +30,7 @@ const VisibilityStep = ({showTime}: Props) => {
         <MySelect
           id="time-range-select"
           name="visibilityTime"
-          placeholder="Scegli orario"
+          placeholder="Scegli fascia oraria"
           validate={(value) => isRequired(value)}
           options={timeRangeOptions}
           label="Orario*"

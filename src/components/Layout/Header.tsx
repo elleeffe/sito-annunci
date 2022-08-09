@@ -12,8 +12,16 @@ import {
   Popover,
   styled,
 } from '@mui/material';
-import {Add, ArrowBack, Login, PersonAddAlt1} from '@mui/icons-material';
-import {Subtitle1, TitleH6} from '../MyTypography';
+import {
+  Add,
+  ArrowBack,
+  Login,
+  Logout,
+  Person,
+  PersonAddAlt1,
+} from '@mui/icons-material';
+import {TitleH6} from '../MyTypography';
+import {useUser} from '../../context/UserContext';
 
 type Props = {
   hidePublish?: boolean;
@@ -24,11 +32,13 @@ const Header = ({hidePublish}: Props) => {
   const [mobile, setMobile] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
+  const router = useRouter();
+
+  const {user, setUser} = useUser();
+
   const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl((old) => (!!old ? null : event.currentTarget));
   }, []);
-
-  const router = useRouter();
 
   useEffect(() => {
     const handleResize = () =>
@@ -86,13 +96,23 @@ const Header = ({hidePublish}: Props) => {
                 Vai al sito
               </Button>
             )}
-            <IconButton
-              color="primary"
-              size={scrolled || mobile ? 'small' : 'medium'}
-              onClick={handleClick}
-            >
-              <Login />
-            </IconButton>
+            {user ? (
+              <IconButton
+                color="primary"
+                size={scrolled || mobile ? 'small' : 'medium'}
+                onClick={handleClick}
+              >
+                <Person />
+              </IconButton>
+            ) : (
+              <IconButton
+                color="primary"
+                size={scrolled || mobile ? 'small' : 'medium'}
+                onClick={handleClick}
+              >
+                <Login />
+              </IconButton>
+            )}
           </Box>
         </Inner>
       </Wrap>
@@ -109,38 +129,68 @@ const Header = ({hidePublish}: Props) => {
         }}
         onClose={() => setAnchorEl(null)}
       >
-        <StyledListItemButton
-          onClick={() =>
-            router.push({
-              pathname: '/auth',
-              query: {tab: 'login'},
-            })
-          }
-        >
-          <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
-            <Login
-              sx={{width: '20px', height: '20px'}}
-              className="item-button"
-            />
-          </ListItemIcon>
-          <ListItemText primary="Accedi" className="item-button" />
-        </StyledListItemButton>
-        <StyledListItemButton
-          onClick={() =>
-            router.push({
-              pathname: '/auth',
-              query: {tab: 'register'},
-            })
-          }
-        >
-          <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
-            <PersonAddAlt1
-              sx={{width: '20px', height: '20px'}}
-              className="item-button"
-            />
-          </ListItemIcon>
-          <ListItemText primary="Registrati" className="item-button" />
-        </StyledListItemButton>
+        {user ? (
+          <>
+            <StyledListItemButton onClick={() => router.push('/profilo')}>
+              <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
+                <Person
+                  sx={{width: '20px', height: '20px'}}
+                  className="item-button"
+                />
+              </ListItemIcon>
+              <ListItemText primary="Profilo" className="item-button" />
+            </StyledListItemButton>
+            <StyledListItemButton
+              onClick={() => {
+                router.push('/');
+                setUser(undefined);
+              }}
+            >
+              <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
+                <Logout
+                  sx={{width: '20px', height: '20px'}}
+                  className="item-button"
+                />
+              </ListItemIcon>
+              <ListItemText primary="Disconnetti" className="item-button" />
+            </StyledListItemButton>
+          </>
+        ) : (
+          <>
+            <StyledListItemButton
+              onClick={() =>
+                router.push({
+                  pathname: '/auth',
+                  query: {tab: 'login'},
+                })
+              }
+            >
+              <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
+                <Login
+                  sx={{width: '20px', height: '20px'}}
+                  className="item-button"
+                />
+              </ListItemIcon>
+              <ListItemText primary="Accedi" className="item-button" />
+            </StyledListItemButton>
+            <StyledListItemButton
+              onClick={() =>
+                router.push({
+                  pathname: '/auth',
+                  query: {tab: 'register'},
+                })
+              }
+            >
+              <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
+                <PersonAddAlt1
+                  sx={{width: '20px', height: '20px'}}
+                  className="item-button"
+                />
+              </ListItemIcon>
+              <ListItemText primary="Registrati" className="item-button" />
+            </StyledListItemButton>
+          </>
+        )}
       </StyledPopover>
     </>
   );

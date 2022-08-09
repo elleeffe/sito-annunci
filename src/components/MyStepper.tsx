@@ -18,12 +18,21 @@ type StepType = {
   loading?: boolean;
   disabled?: boolean;
   hideLabel?: boolean;
+  button?: {
+    label: string;
+    color?: ButtonProps['color'];
+    disabled?: boolean;
+    loading?: boolean;
+    variant?: ButtonProps['variant'];
+    size?: ButtonProps['size'];
+  };
 };
 
 type Props = {
   hideLabel?: boolean;
   alternativeLabel?: boolean;
   steps: StepType[];
+  initialStep?: number;
   final: {
     screen: React.ReactNode;
     action?: () => void | Promise<any>;
@@ -38,13 +47,24 @@ type Props = {
   };
 };
 
-const MyStepper = ({alternativeLabel, steps, final, hideLabel}: Props) => {
-  const [activeStep, setActiveStep] = useState<number>(0);
+const MyStepper = ({
+  alternativeLabel,
+  steps,
+  final,
+  hideLabel,
+  initialStep,
+}: Props) => {
+  const [activeStep, setActiveStep] = useState<number>(() => initialStep || 0);
+
+  console.log(activeStep, steps.length);
 
   const stepAction = useMemo(() => {
+    if (activeStep === steps.length) {
+      return final.action;
+    }
     const currentStep = steps[activeStep];
     return currentStep.action;
-  }, [steps, activeStep]);
+  }, [steps, activeStep, final]);
 
   const handleNext = useCallback(() => {
     stepAction && stepAction();
@@ -78,7 +98,7 @@ const MyStepper = ({alternativeLabel, steps, final, hideLabel}: Props) => {
       {activeStep === steps.length ? (
         final.screen
       ) : (
-        <React.Fragment>
+        <>
           {steps[activeStep] && steps[activeStep].screen}
           <Box
             display="flex"
@@ -94,7 +114,7 @@ const MyStepper = ({alternativeLabel, steps, final, hideLabel}: Props) => {
             >
               <ArrowBack />
             </IconButton>
-            {activeStep === steps.length - 1 ? (
+            {activeStep === steps.length ? (
               <MyButton
                 onClick={final.action}
                 disabled={final.button.disabled}
@@ -106,17 +126,31 @@ const MyStepper = ({alternativeLabel, steps, final, hideLabel}: Props) => {
                 {final.button.label}
               </MyButton>
             ) : (
-              <IconButton
-                color={final.button.color || 'primary'}
-                onClick={handleNext}
-                size={final.button.size || 'medium'}
-                disabled={steps[activeStep].disabled}
-              >
-                <ArrowForward />
-              </IconButton>
+              <>
+                {steps[activeStep] && steps[activeStep].button ? (
+                  <MyButton
+                    onClick={handleNext}
+                    variant={final.button.variant || 'contained'}
+                    color={final.button.color || 'primary'}
+                    size={final.button.size || 'medium'}
+                    disabled={steps[activeStep].disabled}
+                  >
+                    {steps[activeStep]?.button?.label}
+                  </MyButton>
+                ) : (
+                  <IconButton
+                    color={final.button.color || 'primary'}
+                    onClick={handleNext}
+                    size={final.button.size || 'medium'}
+                    disabled={steps[activeStep].disabled}
+                  >
+                    <ArrowForward />
+                  </IconButton>
+                )}
+              </>
             )}
           </Box>
-        </React.Fragment>
+        </>
       )}
     </Wrap>
   );

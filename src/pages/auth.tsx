@@ -124,6 +124,7 @@ export default Auth;
 const Wrap = styled(Box)(({theme}) => ({
   width: '100vw',
   height: '100vh',
+  minHeight: '600px',
   background: theme.palette.primary.main,
 }));
 

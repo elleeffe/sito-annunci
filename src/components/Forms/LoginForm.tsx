@@ -26,7 +26,10 @@ const LoginForm = () => {
         console.log(values);
         // const response = await axios.post('/api/login', {credentials: values})
         // setUser(response);
-        setTimeout(() => setUser({email: 'lorenzo@faenzi.com'}), 2000);
+        setTimeout(
+          () => setUser({email: 'lorenzo@faenzi.com', phone: '34287438732'}),
+          2000
+        );
       } catch (e) {
         console.log(e);
         //TODO

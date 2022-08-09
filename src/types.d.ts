@@ -1,5 +1,6 @@
 type User = {
   email: string;
+  phone: string;
 };
 
 type Category = 'all' | 'categoria-1' | 'categoria-2';

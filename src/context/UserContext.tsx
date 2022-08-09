@@ -13,7 +13,9 @@ export const UserContext = createContext<UserContextType>({
 });
 
 export const UserProvider = ({children}: {children: JSX.Element}) => {
-  const [user, setUser] = useState<User | undefined>();
+  const [user, setUser] = useState<User>();
+
+  console.log({user});
 
   return (
     <UserContext.Provider

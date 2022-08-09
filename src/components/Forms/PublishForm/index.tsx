@@ -1,6 +1,7 @@
 import {useMediaQuery} from '@mui/material';
 import {useCallback} from 'react';
 import {Form} from 'react-final-form';
+import {useUser} from '../../../context/UserContext';
 import MyStepper from '../../MyStepper';
 import ConfirmStep from './ConfirmStep';
 import ImagesStep from './ImagesStep';
@@ -20,6 +21,8 @@ type FormValues = Ads & {
 
 const PublishForm = ({initialAds}: Props) => {
   const match = useMediaQuery('(max-width:600px)');
+
+  const {user} = useUser();
 
   const handleSubmit = useCallback(async (values: any) => {
     console.log({submitValues: values});
@@ -66,15 +69,23 @@ const PublishForm = ({initialAds}: Props) => {
                 },
                 {
                   label: 'Conferma',
-                  screen: <ConfirmStep />,
+                  screen: (
+                    <ConfirmStep
+                      isLogged={!!user}
+                      showPayment={!!values.visibilityOption}
+                    />
+                  ),
                   action: () => {},
+                  button: {
+                    label: 'Conferma',
+                  },
                 },
               ]}
               final={{
                 screen: <h1>Annuncio caricato con successo</h1>,
                 action: () => {},
                 button: {
-                  label: 'Vai al profilo',
+                  label: 'Conferma',
                 },
               }}
             />

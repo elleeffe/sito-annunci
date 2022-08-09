@@ -1,5 +1,5 @@
 import {useMediaQuery} from '@mui/material';
-import {useCallback} from 'react';
+import {useCallback, useMemo} from 'react';
 import {Form} from 'react-final-form';
 import {useUser} from '../../../context/UserContext';
 import MyStepper from '../../MyStepper';
@@ -12,13 +12,6 @@ type Props = {
   initialAds?: Ads;
 };
 
-type FormValues = Ads & {
-  privacyConsens?: boolean;
-  marketing?: boolean;
-  specialData?: boolean;
-  imageConsens?: boolean;
-};
-
 const PublishForm = ({initialAds}: Props) => {
   const match = useMediaQuery('(max-width:600px)');
 
@@ -28,51 +21,62 @@ const PublishForm = ({initialAds}: Props) => {
     console.log({submitValues: values});
   }, []);
 
+  const handleChangeStep = useCallback(
+    () => window.scrollTo({top: 0, behavior: 'smooth'}),
+    []
+  );
+
   return (
-    <Form<FormValues> onSubmit={handleSubmit} initialValues={initialAds}>
+    <Form<AdsFormValues> onSubmit={handleSubmit} initialValues={initialAds}>
       {({handleSubmit, submitting, hasValidationErrors, pristine, values}) => {
-        console.log({values});
         return (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} style={{flex: 1}}>
             <MyStepper
               alternativeLabel
               hideLabel={match}
+              initialStep={initialAds && 2}
+              onChangeStep={handleChangeStep}
               steps={[
-                {
-                  label: 'Informazioni',
-                  screen: <InformationStep hideConsens={!!initialAds} />,
-                  action: handleSubmit,
-                  loading: submitting,
-                  disabled: hasValidationErrors,
-                },
-                {
-                  label: 'Aggiungi foto',
-                  screen: (
-                    <ImagesStep
-                      hideConsens={!!initialAds}
-                      disabledCover={!!values.cover}
-                      disabledImages={values.images?.length === 5}
-                    />
-                  ),
-                  action: !submitting ? handleSubmit : undefined,
-                  loading: submitting,
-                  disabled: hasValidationErrors || pristine,
-                },
-                {
-                  label: 'Visibilità',
-                  screen: (
-                    <VisibilityStep showTime={!!values.visibilityOption} />
-                  ),
-                  action: !submitting ? handleSubmit : undefined,
-                  loading: submitting,
-                  disabled: hasValidationErrors,
-                },
+                // {
+                //   label: 'Informazioni',
+                //   screen: <InformationStep hideConsens={!!initialAds} />,
+                //   action: handleSubmit,
+                //   loading: submitting,
+                //   disabled: hasValidationErrors,
+                // },
+                // {
+                //   label: 'Aggiungi foto',
+                //   screen: (
+                //     <ImagesStep
+                //       hideConsens={!!initialAds}
+                //       disabledCover={!!values.cover}
+                //       disabledImages={values.images?.length === 5}
+                //     />
+                //   ),
+                //   action: !submitting ? handleSubmit : undefined,
+                //   loading: submitting,
+                //   disabled: hasValidationErrors || pristine,
+                // },
+                // {
+                //   label: 'Visibilità',
+                //   screen: (
+                //     <VisibilityStep
+                //       showTime={!!values.visibilityOption}
+                //       initialValue={initialAds?.visibilityOption}
+                //     />
+                //   ),
+                //   action: !submitting ? handleSubmit : undefined,
+                //   loading: submitting,
+                //   disabled: hasValidationErrors,
+                // },
                 {
                   label: 'Conferma',
+                  disabled: !!values.visibilityOption && !user,
                   screen: (
                     <ConfirmStep
                       isLogged={!!user}
                       showPayment={!!values.visibilityOption}
+                      currentAds={values}
                     />
                   ),
                   action: () => {},

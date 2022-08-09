@@ -14,11 +14,14 @@ import MyCheckbox from '../Fields/MyCheckbox';
 import RecoveryForm from './RecoveryForm';
 import {FORM_ERROR} from 'final-form';
 import {useUser} from '../../context/UserContext';
+import {useRouter} from 'next/router';
 
 const LoginForm = () => {
   const [recovery, setRecovery] = useState<boolean>(false);
 
   const {setUser} = useUser();
+
+  const router = useRouter();
 
   const handleSubmit = useCallback(
     async (values: any) => {
@@ -30,6 +33,9 @@ const LoginForm = () => {
           () => setUser({email: 'lorenzo@faenzi.com', phone: '34287438732'}),
           2000
         );
+        if (localStorage.getItem('ads-to-confirm')) {
+          router.push('/pubblica-annuncio');
+        }
       } catch (e) {
         console.log(e);
         //TODO
@@ -38,7 +44,7 @@ const LoginForm = () => {
         };
       }
     },
-    [setUser]
+    [setUser, router]
   );
 
   if (recovery) {

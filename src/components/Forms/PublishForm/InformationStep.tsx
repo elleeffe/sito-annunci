@@ -71,9 +71,9 @@ const InformationStep = ({hideConsens}: Props) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <MyTextField
-            name="address"
-            label="Indirizzo"
-            placeholder="Inserisci indirizzo"
+            name="neighborhoods"
+            label="Quartiere"
+            placeholder="Inserisci il tuo quartiere"
           />
         </Grid>
         <Grid item xs={12}>
@@ -98,9 +98,9 @@ const InformationStep = ({hideConsens}: Props) => {
         <Grid item xs={12} sm={9}>
           <MyTextField
             name="phone"
-            label="Telefono"
+            label="Telefono*"
             placeholder="Inserisci numero di telefono"
-            validate={(value) => numberValidator(value, false)}
+            validate={(value) => numberValidator(value, true)}
           />
         </Grid>
         <Grid item xs={3} display="flex" alignItems="center">

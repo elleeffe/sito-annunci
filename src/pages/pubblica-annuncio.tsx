@@ -1,15 +1,24 @@
-import React from 'react';
+import React, {useState} from 'react';
 import type {NextPage} from 'next';
 import {Box, Paper, styled} from '@mui/material';
 import Layout from '../components/Layout';
 import PublishForm from '../components/Forms/PublishForm';
 
 const Publish: NextPage = () => {
+  const [temporaryAds] = useState<AdsFormValues | undefined>(() => {
+    if (localStorage.getItem('ads-to-confirm')) {
+      return JSON.parse(
+        localStorage.getItem('ads-to-confirm')!
+      ) as AdsFormValues;
+    }
+    return undefined;
+  });
+
   return (
     <Layout hidePublish>
       <Wrap>
         <StyledPaper>
-          <PublishForm />
+          <PublishForm initialAds={temporaryAds} />
         </StyledPaper>
       </Wrap>
     </Layout>
@@ -24,6 +33,8 @@ const Wrap = styled(Box)(({theme}) => ({
   paddingTop: '100px',
   paddingBottom: '50px',
   background: theme.palette.primary.main,
+  display: 'flex',
+  flexDirection: 'column',
 }));
 
 const StyledPaper = styled(Paper)(({theme}) => ({
@@ -33,6 +44,15 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   borderRadius: '10px',
   margin: '0 auto',
   padding: '25px',
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+  },
 
   [theme.breakpoints.down('sm')]: {
     padding: '20px 10px',

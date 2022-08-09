@@ -76,7 +76,7 @@ const Auth: NextPage = () => {
             </Button>
           </Container>
         </Box>
-        <Box display="flex" justifyContent="center" flex={1} width="100%">
+        <Box display="flex" justifyContent="center" width="100%">
           <StyledPaper>
             <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
               <Tabs value={tab} onChange={handleChangeTab} variant="fullWidth">
@@ -109,7 +109,7 @@ const Auth: NextPage = () => {
             )}
             {tab === 1 && (
               <TabPanel>
-                <RegisterForm />
+                <RegisterForm onFinish={() => setTab(0)} />
               </TabPanel>
             )}
           </StyledPaper>
@@ -126,6 +126,8 @@ const Wrap = styled(Box)(({theme}) => ({
   height: '100vh',
   minHeight: '600px',
   background: theme.palette.primary.main,
+  display: 'flex',
+  flexDirection: 'column',
 }));
 
 const StyledPaper = styled(Paper)(({theme}) => ({

@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Stepper,
   Step,
@@ -33,6 +33,7 @@ type Props = {
   alternativeLabel?: boolean;
   steps: StepType[];
   initialStep?: number;
+  onChangeStep?: () => void;
   final: {
     screen: React.ReactNode;
     action?: () => void | Promise<any>;
@@ -53,10 +54,9 @@ const MyStepper = ({
   final,
   hideLabel,
   initialStep,
+  onChangeStep,
 }: Props) => {
   const [activeStep, setActiveStep] = useState<number>(() => initialStep || 0);
-
-  console.log(activeStep, steps.length);
 
   const stepAction = useMemo(() => {
     if (activeStep === steps.length) {
@@ -68,8 +68,9 @@ const MyStepper = ({
 
   const handleNext = useCallback(() => {
     stepAction && stepAction();
+    onChangeStep && onChangeStep();
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
-  }, [stepAction]);
+  }, [stepAction, onChangeStep]);
 
   const handleBack = useCallback(() => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
@@ -104,7 +105,6 @@ const MyStepper = ({
             display="flex"
             alignItems="flex-end"
             justifyContent="space-between"
-            flex={1}
           >
             <IconButton
               color={final.button.color || 'primary'}

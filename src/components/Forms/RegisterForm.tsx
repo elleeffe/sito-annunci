@@ -14,20 +14,29 @@ import MyTextField from '../Fields/MyTextField';
 import MyButton from '../MyButton';
 import {TitleH6} from '../MyTypography';
 
-const RegisterForm = () => {
+type Props = {
+  onFinish: () => void;
+};
+
+const RegisterForm = ({onFinish}: Props) => {
   const router = useRouter();
 
-  const handleSubmit = useCallback(async (values: any) => {
-    try {
-      console.log(values);
-    } catch (e) {
-      console.log(e);
-      //TODO
-      return {
-        [FORM_ERROR]: 'Ops, qualcosa è andato storto. Riprovare',
-      };
-    }
-  }, []);
+  const handleSubmit = useCallback(
+    async (values: any) => {
+      try {
+        // TODO: add api
+        console.log({registerValues: values});
+        onFinish();
+      } catch (e) {
+        console.log(e);
+        //TODO
+        return {
+          [FORM_ERROR]: 'Ops, qualcosa è andato storto. Riprovare',
+        };
+      }
+    },
+    [onFinish]
+  );
 
   return (
     <>

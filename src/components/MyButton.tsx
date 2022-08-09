@@ -15,7 +15,7 @@ const MyButton = ({children, loading, size = 'medium', ...props}: Props) => {
   }, [size]);
 
   return (
-    <Button {...props}>
+    <Button {...props} size={size}>
       {loading ? <CircularProgress size={loaderSize} /> : children}
     </Button>
   );

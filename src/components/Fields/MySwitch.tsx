@@ -47,8 +47,13 @@ const MySwitch = ({
       <FormGroup>
         <FormControlLabel
           {...input}
-          disabled={disabled}
-          control={<Switch color={iconColor} onChange={onSwitch && onSwitch} />}
+          control={
+            <Switch
+              color={iconColor}
+              onChange={onSwitch && onSwitch}
+              disabled={disabled}
+            />
+          }
           label={label}
           sx={{
             '& .MuiTypography-root': {

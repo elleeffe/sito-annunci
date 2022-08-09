@@ -1,37 +1,16 @@
-import {useCallback} from 'react';
 import type {NextPage} from 'next';
 import {useRouter} from 'next/router';
 import Layout from '../components/Layout';
-import {Box, Button, Container, Grid, styled} from '@mui/material';
-import {Form} from 'react-final-form';
-import MyTextField from '../components/Fields/MyTextField';
-import MySelect from '../components/Fields/MySelect';
+import {Box, Container, Grid, styled} from '@mui/material';
 import CardSlider from '../components/Card/CardSlider';
 import segnapostoCta from '../assets/img/segnaposto-cta.png';
 import HeroBanner from '../components/Hero/HeroBanner';
-import MyAutocomplete from '../components/Fields/MyAutocomplete';
 import {Subtitle1, TitleH1, TitleH2} from '../components/MyTypography';
-import {cards, categoryOptions, cityOptions} from '../utils/config';
-
-type FormValues = {
-  category: Category;
-  city: City;
-  keyword: string;
-};
+import {cards} from '../utils/config';
+import HomeForm from '../components/Forms/HomeForm';
 
 const Home: NextPage = () => {
   const router = useRouter();
-
-  const handleSubmit = useCallback(
-    (values: FormValues) => {
-      if (values.category === 'all') {
-        router.push(`/categorie`);
-      } else {
-        router.push(`/categorie/${values.category}`);
-      }
-    },
-    [router]
-  );
 
   return (
     <Layout>
@@ -46,49 +25,7 @@ const Home: NextPage = () => {
                 Work with talented people at the most affordable price to get
                 the most out of your time and cost
               </Subtitle1>
-              <Form<FormValues>
-                onSubmit={handleSubmit}
-                initialValues={{category: 'all'}}
-              >
-                {({handleSubmit}) => {
-                  return (
-                    <form onSubmit={handleSubmit}>
-                      <FilterWrap container columnSpacing={2} rowSpacing={2}>
-                        <Grid item xs={12} md={3}>
-                          <MySelect
-                            id="category"
-                            name="category"
-                            placeholder="Categoria"
-                            options={categoryOptions}
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={3}>
-                          <MyAutocomplete
-                            name="city"
-                            placeholder="Città"
-                            options={cityOptions}
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={3}>
-                          <MyTextField
-                            name="keyword"
-                            placeholder="Sto cercando..."
-                          />
-                        </Grid>
-                        <Grid item xs={12} md={3}>
-                          <Button
-                            variant="contained"
-                            onClick={handleSubmit}
-                            sx={{width: '100%'}}
-                          >
-                            Cerca
-                          </Button>
-                        </Grid>
-                      </FilterWrap>
-                    </form>
-                  );
-                }}
-              </Form>
+              <HomeForm />
             </Grid>
           </Grid>
         </Container>
@@ -132,18 +69,4 @@ const Intro = styled(Box)(({theme}) => ({
   background: theme.palette.primary.main,
   paddingTop: '100px',
   paddingBottom: '100px',
-}));
-
-const FilterWrap = styled(Grid)(({theme}) => ({
-  background: theme.palette.background.default,
-  borderRadius: '50px',
-  marginTop: '25px',
-  padding: '0px 16px 16px 0px',
-  justifyContent: 'space-between',
-  width: '100%',
-  marginLeft: 0,
-
-  [theme.breakpoints.down('md')]: {
-    borderRadius: '25px',
-  },
 }));

@@ -22,13 +22,13 @@ type Ads = {
   category: Omit<Category, 'all'>;
   city: City;
   age: number;
-  address?: string;
+  neighborhood?: string;
   areas?: string[];
   email: string;
   phone?: string;
   cover: {name: string; base64: string}[];
   images?: {name: string; base64: string}[];
-  whatsapp?: boolean;
+  whatsapp: boolean;
   visibilityOption?: Visibility;
   visibilityTime?: TimeRange;
 };
@@ -44,4 +44,17 @@ type VisibilityOption = {
   disabled?: boolean;
   important?: boolean;
   chip?: string;
+};
+
+type AdsFormValues = Ads & {
+  privacyConsens: boolean;
+  marketing?: boolean;
+  specialData?: boolean;
+  imageConsens?: boolean;
+};
+
+type HomeFormValues = {
+  category: Category;
+  city: City;
+  keyword: string;
 };

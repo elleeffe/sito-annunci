@@ -2,7 +2,6 @@ import segnaposto from '../assets/img/segnaposto.jpeg';
 import {CardItemType} from '../components/Card/SimpleCard';
 
 export const categoryOptions: {value: Category; label: string}[] = [
-  {value: 'all', label: 'Tutte le categorie'},
   {
     value: 'categoria-1',
     label: 'Categoria 1',

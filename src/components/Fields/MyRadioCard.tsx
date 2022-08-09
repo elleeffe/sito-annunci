@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {useField} from 'react-final-form';
 import {
   FormControl,
@@ -20,6 +20,7 @@ type Props = {
   validate?: (value: string) => string;
   options: VisibilityOption[];
   spacingBottom?: boolean;
+  initialValue?: Visibility;
 };
 
 const MyRadioCard = ({
@@ -28,10 +29,22 @@ const MyRadioCard = ({
   validate,
   options,
   spacingBottom,
+  initialValue,
 }: Props) => {
+  const [value, setValue] = useState<Visibility | undefined>(
+    () => initialValue || undefined
+  );
   const {input, meta} = useField(name, {validate, type: 'radio'});
 
   const {error, helperText} = useMemo(() => muiErrorConverter(meta), [meta]);
+
+  const handleChange = useCallback(
+    (value: Visibility) => {
+      input.onChange(value);
+      setValue(value);
+    },
+    [input]
+  );
 
   return (
     <FormControl
@@ -42,6 +55,7 @@ const MyRadioCard = ({
       <RadioGroup
         row
         {...input}
+        onChange={(e) => handleChange(e.target.value as Visibility)}
         sx={{width: '100%', justifyContent: 'space-between'}}
       >
         <Grid container columnSpacing={2} rowSpacing={2}>
@@ -55,10 +69,10 @@ const MyRadioCard = ({
               <GridCard>
                 {option.chip && <CardChip>{option.chip}</CardChip>}
                 <Grid container alignItems="flex-end">
-                  <Grid xs={9}>
+                  <Grid item xs={9}>
                     <FormControlLabel
                       value={option.value}
-                      control={<Radio />}
+                      control={<Radio checked={value === option.value} />}
                       label={option.title}
                       sx={{
                         '& .MuiTypography-root': {
@@ -70,6 +84,7 @@ const MyRadioCard = ({
                   </Grid>
                   <Grid
                     xs={3}
+                    item
                     display="flex"
                     alignItems="flex-end"
                     flexDirection="column"

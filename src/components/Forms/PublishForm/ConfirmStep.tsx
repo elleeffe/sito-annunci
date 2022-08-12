@@ -3,6 +3,7 @@ import {Alert, Box, styled} from '@mui/material';
 import {useRouter} from 'next/router';
 import MyButton from '../../MyButton';
 import {StyledButton, Subtitle1, TitleH6} from '../../MyTypography';
+import AdsCard from '../../Card/AdsCard';
 
 type Props = {
   isLogged: boolean;
@@ -10,15 +11,15 @@ type Props = {
   currentAds: AdsFormValues;
 };
 
-const ads = {
+const ads: AdsFormValues = {
   title:
     'Titolo annuncio Titolo annuncio Titolo annuncio Titolo annuncio Titolo annuncio Titolo annuncio Titolo annuncio Titolo annuncioTitolo annuncioTitolo annuncio',
   content:
     "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   category: 'categoria-1',
-  age: '23',
+  age: 23,
   city: 'roma',
-  neighborhoods: 'Tor sapienza',
+  neighborhood: 'Tor sapienza',
   areas: ['la rustica', 'centocelle'],
   email: 'lorenzofaenzi@email.com',
   phone: '234564321',
@@ -91,12 +92,8 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
             per renderlo permanente!
           </Alert>
         ))}
-      <AdsCard>
-        <img src={ads.cover[0].base64} alt="cover" />
-        <Box display="flex" height="100%" flex={1}>
-          <AdsTitle>{ads.title.slice(0, 100)}...</AdsTitle>
-        </Box>
-      </AdsCard>
+      <Subtitle1 marginBottom="15px">Anteprima ricerca</Subtitle1>
+      <AdsCard ads={ads} />
     </Wrap>
   );
 };
@@ -129,35 +126,7 @@ const Overlay = styled(Box)(({theme}) => ({
     padding: '0 50px',
   },
 
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('sm')]: {
     padding: '0 20px',
-  },
-}));
-
-const AdsCard = styled(Box)(({theme}) => ({
-  padding: '15px',
-  borderRadius: '20px',
-  width: '100%',
-  background: '#F8FAFB',
-  display: 'flex',
-
-  '& + &': {
-    marginTop: '20px',
-  },
-
-  img: {
-    width: '250px',
-    height: '150px',
-    borderRadius: '15px',
-    marginRight: '25px',
-  },
-}));
-
-const AdsTitle = styled(TitleH6)(({theme}) => ({
-  fontWeight: '500',
-  fontSize: '20px',
-
-  [theme.breakpoints.down('md')]: {
-    fontSize: '18px',
   },
 }));

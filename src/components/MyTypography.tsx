@@ -133,7 +133,7 @@ export const Body1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isPoppins',
 })<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
   lineHeight: 1.4,
-  fontSize: '15px',
+  fontSize: '16px',
   fontWeight: 300,
   ...(isPoppins
     ? {fontFamily: 'Poppins'}
@@ -146,7 +146,7 @@ export const Body1 = styled(Typography, {
         color: theme.palette.text.secondary,
       }),
   [theme.breakpoints.down('md')]: {
-    fontSize: '13px',
+    fontSize: '14px',
   },
 }));
 Body1.defaultProps = {variant: 'body1'};

@@ -1,5 +1,5 @@
 import {useMediaQuery} from '@mui/material';
-import {useCallback, useMemo} from 'react';
+import {useCallback} from 'react';
 import {Form} from 'react-final-form';
 import {useUser} from '../../../context/UserContext';
 import MyStepper from '../../MyStepper';
@@ -37,38 +37,38 @@ const PublishForm = ({initialAds}: Props) => {
               initialStep={initialAds && 2}
               onChangeStep={handleChangeStep}
               steps={[
-                // {
-                //   label: 'Informazioni',
-                //   screen: <InformationStep hideConsens={!!initialAds} />,
-                //   action: handleSubmit,
-                //   loading: submitting,
-                //   disabled: hasValidationErrors,
-                // },
-                // {
-                //   label: 'Aggiungi foto',
-                //   screen: (
-                //     <ImagesStep
-                //       hideConsens={!!initialAds}
-                //       disabledCover={!!values.cover}
-                //       disabledImages={values.images?.length === 5}
-                //     />
-                //   ),
-                //   action: !submitting ? handleSubmit : undefined,
-                //   loading: submitting,
-                //   disabled: hasValidationErrors || pristine,
-                // },
-                // {
-                //   label: 'Visibilità',
-                //   screen: (
-                //     <VisibilityStep
-                //       showTime={!!values.visibilityOption}
-                //       initialValue={initialAds?.visibilityOption}
-                //     />
-                //   ),
-                //   action: !submitting ? handleSubmit : undefined,
-                //   loading: submitting,
-                //   disabled: hasValidationErrors,
-                // },
+                {
+                  label: 'Informazioni',
+                  screen: <InformationStep hideConsens={!!initialAds} />,
+                  action: handleSubmit,
+                  loading: submitting,
+                  disabled: hasValidationErrors,
+                },
+                {
+                  label: 'Aggiungi foto',
+                  screen: (
+                    <ImagesStep
+                      hideConsens={!!initialAds}
+                      disabledCover={!!values.cover}
+                      disabledImages={values.images?.length === 5}
+                    />
+                  ),
+                  action: !submitting ? handleSubmit : undefined,
+                  loading: submitting,
+                  disabled: hasValidationErrors || pristine,
+                },
+                {
+                  label: 'Visibilità',
+                  screen: (
+                    <VisibilityStep
+                      showTime={!!values.visibilityOption}
+                      initialValue={initialAds?.visibilityOption}
+                    />
+                  ),
+                  action: !submitting ? handleSubmit : undefined,
+                  loading: submitting,
+                  disabled: hasValidationErrors,
+                },
                 {
                   label: 'Conferma',
                   disabled: !!values.visibilityOption && !user,

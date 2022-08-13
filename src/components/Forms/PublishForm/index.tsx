@@ -29,6 +29,7 @@ const PublishForm = ({initialAds}: Props) => {
   return (
     <Form<AdsFormValues> onSubmit={handleSubmit} initialValues={initialAds}>
       {({handleSubmit, submitting, hasValidationErrors, pristine, values}) => {
+        console.log(values);
         return (
           <form onSubmit={handleSubmit} style={{flex: 1}}>
             <MyStepper

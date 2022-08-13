@@ -1,9 +1,9 @@
+import {useState} from 'react';
 import {Box, Grid, styled} from '@mui/material';
 import {categoryOptions, cityOptions} from '../../../utils/config';
 import {
   emailValidator,
   isRequired,
-  numberValidator,
   numberValueValidator,
 } from '../../../utils/fields';
 import MyAutocomplete from '../../Fields/MyAutocomplete';
@@ -12,12 +12,16 @@ import MySelect from '../../Fields/MySelect';
 import MySwitch from '../../Fields/MySwitch';
 import MyTextField from '../../Fields/MyTextField';
 import {Body1, Body2, StyledButton, TitleH6} from '../../MyTypography';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import MyModal from '../../MyModal';
 
 type Props = {
   hideConsens: boolean;
 };
 
 const InformationStep = ({hideConsens}: Props) => {
+  const [modal, setModal] = useState<boolean>(false);
+
   return (
     <Box display="flex" flexDirection="column" marginBottom="30px">
       <TitleH6 marginBottom="20px">Informazioni annuncio</TitleH6>
@@ -57,7 +61,7 @@ const InformationStep = ({hideConsens}: Props) => {
             name="age"
             label="Eta*"
             placeholder="La tua età"
-            validate={(value) => numberValueValidator(18, value, true)}
+            validate={(value) => numberValueValidator(value, true, 18)}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -71,7 +75,7 @@ const InformationStep = ({hideConsens}: Props) => {
         </Grid>
         <Grid item xs={12} md={6}>
           <MyTextField
-            name="neighborhoods"
+            name="neighborhood"
             label="Quartiere"
             placeholder="Inserisci il tuo quartiere"
           />
@@ -100,12 +104,24 @@ const InformationStep = ({hideConsens}: Props) => {
             name="phone"
             label="Telefono*"
             placeholder="Inserisci numero di telefono"
-            validate={(value) => numberValidator(value, true)}
+            validate={(value) =>
+              numberValueValidator(value, true, undefined, 10)
+            }
           />
         </Grid>
         <Grid item xs={3} display="flex" alignItems="center">
           <Box display="flex" alignItems="center">
             <MySwitch name="whatsapp" label="Whatsapp" />
+            <HelpOutlineIcon
+              color="primary"
+              sx={{
+                cursor: 'pointer',
+                marginLeft: '5px',
+                opacity: 0.7,
+                '&:hover': {opacity: 1},
+              }}
+              onClick={() => setModal(true)}
+            />
           </Box>
         </Grid>
       </Grid>
@@ -189,6 +205,9 @@ const InformationStep = ({hideConsens}: Props) => {
           </Body2>
         </>
       )}
+      <MyModal isOpen={modal} onClose={() => setModal(false)}>
+        Aggiungere screen di annuncio con tasto whatsapp + spiegazione
+      </MyModal>
     </Box>
   );
 };

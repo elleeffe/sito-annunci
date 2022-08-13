@@ -21,7 +21,8 @@ const AdsCard = ({ads, isPreview}: Props) => {
       />
       <Content item xs={12} md={7} lg={8}>
         <Title>{formatAdsCardText(ads.title, 10)}</Title>
-        <Description>{formatAdsCardText(ads.description, 24)}</Description>
+        <Description>{formatAdsCardText(ads.description, 20)}</Description>
+        <Info sx={{marginBottom: '10px'}}>{ads.category}</Info>
         <InfoWrap>
           <Info divider>{ads.age} anni</Info>
           <CardAction>

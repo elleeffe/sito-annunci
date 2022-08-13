@@ -2,9 +2,11 @@ import {useCallback, useMemo, useState} from 'react';
 import {useField} from 'react-final-form';
 import {
   FormControl,
+  FormControlLabel,
   FormHelperText,
   FormLabel,
   Grid,
+  Radio,
   RadioGroup,
 } from '@mui/material';
 import {muiErrorConverter} from '../../utils/fields';
@@ -48,6 +50,20 @@ const MyRadioCard = ({
       sx={{width: '100%', marginBottom: spacingBottom ? '25px' : undefined}}
     >
       {label && <FormLabel>Gender</FormLabel>}
+      <FormControlLabel
+        control={<Radio checked={value === undefined} />}
+        onChange={() => {
+          setValue(undefined);
+          input.onChange(undefined);
+        }}
+        label="Nessuna opzione di visibilità"
+        sx={{
+          marginBottom: '15px',
+          '& .MuiTypography-root': {
+            marginLeft: '10px',
+          },
+        }}
+      />
       <RadioGroup
         row
         {...input}

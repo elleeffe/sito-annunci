@@ -127,19 +127,30 @@ export const numberValidator = (value: string, required: boolean) => {
 };
 
 export const numberValueValidator = (
-  minValue: number,
   value: string,
-  required: boolean
+  required: boolean,
+  minValue?: number,
+  length?: number
 ) => {
   const check = numberValidator(value, required);
   if (check) {
     return check;
   }
-  if (parseInt(value) < minValue) {
-    return 'Minore di ' + minValue;
+  if (minValue) {
+    if (parseInt(value) < minValue) {
+      return 'Minore di ' + minValue;
+    }
+    if (parseInt(value) >= 100) {
+      return 'Numero non valido';
+    }
   }
-  if (parseInt(value) >= 100) {
-    return 'Numero non valido';
+  if (length) {
+    if (value.length < length) {
+      return 'Numero troppo corto';
+    }
+    if (value.length > length) {
+      return 'Numero troppo lungo';
+    }
   }
   return undefined;
 };

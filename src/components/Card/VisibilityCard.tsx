@@ -1,7 +1,11 @@
 import {Box, FormControlLabel, Grid, Radio, styled} from '@mui/material';
 import {Body1, Body2, Subtitle1, Subtitle2, TitleH6} from '../MyTypography';
 
-type Props = {option: VisibilityOption; isRadio?: boolean; value?: Visibility};
+type Props = {
+  option: VisibilityOption;
+  isRadio?: boolean;
+  value?: Visibility;
+};
 
 const VisibilityCard = ({option, isRadio, value}: Props) => {
   return (

@@ -109,42 +109,72 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
         <>
           {visibilityOption && (
             <>
-              <Subtitle1 marginBottom="10px">Piano visibilità scelto</Subtitle1>
+              <StyledTitleH6 marginBottom="10px">
+                Piano visibilità scelto
+              </StyledTitleH6>
               <VisibilityCard option={visibilityOption} />
             </>
           )}
-          <Subtitle1 marginBottom="15px" marginTop="35px">
+          <StyledTitleH6 marginBottom="15px" marginTop="35px">
             Anteprima ricerca
-          </Subtitle1>
+          </StyledTitleH6>
           <AdsCard ads={currentAds} isPreview />
-          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+          <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
             Titolo annuncio
-          </TitleH6>
+          </StyledTitleH6>
           <Subtitle1>{currentAds.title}</Subtitle1>
-          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+          <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
             Descrizione annuncio
-          </TitleH6>
+          </StyledTitleH6>
           <Subtitle2>{currentAds.description}</Subtitle2>
           <Box display="flex" flexWrap="wrap">
-            <Box marginRight="150px">
-              <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+            <Box width={isSm ? '100%' : '50%'}>
+              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+                Categoria
+              </StyledTitleH6>
+              <Subtitle2>{currentAds.category}</Subtitle2>
+            </Box>
+            <Box>
+              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+                Email
+              </StyledTitleH6>
+              <Subtitle2>{currentAds.email}</Subtitle2>
+            </Box>
+          </Box>
+          <Box display="flex" flexWrap="wrap">
+            <Box width={isSm ? '100%' : '50%'}>
+              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+                Telefono
+              </StyledTitleH6>
+              <Subtitle2>{currentAds.phone}</Subtitle2>
+            </Box>
+            <Box>
+              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+                Whatsapp
+              </StyledTitleH6>
+              <Subtitle2>{currentAds.whatsapp ? 'Si' : 'No'}</Subtitle2>
+            </Box>
+          </Box>
+          <Box display="flex" flexWrap="wrap">
+            <Box width={isSm ? '100%' : '50%'}>
+              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
                 Età
-              </TitleH6>
+              </StyledTitleH6>
               <Subtitle2>{currentAds.age}</Subtitle2>
             </Box>
             <Box>
-              <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
                 Città
-              </TitleH6>
+              </StyledTitleH6>
               <Subtitle2>
                 {currentAds.city.toUpperCase()}
                 {currentAds.neighborhood && `, ${currentAds.neighborhood}`}
               </Subtitle2>
             </Box>
           </Box>
-          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+          <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
             Aree/Zone vicine
-          </TitleH6>
+          </StyledTitleH6>
           {currentAds.areas && (
             <Box display="flex" flexWrap="wrap">
               {currentAds.areas.map((area) => (
@@ -164,10 +194,15 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
           )}
           {currentAds.images && (
             <>
-              <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
                 Foto annuncio
-              </TitleH6>
-              <ImageList variant="quilted" cols={imageListCols} gap={8}>
+              </StyledTitleH6>
+              <ImageList
+                variant="quilted"
+                cols={imageListCols}
+                gap={8}
+                sx={{marginTop: '5px'}}
+              >
                 {currentAds.images.map((image) => (
                   <ImageListItem key={image.name}>
                     <img
@@ -216,5 +251,13 @@ const Overlay = styled(Box)(({theme}) => ({
 
   [theme.breakpoints.down('sm')]: {
     padding: '0 20px',
+  },
+}));
+
+const StyledTitleH6 = styled(TitleH6)(({theme}) => ({
+  fontSize: '20px',
+  fontWeight: 600,
+  [theme.breakpoints.down('md')]: {
+    fontSize: '18px',
   },
 }));

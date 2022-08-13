@@ -25,7 +25,7 @@ type Ads = {
   neighborhood?: string;
   areas?: string[];
   email: string;
-  phone?: string;
+  phone: string;
   cover: {name: string; base64: string}[];
   images?: {name: string; base64: string}[];
   whatsapp: boolean;

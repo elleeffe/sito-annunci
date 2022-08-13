@@ -13,13 +13,16 @@ import {styled, Box, Alert} from '@mui/material';
 import MyCheckbox from '../Fields/MyCheckbox';
 import RecoveryForm from './RecoveryForm';
 import {FORM_ERROR} from 'final-form';
-import {useUser} from '../../context/UserContext';
+import {useUser} from '../../contexts/UserContext';
 import {useRouter} from 'next/router';
+import {useAdsContext} from '../../contexts/AdsContext';
 
 const LoginForm = () => {
   const [recovery, setRecovery] = useState<boolean>(false);
 
   const {setUser} = useUser();
+
+  const {ads} = useAdsContext();
 
   const router = useRouter();
 
@@ -33,7 +36,7 @@ const LoginForm = () => {
           () => setUser({email: 'lorenzo@faenzi.com', phone: '34287438732'}),
           2000
         );
-        if (localStorage.getItem('ads-to-confirm')) {
+        if (ads) {
           router.push('/pubblica-annuncio');
         }
       } catch (e) {
@@ -44,7 +47,7 @@ const LoginForm = () => {
         };
       }
     },
-    [setUser, router]
+    [setUser, router, ads]
   );
 
   if (recovery) {

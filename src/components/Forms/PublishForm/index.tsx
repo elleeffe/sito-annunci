@@ -1,7 +1,7 @@
 import {useMediaQuery} from '@mui/material';
 import {useCallback} from 'react';
 import {Form} from 'react-final-form';
-import {useUser} from '../../../context/UserContext';
+import {useUser} from '../../../contexts/UserContext';
 import MyStepper from '../../MyStepper';
 import ConfirmStep from './ConfirmStep';
 import ImagesStep from './ImagesStep';
@@ -34,7 +34,7 @@ const PublishForm = ({initialAds}: Props) => {
             <MyStepper
               alternativeLabel
               hideLabel={match}
-              initialStep={initialAds && 2}
+              initialStep={initialAds && 3}
               onChangeStep={handleChangeStep}
               steps={[
                 {

@@ -7,7 +7,7 @@ import {ArrowForward, Login, PersonAddAlt1} from '@mui/icons-material';
 import LoginForm from '../components/Forms/LoginForm';
 import RegisterForm from '../components/Forms/RegisterForm';
 import Layout from '../components/Layout';
-import {useUser} from '../context/UserContext';
+import {useUser} from '../contexts/UserContext';
 
 const Auth: NextPage = () => {
   const [mobile, setMobile] = useState<boolean>(false);

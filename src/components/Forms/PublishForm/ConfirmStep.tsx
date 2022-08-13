@@ -14,6 +14,7 @@ import AdsCard from '../../Card/AdsCard';
 import VisibilityCard from '../../Card/VisibilityCard';
 import {visibilityOptions} from '../../../utils/config';
 import useResponsive from '../../../hooks/useResponsive';
+import {useAdsContext} from '../../../contexts/AdsContext';
 
 type Props = {
   isLogged: boolean;
@@ -26,15 +27,17 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
 
   const {isSm, isMd} = useResponsive();
 
+  const {setAds} = useAdsContext();
+
   const handleConnection = useCallback(
     (value: 'login' | 'register') => {
-      localStorage.setItem('ads-to-confirm', JSON.stringify(currentAds));
+      setAds(currentAds);
       router.push({
         pathname: '/auth',
         query: {tab: value},
       });
     },
-    [router, currentAds]
+    [router, currentAds, setAds]
   );
 
   const visibilityOption = useMemo(
@@ -54,6 +57,11 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
     }
     return 3;
   }, [isSm, isMd]);
+
+  const showResume = useMemo(
+    () => (!isLogged && !showPayment) || (isLogged && showPayment),
+    [isLogged, showPayment]
+  );
 
   return (
     <Wrap>
@@ -97,73 +105,81 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
             per renderlo permanente!
           </Alert>
         ))}
-      <Subtitle1 marginBottom="15px">Anteprima ricerca</Subtitle1>
-      <AdsCard ads={currentAds} isPreview />
-      <TitleH6 isSmall marginBottom="5px" marginTop="35px">
-        Titolo annuncio
-      </TitleH6>
-      <Subtitle1>{currentAds.title}</Subtitle1>
-      <TitleH6 isSmall marginBottom="5px" marginTop="35px">
-        Descrizione annuncio
-      </TitleH6>
-      <Subtitle2>{currentAds.description}</Subtitle2>
-      <Box display="flex" flexWrap="wrap">
-        <Box marginRight="150px">
-          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
-            Età
-          </TitleH6>
-          <Subtitle2>{currentAds.age}</Subtitle2>
-        </Box>
-        <Box>
-          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
-            Città
-          </TitleH6>
-          <Subtitle2>
-            {currentAds.city.toUpperCase()}
-            {currentAds.neighborhood && `, ${currentAds.neighborhood}`}
-          </Subtitle2>
-        </Box>
-      </Box>
-      <TitleH6 isSmall marginBottom="5px" marginTop="35px">
-        Aree/Zone vicine
-      </TitleH6>
-      {currentAds.areas && (
-        <Box display="flex" flexWrap="wrap">
-          {currentAds.areas.map((area) => (
-            <Chip
-              color="primary"
-              key={area}
-              label={area}
-              sx={{
-                marginBottom: '8px',
-                marginRight: '9px',
-                color: '#fff',
-                fontSize: '16px',
-              }}
-            />
-          ))}
-        </Box>
-      )}
-      {currentAds.images && (
+      {showResume && (
         <>
-          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
-            Foto annuncio
-          </TitleH6>
-          <ImageList variant="quilted" cols={imageListCols} gap={8}>
-            {currentAds.images.map((image) => (
-              <ImageListItem key={image.name}>
-                <img src={`${image.base64}`} alt={image.name} loading="lazy" />
-              </ImageListItem>
-            ))}
-          </ImageList>
-        </>
-      )}
-      {visibilityOption && (
-        <>
-          <Subtitle1 marginBottom="10px" marginTop="35px">
-            Piano visibilità scelto
+          {visibilityOption && (
+            <>
+              <Subtitle1 marginBottom="10px">Piano visibilità scelto</Subtitle1>
+              <VisibilityCard option={visibilityOption} />
+            </>
+          )}
+          <Subtitle1 marginBottom="15px" marginTop="35px">
+            Anteprima ricerca
           </Subtitle1>
-          <VisibilityCard option={visibilityOption} />
+          <AdsCard ads={currentAds} isPreview />
+          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+            Titolo annuncio
+          </TitleH6>
+          <Subtitle1>{currentAds.title}</Subtitle1>
+          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+            Descrizione annuncio
+          </TitleH6>
+          <Subtitle2>{currentAds.description}</Subtitle2>
+          <Box display="flex" flexWrap="wrap">
+            <Box marginRight="150px">
+              <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+                Età
+              </TitleH6>
+              <Subtitle2>{currentAds.age}</Subtitle2>
+            </Box>
+            <Box>
+              <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+                Città
+              </TitleH6>
+              <Subtitle2>
+                {currentAds.city.toUpperCase()}
+                {currentAds.neighborhood && `, ${currentAds.neighborhood}`}
+              </Subtitle2>
+            </Box>
+          </Box>
+          <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+            Aree/Zone vicine
+          </TitleH6>
+          {currentAds.areas && (
+            <Box display="flex" flexWrap="wrap">
+              {currentAds.areas.map((area) => (
+                <Chip
+                  color="primary"
+                  key={area}
+                  label={area}
+                  sx={{
+                    marginBottom: '8px',
+                    marginRight: '9px',
+                    color: '#fff',
+                    fontSize: '16px',
+                  }}
+                />
+              ))}
+            </Box>
+          )}
+          {currentAds.images && (
+            <>
+              <TitleH6 isSmall marginBottom="5px" marginTop="35px">
+                Foto annuncio
+              </TitleH6>
+              <ImageList variant="quilted" cols={imageListCols} gap={8}>
+                {currentAds.images.map((image) => (
+                  <ImageListItem key={image.name}>
+                    <img
+                      src={`${image.base64}`}
+                      alt={image.name}
+                      loading="lazy"
+                    />
+                  </ImageListItem>
+                ))}
+              </ImageList>
+            </>
+          )}
         </>
       )}
     </Wrap>

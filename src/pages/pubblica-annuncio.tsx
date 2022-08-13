@@ -1,24 +1,18 @@
-import React, {useState} from 'react';
+import React from 'react';
 import type {NextPage} from 'next';
 import {Box, Paper, styled} from '@mui/material';
 import Layout from '../components/Layout';
 import PublishForm from '../components/Forms/PublishForm';
+import {useAdsContext} from '../contexts/AdsContext';
 
 const Publish: NextPage = () => {
-  const [temporaryAds] = useState<AdsFormValues | undefined>(() => {
-    if (localStorage.getItem('ads-to-confirm')) {
-      return JSON.parse(
-        localStorage.getItem('ads-to-confirm')!
-      ) as AdsFormValues;
-    }
-    return undefined;
-  });
+  const {ads} = useAdsContext();
 
   return (
     <Layout hidePublish>
       <Wrap>
         <StyledPaper>
-          <PublishForm initialAds={temporaryAds} />
+          <PublishForm initialAds={ads} />
         </StyledPaper>
       </Wrap>
     </Layout>

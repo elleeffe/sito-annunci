@@ -21,7 +21,7 @@ import {
   PersonAddAlt1,
 } from '@mui/icons-material';
 import {TitleH6} from '../MyTypography';
-import {useUser} from '../../context/UserContext';
+import {useUser} from '../../contexts/UserContext';
 
 type Props = {
   hidePublish?: boolean;

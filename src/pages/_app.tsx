@@ -1,13 +1,16 @@
 import type {AppProps} from 'next/app';
 import AuthLoading from '../components/Layout/AuthLoading';
-import {UserProvider} from '../context/UserContext';
+import {AdsProvider} from '../contexts/AdsContext';
+import {UserProvider} from '../contexts/UserContext';
 import '../theme/index.css';
 
 function MyApp({Component, pageProps}: AppProps) {
   return (
     <UserProvider>
       <AuthLoading>
-        <Component {...pageProps} />
+        <AdsProvider>
+          <Component {...pageProps} />
+        </AdsProvider>
       </AuthLoading>
     </UserProvider>
   );

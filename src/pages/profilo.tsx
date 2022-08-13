@@ -5,7 +5,7 @@ import BreadCrumb from '../components/BreadCrumb';
 import Layout from '../components/Layout';
 import PageIntro from '../components/Layout/PageIntro';
 import {TitleH1} from '../components/MyTypography';
-import {useUser} from '../context/UserContext';
+import {useUser} from '../contexts/UserContext';
 import {LoadingScreen} from '../components/Layout/AuthLoading';
 
 const Profile: NextPage = () => {

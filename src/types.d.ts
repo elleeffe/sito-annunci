@@ -18,7 +18,7 @@ type Visibility =
 
 type Ads = {
   title: string;
-  content: string;
+  description: string;
   category: Omit<Category, 'all'>;
   city: City;
   age: number;

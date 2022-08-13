@@ -2,17 +2,13 @@ import {useCallback, useMemo, useState} from 'react';
 import {useField} from 'react-final-form';
 import {
   FormControl,
-  FormControlLabel,
   FormHelperText,
   FormLabel,
   Grid,
-  Radio,
   RadioGroup,
-  styled,
-  Box,
 } from '@mui/material';
 import {muiErrorConverter} from '../../utils/fields';
-import {Body1, Body2, Subtitle2, TitleH6} from '../MyTypography';
+import VisibilityCard from '../Card/VisibilityCard';
 
 type Props = {
   label?: string;
@@ -66,38 +62,7 @@ const MyRadioCard = ({
               md={option.important ? undefined : 6}
               key={option.value}
             >
-              <GridCard>
-                {option.chip && <CardChip>{option.chip}</CardChip>}
-                <Grid container alignItems="flex-end">
-                  <Grid item xs={9}>
-                    <FormControlLabel
-                      value={option.value}
-                      control={<Radio checked={value === option.value} />}
-                      label={option.title}
-                      sx={{
-                        '& .MuiTypography-root': {
-                          marginLeft: '10px',
-                        },
-                      }}
-                    />
-                    <Body1 gutterBottom>{option.subtitle}</Body1>
-                  </Grid>
-                  <Grid
-                    xs={3}
-                    item
-                    display="flex"
-                    alignItems="flex-end"
-                    flexDirection="column"
-                  >
-                    {option.price.original && (
-                      <Subtitle2 sx={{textDecoration: 'line-through'}}>
-                        {option.price.original}
-                      </Subtitle2>
-                    )}
-                    <TitleH6 isSmall>{option.price.actual}</TitleH6>
-                  </Grid>
-                </Grid>
-              </GridCard>
+              <VisibilityCard option={option} value={value} isRadio />
             </Grid>
           ))}
         </Grid>
@@ -108,25 +73,3 @@ const MyRadioCard = ({
 };
 
 export default MyRadioCard;
-
-const GridCard = styled(Box)(({theme}) => ({
-  border: `2px solid ${theme.palette.primary.main}`,
-  borderRadius: '15px',
-  padding: '5px 15px 25px',
-  position: 'relative',
-}));
-
-const CardChip = styled(Body2)(({theme}) => ({
-  position: 'absolute',
-  top: 0,
-  right: '15px',
-  padding: '3px 5px',
-  fontSize: '10px',
-  letterSpacing: '1px',
-  textTransform: 'uppercase',
-  fontWeight: '500',
-  borderRadius: '5px',
-  transform: 'translateY(-50%)',
-  color: theme.palette.background.default,
-  background: theme.palette.error.main,
-}));

@@ -6,33 +6,34 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 type Props = {
   ads: Ads;
+  isPreview?: boolean;
 };
 
-const AdsCard = ({ads}: Props) => {
+const AdsCard = ({ads, isPreview}: Props) => {
   return (
-    <Wrap container columnSpacing={2} rowSpacing={2}>
-      <AdsCover
+    <Wrap container columnSpacing={2} rowSpacing={2} isPreview={isPreview}>
+      <Cover
         item
         xs={12}
         md={5}
         lg={4}
         sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
       />
-      <AdsContent item xs={12} md={7} lg={8}>
-        <AdsTitle>{formatAdsCardText(ads.title, 8)}</AdsTitle>
-        <AdsDescription>{formatAdsCardText(ads.content, 20)}</AdsDescription>
+      <Content item xs={12} md={7} lg={8}>
+        <Title>{formatAdsCardText(ads.title, 10)}</Title>
+        <Description>{formatAdsCardText(ads.description, 24)}</Description>
         <InfoWrap>
-          <AdsInfo divider>{ads.age} anni</AdsInfo>
+          <Info divider>{ads.age} anni</Info>
           <CardAction>
             <LocationWrap>
               <PlaceIcon
                 color="primary"
                 sx={{width: '15px', height: '15px', marginRight: '3px'}}
               />
-              <AdsInfo>
+              <Info>
                 {ads.city.toUpperCase()}
                 {ads.neighborhood && `, ${ads.neighborhood}`}
-              </AdsInfo>
+              </Info>
             </LocationWrap>
             <CardButton
               size="small"
@@ -44,36 +45,39 @@ const AdsCard = ({ads}: Props) => {
             </CardButton>
           </CardAction>
         </InfoWrap>
-      </AdsContent>
+      </Content>
     </Wrap>
   );
 };
 
 export default AdsCard;
 
-const Wrap = styled(Grid)(({theme}) => ({
+const Wrap = styled(Grid, {
+  shouldForwardProp: (prop) => prop !== 'isPreview',
+})<{isPreview?: boolean}>(({theme, isPreview}) => ({
   padding: '15px',
   borderRadius: '20px',
   width: '100%',
   background: '#F8FAFB',
   display: 'flex',
-  cursor: 'pointer',
   transition: 'all 100ms linear',
   marginTop: '0px',
   marginLeft: '0px',
 
-  '&:hover': {
-    boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  },
+  ...(!isPreview && {
+    '&:hover': {
+      boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+    },
+  }),
 
   '& + &': {
     marginTop: '20px',
   },
 }));
 
-const AdsCover = styled(Grid)(({theme}) => ({
+const Cover = styled(Grid)(({theme}) => ({
   borderRadius: '15px',
-  height: '220px',
+  height: '200px',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
@@ -91,7 +95,7 @@ const AdsCover = styled(Grid)(({theme}) => ({
   },
 }));
 
-const AdsTitle = styled(TitleH6)(({theme}) => ({
+const Title = styled(TitleH6)(({theme}) => ({
   fontWeight: '500',
   fontSize: '20px',
 
@@ -101,7 +105,7 @@ const AdsTitle = styled(TitleH6)(({theme}) => ({
   },
 }));
 
-const AdsContent = styled(Grid)(({theme}) => ({
+const Content = styled(Grid)(({theme}) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -112,7 +116,7 @@ const AdsContent = styled(Grid)(({theme}) => ({
   },
 }));
 
-const AdsDescription = styled(Body1)(({theme}) => ({
+const Description = styled(Body1)(({theme}) => ({
   [theme.breakpoints.down('md')]: {
     marginBottom: '25px',
   },
@@ -151,7 +155,7 @@ const LocationWrap = styled(Box)(({theme}) => ({
   },
 }));
 
-const AdsInfo = styled(Body1, {
+const Info = styled(Body1, {
   shouldForwardProp: (prop) => prop !== 'divider',
 })<{divider?: boolean}>(({theme, divider}) => ({
   fontWeight: '700',

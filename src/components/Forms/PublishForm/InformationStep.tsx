@@ -7,7 +7,7 @@ import {
   numberValueValidator,
 } from '../../../utils/fields';
 import MyAutocomplete from '../../Fields/MyAutocomplete';
-import MyCustoMultipleSelect from '../../Fields/MyCustoMultipleSelect';
+import MyCustomMultipleSelect from '../../Fields/MyCustomMultipleSelect';
 import MySelect from '../../Fields/MySelect';
 import MySwitch from '../../Fields/MySwitch';
 import MyTextField from '../../Fields/MyTextField';
@@ -33,9 +33,9 @@ const InformationStep = ({hideConsens}: Props) => {
         </Grid>
         <Grid item xs={12}>
           <MyTextField
-            name="content"
+            name="description"
             multiline
-            label="Contenuto*"
+            label="Descrizione*"
             rows={8}
             placeholder="Usa questo spazio per descrivere te stesso, il tuo corpo, per parlare delle tue specialità, cosa ti piace..."
             validate={(value) => isRequired(value)}
@@ -77,7 +77,7 @@ const InformationStep = ({hideConsens}: Props) => {
           />
         </Grid>
         <Grid item xs={12}>
-          <MyCustoMultipleSelect
+          <MyCustomMultipleSelect
             name="areas"
             label="Aree vicine"
             placeholder="Zone e quartieri vicino a te"

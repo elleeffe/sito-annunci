@@ -24,7 +24,7 @@ type Props = TextFieldProps & {
   label?: string;
 };
 
-const MyCustoMultipleSelect = ({
+const MyCustomMultipleSelect = ({
   name,
   validate,
   icon,
@@ -127,7 +127,7 @@ const MyCustoMultipleSelect = ({
   );
 };
 
-export default MyCustoMultipleSelect;
+export default MyCustomMultipleSelect;
 
 const StyledPaper = styled(Paper, {
   shouldForwardProp: (prop) => prop !== 'isEmpty',

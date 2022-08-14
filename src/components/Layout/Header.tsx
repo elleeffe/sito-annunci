@@ -22,6 +22,7 @@ import {
 } from '@mui/icons-material';
 import {TitleH6} from '../MyTypography';
 import {useUser} from '../../contexts/UserContext';
+import {useAdsContext} from '../../contexts/AdsContext';
 
 type Props = {
   hidePublish?: boolean;
@@ -35,6 +36,8 @@ const Header = ({hidePublish}: Props) => {
   const router = useRouter();
 
   const {user, setUser} = useUser();
+
+  const {ads, setAds} = useAdsContext();
 
   const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl((old) => (!!old ? null : event.currentTarget));
@@ -91,7 +94,10 @@ const Header = ({hidePublish}: Props) => {
                 endIcon={<ArrowBack />}
                 sx={{marginRight: '15px', transition: 'all 100ms linear'}}
                 color="warning"
-                onClick={() => router.push('/')}
+                onClick={() => {
+                  router.push('/');
+                  ads && setAds(undefined);
+                }}
               >
                 Vai al sito
               </Button>

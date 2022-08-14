@@ -88,7 +88,7 @@ TitleH6.defaultProps = {variant: 'h6'};
 export const Subtitle1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isPoppins',
 })<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
-  lineHeight: 1.3,
+  lineHeight: 1.4,
   fontSize: '18px',
   fontWeight: 400,
   ...(isPoppins

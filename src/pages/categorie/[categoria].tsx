@@ -1,27 +1,44 @@
 import type {NextPage} from 'next';
 import {useRouter} from 'next/router';
+import {useEffect, useMemo} from 'react';
 import BreadCrumb from '../../components/BreadCrumb';
 import Layout from '../../components/Layout';
+import {LoadingScreen} from '../../components/Layout/AuthLoading';
 import PageIntro from '../../components/Layout/PageIntro';
 import {TitleH1} from '../../components/MyTypography';
-import {getCategoryLabel} from '../../utils/utils';
+import {categoryOptions} from '../../utils/config';
 
 const Category: NextPage = () => {
   const router = useRouter();
 
-  console.log(router.query);
+  const category = useMemo(
+    () => categoryOptions.find((el) => el.value === router.query.categoria),
+    [router]
+  );
+
+  useEffect(() => {
+    if (!category) {
+      router.push('/');
+    }
+  }, [category, router]);
+
+  if (!category) {
+    return (
+      <Layout>
+        <LoadingScreen />
+      </Layout>
+    );
+  }
 
   return (
     <Layout>
       <PageIntro>
-        <TitleH1 isWhite>
-          {getCategoryLabel(router.query.categoria as Category)}
-        </TitleH1>
+        <TitleH1 isWhite>{category.label}</TitleH1>
         <BreadCrumb
           paths={[
             {label: 'Categorie', path: '/categorie'},
             {
-              label: getCategoryLabel(router.query.categoria as Category),
+              label: category.label,
               path: `/categorie/${router.query.categoria}`,
             },
           ]}

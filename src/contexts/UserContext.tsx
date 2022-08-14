@@ -1,25 +1,51 @@
-import {useState, useContext, createContext} from 'react';
+import {useState, useContext, createContext, useCallback} from 'react';
 import {ThemeProvider} from '@mui/material';
 import {theme} from '../theme';
+import {useRouter} from 'next/router';
 
 export type UserContextType = {
   user?: User;
-  setUser: React.Dispatch<User | undefined>;
+  login: (user: User) => void;
+  logout: () => void;
+  update: (user: User) => void;
 };
 
 export const UserContext = createContext<UserContextType>({
   user: undefined,
-  setUser: () => {},
+  login: () => {},
+  logout: () => {},
+  update: () => {},
 });
 
 export const UserProvider = ({children}: {children: JSX.Element}) => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | undefined>({
+    email: 'lorenzo@faenzi.com',
+    phone: '34287438732',
+    id: 'user-1',
+  });
+
+  const router = useRouter();
+
+  const login = useCallback((user: User) => {
+    setUser(user);
+  }, []);
+
+  const logout = useCallback(() => {
+    setUser(undefined);
+    router.push('/');
+  }, [router]);
+
+  const update = useCallback((user: User) => {
+    setUser(user);
+  }, []);
 
   return (
     <UserContext.Provider
       value={{
         user,
-        setUser,
+        login,
+        logout,
+        update,
       }}
     >
       <ThemeProvider theme={theme}>{children}</ThemeProvider>

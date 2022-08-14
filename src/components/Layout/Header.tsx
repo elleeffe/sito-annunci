@@ -35,7 +35,7 @@ const Header = ({hidePublish}: Props) => {
 
   const router = useRouter();
 
-  const {user, setUser} = useUser();
+  const {user, logout} = useUser();
 
   const {ads, setAds} = useAdsContext();
 
@@ -146,12 +146,7 @@ const Header = ({hidePublish}: Props) => {
               </ListItemIcon>
               <ListItemText primary="Profilo" className="item-button" />
             </StyledListItemButton>
-            <StyledListItemButton
-              onClick={() => {
-                router.push('/');
-                setUser(undefined);
-              }}
-            >
+            <StyledListItemButton onClick={logout}>
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
                 <Logout
                   sx={{width: '20px', height: '20px'}}

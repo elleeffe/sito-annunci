@@ -3,7 +3,6 @@ import {Form} from 'react-final-form';
 import {
   emailValidator,
   isRequired,
-  numberValidator,
   passwordValidator,
 } from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
@@ -11,6 +10,15 @@ import MyButton from '../MyButton';
 import {Alert, Box} from '@mui/material';
 import {Body2, TitleH6} from '../MyTypography';
 import {FORM_ERROR} from 'final-form';
+import MyCheckbox from '../Fields/MyCheckbox';
+
+type FormValues = {
+  recoveryEmail: string;
+  code: string;
+  email: string;
+  password: string;
+  privacy: boolean;
+};
 
 type Props = {
   onClose: () => void;
@@ -21,9 +29,9 @@ const RecoveryForm = ({onClose}: Props) => {
     'initial'
   );
 
-  const handlePhone = useCallback(async (values: any) => {
+  const handleEmail = useCallback(async (values: FormValues) => {
     try {
-      console.log({initial: values.phone});
+      console.log({initial: values.recoveryEmail});
     } catch (e) {
       console.log(e); //TODO
       return {
@@ -33,7 +41,7 @@ const RecoveryForm = ({onClose}: Props) => {
     setStep('code');
   }, []);
 
-  const handleCode = useCallback(async (values: any) => {
+  const handleCode = useCallback(async (values: FormValues) => {
     try {
       console.log({code: values.code});
     } catch (e) {
@@ -45,9 +53,13 @@ const RecoveryForm = ({onClose}: Props) => {
     setStep('credentials');
   }, []);
 
-  const handleCredentials = useCallback(async (values: any) => {
+  const handleCredentials = useCallback(async (values: FormValues) => {
     try {
-      console.log({email: values.email, password: values.password});
+      console.log({
+        email: values.email,
+        password: values.password,
+        privacy: values.privacy,
+      });
     } catch (e) {
       console.log(e);
       //TODO
@@ -59,17 +71,17 @@ const RecoveryForm = ({onClose}: Props) => {
 
   const handleSubmit = useMemo(() => {
     if (step === 'initial') {
-      return handlePhone;
+      return handleEmail;
     }
     if (step === 'code') {
       return handleCode;
     }
     return handleCredentials;
-  }, [step, handlePhone, handleCode, handleCredentials]);
+  }, [step, handleEmail, handleCode, handleCredentials]);
 
   return (
     <>
-      <Form onSubmit={handleSubmit}>
+      <Form<FormValues> onSubmit={handleSubmit}>
         {({
           handleSubmit,
           submitting,
@@ -94,8 +106,7 @@ const RecoveryForm = ({onClose}: Props) => {
                     Recupero credenziali
                   </TitleH6>
                   <Body2 sx={{marginBottom: '20px'}}>
-                    Invieremo un codice segreto al numero di cellulare che hai
-                    inserito.
+                    Invieremo un codice segreto all'email che inserisci.
                   </Body2>
                   {submitError && (
                     <Alert severity="error" sx={{marginBottom: '25px'}}>
@@ -103,9 +114,9 @@ const RecoveryForm = ({onClose}: Props) => {
                     </Alert>
                   )}
                   <MyTextField
-                    validate={(value) => numberValidator(value, true)}
-                    name="phone"
-                    placeholder="Cellulare"
+                    validate={(value) => emailValidator(value)}
+                    name="email"
+                    placeholder="Email"
                     spacingBottom
                   />
                   <MyButton
@@ -192,6 +203,9 @@ const RecoveryForm = ({onClose}: Props) => {
                     type="password"
                     spacingBottom
                   />
+                  <MyCheckbox name="privacy" validate={isRequired}>
+                    Accetto le condizioni di utilizzo e la privacy policy.
+                  </MyCheckbox>
                   <MyButton
                     onClick={handleSubmit}
                     disabled={pristine || hasValidationErrors}

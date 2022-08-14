@@ -17,23 +17,34 @@ import {useUser} from '../../contexts/UserContext';
 import {useRouter} from 'next/router';
 import {useAdsContext} from '../../contexts/AdsContext';
 
+type FormValues = {
+  email: string;
+  password: string;
+  privacy: boolean;
+};
+
 const LoginForm = () => {
   const [recovery, setRecovery] = useState<boolean>(false);
 
-  const {setUser} = useUser();
+  const {login} = useUser();
 
   const {ads} = useAdsContext();
 
   const router = useRouter();
 
   const handleSubmit = useCallback(
-    async (values: any) => {
+    async (values: FormValues) => {
       try {
         console.log(values);
         // const response = await axios.post('/api/login', {credentials: values})
-        // setUser(response);
+        // login(response.data);
         setTimeout(
-          () => setUser({email: 'lorenzo@faenzi.com', phone: '34287438732'}),
+          () =>
+            login({
+              email: 'lorenzo@faenzi.com',
+              phone: '34287438732',
+              id: 'user-1',
+            }),
           2000
         );
         if (ads) {
@@ -47,7 +58,7 @@ const LoginForm = () => {
         };
       }
     },
-    [setUser, router, ads]
+    [login, router, ads]
   );
 
   if (recovery) {
@@ -59,7 +70,7 @@ const LoginForm = () => {
       <TitleH6 isSmall sx={{marginBottom: '15px'}}>
         Accedi al tuo account
       </TitleH6>
-      <Form onSubmit={handleSubmit}>
+      <Form<FormValues> onSubmit={handleSubmit}>
         {({
           handleSubmit,
           submitting,
@@ -86,13 +97,13 @@ const LoginForm = () => {
               <MyTextField
                 validate={emailValidator}
                 name="email"
-                placeholder="Email"
+                placeholder="Email*"
                 spacingBottom
               />
               <MyTextField
                 validate={passwordValidator}
                 name="password"
-                placeholder="Password"
+                placeholder="Password*"
                 type="password"
               />
               <MyCheckbox name="privacy" validate={isRequired}>

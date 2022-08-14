@@ -59,6 +59,10 @@ export default Footer;
 const Wrap = styled(Box)(({theme}) => ({
   borderTop: '1px solid rgba(0,0,0,0.1)',
   marginTop: '100px',
+
+  [theme.breakpoints.down('sm')]: {
+    marginTop: '50px',
+  },
 }));
 
 const BottomWrap = styled(Box)(({theme}) => ({

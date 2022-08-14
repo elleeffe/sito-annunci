@@ -1,28 +1,33 @@
 import {Alert} from '@mui/material';
 import {FORM_ERROR} from 'final-form';
-import {useRouter} from 'next/router';
 import React, {useCallback} from 'react';
 import {Form} from 'react-final-form';
 import {
   createPasswordValidator,
   emailValidator,
   isRequired,
-  numberValidator,
+  numberValueValidator,
 } from '../../utils/fields';
 import MyCheckbox from '../Fields/MyCheckbox';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../MyButton';
 import {TitleH6} from '../MyTypography';
 
+type FormValues = {
+  email: string;
+  phone: string;
+  password: string;
+  confirmPassword: string;
+  privacy: boolean;
+};
+
 type Props = {
   onFinish: () => void;
 };
 
 const RegisterForm = ({onFinish}: Props) => {
-  const router = useRouter();
-
   const handleSubmit = useCallback(
-    async (values: any) => {
+    async (values: FormValues) => {
       try {
         // TODO: add api
         console.log({registerValues: values});
@@ -43,7 +48,7 @@ const RegisterForm = ({onFinish}: Props) => {
       <TitleH6 isSmall sx={{marginBottom: '15px'}}>
         Crea il tuo account
       </TitleH6>
-      <Form onSubmit={handleSubmit}>
+      <Form<FormValues> onSubmit={handleSubmit}>
         {({
           handleSubmit,
           submitting,
@@ -61,19 +66,21 @@ const RegisterForm = ({onFinish}: Props) => {
             <MyTextField
               validate={emailValidator}
               name="email"
-              placeholder="Email"
+              placeholder="Email*"
               spacingBottom
             />
             <MyTextField
-              validate={(value) => numberValidator(value, true)}
+              validate={(value) =>
+                numberValueValidator(value, true, undefined, 10)
+              }
               name="phone"
-              placeholder="Cellulare"
+              placeholder="Telefono*"
               spacingBottom
             />
             <MyTextField
               validate={createPasswordValidator}
               name="password"
-              placeholder="Password"
+              placeholder="Password*"
               type="password"
               instructions
             />
@@ -82,7 +89,7 @@ const RegisterForm = ({onFinish}: Props) => {
                 value === values.password ? '' : 'La password non corrisponde'
               }
               name="confirmPassword"
-              placeholder="Ripeti password"
+              placeholder="Ripeti password*"
               type="password"
             />
             <MyCheckbox name="privacy" validate={isRequired}>

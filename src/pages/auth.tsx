@@ -8,6 +8,7 @@ import LoginForm from '../components/Forms/LoginForm';
 import RegisterForm from '../components/Forms/RegisterForm';
 import Layout from '../components/Layout';
 import {useUser} from '../contexts/UserContext';
+import {LoadingScreen} from '../components/Layout/AuthLoading';
 
 const Auth: NextPage = () => {
   const [mobile, setMobile] = useState<boolean>(false);
@@ -43,6 +44,14 @@ const Auth: NextPage = () => {
       router.push('/profilo');
     }
   }, [user, router]);
+
+  if (user) {
+    return (
+      <Layout hideHeader>
+        <LoadingScreen />
+      </Layout>
+    );
+  }
 
   return (
     <Layout hideHeader>

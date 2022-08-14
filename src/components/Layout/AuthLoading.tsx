@@ -20,7 +20,7 @@ const AuthLoading = ({children}: PropsWithChildren) => {
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState<boolean>(true);
 
-  const {setUser} = useUser();
+  const {login} = useUser();
 
   const router = useRouter();
 
@@ -33,7 +33,7 @@ const AuthLoading = ({children}: PropsWithChildren) => {
     (async () => {
       try {
         // const response = await axios.post('/api/check-session');
-        // setUser(response.data);
+        // login(response.data);
         const response = await sleep(1000);
         setModal(false);
         setLoading(false);
@@ -42,7 +42,7 @@ const AuthLoading = ({children}: PropsWithChildren) => {
         console.log(e);
       }
     })();
-  }, [setUser]);
+  }, [login]);
 
   useEffect(() => {
     if (

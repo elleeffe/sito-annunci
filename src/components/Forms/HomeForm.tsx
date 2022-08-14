@@ -13,10 +13,21 @@ const HomeForm = () => {
 
   const handleSubmit = useCallback(
     (values: HomeFormValues) => {
-      if (values.category === 'all') {
-        router.push(`/categorie`);
+      const {city, category, keyword} = values;
+      const query: {city: City; category?: Category; keyword?: string} = {city};
+      if (keyword) {
+        query.keyword = keyword;
+      }
+      if (!category) {
+        router.push({
+          pathname: '/categorie',
+          query,
+        });
       } else {
-        router.push(`/categorie/${values.category}`);
+        router.push({
+          pathname: `/categorie/${values.category}`,
+          query,
+        });
       }
     },
     [router]

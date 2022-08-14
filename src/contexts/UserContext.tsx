@@ -2,6 +2,7 @@ import {useState, useContext, createContext, useCallback} from 'react';
 import {ThemeProvider} from '@mui/material';
 import {theme} from '../theme';
 import {useRouter} from 'next/router';
+import {mockUser} from '../utils/mocks';
 
 export type UserContextType = {
   user?: User;
@@ -18,11 +19,7 @@ export const UserContext = createContext<UserContextType>({
 });
 
 export const UserProvider = ({children}: {children: JSX.Element}) => {
-  const [user, setUser] = useState<User | undefined>({
-    email: 'lorenzo@faenzi.com',
-    phone: '34287438732',
-    id: 'user-1',
-  });
+  const [user, setUser] = useState<User>();
 
   const router = useRouter();
 

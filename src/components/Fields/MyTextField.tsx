@@ -54,6 +54,7 @@ const MyTextField = ({
         {...muiErrorConverter(meta)}
         type={inputType}
         InputProps={{
+          ...props.InputProps,
           startAdornment: iconComp,
           endAdornment: props.type === 'password' && (
             <IconButton

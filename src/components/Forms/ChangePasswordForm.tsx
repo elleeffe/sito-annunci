@@ -1,7 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import {Form} from 'react-final-form';
 import {FORM_ERROR} from 'final-form';
-import {useUser} from '../../contexts/UserContext';
 import {Alert, Box, keyframes, styled} from '@mui/material';
 import {createPasswordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';

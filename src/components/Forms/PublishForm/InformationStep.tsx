@@ -17,9 +17,10 @@ import MyModal from '../../MyModal';
 
 type Props = {
   hideConsens: boolean;
+  user?: User;
 };
 
-const InformationStep = ({hideConsens}: Props) => {
+const InformationStep = ({hideConsens, user}: Props) => {
   const [modal, setModal] = useState<boolean>(false);
 
   return (
@@ -88,7 +89,7 @@ const InformationStep = ({hideConsens}: Props) => {
           />
         </Grid>
       </Grid>
-      <TitleH6 marginBottom="20px">Dati e consensi</TitleH6>
+      <TitleH6 marginBottom="20px">Dati{!hideConsens && ' e consensi'}</TitleH6>
       <Body2 marginBottom="20px">* Campi obbligatori</Body2>
       <Grid container columnSpacing={4} rowSpacing={4} marginBottom="25px">
         <Grid item xs={12}>
@@ -97,6 +98,9 @@ const InformationStep = ({hideConsens}: Props) => {
             label="Email*"
             placeholder="Inserisci la tua email*"
             validate={emailValidator}
+            InputProps={{
+              readOnly: !!user,
+            }}
           />
         </Grid>
         <Grid item xs={12} sm={9}>

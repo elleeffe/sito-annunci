@@ -1,5 +1,5 @@
 import {useMediaQuery} from '@mui/material';
-import {useCallback} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {Form} from 'react-final-form';
 import {useUser} from '../../../contexts/UserContext';
 import MyStepper from '../../MyStepper';
@@ -14,21 +14,50 @@ type Props = {
 };
 
 const PublishForm = ({initialAds}: Props) => {
+  const [showFinal, setShowFinal] = useState<boolean>(false);
+
   const match = useMediaQuery('(max-width:600px)');
 
   const {user} = useUser();
 
-  const handleSubmit = useCallback(async (values: any) => {
-    console.log({submitValues: values});
-  }, []);
+  const handleSubmit = useCallback(
+    async (values: AdsFormValues) => {
+      try {
+        if (initialAds && initialAds.id) {
+          // TODO - edit
+          console.log({adsToEdit: values});
+          return setShowFinal(true);
+        }
+        // TODO - create
+        console.log({newAds: values});
+        return setShowFinal(true);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    [initialAds]
+  );
 
   const handleChangeStep = useCallback(
     () => window.scrollTo({top: 0, behavior: 'smooth'}),
     []
   );
 
+  const initialValues:
+    | AdsFormValues
+    | {email: string; phone: string}
+    | undefined = useMemo(() => {
+    if (initialAds) {
+      return initialAds;
+    }
+    if (user) {
+      return {email: user.email, phone: user.phone};
+    }
+    return undefined;
+  }, [user, initialAds]);
+
   return (
-    <Form<AdsFormValues> onSubmit={handleSubmit} initialValues={initialAds}>
+    <Form<AdsFormValues> onSubmit={handleSubmit} initialValues={initialValues}>
       {({handleSubmit, submitting, hasValidationErrors, pristine, values}) => {
         console.log(values);
         return (
@@ -36,13 +65,17 @@ const PublishForm = ({initialAds}: Props) => {
             <MyStepper
               alternativeLabel
               hideLabel={match}
-              initialStep={initialAds && 3}
+              initialStep={initialAds && !initialAds.id ? 3 : 0}
               onChangeStep={handleChangeStep}
               steps={[
                 {
                   label: 'Informazioni',
-                  screen: <InformationStep hideConsens={!!initialAds} />,
-                  action: handleSubmit,
+                  screen: (
+                    <InformationStep
+                      user={user}
+                      hideConsens={!!user || !!initialAds?.id}
+                    />
+                  ),
                   loading: submitting,
                   disabled: hasValidationErrors,
                 },
@@ -55,7 +88,6 @@ const PublishForm = ({initialAds}: Props) => {
                       disabledImages={values.images?.length === 5}
                     />
                   ),
-                  action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
                   disabled: hasValidationErrors || pristine,
                 },
@@ -67,7 +99,6 @@ const PublishForm = ({initialAds}: Props) => {
                       initialValue={initialAds?.visibilityOption}
                     />
                   ),
-                  action: !submitting ? handleSubmit : undefined,
                   loading: submitting,
                   disabled: hasValidationErrors,
                 },
@@ -81,13 +112,15 @@ const PublishForm = ({initialAds}: Props) => {
                       currentAds={values}
                     />
                   ),
-                  action: () => {},
+                  action: !submitting ? handleSubmit : undefined,
                   button: {
                     label: 'Conferma',
+                    loading: submitting,
                   },
                 },
               ]}
               final={{
+                show: showFinal,
                 screen: <FinalStep isLogged={!!user} />,
                 action: () => {},
                 button: {

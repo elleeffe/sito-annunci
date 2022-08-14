@@ -14,7 +14,7 @@ import MyButton from './MyButton';
 type StepType = {
   label: string;
   screen: React.ReactNode;
-  action?: () => void;
+  action?: () => void | Promise<any>;
   loading?: boolean;
   disabled?: boolean;
   hideLabel?: boolean;
@@ -35,6 +35,7 @@ type Props = {
   initialStep?: number;
   onChangeStep?: () => void;
   final: {
+    show: boolean;
     screen: React.ReactNode;
     action?: () => void | Promise<any>;
     button: {
@@ -97,7 +98,11 @@ const MyStepper = ({
         })}
       </Stepper>
       {activeStep === steps.length ? (
-        final.screen
+        final.show ? (
+          final.screen
+        ) : (
+          steps[steps.length - 1].screen
+        )
       ) : (
         <>
           {steps[activeStep] && steps[activeStep].screen}

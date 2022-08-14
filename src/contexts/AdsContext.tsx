@@ -1,8 +1,9 @@
 import {useState, useContext, createContext} from 'react';
+import {mockAds} from '../utils/mocks';
 
 export type AdsContextType = {
-  ads?: AdsFormValues;
-  setAds: React.Dispatch<AdsFormValues | undefined>;
+  ads?: AdsFormValues | Ads;
+  setAds: React.Dispatch<AdsFormValues | Ads | undefined>;
 };
 
 export const AdsContext = createContext<AdsContextType>({
@@ -11,7 +12,7 @@ export const AdsContext = createContext<AdsContextType>({
 });
 
 export const AdsProvider = ({children}: {children: JSX.Element}) => {
-  const [ads, setAds] = useState<AdsFormValues>();
+  const [ads, setAds] = useState<AdsFormValues | Ads>();
 
   return (
     <AdsContext.Provider

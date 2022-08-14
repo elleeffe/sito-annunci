@@ -18,11 +18,13 @@ type Visibility =
   | 'offerta-5';
 
 type Ads = {
+  id?: string;
+  publicationDate?: number;
   title: string;
   description: string;
   category: Omit<Category, 'all'>;
   city: City;
-  age: number;
+  age: string;
   neighborhood?: string;
   areas?: string[];
   email: string;

@@ -16,7 +16,7 @@ const MyModal = ({children, onClose, isOpen}: Props) => {
       <ModalInner>
         <CloseButton
           onClick={onClose}
-          color="primary"
+          color="error"
           size={match ? 'small' : 'medium'}
         >
           <Close />

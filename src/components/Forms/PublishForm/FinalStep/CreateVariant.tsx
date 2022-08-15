@@ -1,12 +1,10 @@
 import {Box, keyframes, styled} from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
-import {TitleH6, Subtitle1} from '../../MyTypography';
-import {useAdsContext} from '../../../contexts/AdsContext';
+import {TitleH6, Subtitle1} from '../../../MyTypography';
+import {useAdsContext} from '../../../../contexts/AdsContext';
 import {useEffect} from 'react';
 
-type Props = {isLogged: boolean};
-
-const FinalStep = ({isLogged}: Props) => {
+const CreateVariant = () => {
   const {ads, setAds} = useAdsContext();
 
   useEffect(() => {
@@ -33,7 +31,7 @@ const FinalStep = ({isLogged}: Props) => {
   );
 };
 
-export default FinalStep;
+export default CreateVariant;
 
 const Wrap = styled(Box)(() => ({
   display: 'flex',

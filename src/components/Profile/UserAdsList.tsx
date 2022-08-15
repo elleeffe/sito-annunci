@@ -6,6 +6,7 @@ import {mockAds} from '../../utils/mocks';
 import AdsCard from '../Card/AdsCard';
 import DeleteModal from './DeleteModal';
 import SettingsMenu from './SettingsMenu';
+import EditModal from './EditModal';
 
 const mockUserAds = new Array(5)
   .fill(mockAds)
@@ -18,11 +19,17 @@ const UserAdsList = () => {
   const [ads, setAds] = useState<Ads[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const [clickedAd, setClickedAd] = useState<string>();
-  const [confirm, setConfirm] = useState<boolean>(false);
+
+  const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
   const [deleteError, setDeleteError] = useState<boolean>(false);
+
+  const [editModal, setEditModal] = useState<boolean>(false);
+  const [editLoading, setEditLoading] = useState<boolean>(false);
+  const [editError, setEditError] = useState<boolean>(false);
 
   const getUserAds = useCallback(async () => {
     try {
@@ -48,7 +55,7 @@ const UserAdsList = () => {
       await sleep(3000);
       console.log({adsId: clickedAd});
       setDeleteLoading(false);
-      setConfirm(false);
+      setDeleteModal(false);
       setClickedAd(undefined);
       setAnchorEl(null);
       getUserAds();
@@ -112,19 +119,29 @@ const UserAdsList = () => {
           setAnchorEl(null);
           setClickedAd(undefined);
         }}
-        onDelete={() => setConfirm(true)}
-        onEdit={() => console.log('edit')}
+        onDelete={() => setDeleteModal(true)}
+        onEdit={() => setEditModal(true)}
         onOpen={() => console.log('open')}
       />
       <DeleteModal
-        isOpen={!!confirm}
+        isOpen={deleteModal}
         onClose={() => {
-          setConfirm(false);
+          setDeleteModal(false);
           setClickedAd(undefined);
+          setAnchorEl(null);
         }}
         error={deleteError}
         loading={deleteLoading}
         onConfirm={handleDelete}
+      />
+      <EditModal
+        isOpen={editModal}
+        ads={ads.find((el) => el.id === clickedAd)}
+        onClose={() => {
+          setClickedAd(undefined);
+          setEditModal(false);
+          setAnchorEl(null);
+        }}
       />
     </>
   );

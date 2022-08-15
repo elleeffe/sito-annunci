@@ -20,15 +20,15 @@ type StepType = {
   hideLabel?: boolean;
   button?: {
     label: string;
-    color?: ButtonProps['color'];
     disabled?: boolean;
     loading?: boolean;
-    variant?: ButtonProps['variant'];
-    size?: ButtonProps['size'];
   };
 };
 
 type Props = {
+  buttonColor?: ButtonProps['color'];
+  buttonSize?: ButtonProps['size'];
+  buttonVariant?: ButtonProps['variant'];
   hideLabel?: boolean;
   alternativeLabel?: boolean;
   steps: StepType[];
@@ -37,15 +37,6 @@ type Props = {
   final: {
     show: boolean;
     screen: React.ReactNode;
-    action?: () => void | Promise<any>;
-    button: {
-      label: string;
-      color?: ButtonProps['color'];
-      disabled?: boolean;
-      loading?: boolean;
-      variant?: ButtonProps['variant'];
-      size?: ButtonProps['size'];
-    };
   };
 };
 
@@ -56,16 +47,16 @@ const MyStepper = ({
   hideLabel,
   initialStep,
   onChangeStep,
+  buttonColor = 'primary',
+  buttonSize = 'medium',
+  buttonVariant = 'contained',
 }: Props) => {
   const [activeStep, setActiveStep] = useState<number>(() => initialStep || 0);
 
   const stepAction = useMemo(() => {
-    if (activeStep === steps.length) {
-      return final.action;
-    }
     const currentStep = steps[activeStep];
     return currentStep.action;
-  }, [steps, activeStep, final]);
+  }, [steps, activeStep]);
 
   const handleNext = useCallback(() => {
     stepAction && stepAction();
@@ -90,7 +81,7 @@ const MyStepper = ({
           const stepProps: {completed?: boolean} = {};
           return (
             <Step key={step.label} {...stepProps}>
-              <StyledLabel color={final.button.color}>
+              <StyledLabel color={buttonColor}>
                 {!hideLabel && step.label}
               </StyledLabel>
             </Step>
@@ -112,47 +103,32 @@ const MyStepper = ({
             justifyContent="space-between"
           >
             <IconButton
-              color={final.button.color || 'primary'}
+              color={buttonColor}
               disabled={activeStep === 0}
               onClick={handleBack}
-              size={final.button.size || 'medium'}
+              size={buttonSize}
             >
               <ArrowBack />
             </IconButton>
-            {activeStep === steps.length ? (
+            {steps[activeStep] && steps[activeStep].button ? (
               <MyButton
-                onClick={final.action}
-                disabled={final.button.disabled}
-                variant={final.button.variant || 'contained'}
-                color={final.button.color || 'primary'}
-                size={final.button.size || 'medium'}
-                loading={final.button.loading}
+                onClick={handleNext}
+                variant={buttonVariant}
+                color={buttonColor}
+                size={buttonSize}
+                disabled={steps[activeStep].disabled}
               >
-                {final.button.label}
+                {steps[activeStep]?.button?.label}
               </MyButton>
             ) : (
-              <>
-                {steps[activeStep] && steps[activeStep].button ? (
-                  <MyButton
-                    onClick={handleNext}
-                    variant={final.button.variant || 'contained'}
-                    color={final.button.color || 'primary'}
-                    size={final.button.size || 'medium'}
-                    disabled={steps[activeStep].disabled}
-                  >
-                    {steps[activeStep]?.button?.label}
-                  </MyButton>
-                ) : (
-                  <IconButton
-                    color={final.button.color || 'primary'}
-                    onClick={handleNext}
-                    size={final.button.size || 'medium'}
-                    disabled={steps[activeStep].disabled}
-                  >
-                    <ArrowForward />
-                  </IconButton>
-                )}
-              </>
+              <IconButton
+                color={buttonColor}
+                onClick={handleNext}
+                size={buttonSize}
+                disabled={steps[activeStep].disabled}
+              >
+                <ArrowForward />
+              </IconButton>
             )}
           </Box>
         </>

@@ -1,19 +1,22 @@
-import {useMediaQuery} from '@mui/material';
+import {Paper, styled, useMediaQuery} from '@mui/material';
 import {useCallback, useMemo, useState} from 'react';
 import {Form} from 'react-final-form';
 import {useUser} from '../../../contexts/UserContext';
 import MyStepper from '../../MyStepper';
 import ConfirmStep from './ConfirmStep';
-import FinalStep from './FinalStep';
+import CreateVariant from './FinalStep/CreateVariant';
+import EditVariant from './FinalStep/EditVariant';
 import ImagesStep from './ImagesStep';
 import InformationStep from './InformationStep';
 import VisibilityStep from './VisibilityStep';
 
 type Props = {
   initialAds?: Ads;
+  onChangeStep?: () => void;
+  finalVariant: 'create' | 'edit';
 };
 
-const PublishForm = ({initialAds}: Props) => {
+const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
   const [showFinal, setShowFinal] = useState<boolean>(false);
 
   const match = useMediaQuery('(max-width:600px)');
@@ -38,11 +41,6 @@ const PublishForm = ({initialAds}: Props) => {
     [initialAds]
   );
 
-  const handleChangeStep = useCallback(
-    () => window.scrollTo({top: 0, behavior: 'smooth'}),
-    []
-  );
-
   const initialValues:
     | AdsFormValues
     | {email: string; phone: string}
@@ -57,82 +55,120 @@ const PublishForm = ({initialAds}: Props) => {
   }, [user, initialAds]);
 
   return (
-    <Form<AdsFormValues> onSubmit={handleSubmit} initialValues={initialValues}>
-      {({handleSubmit, submitting, hasValidationErrors, pristine, values}) => {
-        console.log(values);
-        return (
-          <form onSubmit={handleSubmit} style={{flex: 1}}>
-            <MyStepper
-              alternativeLabel
-              hideLabel={match}
-              initialStep={initialAds && !initialAds.id ? 3 : 0}
-              onChangeStep={handleChangeStep}
-              steps={[
-                {
-                  label: 'Informazioni',
-                  screen: (
-                    <InformationStep
-                      user={user}
-                      hideConsens={!!user || !!initialAds?.id}
-                    />
-                  ),
-                  loading: submitting,
-                  disabled: hasValidationErrors,
-                },
-                {
-                  label: 'Aggiungi foto',
-                  screen: (
-                    <ImagesStep
-                      hideConsens={!!initialAds}
-                      disabledCover={!!values.cover}
-                      disabledImages={values.images?.length === 5}
-                    />
-                  ),
-                  loading: submitting,
-                  disabled: hasValidationErrors || pristine,
-                },
-                {
-                  label: 'Visibilità',
-                  screen: (
-                    <VisibilityStep
-                      showTime={!!values.visibilityOption}
-                      initialValue={initialAds?.visibilityOption}
-                    />
-                  ),
-                  loading: submitting,
-                  disabled: hasValidationErrors,
-                },
-                {
-                  label: 'Conferma',
-                  disabled: !!values.visibilityOption && !user,
-                  screen: (
-                    <ConfirmStep
-                      isLogged={!!user}
-                      showPayment={!!values.visibilityOption}
-                      currentAds={values}
-                    />
-                  ),
-                  action: !submitting ? handleSubmit : undefined,
-                  button: {
-                    label: 'Conferma',
+    <StyledPaper>
+      <Form<AdsFormValues>
+        onSubmit={handleSubmit}
+        initialValues={initialValues}
+      >
+        {({
+          handleSubmit,
+          submitting,
+          hasValidationErrors,
+          pristine,
+          values,
+        }) => {
+          console.log(values);
+          return (
+            <form onSubmit={handleSubmit} style={{flex: 1}}>
+              <MyStepper
+                alternativeLabel
+                hideLabel={match}
+                initialStep={initialAds && !initialAds.id ? 3 : 0}
+                onChangeStep={onChangeStep}
+                steps={[
+                  {
+                    label: 'Informazioni',
+                    screen: (
+                      <InformationStep
+                        user={user}
+                        hideConsens={!!user || !!initialAds?.id}
+                      />
+                    ),
                     loading: submitting,
+                    disabled: hasValidationErrors,
                   },
-                },
-              ]}
-              final={{
-                show: showFinal,
-                screen: <FinalStep isLogged={!!user} />,
-                action: () => {},
-                button: {
-                  label: 'Conferma',
-                },
-              }}
-            />
-          </form>
-        );
-      }}
-    </Form>
+                  {
+                    label: 'Aggiungi foto',
+                    screen: (
+                      <ImagesStep
+                        hideConsens={!!user || !!initialAds}
+                        disabledCover={!!values.cover}
+                        disabledImages={values.images?.length === 5}
+                      />
+                    ),
+                    loading: submitting,
+                    disabled:
+                      user || initialAds
+                        ? false
+                        : hasValidationErrors || pristine,
+                  },
+                  {
+                    label: 'Visibilità',
+                    screen: (
+                      <VisibilityStep
+                        showTime={!!values.visibilityOption}
+                        initialValue={initialAds?.visibilityOption}
+                      />
+                    ),
+                    loading: submitting,
+                    disabled: hasValidationErrors,
+                  },
+                  {
+                    label: 'Conferma',
+                    disabled: !!values.visibilityOption && !user,
+                    screen: (
+                      <ConfirmStep
+                        isLogged={!!user}
+                        showPayment={!!values.visibilityOption}
+                        currentAds={values}
+                      />
+                    ),
+                    action: !submitting ? handleSubmit : undefined,
+                    button: {
+                      label: 'Conferma',
+                      loading: submitting,
+                    },
+                  },
+                ]}
+                final={{
+                  show: showFinal,
+                  screen:
+                    finalVariant === 'create' ? (
+                      <CreateVariant />
+                    ) : (
+                      <EditVariant />
+                    ),
+                }}
+              />
+            </form>
+          );
+        }}
+      </Form>
+    </StyledPaper>
   );
 };
 
 export default PublishForm;
+
+const StyledPaper = styled(Paper)(({theme}) => ({
+  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+  width: '95%',
+  maxWidth: '900px',
+  borderRadius: '10px',
+  margin: '0 auto',
+  padding: '25px',
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  overflow: 'auto',
+
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    padding: '20px 10px',
+  },
+}));

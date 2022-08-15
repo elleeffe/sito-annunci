@@ -1,5 +1,12 @@
 import React from 'react';
-import {Box, Button, Grid, styled} from '@mui/material';
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Grid,
+  IconButton,
+  styled,
+} from '@mui/material';
 import {
   formatAdsCardText,
   formatDate,
@@ -11,16 +18,29 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SettingsIcon from '@mui/icons-material/Settings';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {visibilityOptions} from '../../utils/config';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 type Props = {
   ads: Ads;
   isPreview?: boolean;
   whiteBg?: boolean;
   onSettings?: (event: React.MouseEvent<HTMLElement>) => void;
+  onFavorite?: () => void;
+  favoriteLoading?: boolean;
+  favoriteError?: boolean;
 };
 
-const AdsCard = ({ads, isPreview, whiteBg, onSettings}: Props) => {
+const AdsCard = ({
+  ads,
+  isPreview,
+  whiteBg,
+  onSettings,
+  onFavorite,
+  favoriteError,
+  favoriteLoading,
+}: Props) => {
   return (
     <Wrap
       container
@@ -36,6 +56,34 @@ const AdsCard = ({ads, isPreview, whiteBg, onSettings}: Props) => {
             {ads.views}{' '}
             {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
           </Subtitle2>
+        </FullGrid>
+      )}
+      {!!onFavorite && (
+        <FullGrid item xs={12} marginBottom="15px" alignItems="center">
+          {!favoriteLoading && !favoriteError && (
+            <IconButton color="error" size="small" onClick={onFavorite}>
+              <DeleteIcon />
+            </IconButton>
+          )}
+          {favoriteLoading && (
+            <CircularProgress
+              size={25}
+              sx={{svg: {width: 25, height: 25}}}
+              color="error"
+            />
+          )}
+          {favoriteError && (
+            <IconButton color="error" size="small" onClick={onFavorite}>
+              <RefreshIcon />
+            </IconButton>
+          )}
+          {!favoriteLoading && (
+            <Subtitle2 marginLeft="10px">
+              {favoriteError
+                ? 'Si è verificato un errore, riprovare'
+                : 'Rimuovi dai preferiti'}
+            </Subtitle2>
+          )}
         </FullGrid>
       )}
       <Cover

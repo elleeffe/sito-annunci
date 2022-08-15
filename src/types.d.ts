@@ -19,6 +19,7 @@ type Visibility =
 
 type Ads = {
   views?: number;
+  isFavorite?: boolean;
   id?: string;
   publicationDate?: number;
   title: string;

@@ -28,8 +28,6 @@ const UserAdsList = () => {
   const [deleteError, setDeleteError] = useState<boolean>(false);
 
   const [editModal, setEditModal] = useState<boolean>(false);
-  const [editLoading, setEditLoading] = useState<boolean>(false);
-  const [editError, setEditError] = useState<boolean>(false);
 
   const getUserAds = useCallback(async () => {
     try {

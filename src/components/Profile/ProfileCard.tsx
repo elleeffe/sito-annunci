@@ -22,10 +22,12 @@ import ChangeEmailForm from '../Forms/ChangeEmailForm';
 import ChangePhoneForm from '../Forms/ChangePhoneForm';
 import ChangePasswordForm from '../Forms/ChangePasswordForm';
 import DeleteAccountForm from '../Forms/DeleteAccountForm';
+import StarIcon from '@mui/icons-material/Star';
+import FavoritesModal from './FavoritesModal';
 
 const ProfileCard = () => {
   const [action, setAction] = useState<
-    'email' | 'phone' | 'password' | 'account'
+    'email' | 'phone' | 'password' | 'account' | 'favorites'
   >();
 
   const {user, logout} = useUser();
@@ -47,6 +49,14 @@ const ProfileCard = () => {
           <Subtitle1>{user.phone}</Subtitle1>
         </UserInfo>
         <UserMenu>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => setAction('favorites')}>
+              <ListItemIcon>
+                <StarIcon color="primary" />
+              </ListItemIcon>
+              <ListItemText primary="Lista preferiti" />
+            </ListItemButton>
+          </ListItem>
           <ListItem disablePadding>
             <ListItemButton onClick={() => setAction('email')}>
               <ListItemIcon>
@@ -89,7 +99,14 @@ const ProfileCard = () => {
           </ListItem>
         </UserMenu>
       </UserWrap>
-      <MyModal isOpen={!!action} onClose={() => setAction(undefined)}>
+      <FavoritesModal
+        isOpen={action === 'favorites'}
+        onClose={() => setAction(undefined)}
+      />
+      <MyModal
+        isOpen={!!action && action !== 'favorites'}
+        onClose={() => setAction(undefined)}
+      >
         {action === 'email' && (
           <ChangeEmailForm onSuccess={() => setAction(undefined)} user={user} />
         )}

@@ -1,4 +1,4 @@
-import {Paper, styled, useMediaQuery} from '@mui/material';
+import {IconButton, Paper, styled, useMediaQuery} from '@mui/material';
 import {useCallback, useMemo, useState} from 'react';
 import {Form} from 'react-final-form';
 import {useUser} from '../../../contexts/UserContext';
@@ -10,14 +10,21 @@ import EditVariant from './FinalStep/EditVariant';
 import ImagesStep from './ImagesStep';
 import InformationStep from './InformationStep';
 import VisibilityStep from './VisibilityStep';
+import {Close} from '@mui/icons-material';
 
 type Props = {
   initialAds?: Ads;
   onChangeStep?: () => void;
   finalVariant: 'create' | 'edit';
+  onClose?: () => void;
 };
 
-const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
+const PublishForm = ({
+  initialAds,
+  onChangeStep,
+  finalVariant,
+  onClose,
+}: Props) => {
   const [showFinal, setShowFinal] = useState<boolean>(false);
 
   const match = useMediaQuery('(max-width:600px)');
@@ -47,7 +54,7 @@ const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
     | {email: string; phone: string}
     | undefined = useMemo(() => {
     if (!!initialAds && !!initialAds.id) {
-      const {id, publicationDate, views, ...rest} = initialAds;
+      const {id, publicationDate, views, isFavorite, ...rest} = initialAds;
       return rest;
     }
     if (!!initialAds && !initialAds.id) {
@@ -61,6 +68,15 @@ const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
 
   return (
     <StyledPaper>
+      {!!onClose && (
+        <CloseButton
+          onClick={onClose}
+          color="error"
+          size={match ? 'small' : 'medium'}
+        >
+          <Close />
+        </CloseButton>
+      )}
       <Form<AdsFormValues>
         onSubmit={handleSubmit}
         initialValues={initialValues}
@@ -171,6 +187,7 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   flexDirection: 'column',
   flex: 1,
   overflow: 'auto',
+  position: 'relative',
 
   form: {
     display: 'flex',
@@ -180,5 +197,17 @@ const StyledPaper = styled(Paper)(({theme}) => ({
 
   [theme.breakpoints.down('sm')]: {
     padding: '30px 10px 20px',
+  },
+}));
+
+const CloseButton = styled(IconButton)(({theme}) => ({
+  position: 'absolute',
+  top: '20px',
+  left: '20px',
+  zIndex: 1,
+
+  [theme.breakpoints.down('md')]: {
+    top: '15px',
+    left: '15px',
   },
 }));

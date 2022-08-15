@@ -115,9 +115,11 @@ const UserWrap = styled(Box)(({theme}) => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  height: '100%',
 
   [theme.breakpoints.down('md')]: {
     width: '100%',
+    height: 'auto',
     flexDirection: 'row',
     justifyContent: 'initial',
   },
@@ -152,7 +154,7 @@ const UserIcon = styled(AccountCircleIcon)(() => ({
 
 const UserMenu = styled(List)(({theme}) => ({
   width: '100%',
-  marginBottom: '20px',
+  marginBottom: '10px',
 
   [theme.breakpoints.down('md')]: {
     marginBottom: '0px',

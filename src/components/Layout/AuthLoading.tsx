@@ -6,6 +6,7 @@ import {CircularProgress, Box, styled, Paper, Button} from '@mui/material';
 import Layout from '.';
 import {Body1, StyledButton, Subtitle1, TitleH3} from '../MyTypography';
 import {useRouter} from 'next/router';
+import {mockUser} from '../../utils/mocks';
 
 export const LoadingScreen = () => (
   <Wrap>
@@ -14,13 +15,13 @@ export const LoadingScreen = () => (
 );
 
 const sleep = (ms: number) =>
-  new Promise((res, rej) => setTimeout(() => rej(''), ms));
+  new Promise((res, rej) => setTimeout(() => res(''), ms));
 
 const AuthLoading = ({children}: PropsWithChildren) => {
   const [loading, setLoading] = useState(true);
   const [modal, setModal] = useState<boolean>(true);
 
-  const {login} = useUser();
+  const {user, login} = useUser();
 
   const router = useRouter();
 
@@ -35,7 +36,7 @@ const AuthLoading = ({children}: PropsWithChildren) => {
         // const response = await axios.post('/api/check-session');
         // login(response.data);
         const response = await sleep(1000);
-        setModal(false);
+        login(mockUser);
         setLoading(false);
       } catch (e) {
         setTimeout(() => setLoading(false), 1000);
@@ -47,13 +48,14 @@ const AuthLoading = ({children}: PropsWithChildren) => {
   useEffect(() => {
     if (
       localStorage.getItem('sos-incontri-adulti') ||
-      router.query.permission // per le pagine termini e condizioni, privacy e cookie policy
+      router.query.permission ||
+      user // per le pagine termini e condizioni, privacy e cookie policy
     ) {
       setModal(false);
     } else {
       setModal(true);
     }
-  }, [router]);
+  }, [router, user]);
 
   if (loading) {
     return <Layout hideHeader></Layout>;

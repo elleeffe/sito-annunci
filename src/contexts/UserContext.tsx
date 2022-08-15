@@ -2,7 +2,6 @@ import {useState, useContext, createContext, useCallback} from 'react';
 import {ThemeProvider} from '@mui/material';
 import {theme} from '../theme';
 import {useRouter} from 'next/router';
-import {mockUser} from '../utils/mocks';
 
 export type UserContextType = {
   user?: User;

@@ -7,11 +7,18 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 type Props = {
   ads: Ads;
   isPreview?: boolean;
+  whiteBg?: boolean;
 };
 
-const AdsCard = ({ads, isPreview}: Props) => {
+const AdsCard = ({ads, isPreview, whiteBg}: Props) => {
   return (
-    <Wrap container columnSpacing={2} rowSpacing={2} isPreview={isPreview}>
+    <Wrap
+      container
+      columnSpacing={2}
+      rowSpacing={2}
+      isPreview={isPreview}
+      whiteBg={whiteBg}
+    >
       <Cover
         item
         xs={12}
@@ -54,16 +61,22 @@ const AdsCard = ({ads, isPreview}: Props) => {
 export default AdsCard;
 
 const Wrap = styled(Grid, {
-  shouldForwardProp: (prop) => prop !== 'isPreview',
-})<{isPreview?: boolean}>(({theme, isPreview}) => ({
+  shouldForwardProp: (prop) => prop !== 'isPreview' && prop !== 'whiteBg',
+})<{isPreview?: boolean; whiteBg?: boolean}>(({theme, isPreview, whiteBg}) => ({
   padding: '15px',
   borderRadius: '20px',
   width: '100%',
-  background: '#F8FAFB',
   display: 'flex',
   transition: 'all 100ms linear',
   marginTop: '0px',
   marginLeft: '0px',
+  ...(whiteBg
+    ? {
+        background: '#fff',
+      }
+    : {
+        background: '#F8FAFB',
+      }),
 
   ...(!isPreview && {
     '&:hover': {

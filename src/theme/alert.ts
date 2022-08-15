@@ -5,6 +5,10 @@ export const alert: Components['MuiAlert'] = {
     root: {
       borderRadius: '25px',
       minHeight: '50px',
+
+      '& .MuiAlert-action': {
+        paddingTop: 0,
+      },
     },
   },
 };

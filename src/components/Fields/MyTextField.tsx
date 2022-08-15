@@ -61,6 +61,7 @@ const MyTextField = ({
               aria-label="toggle password visibility"
               onClick={() => setShowPassword(!showPassword)}
               onMouseDown={() => setShowPassword(!showPassword)}
+              size="small"
             >
               {showPassword ? (
                 <icons.VisibilityOff

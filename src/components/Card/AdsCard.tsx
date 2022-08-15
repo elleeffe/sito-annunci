@@ -1,16 +1,19 @@
+import React from 'react';
 import {Box, Button, Grid, styled} from '@mui/material';
 import {formatAdsCardText} from '../../utils/utils';
 import {Body1, TitleH6} from '../MyTypography';
 import PlaceIcon from '@mui/icons-material/Place';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 type Props = {
   ads: Ads;
   isPreview?: boolean;
   whiteBg?: boolean;
+  onSettings?: (event: React.MouseEvent<HTMLElement>) => void;
 };
 
-const AdsCard = ({ads, isPreview, whiteBg}: Props) => {
+const AdsCard = ({ads, isPreview, whiteBg, onSettings}: Props) => {
   return (
     <Wrap
       container
@@ -43,14 +46,26 @@ const AdsCard = ({ads, isPreview, whiteBg}: Props) => {
                 {ads.neighborhood && `, ${ads.neighborhood}`}
               </Info>
             </LocationWrap>
-            <CardButton
-              size="small"
-              color="primary"
-              variant="contained"
-              endIcon={<ArrowForwardIosIcon />}
-            >
-              Visita
-            </CardButton>
+            {!!onSettings ? (
+              <CardButton
+                size="small"
+                color="primary"
+                variant="contained"
+                onClick={onSettings}
+                endIcon={<SettingsIcon />}
+              >
+                Gestisci
+              </CardButton>
+            ) : (
+              <CardButton
+                size="small"
+                color="primary"
+                variant="contained"
+                endIcon={<ArrowForwardIosIcon />}
+              >
+                Visita
+              </CardButton>
+            )}
           </CardAction>
         </InfoWrap>
       </Content>

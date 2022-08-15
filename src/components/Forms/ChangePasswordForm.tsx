@@ -9,7 +9,8 @@ import {Subtitle1, TitleH6} from '../MyTypography';
 import CheckIcon from '@mui/icons-material/Check';
 
 type FormValues = {
-  password: string;
+  currentPassword: string;
+  newPassword: string;
   confirmPassword: string;
 };
 
@@ -81,24 +82,34 @@ const ChangePasswordForm = ({onSuccess}: Props) => {
             )}
             <MyTextField
               validate={createPasswordValidator}
-              name="password"
-              placeholder="Password"
+              name="currentPassword"
+              placeholder="Password attuale*"
+              type="password"
+              spacingBottom
+            />
+            <MyTextField
+              validate={createPasswordValidator}
+              name="newPassword"
+              placeholder="Nuova Password*"
               type="password"
               instructions
             />
             <MyTextField
               validate={(value) =>
-                value === values.password ? '' : 'La password non corrisponde'
+                value === values.newPassword
+                  ? ''
+                  : 'La password non corrisponde'
               }
               name="confirmPassword"
-              placeholder="Ripeti password"
+              placeholder="Ripeti password*"
               type="password"
+              spacingBottom
             />
             <MyButton
               onClick={handleSubmit}
               disabled={pristine || hasValidationErrors}
               variant="contained"
-              sx={{width: '100%', marginTop: '30px'}}
+              sx={{width: '100%'}}
               loading={submitting}
               type="submit"
             >

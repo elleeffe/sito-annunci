@@ -42,7 +42,7 @@ const HomeForm = () => {
               <Grid item xs={12} md={3}>
                 <MyAutocomplete
                   name="city"
-                  placeholder="Città"
+                  placeholder="Città*"
                   options={cityOptions}
                   validate={(value) => isRequired(value)}
                 />

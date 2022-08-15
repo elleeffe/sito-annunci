@@ -16,7 +16,14 @@ const MyButton = ({children, loading, size = 'medium', ...props}: Props) => {
 
   return (
     <Button {...props} size={size}>
-      {loading ? <CircularProgress size={loaderSize} /> : children}
+      {loading ? (
+        <CircularProgress
+          size={loaderSize}
+          sx={{svg: {width: loaderSize, height: loaderSize}}}
+        />
+      ) : (
+        children
+      )}
     </Button>
   );
 };

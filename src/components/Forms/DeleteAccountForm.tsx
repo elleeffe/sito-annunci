@@ -66,12 +66,13 @@ const DeleteAccountForm = ({onSuccess}: Props) => {
               name="password"
               placeholder="Password*"
               type="password"
+              spacingBottom
             />
             <MyButton
               onClick={handleSubmit}
               disabled={pristine || hasValidationErrors}
               variant="contained"
-              sx={{width: '100%', marginTop: '30px'}}
+              sx={{width: '100%'}}
               loading={submitting}
               type="submit"
               color="warning"

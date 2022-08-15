@@ -4,6 +4,8 @@ import {Subtitle1, TitleH6} from '../MyTypography';
 import SkeletonCard from '../Card/SkeletonCard';
 import {mockAds} from '../../utils/mocks';
 import AdsCard from '../Card/AdsCard';
+import DeleteModal from './DeleteModal';
+import SettingsMenu from './SettingsMenu';
 
 const mockUserAds = new Array(5)
   .fill(mockAds)
@@ -16,6 +18,11 @@ const UserAdsList = () => {
   const [ads, setAds] = useState<Ads[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<boolean>(false);
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [clickedAd, setClickedAd] = useState<string>();
+  const [confirm, setConfirm] = useState<boolean>(false);
+  const [deleteLoading, setDeleteLoading] = useState<boolean>(false);
+  const [deleteError, setDeleteError] = useState<boolean>(false);
 
   const getUserAds = useCallback(async () => {
     try {
@@ -30,43 +37,96 @@ const UserAdsList = () => {
     }
   }, []);
 
+  const handleClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl((old) => (!!old ? null : event.currentTarget));
+  }, []);
+
+  const handleDelete = useCallback(async () => {
+    try {
+      setDeleteError(false);
+      setDeleteLoading(true);
+      await sleep(3000);
+      console.log({adsId: clickedAd});
+      setDeleteLoading(false);
+      setConfirm(false);
+      setClickedAd(undefined);
+      setAnchorEl(null);
+      getUserAds();
+    } catch (e) {
+      console.log(e);
+      setDeleteError(true);
+    }
+  }, [clickedAd, getUserAds]);
+
   useEffect(() => {
     getUserAds();
   }, [getUserAds]);
 
   return (
-    <Wrap>
-      <TitleH6>I tuoi annunci</TitleH6>
-      <List>
-        {loading && !error && (
-          <>
-            <SkeletonCard whiteBg />
-            <SkeletonCard whiteBg />
-          </>
-        )}
-        {!loading && error && (
-          <Alert
-            severity="error"
-            action={
-              <Button color="inherit" size="small" onClick={getUserAds}>
-                Riprova
-              </Button>
-            }
-          >
-            Si è verificato un errore, riprovare.
-          </Alert>
-        )}
-        {!loading &&
-          !error &&
-          (!!ads.length ? (
-            ads.map((el) => <AdsCard ads={el} key={el.id} whiteBg />)
-          ) : (
+    <>
+      <Wrap>
+        <TitleH6>I tuoi annunci</TitleH6>
+        <List>
+          {loading && !error && (
             <>
-              <Subtitle1>Non hai ancora pubblicato nessun annuncio</Subtitle1>
+              <SkeletonCard whiteBg />
+              <SkeletonCard whiteBg />
             </>
-          ))}
-      </List>
-    </Wrap>
+          )}
+          {!loading && error && (
+            <Alert
+              severity="error"
+              action={
+                <Button color="inherit" size="small" onClick={getUserAds}>
+                  Riprova
+                </Button>
+              }
+            >
+              Si è verificato un errore, riprovare.
+            </Alert>
+          )}
+          {!loading &&
+            !error &&
+            (!!ads.length ? (
+              ads.map((el) => (
+                <AdsCard
+                  ads={el}
+                  key={el.id}
+                  whiteBg
+                  onSettings={(e) => {
+                    handleClick(e);
+                    setClickedAd(el.id);
+                  }}
+                />
+              ))
+            ) : (
+              <>
+                <Subtitle1>Non hai ancora pubblicato nessun annuncio</Subtitle1>
+              </>
+            ))}
+        </List>
+      </Wrap>
+      <SettingsMenu
+        anchorEl={anchorEl}
+        onClose={() => {
+          setAnchorEl(null);
+          setClickedAd(undefined);
+        }}
+        onDelete={() => setConfirm(true)}
+        onEdit={() => console.log('edit')}
+        onOpen={() => console.log('open')}
+      />
+      <DeleteModal
+        isOpen={!!confirm}
+        onClose={() => {
+          setConfirm(false);
+          setClickedAd(undefined);
+        }}
+        error={deleteError}
+        loading={deleteLoading}
+        onConfirm={handleDelete}
+      />
+    </>
   );
 };
 

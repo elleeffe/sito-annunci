@@ -19,6 +19,7 @@ type Props = {
   options: VisibilityOption[];
   spacingBottom?: boolean;
   initialValue?: Visibility;
+  disabled?: boolean;
 };
 
 const MyRadioCard = ({
@@ -28,6 +29,7 @@ const MyRadioCard = ({
   options,
   spacingBottom,
   initialValue,
+  disabled,
 }: Props) => {
   const [value, setValue] = useState<Visibility | undefined>(
     () => initialValue || undefined
@@ -48,6 +50,7 @@ const MyRadioCard = ({
     <FormControl
       error={error}
       sx={{width: '100%', marginBottom: spacingBottom ? '25px' : undefined}}
+      disabled={disabled}
     >
       {label && <FormLabel>Gender</FormLabel>}
       <FormControlLabel

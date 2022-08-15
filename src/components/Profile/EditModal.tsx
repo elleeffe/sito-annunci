@@ -17,18 +17,17 @@ const EditModal = ({isOpen, onClose, ads}: Props) => {
       onClose={onClose}
       sx={{
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
       }}
     >
       <Box
         sx={{
           display: 'flex',
-          height: '90vh',
-          minHeight: '500px',
+          height: 'calc(100% - 10vh)',
+          marginTop: '5vh',
           overflow: 'hidden',
           position: 'relative',
+          padding: '0 15px',
         }}
       >
         <CloseButton

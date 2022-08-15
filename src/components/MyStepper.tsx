@@ -55,7 +55,10 @@ const MyStepper = ({
 
   const stepAction = useMemo(() => {
     const currentStep = steps[activeStep];
-    return currentStep.action;
+    if (!!currentStep) {
+      return currentStep.action;
+    }
+    return undefined;
   }, [steps, activeStep]);
 
   const handleNext = useCallback(() => {
@@ -116,7 +119,7 @@ const MyStepper = ({
                 variant={buttonVariant}
                 color={buttonColor}
                 size={buttonSize}
-                disabled={steps[activeStep].disabled}
+                disabled={steps[activeStep]?.button?.disabled}
               >
                 {steps[activeStep]?.button?.label}
               </MyButton>

@@ -1,10 +1,17 @@
 import React from 'react';
 import {Box, Button, Grid, styled} from '@mui/material';
-import {formatAdsCardText} from '../../utils/utils';
-import {Body1, TitleH6} from '../MyTypography';
+import {
+  formatAdsCardText,
+  formatDate,
+  formatVisibilityExpiration,
+} from '../../utils/utils';
+import {Body1, Subtitle2, TitleH6} from '../MyTypography';
 import PlaceIcon from '@mui/icons-material/Place';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SettingsIcon from '@mui/icons-material/Settings';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
+import {visibilityOptions} from '../../utils/config';
 
 type Props = {
   ads: Ads;
@@ -22,6 +29,15 @@ const AdsCard = ({ads, isPreview, whiteBg, onSettings}: Props) => {
       isPreview={isPreview}
       whiteBg={whiteBg}
     >
+      {!!onSettings && ads.views !== undefined && (
+        <FullGrid item xs={12} marginBottom="15px" alignItems="center">
+          <VisibilityIcon color="primary" />
+          <Subtitle2 marginLeft="10px">
+            {ads.views}{' '}
+            {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
+          </Subtitle2>
+        </FullGrid>
+      )}
       <Cover
         item
         xs={12}
@@ -32,7 +48,12 @@ const AdsCard = ({ads, isPreview, whiteBg, onSettings}: Props) => {
       <Content item xs={12} md={7} lg={8}>
         <Title>{formatAdsCardText(ads.title, 10)}</Title>
         <Description>{formatAdsCardText(ads.description, 20)}</Description>
-        <Info sx={{marginBottom: '10px'}}>{ads.category}</Info>
+        {!!ads.publicationDate && (
+          <Subtitle2 sx={{marginBottom: '5px'}}>
+            {formatDate(ads.publicationDate)}
+          </Subtitle2>
+        )}
+        <Info sx={{marginBottom: '5px'}}>{ads.category}</Info>
         <InfoWrap>
           <Info divider>{ads.age} anni</Info>
           <CardAction>
@@ -69,6 +90,30 @@ const AdsCard = ({ads, isPreview, whiteBg, onSettings}: Props) => {
           </CardAction>
         </InfoWrap>
       </Content>
+      {!!onSettings && !!ads.visibilityOption && (
+        <FullGrid item xs={12} marginTop="15px" alignItems="flex-start">
+          <RocketLaunchIcon color="primary" />
+          <Box display="flex" flex={1} flexWrap="wrap">
+            <Subtitle2 marginLeft="10px">
+              {
+                visibilityOptions.find(
+                  (el) => el.value === ads.visibilityOption
+                )?.title
+              }
+            </Subtitle2>
+            <Body1 marginLeft="6px">
+              -{' '}
+              {
+                visibilityOptions.find(
+                  (el) => el.value === ads.visibilityOption
+                )?.subtitle
+              }{' '}
+              {!!formatVisibilityExpiration(ads.visibilityExpiration) &&
+                `(${formatVisibilityExpiration(ads.visibilityExpiration)})`}
+            </Body1>
+          </Box>
+        </FullGrid>
+      )}
     </Wrap>
   );
 };
@@ -209,4 +254,10 @@ const CardButton = styled(Button)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
     marginTop: '25px',
   },
+}));
+
+const FullGrid = styled(Grid)(() => ({
+  display: 'flex',
+  paddingLeft: '0px !important',
+  paddingTop: '0px !important',
 }));

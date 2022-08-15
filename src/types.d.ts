@@ -18,6 +18,7 @@ type Visibility =
   | 'offerta-5';
 
 type Ads = {
+  views?: number;
   id?: string;
   publicationDate?: number;
   title: string;
@@ -34,6 +35,7 @@ type Ads = {
   whatsapp: boolean;
   visibilityOption?: Visibility;
   visibilityTime?: TimeRange;
+  visibilityExpiration?: number;
 };
 
 type VisibilityOption = {

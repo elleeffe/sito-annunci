@@ -2,6 +2,7 @@ import {Paper, styled, useMediaQuery} from '@mui/material';
 import {useCallback, useMemo, useState} from 'react';
 import {Form} from 'react-final-form';
 import {useUser} from '../../../contexts/UserContext';
+import {formatVisibilityExpiration} from '../../../utils/utils';
 import MyStepper from '../../MyStepper';
 import ConfirmStep from './ConfirmStep';
 import CreateVariant from './FinalStep/CreateVariant';
@@ -45,7 +46,11 @@ const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
     | AdsFormValues
     | {email: string; phone: string}
     | undefined = useMemo(() => {
-    if (initialAds) {
+    if (!!initialAds && !!initialAds.id) {
+      const {id, publicationDate, views, ...rest} = initialAds;
+      return rest;
+    }
+    if (!!initialAds && !initialAds.id) {
       return initialAds;
     }
     if (user) {
@@ -66,8 +71,9 @@ const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
           hasValidationErrors,
           pristine,
           values,
+          dirty,
         }) => {
-          console.log(values);
+          console.log(dirty);
           return (
             <form onSubmit={handleSubmit} style={{flex: 1}}>
               <MyStepper
@@ -108,6 +114,9 @@ const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
                       <VisibilityStep
                         showTime={!!values.visibilityOption}
                         initialValue={initialAds?.visibilityOption}
+                        visibilityExpiration={formatVisibilityExpiration(
+                          values.visibilityExpiration
+                        )}
                       />
                     ),
                     loading: submitting,
@@ -125,7 +134,8 @@ const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
                     ),
                     action: !submitting ? handleSubmit : undefined,
                     button: {
-                      label: 'Conferma',
+                      disabled: finalVariant === 'edit' ? !dirty : false,
+                      label: finalVariant === 'edit' ? 'Modifica' : 'Conferma',
                       loading: submitting,
                     },
                   },
@@ -156,7 +166,7 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   maxWidth: '900px',
   borderRadius: '10px',
   margin: '0 auto',
-  padding: '25px',
+  padding: '35px 25px 25px',
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
@@ -169,6 +179,6 @@ const StyledPaper = styled(Paper)(({theme}) => ({
   },
 
   [theme.breakpoints.down('sm')]: {
-    padding: '20px 10px',
+    padding: '30px 10px 20px',
   },
 }));

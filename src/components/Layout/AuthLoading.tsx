@@ -51,6 +51,8 @@ const AuthLoading = ({children}: PropsWithChildren) => {
       router.query.permission ||
       user // per le pagine termini e condizioni, privacy e cookie policy
     ) {
+      !localStorage.getItem('sos-incontri-adulti') &&
+        localStorage.setItem('sos-incontri-adulti', 'termini e condizioni');
       setModal(false);
     } else {
       setModal(true);

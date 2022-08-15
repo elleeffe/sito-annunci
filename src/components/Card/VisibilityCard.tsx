@@ -1,5 +1,6 @@
 import {Box, FormControlLabel, Grid, Radio, styled} from '@mui/material';
 import {Body1, Body2, Subtitle1, Subtitle2, TitleH6} from '../MyTypography';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 type Props = {
   option: VisibilityOption;
@@ -25,7 +26,12 @@ const VisibilityCard = ({option, isRadio, value}: Props) => {
               }}
             />
           ) : (
-            <Subtitle1 gutterBottom>{option.title}</Subtitle1>
+            <Box display="flex">
+              <RocketLaunchIcon color="primary" />
+              <Subtitle1 gutterBottom marginLeft="10px">
+                {option.title}
+              </Subtitle1>
+            </Box>
           )}
           <Body1 gutterBottom>{option.subtitle}</Body1>
         </Grid>

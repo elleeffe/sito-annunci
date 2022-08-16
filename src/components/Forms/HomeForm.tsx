@@ -6,7 +6,6 @@ import MyAutocomplete from '../Fields/MyAutocomplete';
 import MySelect from '../Fields/MySelect';
 import MyTextField from '../Fields/MyTextField';
 import {categoryOptions, cityOptions} from '../../utils/config';
-import {isRequired} from '../../utils/fields';
 
 const HomeForm = () => {
   const router = useRouter();
@@ -14,19 +13,22 @@ const HomeForm = () => {
   const handleSubmit = useCallback(
     (values: HomeFormValues) => {
       const {city, category, keyword} = values;
-      const query: {city: City; category?: Category; keyword?: string} = {city};
+      const query: {city?: City; keyword?: string} = {};
+      if (city) {
+        query.city = city;
+      }
       if (keyword) {
         query.keyword = keyword;
       }
       if (!category) {
         router.push({
           pathname: '/categorie',
-          query,
+          query: !!Object.keys(query).length ? query : undefined,
         });
       } else {
         router.push({
           pathname: `/categorie/${values.category}`,
-          query,
+          query: !!Object.keys(query).length ? query : undefined,
         });
       }
     },
@@ -35,16 +37,15 @@ const HomeForm = () => {
 
   return (
     <Form<HomeFormValues> onSubmit={handleSubmit}>
-      {({handleSubmit, hasValidationErrors}) => {
+      {({handleSubmit}) => {
         return (
           <form onSubmit={handleSubmit}>
             <FilterWrap container columnSpacing={2} rowSpacing={2}>
               <Grid item xs={12} md={3}>
                 <MyAutocomplete
                   name="city"
-                  placeholder="Città*"
+                  placeholder="Città"
                   options={cityOptions}
-                  validate={(value) => isRequired(value)}
                 />
               </Grid>
               <Grid item xs={12} md={3}>
@@ -63,7 +64,6 @@ const HomeForm = () => {
                   variant="contained"
                   onClick={handleSubmit}
                   sx={{width: '100%'}}
-                  disabled={hasValidationErrors}
                 >
                   Cerca
                 </Button>

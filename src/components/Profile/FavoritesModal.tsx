@@ -59,6 +59,7 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
       setRemoveLoading(id);
       await sleep(1000);
       setRemoveLoading(undefined);
+      // Optimistic update
       setAds((old) => old.filter((el) => el.id !== id));
     } catch (e) {
       console.log(e);

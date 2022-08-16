@@ -60,7 +60,14 @@ type AdsFormValues = Ads & {
 };
 
 type HomeFormValues = {
-  category: Category;
-  city: City;
+  category?: Category;
+  city?: City;
+  keyword?: string;
+};
+
+type Filters = {
+  age: number[];
+  city?: City;
+  category?: Category;
   keyword: string;
 };

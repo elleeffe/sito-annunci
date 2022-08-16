@@ -56,12 +56,13 @@ const UserAdsList = () => {
       setDeleteModal(false);
       setClickedAd(undefined);
       setAnchorEl(null);
-      getUserAds();
+      //Optimistic update
+      setAds((old) => old.filter((el) => el.id !== clickedAd));
     } catch (e) {
       console.log(e);
       setDeleteError(true);
     }
-  }, [clickedAd, getUserAds]);
+  }, [clickedAd]);
 
   useEffect(() => {
     getUserAds();

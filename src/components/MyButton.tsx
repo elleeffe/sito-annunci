@@ -3,7 +3,13 @@ import {useMemo} from 'react';
 
 type Props = ButtonProps & {loading?: boolean};
 
-const MyButton = ({children, loading, size = 'medium', ...props}: Props) => {
+const MyButton = ({
+  children,
+  loading,
+  onClick,
+  size = 'medium',
+  ...props
+}: Props) => {
   const loaderSize = useMemo(() => {
     if (size === 'small') {
       return 20;
@@ -15,7 +21,7 @@ const MyButton = ({children, loading, size = 'medium', ...props}: Props) => {
   }, [size]);
 
   return (
-    <Button {...props} size={size}>
+    <Button {...props} size={size} onClick={onClick}>
       {loading ? (
         <CircularProgress
           size={loaderSize}

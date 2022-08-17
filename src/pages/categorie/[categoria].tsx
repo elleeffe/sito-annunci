@@ -71,8 +71,9 @@ const Wrap = styled(Box)(({theme}) => ({
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'flex-start',
+  position: 'relative',
 
   [theme.breakpoints.down('md')]: {
-    marginTop: '50px',
+    marginTop: '25px',
   },
 }));

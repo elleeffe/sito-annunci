@@ -14,8 +14,7 @@ export const LoadingScreen = () => (
   </Wrap>
 );
 
-const sleep = (ms: number) =>
-  new Promise((res, rej) => setTimeout(() => res(''), ms));
+const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
 const AuthLoading = ({children}: PropsWithChildren) => {
   const [loading, setLoading] = useState(true);

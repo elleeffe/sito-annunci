@@ -1,4 +1,5 @@
 import {useRouter} from 'next/router';
+import {FiltersProvider} from '../../contexts/FiltersContext';
 import type {NextPage} from 'next';
 import {styled, Box, Container} from '@mui/material';
 import BreadCrumb from '../../components/BreadCrumb';
@@ -7,7 +8,6 @@ import PageIntro from '../../components/Layout/PageIntro';
 import {TitleH1} from '../../components/MyTypography';
 import AdsFilter from '../../components/AdsFilter';
 import AdsList from '../../components/AdsList';
-import {FiltersProvider} from '../../contexts/FiltersContext';
 
 const Categories: NextPage = () => {
   const router = useRouter();
@@ -40,8 +40,9 @@ const Wrap = styled(Box)(({theme}) => ({
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'flex-start',
+  position: 'relative',
 
   [theme.breakpoints.down('md')]: {
-    marginTop: '50px',
+    marginTop: '25px',
   },
 }));

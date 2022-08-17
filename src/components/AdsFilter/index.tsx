@@ -1,4 +1,4 @@
-import {useCallback, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {useFiltersContext} from '../../contexts/FiltersContext';
 import useResponsive from '../../hooks/useResponsive';
 import {styled, Box, IconButton, Drawer} from '@mui/material';
@@ -6,9 +6,12 @@ import Filters from './Filters';
 import {TitleH6} from '../MyTypography';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
+import MyButton from '../MyButton';
+import {ArrowUpward} from '@mui/icons-material';
 
 const AdsFilter = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [showButton, setShowButton] = useState<boolean>(false);
 
   const {filters, setFilters} = useFiltersContext();
 
@@ -19,42 +22,65 @@ const AdsFilter = () => {
     [setFilters]
   );
 
+  const backToTop = useCallback(() => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  }, []);
+
+  useEffect(() => {
+    const checkScroll = () => {
+      if (isMd && window.scrollY >= 500) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+    window.addEventListener('scroll', checkScroll);
+    return () => window.removeEventListener('scroll', checkScroll);
+  });
+
   return (
     <>
       <Wrap>
-        {isMd ? (
-          <>
-            <Box
-              display="flex"
-              alignItems="center"
-              sx={{transform: 'translateX(-16px)'}}
-            >
-              <IconButton color="primary" onClick={() => setIsOpen(true)}>
-                <FilterAltIcon />
-              </IconButton>
-              <FilterTitle isSmall>Filtra</FilterTitle>
-            </Box>
-            <Box
-              display="flex"
-              alignItems="center"
-              sx={{transform: 'translateX(16px)'}}
-            >
-              <FilterTitle isSmall>Ordina per</FilterTitle>
-              <IconButton color="primary" onClick={() => setIsOpen(true)}>
-                <SortIcon />
-              </IconButton>
-            </Box>
-          </>
-        ) : (
-          <>
-            <Box marginBottom="100px">
-              <FilterTitle isSmall>Filtra</FilterTitle>
-              <Filters value={filters} onChange={handleFilters} />
-            </Box>
-            <Box>
-              <FilterTitle isSmall>Ordina per</FilterTitle>
-            </Box>
-          </>
+        <FilterWrap>
+          {isMd ? (
+            <>
+              <Box
+                display="flex"
+                alignItems="center"
+                sx={{transform: 'translateX(-16px)'}}
+              >
+                <IconButton color="primary" onClick={() => setIsOpen(true)}>
+                  <FilterAltIcon />
+                </IconButton>
+                <FilterTitle isSmall>Filtra</FilterTitle>
+              </Box>
+              <Box
+                display="flex"
+                alignItems="center"
+                sx={{transform: 'translateX(16px)'}}
+              >
+                <FilterTitle isSmall>Ordina per</FilterTitle>
+                <IconButton color="primary" onClick={() => setIsOpen(true)}>
+                  <SortIcon />
+                </IconButton>
+              </Box>
+            </>
+          ) : (
+            <>
+              <Box marginBottom="100px">
+                <FilterTitle isSmall>Filtra</FilterTitle>
+                <Filters value={filters} onChange={handleFilters} />
+              </Box>
+              <Box>
+                <FilterTitle isSmall>Ordina per</FilterTitle>
+              </Box>
+            </>
+          )}
+        </FilterWrap>
+        {!isMd && (
+          <MyButton color="primary" variant="contained" onClick={backToTop}>
+            Torna in cima
+          </MyButton>
         )}
       </Wrap>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
@@ -68,6 +94,11 @@ const AdsFilter = () => {
           </Box>
         </DrawerInner>
       </Drawer>
+      {isMd && showButton && (
+        <BackToTopButton size="small" onClick={backToTop}>
+          <ArrowUpward sx={{color: '#fff'}} />
+        </BackToTopButton>
+      )}
     </>
   );
 };
@@ -75,18 +106,35 @@ const AdsFilter = () => {
 export default AdsFilter;
 
 const Wrap = styled(Box)(({theme}) => ({
-  background: '#fff',
-  borderRadius: '20px',
-  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  width: '300px',
+  height: 'calc(100vh - 90px)',
   display: 'flex',
   flexDirection: 'column',
-  padding: '20px',
+  justifyContent: 'space-between',
   position: 'sticky',
   top: '75px',
   left: 0,
-  height: 'calc(100vh - 90px)',
+  width: '300px',
+
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    height: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'initial',
+    position: 'initial',
+  },
+}));
+
+const FilterWrap = styled(Box)(({theme}) => ({
+  background: '#fff',
+  borderRadius: '20px',
+  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '20px',
   overflow: 'overlay',
+  flex: 1,
+  marginBottom: '20px',
 
   [theme.breakpoints.down('md')]: {
     width: '100%',
@@ -94,10 +142,11 @@ const Wrap = styled(Box)(({theme}) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 0,
+    overflow: 'initial',
     background: 'transparent',
     borderRadius: 'initial',
     boxShadow: 'initial',
-    position: 'initial',
+    marginBottom: '0px',
   },
 }));
 
@@ -116,4 +165,17 @@ const DrawerInner = styled(Box)(() => ({
   flexDirection: 'column',
   width: '100vw',
   maxWidth: '300px',
+}));
+
+const BackToTopButton = styled(IconButton)(({theme}) => ({
+  background: theme.palette.primary.main,
+  position: 'fixed',
+  bottom: '15px',
+  right: '15px',
+  '&:hover': {
+    background: theme.palette.primary.main,
+  },
+  svg: {
+    color: theme.palette.background.default,
+  },
 }));

@@ -1,25 +1,40 @@
-import {styled, Box} from '@mui/material';
+import {styled, Box, CircularProgress} from '@mui/material';
 import {useFiltersContext} from '../contexts/FiltersContext';
-import {mockAds} from '../utils/mocks';
+import useAdsList from '../hooks/useAdsList';
 import AdsCard from './Card/AdsCard';
+import MyButton from './MyButton';
 import {TitleH6} from './MyTypography';
 
-type Props = {};
+const AdsList = () => {
+  const {filters, order} = useFiltersContext();
 
-const mockUserAds = new Array(5)
-  .fill(mockAds)
-  .map((el, i) => ({...el, id: el.id + i}));
-
-const AdsList = ({}: Props) => {
-  const {filters} = useFiltersContext();
+  const {
+    adsList,
+    loading,
+    error,
+    getAdsList: showMore,
+  } = useAdsList(filters, order);
 
   return (
     <Wrap>
-      <TitleH6>Risultati</TitleH6>
+      <TitleH6>Risultati &#40;{adsList.flat().length}&#41;</TitleH6>
       <List>
-        {mockUserAds.map((el) => (
-          <AdsCard ads={el} key={el.id} whiteBg />
+        {adsList.map((ads) => (
+          <AdsCard ads={ads} key={ads.id} whiteBg />
         ))}
+        <Box display="flex" justifyContent="center" marginTop="25px">
+          {loading && <CircularProgress color="primary" size={50} />}
+          {!loading && !error && (
+            <MyButton onClick={showMore} color="primary" variant="contained">
+              Mostra altro
+            </MyButton>
+          )}
+          {!loading && error && (
+            <MyButton onClick={showMore} variant="contained" color="primary">
+              Riprova
+            </MyButton>
+          )}
+        </Box>
       </List>
     </Wrap>
   );
@@ -44,5 +59,4 @@ const Wrap = styled(Box)(({theme}) => ({
 
 const List = styled(Box)(() => ({
   marginTop: '25px',
-  paddingBottom: '10px',
 }));

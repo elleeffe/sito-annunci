@@ -24,8 +24,7 @@ const mockUserAds = new Array(5)
   .fill(mockAds)
   .map((el, i) => ({...el, id: el.id + i}));
 
-const sleep = (ms: number) =>
-  new Promise((res, rej) => setTimeout(() => res(''), ms));
+const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
 const FavoritesModal = ({isOpen, onClose}: Props) => {
   const [ads, setAds] = useState<Ads[]>([]);

@@ -71,3 +71,8 @@ type Filters = {
   category?: Category;
   keyword: string;
 };
+
+type Order = {
+  age: 'young' | 'old' | null;
+  publicationDate: 'latest' | 'oldest' | null;
+};

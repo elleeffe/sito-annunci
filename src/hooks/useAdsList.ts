@@ -22,6 +22,9 @@ const useAdsList = (filters: Filters, order: Order) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const getAdsList = useCallback(async () => {
+    if (loading) {
+      return;
+    }
     try {
       setLoading(true);
       setError(false);
@@ -35,7 +38,7 @@ const useAdsList = (filters: Filters, order: Order) => {
     } finally {
       setLoading(false);
     }
-  }, [pagination]);
+  }, [pagination, loading]);
 
   const adsList = useMemo(() => {
     // TODO - order ads before return it to page
@@ -43,8 +46,11 @@ const useAdsList = (filters: Filters, order: Order) => {
   }, [list]);
 
   useEffect(() => {
+    if (pagination > 0) {
+      return;
+    }
     getAdsList();
-  }, []);
+  }, [pagination, getAdsList]);
 
   return {adsList, error, loading, getAdsList};
 };

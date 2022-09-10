@@ -1,4 +1,4 @@
-import {useMemo, useState} from 'react';
+import {ChangeEvent, useCallback, useMemo, useState} from 'react';
 import {
   IconButton,
   TextField,
@@ -46,12 +46,21 @@ const MyTextField = ({
     return props.type;
   }, [props.type, showPassword]);
 
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      input.onChange(event.target.value);
+      !!props.onChange && props.onChange(event);
+    },
+    [input, props]
+  );
+
   return (
     <>
       <TextField
         {...input}
         {...props}
         {...muiErrorConverter(meta)}
+        onChange={handleChange}
         type={inputType}
         InputProps={{
           ...props.InputProps,

@@ -11,11 +11,9 @@ const mock: {[key: number]: Ads[]} = {
   2: [...mockAdsList],
 };
 
-// TODO - fix double initial fetch
-
 const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
-const useAdsList = (filters: Filters, order: Order) => {
+const useAdsList = (filters: Filters, order: Orders) => {
   const [pagination, setPagination] = useState<number>(0);
   const [list, setList] = useState<Ads[]>([]);
   const [error, setError] = useState<boolean>(false);

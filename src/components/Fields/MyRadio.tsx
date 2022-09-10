@@ -1,3 +1,4 @@
+import {useCallback, useMemo, ChangeEvent} from 'react';
 import {
   FormControl,
   FormControlLabel,
@@ -6,7 +7,6 @@ import {
   Radio,
   RadioGroup,
 } from '@mui/material';
-import {useMemo} from 'react';
 import {useField} from 'react-final-form';
 import {muiErrorConverter} from '../../utils/fields';
 
@@ -14,13 +14,24 @@ type Props = {
   label?: string;
   name: string;
   validate?: (value: string) => string;
-  options: {value: string; label: string; disabled?: boolean}[];
+  options: {value: string | null; label: string; disabled?: boolean}[];
+  onChange?: (value: any) => void;
 };
 
-const MyRadio = ({label, name, validate, options}: Props) => {
+// TODO: fix value and checked option
+
+const MyRadio = ({label, name, validate, options, onChange}: Props) => {
   const {input, meta} = useField(name, {validate, type: 'radio'});
 
   const {error, helperText} = useMemo(() => muiErrorConverter(meta), [meta]);
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      input.onChange(event.target.value);
+      !!onChange && onChange(event.target.value);
+    },
+    [input, onChange]
+  );
 
   return (
     <FormControl error={error} sx={{width: '100%'}}>
@@ -28,6 +39,7 @@ const MyRadio = ({label, name, validate, options}: Props) => {
       <RadioGroup
         row
         {...input}
+        onChange={handleChange}
         sx={{width: '100%', justifyContent: 'space-between'}}
       >
         {options.map((option) => (

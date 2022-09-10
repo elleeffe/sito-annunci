@@ -28,6 +28,7 @@ type Props = {
   label?: string;
   id: string;
   disabled?: boolean;
+  onChange?: (value: any) => void;
 };
 
 const MySelect = ({
@@ -41,6 +42,7 @@ const MySelect = ({
   id,
   color = 'primary',
   disabled,
+  onChange,
 }: Props) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -59,8 +61,9 @@ const MySelect = ({
   const handleChange = useCallback(
     (event: SelectChangeEvent<unknown>) => {
       input.onChange(event.target.value);
+      !!onChange && onChange(event.target.value);
     },
-    [input]
+    [input, onChange]
   );
 
   const placeholderColor = useMemo(() => {

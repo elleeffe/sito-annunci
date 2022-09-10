@@ -1,20 +1,23 @@
 import {useCallback} from 'react';
-
 import {Box, Slider} from '@mui/material';
 import {Subtitle1} from '../MyTypography';
+import {useField} from 'react-final-form';
 
 type Props = {
   label?: string;
-  value: number[];
+  name: string;
   onChange: (value: number[]) => void;
 };
 
-const MyRangeField = ({label, value, onChange}: Props) => {
+const MyRangeField = ({name, label, onChange}: Props) => {
+  const {input} = useField(name);
+
   const handleChange = useCallback(
     (event: Event, newValue: number[] | number) => {
+      input.onChange(newValue);
       onChange(newValue as number[]);
     },
-    [onChange]
+    [onChange, input]
   );
 
   return (
@@ -22,9 +25,9 @@ const MyRangeField = ({label, value, onChange}: Props) => {
       {!!label && <Subtitle1>Età</Subtitle1>}
       <Box display="flex" justifyContent="center">
         <Slider
-          getAriaLabel={() => 'Età'}
-          value={value}
+          {...input}
           onChange={handleChange}
+          getAriaLabel={() => 'Età'}
           min={18}
           valueLabelDisplay="on"
           disableSwap

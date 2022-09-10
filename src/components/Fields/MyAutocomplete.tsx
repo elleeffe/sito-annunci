@@ -26,6 +26,7 @@ type Props = {
   loading?: boolean;
   spacingBottom?: boolean;
   label?: string;
+  onChange?: (value: any) => void;
 };
 
 const MyAutocomplete = ({
@@ -39,6 +40,7 @@ const MyAutocomplete = ({
   loading,
   spacingBottom,
   label,
+  onChange,
 }: Props) => {
   const {input, meta} = useField(name, {validate});
   const [searchString, setSearchString] = useState<string>(
@@ -52,12 +54,14 @@ const MyAutocomplete = ({
       if (option === null) {
         input.onChange(undefined);
         setSearchString('');
+        !!onChange && onChange(undefined);
         return;
       }
       setSearchString(option.label);
       input.onChange(option.value);
+      !!onChange && onChange(option.value);
     },
-    [input]
+    [input, onChange]
   );
 
   const listOption = useMemo(

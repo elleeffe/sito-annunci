@@ -13,13 +13,18 @@ const AdsFilter = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showButton, setShowButton] = useState<boolean>(false);
 
-  const {filters, setFilters} = useFiltersContext();
+  const {filters, setFilters, orders, setOrders} = useFiltersContext();
 
   const {isMd} = useResponsive();
 
   const handleFilters = useCallback(
     (newFilters: Filters) => setFilters(newFilters),
     [setFilters]
+  );
+
+  const handleOrders = useCallback(
+    (newOrders: Orders) => setOrders(newOrders),
+    [setOrders]
   );
 
   const backToTop = useCallback(() => {
@@ -37,6 +42,8 @@ const AdsFilter = () => {
     window.addEventListener('scroll', checkScroll);
     return () => window.removeEventListener('scroll', checkScroll);
   });
+
+  console.log({filters, orders});
 
   return (
     <>
@@ -66,15 +73,11 @@ const AdsFilter = () => {
               </Box>
             </>
           ) : (
-            <>
-              <Box marginBottom="100px">
-                <FilterTitle isSmall>Filtra</FilterTitle>
-                <Filters value={filters} onChange={handleFilters} />
-              </Box>
-              <Box>
-                <FilterTitle isSmall>Ordina per</FilterTitle>
-              </Box>
-            </>
+            <Filters
+              value={{...filters, ...orders}}
+              onChangeFilters={handleFilters}
+              onChangeOrders={handleOrders}
+            />
           )}
         </FilterWrap>
         {!isMd && (
@@ -85,13 +88,11 @@ const AdsFilter = () => {
       </Wrap>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <DrawerInner>
-          <Box marginBottom="50px">
-            <FilterTitle isSmall>Filtra</FilterTitle>
-            <Filters value={filters} onChange={handleFilters} />
-          </Box>
-          <Box>
-            <FilterTitle isSmall>Ordina per</FilterTitle>
-          </Box>
+          <Filters
+            value={{...filters, ...orders}}
+            onChangeFilters={handleFilters}
+            onChangeOrders={handleOrders}
+          />
         </DrawerInner>
       </Drawer>
       {isMd && showButton && (

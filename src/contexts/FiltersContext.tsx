@@ -3,18 +3,23 @@ import {useState, useContext, createContext, PropsWithChildren} from 'react';
 export type FiltersContextType = {
   filters: Filters;
   setFilters: React.Dispatch<Filters>;
-  order: Order;
-  setOrder: React.Dispatch<Order>;
+  orders: Orders;
+  setOrders: React.Dispatch<Orders>;
 };
 
 export const FiltersContext = createContext<FiltersContextType>({
-  filters: {age: [18, 60], city: undefined, category: undefined, keyword: ''},
-  setFilters: () => {},
-  order: {
-    age: null,
-    publicationDate: null,
+  filters: {
+    ageRange: [18, 60],
+    city: undefined,
+    category: undefined,
+    keyword: '',
   },
-  setOrder: () => {},
+  setFilters: () => {},
+  orders: {
+    age: 'none',
+    publicationDate: 'none',
+  },
+  setOrders: () => {},
 });
 
 export const FiltersProvider = ({
@@ -27,12 +32,12 @@ export const FiltersProvider = ({
   category?: Category;
   keyword?: string;
 }>) => {
-  const [order, setOrder] = useState<Order>({
-    age: null,
-    publicationDate: null,
+  const [orders, setOrders] = useState<Orders>({
+    age: 'none',
+    publicationDate: 'none',
   });
   const [filters, setFilters] = useState<Filters>(() => ({
-    age: [18, 60],
+    ageRange: [18, 60],
     city,
     category,
     keyword: keyword || '',
@@ -41,8 +46,8 @@ export const FiltersProvider = ({
   return (
     <FiltersContext.Provider
       value={{
-        order,
-        setOrder,
+        orders,
+        setOrders,
         filters,
         setFilters,
       }}

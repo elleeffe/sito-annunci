@@ -59,20 +59,16 @@ type AdsFormValues = Ads & {
   imageConsens?: boolean;
 };
 
-type HomeFormValues = {
-  category?: Category;
+type HomeFormValues = Omit<Filters, 'ageRange'>;
+
+type Filters = {
+  ageRange: number[];
   city?: City;
+  category?: Category;
   keyword?: string;
 };
 
-type Filters = {
-  age: number[];
-  city?: City;
-  category?: Category;
-  keyword: string;
-};
-
-type Order = {
-  age: 'young' | 'old' | null;
-  publicationDate: 'latest' | 'oldest' | null;
+type Orders = {
+  age: 'young' | 'old' | 'none';
+  publicationDate: 'latest' | 'oldest' | 'none';
 };

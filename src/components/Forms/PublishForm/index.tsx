@@ -89,7 +89,6 @@ const PublishForm = ({
           values,
           dirty,
         }) => {
-          console.log(dirty);
           return (
             <form onSubmit={handleSubmit} style={{flex: 1}}>
               <MyStepper
@@ -114,8 +113,8 @@ const PublishForm = ({
                     screen: (
                       <ImagesStep
                         hideConsens={!!user || !!initialAds}
-                        disabledCover={!!values.cover}
-                        disabledImages={values.images?.length === 5}
+                        disabledCover={!!values?.cover}
+                        disabledImages={values?.images?.length === 5}
                       />
                     ),
                     loading: submitting,
@@ -128,10 +127,10 @@ const PublishForm = ({
                     label: 'Visibilità',
                     screen: (
                       <VisibilityStep
-                        showTime={!!values.visibilityOption}
+                        showTime={!!values?.visibilityOption}
                         initialValue={initialAds?.visibilityOption}
                         visibilityExpiration={formatVisibilityExpiration(
-                          values.visibilityExpiration
+                          values?.visibilityExpiration
                         )}
                       />
                     ),
@@ -140,11 +139,11 @@ const PublishForm = ({
                   },
                   {
                     label: 'Conferma',
-                    disabled: !!values.visibilityOption && !user,
+                    disabled: !!values?.visibilityOption && !user,
                     screen: (
                       <ConfirmStep
                         isLogged={!!user}
-                        showPayment={!!values.visibilityOption}
+                        showPayment={!!values?.visibilityOption}
                         currentAds={values}
                       />
                     ),

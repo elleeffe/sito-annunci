@@ -24,7 +24,7 @@ export const FiltersContext = createContext<FiltersContextType>({
   setFilters: () => {},
   orders: {
     age: 'none',
-    publicationDate: 'none',
+    publicationDate: 'latest',
   },
   setOrders: () => {},
 });
@@ -41,7 +41,7 @@ export const FiltersProvider = ({
 }>) => {
   const [orders, setOrders] = useState<Orders>({
     age: 'none',
-    publicationDate: 'none',
+    publicationDate: 'latest',
   });
   const [filters, setFilters] = useState<Filters>(() => ({
     ageRange: [18, 60],

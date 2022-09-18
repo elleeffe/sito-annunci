@@ -1,5 +1,4 @@
 import {useCallback, useEffect, useState} from 'react';
-import {useFiltersContext} from '../../contexts/FiltersContext';
 import useResponsive from '../../hooks/useResponsive';
 import {styled, Box, IconButton, Drawer} from '@mui/material';
 import Filters from './Filters';
@@ -12,8 +11,6 @@ import {ArrowUpward} from '@mui/icons-material';
 const AdsFilter = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showButton, setShowButton] = useState<boolean>(false);
-
-  const {filters, setFilters, orders, setOrders} = useFiltersContext();
 
   const {isMd} = useResponsive();
 
@@ -61,11 +58,7 @@ const AdsFilter = () => {
               </Box>
             </>
           ) : (
-            <Filters
-              value={{...filters, ...orders}}
-              onChangeFilters={setFilters}
-              onChangeOrders={setOrders}
-            />
+            <Filters />
           )}
         </FilterWrap>
         {!isMd && (
@@ -76,11 +69,7 @@ const AdsFilter = () => {
       </Wrap>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <DrawerInner>
-          <Filters
-            value={{...filters, ...orders}}
-            onChangeFilters={setFilters}
-            onChangeOrders={setOrders}
-          />
+          <Filters />
         </DrawerInner>
       </Drawer>
       {isMd && showButton && (

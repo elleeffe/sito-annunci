@@ -1,3 +1,4 @@
+import {useCallback, useMemo} from 'react';
 import {
   ButtonProps,
   FormControl,
@@ -6,7 +7,6 @@ import {
   FormHelperText,
   Switch,
 } from '@mui/material';
-import {useMemo} from 'react';
 import {useField} from 'react-final-form';
 import {muiErrorConverter} from '../../utils/fields';
 
@@ -17,7 +17,9 @@ type Props = {
   disabled?: boolean;
   spacingBottom?: boolean;
   color?: ButtonProps['color'];
-  onSwitch?: () => void;
+  value?: string | null;
+  onChange?: (value: any) => void;
+  defaultChecked?: boolean;
 };
 
 const MySwitch = ({
@@ -27,9 +29,13 @@ const MySwitch = ({
   disabled,
   spacingBottom,
   color,
-  onSwitch,
+  value,
+  onChange,
+  defaultChecked,
 }: Props) => {
-  const {input, meta} = useField(name, {validate, type: 'checkbox'});
+  const {input, meta} = useField(name, {
+    validate,
+  });
 
   const {error, helperText} = useMemo(() => muiErrorConverter(meta), [meta]);
 
@@ -37,6 +43,26 @@ const MySwitch = ({
     () => (color && color !== 'inherit' ? color : 'primary'),
     [color]
   );
+
+  const handleChange = useCallback(() => {
+    if (!!value) {
+      if (input.value === value) {
+        input.onChange(undefined);
+        onChange && onChange(undefined);
+      } else {
+        input.onChange(value);
+        onChange && onChange(value);
+      }
+    } else {
+      if (input.value) {
+        input.onChange(false);
+        onChange && onChange(false);
+      } else {
+        input.onChange(true);
+        onChange && onChange(true);
+      }
+    }
+  }, [input, value, onChange]);
 
   return (
     <FormControl
@@ -46,12 +72,15 @@ const MySwitch = ({
     >
       <FormGroup>
         <FormControlLabel
-          {...input}
           control={
             <Switch
               color={iconColor}
-              onChange={onSwitch && onSwitch}
+              {...input}
               disabled={disabled}
+              onChange={handleChange}
+              value={value}
+              checked={value ? input.value === value : undefined}
+              defaultChecked={defaultChecked}
             />
           }
           label={label}

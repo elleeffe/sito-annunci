@@ -70,5 +70,5 @@ type Filters = {
 
 type Orders = {
   age: 'young' | 'old' | 'none';
-  publicationDate: 'latest' | 'oldest' | 'none';
+  publicationDate: 'latest' | 'oldest';
 };

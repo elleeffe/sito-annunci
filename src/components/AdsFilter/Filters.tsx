@@ -1,11 +1,4 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {Box, styled} from '@mui/material';
 import {Form} from 'react-final-form';
 import {categoryOptions, cityOptions} from '../../utils/config';
@@ -14,100 +7,152 @@ import MySelect from '../Fields/MySelect';
 import MyTextField from '../Fields/MyTextField';
 import {TitleH6} from '../MyTypography';
 import MyAutocomplete from '../Fields/MyAutocomplete';
+import MySwitch from '../Fields/MySwitch';
+import {useFiltersContext} from '../../contexts/FiltersContext';
 
-type Props = {
-  value: Filters & Orders;
-  onChangeFilters: Dispatch<SetStateAction<Filters>>;
-  onChangeOrders: Dispatch<SetStateAction<Orders>>;
-};
+const Filters = () => {
+  const {filters, setFilters, orders, setOrders} = useFiltersContext();
 
-const Filters = ({value, onChangeFilters, onChangeOrders}: Props) => {
-  const [keyword, setKeyword] = useState<string>(() => value.keyword || '');
+  const [keyword, setKeyword] = useState<string>(() => filters.keyword || '');
 
   const handleCity = useCallback(
     (newCity: City | undefined) => {
-      onChangeFilters((old) => ({...old, city: newCity}));
+      setFilters((old) => ({...old, city: newCity}));
     },
-    [onChangeFilters]
+    [setFilters]
   );
 
   const handleAgeRange = useCallback(
     (newAgeRange: number[]) => {
-      onChangeFilters((old) => ({...old, ageRange: newAgeRange}));
+      setFilters((old) => ({...old, ageRange: newAgeRange}));
     },
-    [onChangeFilters]
+    [setFilters]
   );
 
   const handleCategory = useCallback(
     (newCategory: Category) => {
-      onChangeFilters((old) => ({...old, category: newCategory}));
+      setFilters((old) => ({...old, category: newCategory}));
     },
-    [onChangeFilters]
+    [setFilters]
   );
 
   const handleAgeOrder = useCallback(
-    (newAgeOrder: 'young' | 'old' | 'none') => {
-      onChangeOrders((old) => ({...old, age: newAgeOrder}));
+    (newOrder: 'young' | 'old' | undefined) => {
+      if (newOrder !== undefined) {
+        setOrders((old) => ({...old, age: newOrder}));
+        return;
+      }
+      setOrders((old) => ({...old, age: 'none'}));
     },
-    [onChangeOrders]
+    [setOrders]
+  );
+
+  const handlePublicationDateOrder = useCallback(
+    (newOrder: 'latest' | 'oldest' | undefined) => {
+      if (newOrder !== undefined) {
+        setOrders((old) => ({...old, publicationDate: newOrder}));
+        return;
+      }
+      setOrders((old) => ({...old, publicationDate: 'latest'}));
+    },
+    [setOrders]
   );
 
   useEffect(() => {
     const timeout = setTimeout(
       () => {
-        if (keyword !== value.keyword) {
-          onChangeFilters((old) => ({...old, keyword: keyword}));
+        if (keyword !== filters.keyword) {
+          setFilters((old) => ({...old, keyword: keyword}));
         }
       },
       !!keyword ? 1000 : 0
     );
     return () => clearTimeout(timeout);
-  }, [keyword, onChangeFilters, value]);
+  }, [keyword, setFilters, filters]);
+
+  // console.log({filters, orders});
 
   return (
     <>
-      <Form<Filters> onSubmit={console.log} initialValues={value}>
+      <Form<Filters & Orders>
+        onSubmit={console.log}
+        initialValues={{...filters, ...orders}}
+      >
         {({values}) => {
-          console.log({values});
+          // console.log({values});
           return (
-            <Box marginBottom="100px">
-              <FilterTitle isSmall>Filtra</FilterTitle>
-              <MyAutocomplete
-                name="city"
-                placeholder="Città"
-                options={cityOptions}
-                onChange={handleCity}
-                spacingBottom
-              />
-              <MySelect
-                id="category"
-                name="category"
-                placeholder="Categoria"
-                options={categoryOptions}
-                onChange={handleCategory}
-                spacingBottom
-              />
-              <MyTextField
-                name="keyword"
-                placeholder="Sto cercando..."
-                onChange={(event) => setKeyword(event.target.value)}
-                spacingBottom
-              />
-              <MyRangeField
-                name="ageRange"
-                label="Età"
-                onChange={handleAgeRange}
-              />
-            </Box>
+            <>
+              <Box marginBottom="100px">
+                <FilterTitle isSmall>Filtra</FilterTitle>
+                <MyAutocomplete
+                  name="city"
+                  placeholder="Città"
+                  options={cityOptions}
+                  onChange={handleCity}
+                  spacingBottom
+                />
+                <MySelect
+                  id="category"
+                  name="category"
+                  placeholder="Categoria"
+                  options={categoryOptions}
+                  onChange={handleCategory}
+                  spacingBottom
+                />
+                <MyTextField
+                  name="keyword"
+                  placeholder="Sto cercando..."
+                  onChange={(event) => setKeyword(event.target.value)}
+                  spacingBottom
+                />
+                <MyRangeField
+                  name="ageRange"
+                  label="Età"
+                  onChange={handleAgeRange}
+                />
+              </Box>
+              <Box>
+                <FilterTitle isSmall>Ordina per età</FilterTitle>
+                <MySwitch
+                  name="age"
+                  label="Indifferente"
+                  value="none"
+                  onChange={handleAgeOrder}
+                  disabled={values?.age === 'none'}
+                />
+                <MySwitch
+                  name="age"
+                  label="Più giovane"
+                  value="young"
+                  onChange={handleAgeOrder}
+                />
+                <MySwitch
+                  name="age"
+                  label="Più adulto"
+                  value="old"
+                  onChange={handleAgeOrder}
+                />
+                <FilterTitle isSmall marginTop="20px">
+                  Ordina per data
+                </FilterTitle>
+                <MySwitch
+                  name="publicationDate"
+                  label="Pubblicati di recente"
+                  value="latest"
+                  onChange={handlePublicationDateOrder}
+                  disabled={values?.publicationDate === 'latest'}
+                />
+                <MySwitch
+                  name="publicationDate"
+                  label="In ordine di pubblicazione"
+                  value="oldest"
+                  onChange={handlePublicationDateOrder}
+                />
+              </Box>
+            </>
           );
         }}
       </Form>
-      <Box>
-        <FilterTitle isSmall>Ordina per età</FilterTitle>
-        <FilterTitle isSmall marginTop="20px">
-          Ordina per data
-        </FilterTitle>
-      </Box>
     </>
   );
 };

@@ -1,4 +1,11 @@
-import {ChangeEvent, useCallback} from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import {Box, styled} from '@mui/material';
 import {Form} from 'react-final-form';
 import {categoryOptions, cityOptions} from '../../utils/config';
@@ -10,45 +17,52 @@ import MyAutocomplete from '../Fields/MyAutocomplete';
 
 type Props = {
   value: Filters & Orders;
-  onChangeFilters: (value: Filters) => void;
-  onChangeOrders: (value: Orders) => void;
+  onChangeFilters: Dispatch<SetStateAction<Filters>>;
+  onChangeOrders: Dispatch<SetStateAction<Orders>>;
 };
 
 const Filters = ({value, onChangeFilters, onChangeOrders}: Props) => {
+  const [keyword, setKeyword] = useState<string>(() => value.keyword || '');
+
   const handleCity = useCallback(
     (newCity: City | undefined) => {
-      onChangeFilters({...value, city: newCity});
+      onChangeFilters((old) => ({...old, city: newCity}));
     },
-    [value, onChangeFilters]
+    [onChangeFilters]
   );
 
   const handleAgeRange = useCallback(
     (newAgeRange: number[]) => {
-      onChangeFilters({...value, ageRange: newAgeRange});
+      onChangeFilters((old) => ({...old, ageRange: newAgeRange}));
     },
-    [onChangeFilters, value]
+    [onChangeFilters]
   );
 
   const handleCategory = useCallback(
     (newCategory: Category) => {
-      onChangeFilters({...value, category: newCategory});
+      onChangeFilters((old) => ({...old, category: newCategory}));
     },
-    [onChangeFilters, value]
-  );
-
-  const handleKeyword = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      onChangeFilters({...value, keyword: event.target.value});
-    },
-    [onChangeFilters, value]
+    [onChangeFilters]
   );
 
   const handleAgeOrder = useCallback(
     (newAgeOrder: 'young' | 'old' | 'none') => {
-      onChangeOrders({...value, age: newAgeOrder});
+      onChangeOrders((old) => ({...old, age: newAgeOrder}));
     },
-    [onChangeOrders, value]
+    [onChangeOrders]
   );
+
+  useEffect(() => {
+    const timeout = setTimeout(
+      () => {
+        if (keyword !== value.keyword) {
+          onChangeFilters((old) => ({...old, keyword: keyword}));
+        }
+      },
+      !!keyword ? 1000 : 0
+    );
+    return () => clearTimeout(timeout);
+  }, [keyword, onChangeFilters, value]);
 
   return (
     <>
@@ -76,7 +90,7 @@ const Filters = ({value, onChangeFilters, onChangeOrders}: Props) => {
               <MyTextField
                 name="keyword"
                 placeholder="Sto cercando..."
-                onChange={handleKeyword}
+                onChange={(event) => setKeyword(event.target.value)}
                 spacingBottom
               />
               <MyRangeField

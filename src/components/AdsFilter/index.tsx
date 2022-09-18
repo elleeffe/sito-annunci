@@ -17,16 +17,6 @@ const AdsFilter = () => {
 
   const {isMd} = useResponsive();
 
-  const handleFilters = useCallback(
-    (newFilters: Filters) => setFilters(newFilters),
-    [setFilters]
-  );
-
-  const handleOrders = useCallback(
-    (newOrders: Orders) => setOrders(newOrders),
-    [setOrders]
-  );
-
   const backToTop = useCallback(() => {
     window.scrollTo({top: 0, behavior: 'smooth'});
   }, []);
@@ -42,8 +32,6 @@ const AdsFilter = () => {
     window.addEventListener('scroll', checkScroll);
     return () => window.removeEventListener('scroll', checkScroll);
   });
-
-  console.log({filters, orders});
 
   return (
     <>
@@ -75,8 +63,8 @@ const AdsFilter = () => {
           ) : (
             <Filters
               value={{...filters, ...orders}}
-              onChangeFilters={handleFilters}
-              onChangeOrders={handleOrders}
+              onChangeFilters={setFilters}
+              onChangeOrders={setOrders}
             />
           )}
         </FilterWrap>
@@ -90,8 +78,8 @@ const AdsFilter = () => {
         <DrawerInner>
           <Filters
             value={{...filters, ...orders}}
-            onChangeFilters={handleFilters}
-            onChangeOrders={handleOrders}
+            onChangeFilters={setFilters}
+            onChangeOrders={setOrders}
           />
         </DrawerInner>
       </Drawer>

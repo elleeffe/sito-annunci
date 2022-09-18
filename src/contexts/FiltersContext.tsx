@@ -1,10 +1,17 @@
-import {useState, useContext, createContext, PropsWithChildren} from 'react';
+import {
+  useState,
+  useContext,
+  createContext,
+  PropsWithChildren,
+  Dispatch,
+  SetStateAction,
+} from 'react';
 
 export type FiltersContextType = {
   filters: Filters;
-  setFilters: React.Dispatch<Filters>;
+  setFilters: Dispatch<SetStateAction<Filters>>;
   orders: Orders;
-  setOrders: React.Dispatch<Orders>;
+  setOrders: Dispatch<SetStateAction<Orders>>;
 };
 
 export const FiltersContext = createContext<FiltersContextType>({

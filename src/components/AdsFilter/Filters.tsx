@@ -9,31 +9,34 @@ import {TitleH6} from '../MyTypography';
 import MyAutocomplete from '../Fields/MyAutocomplete';
 import MySwitch from '../Fields/MySwitch';
 import {useFiltersContext} from '../../contexts/FiltersContext';
+import MyButton from '../MyButton';
+import {FormApi} from 'final-form';
 
-const Filters = () => {
-  const {filters, setFilters, orders, setOrders} = useFiltersContext();
+type Props = {
+  onChange: () => void;
+};
+
+const Filters = ({onChange}: Props) => {
+  const {filters, setFilters, orders, setOrders, initialCategory} =
+    useFiltersContext();
 
   const [keyword, setKeyword] = useState<string>(() => filters.keyword || '');
+  const [ageRange, setAgeRange] = useState<number[]>(() => filters.ageRange);
 
   const handleCity = useCallback(
     (newCity: City | undefined) => {
       setFilters((old) => ({...old, city: newCity}));
+      onChange();
     },
-    [setFilters]
-  );
-
-  const handleAgeRange = useCallback(
-    (newAgeRange: number[]) => {
-      setFilters((old) => ({...old, ageRange: newAgeRange}));
-    },
-    [setFilters]
+    [setFilters, onChange]
   );
 
   const handleCategory = useCallback(
     (newCategory: Category) => {
       setFilters((old) => ({...old, category: newCategory}));
+      onChange();
     },
-    [setFilters]
+    [setFilters, onChange]
   );
 
   const handleAgeOrder = useCallback(
@@ -58,19 +61,55 @@ const Filters = () => {
     [setOrders]
   );
 
+  const handleReset = useCallback(
+    (form: FormApi<Filters & Orders, Partial<Filters & Orders>>) => {
+      form.reset({
+        category: initialCategory,
+        city: undefined,
+        keyword: '',
+        age: 'none',
+        publicationDate: 'latest',
+        ageRange: [18, 60],
+      });
+      setFilters({
+        ageRange: [18, 60],
+        city: undefined,
+        category: initialCategory,
+        keyword: '',
+      });
+      setOrders({age: 'none', publicationDate: 'latest'});
+      setKeyword('');
+      setAgeRange([18, 60]);
+      onChange();
+    },
+    [setFilters, setOrders, onChange, initialCategory]
+  );
+
   useEffect(() => {
     const timeout = setTimeout(
       () => {
         if (keyword !== filters.keyword) {
           setFilters((old) => ({...old, keyword: keyword}));
+          onChange();
         }
       },
-      !!keyword ? 1000 : 0
+      !!keyword ? 500 : 0
     );
     return () => clearTimeout(timeout);
-  }, [keyword, setFilters, filters]);
+  }, [keyword, setFilters, filters, onChange]);
 
-  // console.log({filters, orders});
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (
+        ageRange[0] !== filters.ageRange[0] ||
+        ageRange[1] !== filters.ageRange[1]
+      ) {
+        setFilters((old) => ({...old, ageRange: ageRange}));
+        onChange();
+      }
+    }, 500);
+    return () => clearTimeout(timeout);
+  }, [ageRange, setFilters, filters, onChange]);
 
   return (
     <>
@@ -78,8 +117,8 @@ const Filters = () => {
         onSubmit={console.log}
         initialValues={{...filters, ...orders}}
       >
-        {({values}) => {
-          // console.log({values});
+        {({values, form}) => {
+          console.log({values});
           return (
             <>
               <Box marginBottom="100px">
@@ -108,7 +147,7 @@ const Filters = () => {
                 <MyRangeField
                   name="ageRange"
                   label="Età"
-                  onChange={handleAgeRange}
+                  onChange={(value) => setAgeRange(value)}
                 />
               </Box>
               <Box>
@@ -147,8 +186,17 @@ const Filters = () => {
                   label="In ordine di pubblicazione"
                   value="oldest"
                   onChange={handlePublicationDateOrder}
+                  spacingBottom
                 />
               </Box>
+              <MyButton
+                sx={{width: '100%'}}
+                onClick={() => {
+                  handleReset(form);
+                }}
+              >
+                Pulisci filtri
+              </MyButton>
             </>
           );
         }}

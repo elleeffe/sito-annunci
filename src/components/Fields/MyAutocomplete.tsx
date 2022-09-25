@@ -1,4 +1,4 @@
-import React, {useCallback, useMemo, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import {
   Autocomplete,
   CircularProgress,
@@ -73,6 +73,12 @@ const MyAutocomplete = ({
           ),
     [options, searchString, onType]
   );
+
+  useEffect(() => {
+    if (!input.value || input.value === '') {
+      setSearchString('');
+    }
+  }, [input]);
 
   return (
     <StyledAutocomplete

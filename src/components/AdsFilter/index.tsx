@@ -8,7 +8,11 @@ import SortIcon from '@mui/icons-material/Sort';
 import MyButton from '../MyButton';
 import {ArrowUpward} from '@mui/icons-material';
 
-const AdsFilter = () => {
+type Props = {
+  onChange: () => void;
+};
+
+const AdsFilter = ({onChange}: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [showButton, setShowButton] = useState<boolean>(false);
 
@@ -17,6 +21,11 @@ const AdsFilter = () => {
   const backToTop = useCallback(() => {
     window.scrollTo({top: 0, behavior: 'smooth'});
   }, []);
+
+  const handleChange = useCallback(() => {
+    backToTop();
+    onChange();
+  }, [onChange, backToTop]);
 
   useEffect(() => {
     const checkScroll = () => {
@@ -58,7 +67,7 @@ const AdsFilter = () => {
               </Box>
             </>
           ) : (
-            <Filters />
+            <Filters onChange={handleChange} />
           )}
         </FilterWrap>
         {!isMd && (
@@ -69,7 +78,7 @@ const AdsFilter = () => {
       </Wrap>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <DrawerInner>
-          <Filters />
+          <Filters onChange={handleChange} />
         </DrawerInner>
       </Drawer>
       {isMd && showButton && (
@@ -107,8 +116,6 @@ const FilterWrap = styled(Box)(({theme}) => ({
   background: '#fff',
   borderRadius: '20px',
   boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  display: 'flex',
-  flexDirection: 'column',
   padding: '20px',
   overflow: 'overlay',
   flex: 1,
@@ -116,6 +123,7 @@ const FilterWrap = styled(Box)(({theme}) => ({
 
   [theme.breakpoints.down('md')]: {
     width: '100%',
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',

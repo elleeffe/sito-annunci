@@ -6,7 +6,6 @@ import BreadCrumb from '../../components/BreadCrumb';
 import Layout from '../../components/Layout';
 import PageIntro from '../../components/Layout/PageIntro';
 import {TitleH1} from '../../components/MyTypography';
-import AdsFilter from '../../components/AdsFilter';
 import AdsList from '../../components/AdsList';
 
 const Categories: NextPage = () => {
@@ -24,7 +23,6 @@ const Categories: NextPage = () => {
             city={router.query.city as City | undefined}
             keyword={router.query.keyword as string | undefined}
           >
-            <AdsFilter />
             <AdsList />
           </FiltersProvider>
         </Wrap>

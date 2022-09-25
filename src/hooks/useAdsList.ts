@@ -1,9 +1,7 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {mockAds} from '../utils/mocks';
 
-const mockAdsList: Ads[] = new Array(20)
-  .fill(mockAds)
-  .map((el, i) => ({...el, id: el.id + i}));
+const mockAdsList: Ads[] = new Array(10).fill(mockAds);
 
 const mock: {[key: number]: Ads[]} = {
   0: [...mockAdsList],
@@ -13,42 +11,62 @@ const mock: {[key: number]: Ads[]} = {
 
 const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
-const useAdsList = (filters: Filters, order: Orders) => {
+const useAdsList = (filters: Filters, orders: Orders) => {
   const [pagination, setPagination] = useState<number>(0);
   const [list, setList] = useState<Ads[]>([]);
   const [error, setError] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const getAdsList = useCallback(async () => {
-    if (loading) {
-      return;
-    }
-    try {
-      setLoading(true);
-      setError(false);
-      // TODO - pass filters and pagination to backend
-      await sleep(2000);
-      setList((old) => [...old, ...mock[pagination]]);
-      setPagination(pagination + 1);
-    } catch (e) {
-      console.log(e);
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  }, [pagination, loading]);
+  const getAdsList = useCallback(
+    async (reset: boolean) => {
+      if (loading) {
+        return;
+      }
+      if (reset) {
+        setList([]);
+      }
+      try {
+        setLoading(true);
+        setError(false);
+        // TODO - pass filters and pagination to backend
+        await sleep(2000);
+        setList((old) => [...old, ...mock[reset ? 0 : pagination]]);
+        setPagination((old) => (reset ? 0 : old + 1));
+      } catch (e) {
+        console.log(e);
+        setError(true);
+      } finally {
+        setLoading(false);
+      }
+    },
+    [pagination, loading]
+  );
 
   const adsList = useMemo(() => {
-    // TODO - order ads before return it to page
-    return list;
-  }, [list]);
+    return list
+      .sort((a, b) => {
+        if (orders.age === 'young') {
+          return parseInt(a.age) - parseInt(b.age);
+        }
+        if (orders.age === 'old') {
+          return parseInt(b.age) - parseInt(a.age);
+        }
+        return -1;
+      })
+      .sort((a, b) => {
+        if (a.publicationDate && b.publicationDate) {
+          if (orders.publicationDate === 'oldest') {
+            return (a.publicationDate || 0) - (b.publicationDate || 0);
+          }
+          return -1;
+        }
+        return -1;
+      });
+  }, [list, orders]);
 
   useEffect(() => {
-    if (pagination > 0) {
-      return;
-    }
-    getAdsList();
-  }, [pagination, getAdsList]);
+    getAdsList(false);
+  }, []);
 
   return {adsList, error, loading, getAdsList};
 };

@@ -2,7 +2,6 @@ import {Box, Container, styled} from '@mui/material';
 import type {NextPage} from 'next';
 import {useRouter} from 'next/router';
 import {useEffect, useMemo} from 'react';
-import AdsFilter from '../../components/AdsFilter';
 import AdsList from '../../components/AdsList';
 import BreadCrumb from '../../components/BreadCrumb';
 import Layout from '../../components/Layout';
@@ -55,7 +54,6 @@ const Category: NextPage = () => {
             category={category.value}
             keyword={router.query.keyword as string | undefined}
           >
-            <AdsFilter />
             <AdsList />
           </FiltersProvider>
         </Wrap>

@@ -1,42 +1,49 @@
 import {styled, Box, CircularProgress} from '@mui/material';
 import {useFiltersContext} from '../contexts/FiltersContext';
 import useAdsList from '../hooks/useAdsList';
+import AdsFilter from './AdsFilter';
 import AdsCard from './Card/AdsCard';
 import MyButton from './MyButton';
 import {TitleH6} from './MyTypography';
 
 const AdsList = () => {
-  const {filters, order} = useFiltersContext();
+  const {filters, orders} = useFiltersContext();
 
-  const {
-    adsList,
-    loading,
-    error,
-    getAdsList: showMore,
-  } = useAdsList(filters, order);
+  const {adsList, loading, error, getAdsList} = useAdsList(filters, orders);
 
   return (
-    <Wrap>
-      <TitleH6>Risultati &#40;{adsList.flat().length}&#41;</TitleH6>
-      <List>
-        {adsList.map((ads) => (
-          <AdsCard ads={ads} key={ads.id} whiteBg />
-        ))}
-        <Box display="flex" justifyContent="center" marginTop="25px">
-          {loading && <CircularProgress color="primary" size={50} />}
-          {!loading && !error && (
-            <MyButton onClick={showMore} color="primary" variant="contained">
-              Mostra altro
-            </MyButton>
-          )}
-          {!loading && error && (
-            <MyButton onClick={showMore} variant="contained" color="primary">
-              Riprova
-            </MyButton>
-          )}
-        </Box>
-      </List>
-    </Wrap>
+    <>
+      <AdsFilter onChange={() => getAdsList(true)} />
+      <Wrap>
+        <TitleH6>Risultati &#40;{adsList.flat().length}&#41;</TitleH6>
+        <List>
+          {adsList.map((ads) => (
+            <AdsCard ads={ads} key={ads.id} whiteBg />
+          ))}
+          <Box display="flex" justifyContent="center" marginTop="25px">
+            {loading && <CircularProgress color="primary" size={50} />}
+            {!loading && !error && (
+              <MyButton
+                onClick={() => getAdsList(false)}
+                color="primary"
+                variant="contained"
+              >
+                Mostra altro
+              </MyButton>
+            )}
+            {!loading && error && (
+              <MyButton
+                onClick={() => getAdsList(false)}
+                variant="contained"
+                color="primary"
+              >
+                Riprova
+              </MyButton>
+            )}
+          </Box>
+        </List>
+      </Wrap>
+    </>
   );
 };
 

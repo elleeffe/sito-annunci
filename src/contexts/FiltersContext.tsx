@@ -12,6 +12,7 @@ export type FiltersContextType = {
   setFilters: Dispatch<SetStateAction<Filters>>;
   orders: Orders;
   setOrders: Dispatch<SetStateAction<Orders>>;
+  initialCategory?: Category;
 };
 
 export const FiltersContext = createContext<FiltersContextType>({
@@ -57,6 +58,7 @@ export const FiltersProvider = ({
         setOrders,
         filters,
         setFilters,
+        initialCategory: category,
       }}
     >
       {children}

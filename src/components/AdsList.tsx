@@ -44,9 +44,9 @@ const AdsList = () => {
               />
             );
           })}
-          <Box display="flex" justifyContent="center" marginTop="25px">
+          <ListFooter>
             {listLoading && <CircularProgress color="primary" size={50} />}
-            {!listLoading && !listError && (
+            {!listLoading && !listError && !!adsList.length && (
               <MyButton
                 onClick={() => getAdsList(false)}
                 color="primary"
@@ -54,6 +54,25 @@ const AdsList = () => {
               >
                 Mostra altro
               </MyButton>
+            )}
+            {!listLoading && !listError && !adsList.length && (
+              <>
+                <TitleH6
+                  width="100%"
+                  textAlign="center"
+                  marginBottom="15px"
+                  isSmall
+                >
+                  Nessun risultato
+                </TitleH6>
+                <MyButton
+                  onClick={() => getAdsList(true)}
+                  color="primary"
+                  variant="contained"
+                >
+                  Ricarica
+                </MyButton>
+              </>
             )}
             {!listLoading && listError && (
               <MyButton
@@ -64,7 +83,7 @@ const AdsList = () => {
                 Riprova
               </MyButton>
             )}
-          </Box>
+          </ListFooter>
         </List>
       </Wrap>
     </>
@@ -89,5 +108,13 @@ const Wrap = styled(Box)(({theme}) => ({
 }));
 
 const List = styled(Box)(() => ({
+  marginTop: '25px',
+}));
+
+const ListFooter = styled(Box)(() => ({
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  flexWrap: 'wrap',
   marginTop: '25px',
 }));

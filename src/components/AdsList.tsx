@@ -1,5 +1,6 @@
 import {styled, Box, CircularProgress} from '@mui/material';
 import {useFiltersContext} from '../contexts/FiltersContext';
+import {useUser} from '../contexts/UserContext';
 import useAdsList from '../hooks/useAdsList';
 import AdsFilter from './AdsFilter';
 import AdsCard from './Card/AdsCard';
@@ -7,9 +8,19 @@ import MyButton from './MyButton';
 import {TitleH6} from './MyTypography';
 
 const AdsList = () => {
+  const {user} = useUser();
+
   const {filters, orders} = useFiltersContext();
 
-  const {adsList, loading, error, getAdsList} = useAdsList(filters, orders);
+  const {
+    adsList,
+    listLoading,
+    listError,
+    getAdsList,
+    handleFavorite,
+    favoriteError,
+    favoriteLoading,
+  } = useAdsList(filters, orders);
 
   return (
     <>
@@ -17,12 +28,25 @@ const AdsList = () => {
       <Wrap>
         <TitleH6>Risultati &#40;{adsList.flat().length}&#41;</TitleH6>
         <List>
-          {adsList.map((ads) => (
-            <AdsCard ads={ads} key={ads.id} whiteBg />
-          ))}
+          {adsList.map((ads) => {
+            const loading =
+              ads.id !== undefined ? favoriteLoading === ads.id : false;
+            const error =
+              ads.id !== undefined ? favoriteError === ads.id : false;
+            return (
+              <AdsCard
+                ads={ads}
+                key={ads.id}
+                whiteBg
+                onFavorite={user ? handleFavorite : undefined}
+                favoriteError={error}
+                favoriteLoading={loading}
+              />
+            );
+          })}
           <Box display="flex" justifyContent="center" marginTop="25px">
-            {loading && <CircularProgress color="primary" size={50} />}
-            {!loading && !error && (
+            {listLoading && <CircularProgress color="primary" size={50} />}
+            {!listLoading && !listError && (
               <MyButton
                 onClick={() => getAdsList(false)}
                 color="primary"
@@ -31,7 +55,7 @@ const AdsList = () => {
                 Mostra altro
               </MyButton>
             )}
-            {!loading && error && (
+            {!listLoading && listError && (
               <MyButton
                 onClick={() => getAdsList(false)}
                 variant="contained"

@@ -14,33 +14,62 @@ const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 const useAdsList = (filters: Filters, orders: Orders) => {
   const [pagination, setPagination] = useState<number>(0);
   const [list, setList] = useState<Ads[]>([]);
-  const [error, setError] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
+  const [listError, setListError] = useState<boolean>(false);
+  const [listLoading, setListLoading] = useState<boolean>(false);
+  const [favoriteError, setFavoriteError] = useState<string>();
+  const [favoriteLoading, setFavoriteLoading] = useState<string>();
 
   const getAdsList = useCallback(
     async (reset: boolean) => {
-      if (loading) {
+      if (listLoading) {
         return;
       }
       if (reset) {
         setList([]);
       }
       try {
-        setLoading(true);
-        setError(false);
+        setListLoading(true);
+        setListError(false);
         // TODO - pass filters and pagination to backend
         await sleep(2000);
         setList((old) => [...old, ...mock[reset ? 0 : pagination]]);
         setPagination((old) => (reset ? 0 : old + 1));
       } catch (e) {
         console.log(e);
-        setError(true);
+        setListError(true);
       } finally {
-        setLoading(false);
+        setListLoading(false);
       }
     },
-    [pagination, loading]
+    [pagination, listLoading]
   );
+
+  const handleFavorite = useCallback(async (id?: string) => {
+    if (id) {
+      try {
+        setFavoriteLoading(id);
+        setFavoriteError(undefined);
+        // TODO - add api
+        await sleep(2000);
+        setList((old) =>
+          old.map((el) =>
+            el.id === id
+              ? {
+                  ...el,
+                  isFavorite:
+                    el.isFavorite !== undefined ? !el.isFavorite : true,
+                }
+              : el
+          )
+        );
+      } catch (e) {
+        console.log(e);
+        setFavoriteError(id);
+      } finally {
+        setFavoriteLoading(undefined);
+      }
+    }
+  }, []);
 
   const adsList = useMemo(() => {
     return list
@@ -68,7 +97,15 @@ const useAdsList = (filters: Filters, orders: Orders) => {
     getAdsList(false);
   }, []);
 
-  return {adsList, error, loading, getAdsList};
+  return {
+    adsList,
+    listError,
+    listLoading,
+    getAdsList,
+    handleFavorite,
+    favoriteLoading,
+    favoriteError,
+  };
 };
 
 export default useAdsList;

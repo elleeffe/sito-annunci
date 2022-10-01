@@ -20,9 +20,9 @@ type Props = {
   onClose: () => void;
 };
 
-const mockUserAds = new Array(5)
+const mockUserAds: Ads[] = new Array(5)
   .fill(mockAds)
-  .map((el, i) => ({...el, id: el.id + i}));
+  .map((el, i) => ({...el, id: el.id + i, isFavorite: true}));
 
 const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 

@@ -84,7 +84,7 @@ const MyAutocomplete = ({
     <StyledAutocomplete
       spacingBottom={spacingBottom}
       value={searchString}
-      freeSolo
+      noOptionsText="Nessun risultato"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       ref={autocompleteRef}

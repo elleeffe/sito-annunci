@@ -33,6 +33,7 @@ const useAdsList = (filters: Filters, orders: Orders) => {
         // TODO - pass filters and pagination to backend
         await sleep(2000);
         setList((old) => [...old, ...mock[reset ? 0 : pagination]]);
+        // setList([]);
         setPagination((old) => (reset ? 0 : old + 1));
       } catch (e) {
         console.log(e);

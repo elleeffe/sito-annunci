@@ -96,6 +96,10 @@ const MyAutocomplete = ({
       loading={loading}
       loadingText="Ricerca in corso..."
       disableClearable={searchString === ''}
+      getOptionLabel={(option) => (option as Option).value || ''}
+      isOptionEqualToValue={(option, value) =>
+        (option as Option).value === value
+      }
       onBlur={() => {
         input.onBlur();
         setHover(false);

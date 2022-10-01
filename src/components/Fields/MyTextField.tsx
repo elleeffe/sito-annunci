@@ -5,6 +5,7 @@ import {
   TextFieldProps,
   Box,
   styled,
+  CircularProgress,
 } from '@mui/material';
 import * as icons from '@mui/icons-material';
 import {useField} from 'react-final-form';
@@ -18,6 +19,7 @@ type Props = TextFieldProps & {
   spacingBottom?: boolean;
   instructions?: boolean;
   label?: string;
+  loading?: boolean;
 };
 
 const MyTextField = ({
@@ -26,10 +28,19 @@ const MyTextField = ({
   icon,
   spacingBottom,
   instructions,
+  loading,
   ...props
 }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const {input, meta} = useField(name, {validate});
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+      input.onChange(event.target.value);
+      !!props.onChange && props.onChange(event);
+    },
+    [input, props]
+  );
 
   const iconComp = useMemo(() => {
     if (icon) {
@@ -46,13 +57,39 @@ const MyTextField = ({
     return props.type;
   }, [props.type, showPassword]);
 
-  const handleChange = useCallback(
-    (event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
-      input.onChange(event.target.value);
-      !!props.onChange && props.onChange(event);
-    },
-    [input, props]
-  );
+  const endAdornmentComp = useMemo(() => {
+    if (loading) {
+      return (
+        <CircularProgress
+          size={25}
+          sx={{svg: {width: 25, height: 25}}}
+          color={props.color || 'primary'}
+        />
+      );
+    }
+    if (props.type === 'password') {
+      return (
+        <IconButton
+          aria-label="toggle password visibility"
+          onClick={() => setShowPassword(!showPassword)}
+          onMouseDown={() => setShowPassword(!showPassword)}
+          size="small"
+        >
+          {showPassword ? (
+            <icons.VisibilityOff
+              color={props.color || 'primary'}
+              className="untouchable-icon"
+            />
+          ) : (
+            <icons.Visibility
+              color={props.color || 'primary'}
+              className="untouchable-icon"
+            />
+          )}
+        </IconButton>
+      );
+    }
+  }, [props, showPassword, loading]);
 
   return (
     <>
@@ -65,26 +102,7 @@ const MyTextField = ({
         InputProps={{
           ...props.InputProps,
           startAdornment: iconComp,
-          endAdornment: props.type === 'password' && (
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={() => setShowPassword(!showPassword)}
-              onMouseDown={() => setShowPassword(!showPassword)}
-              size="small"
-            >
-              {showPassword ? (
-                <icons.VisibilityOff
-                  color={props.color || 'primary'}
-                  className="untouchable-icon"
-                />
-              ) : (
-                <icons.Visibility
-                  color={props.color || 'primary'}
-                  className="untouchable-icon"
-                />
-              )}
-            </IconButton>
-          ),
+          endAdornment: endAdornmentComp,
         }}
         sx={{
           marginBottom: spacingBottom ? '30px' : undefined,

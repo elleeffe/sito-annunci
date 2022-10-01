@@ -21,6 +21,7 @@ const Filters = ({onChange}: Props) => {
     useFiltersContext();
 
   const [keyword, setKeyword] = useState<string>(() => filters.keyword || '');
+  const [debounce, setDebounce] = useState<boolean>(false);
   const [ageRange, setAgeRange] = useState<number[]>(() => filters.ageRange);
 
   const handleCity = useCallback(
@@ -105,11 +106,14 @@ const Filters = ({onChange}: Props) => {
         ageRange[1] !== filters.ageRange[1]
       ) {
         setFilters((old) => ({...old, ageRange: ageRange}));
+        setDebounce(false);
         onChange();
       }
     }, 500);
     return () => clearTimeout(timeout);
   }, [ageRange, setFilters, filters, onChange]);
+
+  console.log(debounce);
 
   return (
     <>
@@ -141,8 +145,12 @@ const Filters = ({onChange}: Props) => {
                 <MyTextField
                   name="keyword"
                   placeholder="Sto cercando..."
-                  onChange={(event) => setKeyword(event.target.value)}
+                  onChange={(event) => {
+                    setKeyword(event.target.value);
+                    setDebounce(true);
+                  }}
                   spacingBottom
+                  loading={debounce}
                 />
                 <MyRangeField
                   name="ageRange"

@@ -9,6 +9,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import {visibilityOptions} from '../../../utils/config';
 import Favorites from './Favorites';
 import Visibility from './Visibility';
+import {useRouter} from 'next/router';
 
 type Props = {
   ads: Ads;
@@ -29,6 +30,8 @@ const AdsCard = ({
   favoriteError,
   favoriteLoading,
 }: Props) => {
+  const router = useRouter();
+
   const visibilityOption = useMemo(
     () => visibilityOptions.find((el) => el.value === ads.visibilityOption),
     [ads]
@@ -104,6 +107,9 @@ const AdsCard = ({
                 color="primary"
                 variant="contained"
                 endIcon={<ArrowForwardIosIcon />}
+                onClick={() =>
+                  router.push(`/categorie/${ads.category}/${ads.id}`)
+                }
               >
                 Visita
               </CardButton>

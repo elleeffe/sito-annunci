@@ -1,13 +1,16 @@
 import {ChevronRight} from '@mui/icons-material';
 import {Breadcrumbs, Stack, styled} from '@mui/material';
 import Link from 'next/link';
+import {useRouter} from 'next/router';
 import {Subtitle1} from './MyTypography';
 
 type Props = {
-  paths: {label: string; path: string}[];
+  paths: {label: string; path?: string}[];
 };
 
 const BreadCrumb = ({paths}: Props) => {
+  const {asPath} = useRouter();
+
   return (
     <Stack spacing={2} marginTop="10px">
       <Breadcrumbs
@@ -15,11 +18,15 @@ const BreadCrumb = ({paths}: Props) => {
         aria-label="breadcrumb"
       >
         <Link href="/">
-          <StyledLabel isWhite>Home</StyledLabel>
+          <StyledLabel isWhite isActive={asPath === '/'}>
+            Home
+          </StyledLabel>
         </Link>
         {paths.map((el) => (
-          <Link href={el.path} key={el.path}>
-            <StyledLabel isWhite>{el.label}</StyledLabel>
+          <Link href={el.path || '/'} key={el.path}>
+            <StyledLabel isWhite isActive={asPath === el.path}>
+              {el.label}
+            </StyledLabel>
           </Link>
         ))}
       </Breadcrumbs>
@@ -29,10 +36,13 @@ const BreadCrumb = ({paths}: Props) => {
 
 export default BreadCrumb;
 
-const StyledLabel = styled(Subtitle1)(() => ({
+const StyledLabel = styled(Subtitle1, {
+  shouldForwardProp: (prop) => prop !== 'isActive',
+})<{isActive: boolean}>(({theme, isActive}) => ({
   cursor: 'pointer',
 
   '&:hover': {
     textDecoration: 'underline',
   },
+  ...(isActive && {textDecoration: 'underline'}),
 }));

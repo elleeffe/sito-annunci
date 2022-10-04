@@ -40,3 +40,6 @@ export const formatVisibilityExpiration = (
 
   return `Scade tra ${daysOfDifference} giorni`;
 };
+
+export const sleep = (ms: number) =>
+  new Promise((res, rej) => setTimeout(res, ms));

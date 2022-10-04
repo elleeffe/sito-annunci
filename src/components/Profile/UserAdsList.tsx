@@ -7,12 +7,12 @@ import AdsCard from '../Card/AdsCard';
 import DeleteModal from './DeleteModal';
 import SettingsMenu from './SettingsMenu';
 import EditModal from './EditModal';
+import {sleep} from '../../utils/utils';
+import {PageInner} from '../Layout';
 
 const mockUserAds = new Array(5)
   .fill(mockAds)
   .map((el, i) => ({...el, id: el.id + i}));
-
-const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
 const UserAdsList = () => {
   const [ads, setAds] = useState<Ads[]>([]);
@@ -31,6 +31,7 @@ const UserAdsList = () => {
   const getUserAds = useCallback(async () => {
     try {
       setLoading(true);
+      // TODO
       await sleep(3000);
       setAds(mockUserAds);
     } catch (e) {
@@ -49,6 +50,7 @@ const UserAdsList = () => {
     try {
       setDeleteError(false);
       setDeleteLoading(true);
+      // TODO
       await sleep(3000);
       console.log({adsId: clickedAd});
       setDeleteLoading(false);
@@ -69,7 +71,7 @@ const UserAdsList = () => {
 
   return (
     <>
-      <Wrap>
+      <PageInner spacingDirection="left">
         <TitleH6>I tuoi annunci</TitleH6>
         <List>
           {loading && !error && (
@@ -110,7 +112,7 @@ const UserAdsList = () => {
               </>
             ))}
         </List>
-      </Wrap>
+      </PageInner>
       <SettingsMenu
         anchorEl={anchorEl}
         onClose={() => {
@@ -146,23 +148,6 @@ const UserAdsList = () => {
 };
 
 export default UserAdsList;
-
-const Wrap = styled(Box)(({theme}) => ({
-  flex: 1,
-  paddingLeft: '20px',
-  display: 'flex',
-  flexDirection: 'column',
-  overflow: 'hidden',
-  height: '100%',
-
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-    height: 'auto',
-    flex: 'initial',
-    paddingLeft: '0px',
-    marginTop: '25px',
-  },
-}));
 
 const List = styled(Box)(() => ({
   flex: 1,

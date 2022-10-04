@@ -14,6 +14,7 @@ import {mockAds} from '../../utils/mocks';
 import SkeletonCard from '../Card/SkeletonCard';
 import AdsCard from '../Card/AdsCard';
 import {Subtitle1, TitleH6} from '../MyTypography';
+import {sleep} from '../../utils/utils';
 
 type Props = {
   isOpen: boolean;
@@ -23,8 +24,6 @@ type Props = {
 const mockUserAds: Ads[] = new Array(5)
   .fill(mockAds)
   .map((el, i) => ({...el, id: el.id + i, isFavorite: true}));
-
-const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
 const FavoritesModal = ({isOpen, onClose}: Props) => {
   const [ads, setAds] = useState<Ads[]>([]);
@@ -39,6 +38,7 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
   const getUserFavorites = useCallback(async () => {
     try {
       setLoading(true);
+      // TODO
       await sleep(3000);
       setAds(mockUserAds);
     } catch (e) {
@@ -56,6 +56,7 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
     try {
       setRemoveError(undefined);
       setRemoveLoading(id);
+      // TODO
       await sleep(1000);
       setRemoveLoading(undefined);
       // Optimistic update

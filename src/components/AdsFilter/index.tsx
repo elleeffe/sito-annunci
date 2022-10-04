@@ -7,6 +7,7 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
 import MyButton from '../MyButton';
 import {ArrowUpward} from '@mui/icons-material';
+import {Aside} from '../Layout';
 
 type Props = {
   onChange: () => void;
@@ -41,7 +42,7 @@ const AdsFilter = ({onChange}: Props) => {
 
   return (
     <>
-      <Wrap>
+      <Aside>
         <FilterWrap>
           {isMd ? (
             <>
@@ -75,7 +76,7 @@ const AdsFilter = ({onChange}: Props) => {
             Torna in cima
           </MyButton>
         )}
-      </Wrap>
+      </Aside>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>
         <DrawerInner>
           <Filters onChange={handleChange} />
@@ -91,26 +92,6 @@ const AdsFilter = ({onChange}: Props) => {
 };
 
 export default AdsFilter;
-
-const Wrap = styled(Box)(({theme}) => ({
-  height: 'calc(100vh - 90px)',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  position: 'sticky',
-  top: '75px',
-  left: 0,
-  width: '300px',
-
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-    height: 'auto',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'initial',
-    position: 'initial',
-  },
-}));
 
 const FilterWrap = styled(Box)(({theme}) => ({
   background: '#fff',

@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useMemo, useState} from 'react';
 import {mockAds} from '../utils/mocks';
+import {sleep} from '../utils/utils';
 
 const mockAdsList: Ads[] = new Array(10).fill(mockAds);
 
@@ -8,8 +9,6 @@ const mock: {[key: number]: Ads[]} = {
   1: [...mockAdsList],
   2: [...mockAdsList],
 };
-
-const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
 const useAdsList = (filters: Filters, orders: Orders) => {
   const [pagination, setPagination] = useState<number>(0);
@@ -34,7 +33,7 @@ const useAdsList = (filters: Filters, orders: Orders) => {
         await sleep(2000);
         // setList([]);
         setList((old) => [...old, ...mock[reset ? 0 : pagination]]);
-        // setPagination((old) => (reset ? 0 : old + 1));
+        setPagination((old) => (reset ? 0 : old + 1));
       } catch (e) {
         console.log(e);
         setListError(true);

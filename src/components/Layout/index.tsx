@@ -3,6 +3,7 @@ import Head from 'next/head';
 import logo from '../../../public/logo.svg';
 import Header from './Header';
 import Footer from './Footer';
+import {Box, Container, styled} from '@mui/material';
 
 interface Props extends PropsWithChildren<{}> {
   hideHeader?: boolean;
@@ -27,12 +28,13 @@ const Layout = ({
   children,
 }: Props) => {
   const pageTitle = useMemo(
-    () => (title ? `${title} | Titolo` : 'Titolo - Da definire'),
+    () =>
+      title ? `${title} | Secret Jungle` : 'Secret Jungle - Annunci selvaggi',
     [title]
   );
 
   const pageDesc = useMemo(
-    () => (description ? description : 'Titolo - Da definire'),
+    () => (description ? description : 'Secret Jungle - Annunci selvaggi'),
     [description]
   );
 
@@ -74,3 +76,83 @@ const Layout = ({
 };
 
 export default Layout;
+
+export const PageBody = ({children}: PropsWithChildren<{}>) => (
+  <Container>
+    <PageBodyWrap>{children}</PageBodyWrap>
+  </Container>
+);
+
+const PageBodyWrap = styled(Box)(({theme}) => ({
+  marginTop: '100px',
+  display: 'flex',
+  flexWrap: 'wrap',
+  alignItems: 'flex-start',
+  position: 'relative',
+
+  [theme.breakpoints.down('md')]: {
+    marginTop: '25px',
+  },
+}));
+
+export const PageIntro = ({children}: PropsWithChildren<{}>) => {
+  return (
+    <>
+      <PageIntroWrap>
+        <Inner>{children}</Inner>
+      </PageIntroWrap>
+    </>
+  );
+};
+
+const PageIntroWrap = styled(Box)(({theme}) => ({
+  background: theme.palette.primary.main,
+  height: '250px',
+  marginTop: '60px',
+}));
+
+const Inner = styled(Container)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  height: '100%',
+}));
+
+export const Aside = styled(Box)(({theme}) => ({
+  height: 'calc(100vh - 90px)',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+  position: 'sticky',
+  top: '75px',
+  left: 0,
+  width: '300px',
+
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    height: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'initial',
+    position: 'initial',
+  },
+}));
+
+export const PageInner = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'spacingDirection',
+})<{spacingDirection: 'left' | 'right'}>(({theme, spacingDirection}) => ({
+  flex: 1,
+  display: 'flex',
+  flexDirection: 'column',
+  ...(spacingDirection === 'left'
+    ? {paddingLeft: '20px'}
+    : {paddingRight: '20px'}),
+
+  [theme.breakpoints.down('md')]: {
+    width: '100%',
+    height: 'auto',
+    flex: 'initial',
+    paddingLeft: '0px',
+    marginTop: '25px',
+  },
+}));

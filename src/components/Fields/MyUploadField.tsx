@@ -20,7 +20,7 @@ const fileTypes = ['JPG', 'PNG', 'JPEG'];
 
 type Props = {
   name: string;
-  validate?: (value: {name: string; base64: string}[]) => string;
+  validate?: (value: AdsMedia[]) => string;
   spacingBottom?: boolean;
   maxSize?: number;
   label: string;

@@ -7,14 +7,13 @@ import Layout from '.';
 import {Body1, StyledButton, Subtitle1, TitleH3} from '../MyTypography';
 import {useRouter} from 'next/router';
 import {mockUser} from '../../utils/mocks';
+import {sleep} from '../../utils/utils';
 
 export const LoadingScreen = () => (
   <Wrap>
     <CircularProgress color="primary" size={50} />
   </Wrap>
 );
-
-const sleep = (ms: number) => new Promise((res, rej) => setTimeout(res, ms));
 
 const AuthLoading = ({children}: PropsWithChildren) => {
   const [loading, setLoading] = useState(true);

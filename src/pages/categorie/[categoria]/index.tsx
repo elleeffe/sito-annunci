@@ -1,12 +1,10 @@
-import {Box, Container, styled} from '@mui/material';
 import type {NextPage} from 'next';
 import {useRouter} from 'next/router';
 import {useEffect, useMemo} from 'react';
 import AdsList from '../../../components/AdsList';
 import BreadCrumb from '../../../components/BreadCrumb';
-import Layout from '../../../components/Layout';
+import Layout, {PageBody, PageIntro} from '../../../components/Layout';
 import {LoadingScreen} from '../../../components/Layout/AuthLoading';
-import PageIntro from '../../../components/Layout/PageIntro';
 import {TitleH1} from '../../../components/MyTypography';
 import {FiltersProvider} from '../../../contexts/FiltersContext';
 import {categoryOptions} from '../../../utils/config';
@@ -47,31 +45,17 @@ const Category: NextPage = () => {
           ]}
         />
       </PageIntro>
-      <Container>
-        <Wrap>
-          <FiltersProvider
-            city={router.query.city as City | undefined}
-            category={category.value}
-            keyword={router.query.keyword as string | undefined}
-          >
-            <AdsList />
-          </FiltersProvider>
-        </Wrap>
-      </Container>
+      <PageBody>
+        <FiltersProvider
+          city={router.query.city as City | undefined}
+          category={category.value}
+          keyword={router.query.keyword as string | undefined}
+        >
+          <AdsList />
+        </FiltersProvider>
+      </PageBody>
     </Layout>
   );
 };
 
 export default Category;
-
-const Wrap = styled(Box)(({theme}) => ({
-  marginTop: '100px',
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'flex-start',
-  position: 'relative',
-
-  [theme.breakpoints.down('md')]: {
-    marginTop: '25px',
-  },
-}));

@@ -3,12 +3,7 @@ import validate from 'validate.js';
 
 export const muiErrorConverter = (
   meta: FieldMetaState<
-    | string
-    | number
-    | boolean
-    | undefined
-    | {name: string; base64: string}[]
-    | string[]
+    string | number | boolean | undefined | AdsMedia[] | string[]
   >
 ) => {
   const error = !!(
@@ -168,9 +163,7 @@ export const wordValidator = (value: string) =>
     },
   });
 
-export const imageValidator = (
-  value: {name: string; base64: string}[] | undefined
-) => {
+export const imageValidator = (value: AdsMedia[] | undefined) => {
   if (!value || !value?.length) {
     return 'Campo obbligatorio';
   }

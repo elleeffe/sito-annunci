@@ -24,6 +24,7 @@ import ChangePasswordForm from '../Forms/ChangePasswordForm';
 import DeleteAccountForm from '../Forms/DeleteAccountForm';
 import StarIcon from '@mui/icons-material/Star';
 import FavoritesModal from './FavoritesModal';
+import {Aside} from '../Layout';
 
 const ProfileCard = () => {
   const [action, setAction] = useState<
@@ -42,63 +43,65 @@ const ProfileCard = () => {
 
   return (
     <>
-      <UserWrap>
-        <UserInfo>
-          <UserIcon color="primary" />
-          <Subtitle1>{user.email}</Subtitle1>
-          <Subtitle1>{user.phone}</Subtitle1>
-        </UserInfo>
-        <UserMenu>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => setAction('favorites')}>
-              <ListItemIcon>
-                <StarIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Lista preferiti" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => setAction('email')}>
-              <ListItemIcon>
-                <EmailIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Modifica email" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => setAction('phone')}>
-              <ListItemIcon>
-                <PhoneIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Modifica telefono" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => setAction('password')}>
-              <ListItemIcon>
-                <KeyIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Modifica password" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={logout}>
-              <ListItemIcon>
-                <LogoutIcon color="primary" />
-              </ListItemIcon>
-              <ListItemText primary="Disconnetti" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => setAction('account')}>
-              <ListItemIcon>
-                <PersonRemoveIcon color="error" />
-              </ListItemIcon>
-              <ListItemText primary="Elimina account" />
-            </ListItemButton>
-          </ListItem>
-        </UserMenu>
-      </UserWrap>
+      <Aside>
+        <UserWrap>
+          <UserInfo>
+            <UserIcon color="primary" />
+            <Subtitle1>{user.email}</Subtitle1>
+            <Subtitle1>{user.phone}</Subtitle1>
+          </UserInfo>
+          <UserMenu>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => setAction('favorites')}>
+                <ListItemIcon>
+                  <StarIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Lista preferiti" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => setAction('email')}>
+                <ListItemIcon>
+                  <EmailIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Modifica email" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => setAction('phone')}>
+                <ListItemIcon>
+                  <PhoneIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Modifica telefono" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => setAction('password')}>
+                <ListItemIcon>
+                  <KeyIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Modifica password" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={logout}>
+                <ListItemIcon>
+                  <LogoutIcon color="primary" />
+                </ListItemIcon>
+                <ListItemText primary="Disconnetti" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => setAction('account')}>
+                <ListItemIcon>
+                  <PersonRemoveIcon color="error" />
+                </ListItemIcon>
+                <ListItemText primary="Elimina account" />
+              </ListItemButton>
+            </ListItem>
+          </UserMenu>
+        </UserWrap>
+      </Aside>
       <FavoritesModal
         isOpen={action === 'favorites'}
         onClose={() => setAction(undefined)}
@@ -128,11 +131,11 @@ const UserWrap = styled(Box)(({theme}) => ({
   background: '#fff',
   borderRadius: '20px',
   boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  width: '300px',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   height: '100%',
+  overflow: 'auto',
 
   [theme.breakpoints.down('md')]: {
     width: '100%',

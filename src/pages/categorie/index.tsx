@@ -1,10 +1,8 @@
 import {useRouter} from 'next/router';
 import {FiltersProvider} from '../../contexts/FiltersContext';
 import type {NextPage} from 'next';
-import {styled, Box, Container} from '@mui/material';
 import BreadCrumb from '../../components/BreadCrumb';
-import Layout from '../../components/Layout';
-import PageIntro from '../../components/Layout/PageIntro';
+import Layout, {PageBody, PageIntro} from '../../components/Layout';
 import {TitleH1} from '../../components/MyTypography';
 import AdsList from '../../components/AdsList';
 
@@ -12,35 +10,23 @@ const Categories: NextPage = () => {
   const router = useRouter();
 
   return (
-    <Layout>
+    <Layout title="Tutte le categorie">
       <PageIntro>
-        <TitleH1 isWhite>Categorie</TitleH1>
-        <BreadCrumb paths={[{label: 'Categorie', path: '/categorie'}]} />
+        <TitleH1 isWhite>Tutte le categorie</TitleH1>
+        <BreadCrumb
+          paths={[{label: 'Tutte le categorie', path: '/categorie'}]}
+        />
       </PageIntro>
-      <Container>
-        <Wrap>
-          <FiltersProvider
-            city={router.query.city as City | undefined}
-            keyword={router.query.keyword as string | undefined}
-          >
-            <AdsList />
-          </FiltersProvider>
-        </Wrap>
-      </Container>
+      <PageBody>
+        <FiltersProvider
+          city={router.query.city as City | undefined}
+          keyword={router.query.keyword as string | undefined}
+        >
+          <AdsList />
+        </FiltersProvider>
+      </PageBody>
     </Layout>
   );
 };
 
 export default Categories;
-
-const Wrap = styled(Box)(({theme}) => ({
-  marginTop: '100px',
-  display: 'flex',
-  flexWrap: 'wrap',
-  alignItems: 'flex-start',
-  position: 'relative',
-
-  [theme.breakpoints.down('md')]: {
-    marginTop: '25px',
-  },
-}));

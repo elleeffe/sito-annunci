@@ -4,6 +4,7 @@ import {useUser} from '../contexts/UserContext';
 import useAdsList from '../hooks/useAdsList';
 import AdsFilter from './AdsFilter';
 import AdsCard from './Card/AdsCard';
+import {PageInner} from './Layout';
 import MyButton from './MyButton';
 import {TitleH6} from './MyTypography';
 
@@ -25,8 +26,8 @@ const AdsList = () => {
   return (
     <>
       <AdsFilter onChange={() => getAdsList(true)} />
-      <Wrap>
-        <TitleH6>Risultati &#40;{adsList.flat().length}&#41;</TitleH6>
+      <PageInner spacingDirection="left">
+        <TitleH6>Risultati di ricerca</TitleH6>
         <List>
           {adsList.map((ads) => {
             const loading =
@@ -85,27 +86,12 @@ const AdsList = () => {
             )}
           </ListFooter>
         </List>
-      </Wrap>
+      </PageInner>
     </>
   );
 };
 
 export default AdsList;
-
-const Wrap = styled(Box)(({theme}) => ({
-  flex: 1,
-  paddingLeft: '20px',
-  display: 'flex',
-  flexDirection: 'column',
-
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-    height: 'auto',
-    flex: 'initial',
-    paddingLeft: '0px',
-    marginTop: '25px',
-  },
-}));
 
 const List = styled(Box)(() => ({
   marginTop: '25px',

@@ -4,7 +4,7 @@ type User = {
   phone: string;
 };
 
-type Category = 'all' | 'categoria-1' | 'categoria-2';
+type Category = 'categoria-1' | 'categoria-2';
 
 type City = 'roma' | 'napoli' | 'milano';
 
@@ -16,6 +16,8 @@ type Visibility =
   | 'offerta-3'
   | 'offerta-4'
   | 'offerta-5';
+
+type AdsMedia = {name: string; base64: string};
 
 type Ads = {
   views?: number;
@@ -31,8 +33,8 @@ type Ads = {
   areas?: string[];
   email: string;
   phone: string;
-  cover: {name: string; base64: string}[];
-  images?: {name: string; base64: string}[];
+  cover: AdsMedia[];
+  images?: AdsMedia[];
   whatsapp: boolean;
   visibilityOption?: Visibility;
   visibilityTime?: TimeRange;

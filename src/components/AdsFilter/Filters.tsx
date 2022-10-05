@@ -9,7 +9,7 @@ import {TitleH6} from '../MyTypography';
 import MyAutocomplete from '../Fields/MyAutocomplete';
 import MySwitch from '../Fields/MySwitch';
 import {useFiltersContext} from '../../contexts/FiltersContext';
-import MyButton from '../MyButton';
+import MyButton from '../Buttons/MyButton';
 import {FormApi} from 'final-form';
 
 type Props = {

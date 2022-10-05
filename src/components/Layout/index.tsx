@@ -116,6 +116,7 @@ const Inner = styled(Container)(() => ({
   flexDirection: 'column',
   justifyContent: 'center',
   height: '100%',
+  overflow: 'hidden',
 }));
 
 export const Aside = styled(Box, {

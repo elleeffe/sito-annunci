@@ -5,9 +5,10 @@ import Filters from './Filters';
 import {TitleH6} from '../MyTypography';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
-import MyButton from '../MyButton';
+import MyButton from '../Buttons/MyButton';
 import {ArrowUpward} from '@mui/icons-material';
 import {Aside} from '../Layout';
+import {backToTop} from '../../utils/utils';
 
 type Props = {
   onChange: () => void;
@@ -19,14 +20,10 @@ const AdsFilter = ({onChange}: Props) => {
 
   const {isMd} = useResponsive();
 
-  const backToTop = useCallback(() => {
-    window.scrollTo({top: 0, behavior: 'smooth'});
-  }, []);
-
   const handleChange = useCallback(() => {
     backToTop();
     onChange();
-  }, [onChange, backToTop]);
+  }, [onChange]);
 
   useEffect(() => {
     const checkScroll = () => {
@@ -72,9 +69,16 @@ const AdsFilter = ({onChange}: Props) => {
           )}
         </FilterWrap>
         {!isMd && (
-          <MyButton color="primary" variant="contained" onClick={backToTop}>
-            Torna in cima
-          </MyButton>
+          <Box sx={{padding: '0 20px'}}>
+            <MyButton
+              color="primary"
+              variant="contained"
+              onClick={backToTop}
+              sx={{width: '100%'}}
+            >
+              Torna in cima
+            </MyButton>
+          </Box>
         )}
       </Aside>
       <Drawer anchor="right" open={isOpen} onClose={() => setIsOpen(false)}>

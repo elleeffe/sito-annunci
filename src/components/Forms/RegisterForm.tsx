@@ -10,7 +10,7 @@ import {
 } from '../../utils/fields';
 import MyCheckbox from '../Fields/MyCheckbox';
 import MyTextField from '../Fields/MyTextField';
-import MyButton from '../MyButton';
+import MyButton from '../Buttons/MyButton';
 import {TitleH6} from '../MyTypography';
 
 type FormValues = {

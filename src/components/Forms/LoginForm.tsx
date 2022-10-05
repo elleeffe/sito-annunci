@@ -6,7 +6,7 @@ import {
   passwordValidator,
 } from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
-import MyButton from '../MyButton';
+import MyButton from '../Buttons/MyButton';
 import {Body2, TitleH6} from '../MyTypography';
 import HelpIcon from '@mui/icons-material/Help';
 import {styled, Box, Alert} from '@mui/material';

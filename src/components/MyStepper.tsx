@@ -10,7 +10,7 @@ import {
   Tooltip,
 } from '@mui/material';
 import {ArrowBack, ArrowForward} from '@mui/icons-material';
-import MyButton from './MyButton';
+import MyButton from './Buttons/MyButton';
 
 type StepType = {
   label: string;

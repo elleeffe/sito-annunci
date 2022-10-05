@@ -5,7 +5,7 @@ import useAdsList from '../hooks/useAdsList';
 import AdsFilter from './AdsFilter';
 import AdsCard from './Card/AdsCard';
 import {PageInner} from './Layout';
-import MyButton from './MyButton';
+import MyButton from './Buttons/MyButton';
 import {TitleH6} from './MyTypography';
 
 const AdsList = () => {

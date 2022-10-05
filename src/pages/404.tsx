@@ -1,7 +1,6 @@
 import type {NextPage} from 'next';
 import BreadCrumb from '../components/BreadCrumb';
-import Layout from '../components/Layout';
-import PageIntro from '../components/Layout/PageIntro';
+import Layout, {PageIntro} from '../components/Layout';
 import {TitleH1} from '../components/MyTypography';
 
 const NotFound: NextPage = () => {

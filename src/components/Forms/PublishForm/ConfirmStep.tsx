@@ -8,7 +8,7 @@ import {
   styled,
 } from '@mui/material';
 import {useRouter} from 'next/router';
-import MyButton from '../../MyButton';
+import MyButton from '../../Buttons/MyButton';
 import {StyledButton, Subtitle1, Subtitle2, TitleH6} from '../../MyTypography';
 import AdsCard from '../../Card/AdsCard';
 import VisibilityCard from '../../Card/VisibilityCard';

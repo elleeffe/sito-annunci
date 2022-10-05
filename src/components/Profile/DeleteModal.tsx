@@ -1,5 +1,5 @@
 import {Alert, Box, Button, Modal, styled} from '@mui/material';
-import MyButton from '../MyButton';
+import MyButton from '../Buttons/MyButton';
 import {TitleH6} from '../MyTypography';
 
 type Props = {

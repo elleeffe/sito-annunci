@@ -4,21 +4,23 @@ import {useEffect, useMemo, useState} from 'react';
 import axios from 'axios';
 import BreadCrumb from '../../../../components/BreadCrumb';
 import Layout, {
-  Aside,
   PageBody,
   PageInner,
   PageIntro,
 } from '../../../../components/Layout';
 import {LoadingScreen} from '../../../../components/Layout/AuthLoading';
-import {TitleH1} from '../../../../components/MyTypography';
+import {Body1, TitleH1, TitleH3} from '../../../../components/MyTypography';
 import {categoryOptions} from '../../../../utils/config';
 import {sleep} from '../../../../utils/utils';
 import {mockAds} from '../../../../utils/mocks';
-import {Box, styled} from '@mui/material';
-import AdsGallery from '../../../../components/AdsGallery';
+import AdsGallery from '../../../../components/AdsDetail/AdsGallery';
+import CommentsModal from '../../../../components/AdsDetail/CommentsModal';
+
+import AdsAside from '../../../../components/AdsDetail/AdsAside';
 
 const Detail: NextPage = () => {
   const [detail, setDetail] = useState<Ads | null>();
+  const [showComments, setShowComments] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -61,7 +63,9 @@ const Detail: NextPage = () => {
   return (
     <Layout title={detail.title}>
       <PageIntro>
-        <TitleH1 isWhite>{detail.title}</TitleH1>
+        <TitleH1 isWhite isEllipsis>
+          {detail.title}
+        </TitleH1>
         <BreadCrumb
           paths={[
             {label: 'Categorie', path: '/categorie'},
@@ -71,7 +75,7 @@ const Detail: NextPage = () => {
             },
             {
               label: detail.title,
-              path: `/categorie/${router.query.categoria}/${detail.title}`,
+              path: `/categorie/${router.query.categoria}/${detail.id}`,
             },
           ]}
         />
@@ -79,37 +83,20 @@ const Detail: NextPage = () => {
       <PageBody>
         <PageInner spacingHorizontal="right" spacingVertical="bottom">
           <AdsGallery cover={detail.cover[0]} images={detail.images} />
+          <TitleH3 marginBottom="15px">{detail.title}</TitleH3>
+          <Body1>{detail.description}</Body1>
         </PageInner>
-        <Aside>
-          <AsideInner></AsideInner>
-        </Aside>
+        <AdsAside
+          detail={detail}
+          onOpenComments={() => setShowComments(true)}
+        />
       </PageBody>
+      <CommentsModal
+        isOpen={showComments}
+        onClose={() => setShowComments(false)}
+      />
     </Layout>
   );
 };
 
 export default Detail;
-
-const AsideInner = styled(Box)(({theme}) => ({
-  background: '#fff',
-  borderRadius: '20px',
-  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  padding: '20px',
-  overflow: 'overlay',
-  flex: 1,
-  marginBottom: '20px',
-
-  [theme.breakpoints.down('md')]: {
-    width: '100%',
-    height: 'auto',
-    flexDirection: 'row',
-    justifyContent: 'initial',
-  },
-
-  [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-  },
-}));

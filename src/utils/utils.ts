@@ -43,3 +43,7 @@ export const formatVisibilityExpiration = (
 
 export const sleep = (ms: number) =>
   new Promise((res, rej) => setTimeout(res, ms));
+
+export const backToTop = () => {
+  window.scrollTo({top: 0, behavior: 'smooth'});
+};

@@ -4,7 +4,7 @@ import {Form} from 'react-final-form';
 import {Alert, Box, keyframes, styled} from '@mui/material';
 import {numberValueValidator, passwordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
-import MyButton from '../MyButton';
+import MyButton from '../Buttons/MyButton';
 import {Subtitle1, TitleH6} from '../MyTypography';
 import CheckIcon from '@mui/icons-material/Check';
 import {useUser} from '../../contexts/UserContext';

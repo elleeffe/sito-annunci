@@ -40,9 +40,24 @@ const StyledLabel = styled(Subtitle1, {
   shouldForwardProp: (prop) => prop !== 'isActive',
 })<{isActive: boolean}>(({theme, isActive}) => ({
   cursor: 'pointer',
+  textOverflow: 'ellipsis',
 
   '&:hover': {
     textDecoration: 'underline',
   },
   ...(isActive && {textDecoration: 'underline'}),
+
+  [theme.breakpoints.down('md')]: {
+    overflow: 'hidden',
+    maxWidth: '550px',
+    whiteSpace: 'nowrap',
+  },
+
+  [theme.breakpoints.down('sm')]: {
+    maxWidth: '280px',
+  },
+
+  [theme.breakpoints.down('xs')]: {
+    maxWidth: '280px',
+  },
 }));

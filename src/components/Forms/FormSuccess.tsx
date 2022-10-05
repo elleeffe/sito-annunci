@@ -1,35 +1,35 @@
 import {Box, keyframes, styled} from '@mui/material';
-import {TitleH6} from '../../../MyTypography';
+import {TitleH6} from '../MyTypography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
-const EditVariant = () => {
+type Props = {label: string};
+
+const FormSuccess = ({label}: Props) => {
   return (
-    <Wrap>
+    <SuccessWrap>
       <CheckCircleOutlineIcon
         color="success"
         sx={{
           // animation: `700ms linear infinite alternate ${bouncing}`,
-          width: '50px',
-          height: '50px',
+          width: '70px',
+          height: '70px',
           marginBottom: '15px',
         }}
       />
-      <TitleH6>Annuncio modificato con successo!</TitleH6>
-    </Wrap>
+      <TitleH6>{label}</TitleH6>
+    </SuccessWrap>
   );
 };
 
-export default EditVariant;
+export default FormSuccess;
 
-const Wrap = styled(Box)(() => ({
+const SuccessWrap = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   justifyContent: 'center',
-  marginBottom: '30px',
-  position: 'relative',
-  flex: 1,
   textAlign: 'center',
+  height: '100%',
 }));
 
 const bouncing = keyframes`

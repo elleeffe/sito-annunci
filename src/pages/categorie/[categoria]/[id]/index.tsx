@@ -14,13 +14,11 @@ import {categoryOptions} from '../../../../utils/config';
 import {sleep} from '../../../../utils/utils';
 import {mockAds} from '../../../../utils/mocks';
 import AdsGallery from '../../../../components/AdsDetail/AdsGallery';
-import CommentsModal from '../../../../components/AdsDetail/CommentsModal';
 
 import AdsAside from '../../../../components/AdsDetail/AdsAside';
 
 const Detail: NextPage = () => {
   const [detail, setDetail] = useState<Ads | null>();
-  const [showComments, setShowComments] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -86,15 +84,8 @@ const Detail: NextPage = () => {
           <TitleH3 marginBottom="15px">{detail.title}</TitleH3>
           <Body1>{detail.description}</Body1>
         </PageInner>
-        <AdsAside
-          detail={detail}
-          onOpenComments={() => setShowComments(true)}
-        />
+        <AdsAside detail={detail} />
       </PageBody>
-      <CommentsModal
-        isOpen={showComments}
-        onClose={() => setShowComments(false)}
-      />
     </Layout>
   );
 };

@@ -23,7 +23,11 @@ type FormValues = {
   privacy: boolean;
 };
 
-const LoginForm = () => {
+type Props = {
+  onSuccess?: () => void;
+};
+
+const LoginForm = ({onSuccess}: Props) => {
   const [recovery, setRecovery] = useState<boolean>(false);
 
   const {login} = useUser();
@@ -48,8 +52,11 @@ const LoginForm = () => {
           2000
         );
         if (ads) {
+          !!onSuccess && onSuccess();
           router.push('/pubblica-annuncio');
+          return;
         }
+        !!onSuccess && onSuccess();
       } catch (e) {
         console.log(e);
         //TODO
@@ -58,7 +65,7 @@ const LoginForm = () => {
         };
       }
     },
-    [login, router, ads]
+    [login, router, ads, onSuccess]
   );
 
   if (recovery) {
@@ -111,7 +118,7 @@ const LoginForm = () => {
               </MyCheckbox>
               <MyButton
                 onClick={handleSubmit}
-                disabled={pristine || hasValidationErrors}
+                disabled={pristine || hasValidationErrors || submitting}
                 variant="contained"
                 sx={{width: '100%'}}
                 loading={submitting}

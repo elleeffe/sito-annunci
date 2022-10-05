@@ -1,13 +1,13 @@
 import {useCallback, useEffect, useState} from 'react';
 import {FORM_ERROR} from 'final-form';
 import {Form} from 'react-final-form';
-import {Alert, Box, keyframes, styled} from '@mui/material';
+import {Alert, Box, styled} from '@mui/material';
 import {numberValueValidator, passwordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
 import {Subtitle1, TitleH6} from '../MyTypography';
-import CheckIcon from '@mui/icons-material/Check';
 import {useUser} from '../../contexts/UserContext';
+import FormSuccess from './FormSuccess';
 
 type FormValues = {
   phone: string;
@@ -50,20 +50,7 @@ const ChangePhoneForm = ({onSuccess, user}: Props) => {
   }, [success, onSuccess]);
 
   if (success) {
-    return (
-      <SuccessWrap>
-        <CheckIcon
-          color="success"
-          sx={{
-            animation: `700ms linear infinite alternate ${bouncing}`,
-            width: '50px',
-            height: '50px',
-            marginBottom: '15px',
-          }}
-        />
-        <TitleH6>Telefono modificato con successo!</TitleH6>
-      </SuccessWrap>
-    );
+    return <FormSuccess label="Telefono modificato con successo!" />;
   }
 
   return (
@@ -137,21 +124,3 @@ const Wrap = styled(Box)(() => ({
     width: '100%',
   },
 }));
-
-const SuccessWrap = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textAlign: 'center',
-  height: '100%',
-}));
-
-const bouncing = keyframes`
-from {
-  transform: translateY(5px);
-}
-to {
-  transform: translateY(0px)
-}
-`;

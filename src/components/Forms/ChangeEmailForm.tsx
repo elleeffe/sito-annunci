@@ -2,12 +2,12 @@ import {useCallback, useEffect, useState} from 'react';
 import {Form} from 'react-final-form';
 import {FORM_ERROR} from 'final-form';
 import {useUser} from '../../contexts/UserContext';
-import {Alert, Box, keyframes, styled} from '@mui/material';
+import {Alert, Box, styled} from '@mui/material';
 import {emailValidator, passwordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
 import {Subtitle1, TitleH6} from '../MyTypography';
-import CheckIcon from '@mui/icons-material/Check';
+import FormSuccess from './FormSuccess';
 
 type FormValues = {
   currentEmail: string;
@@ -51,20 +51,7 @@ const ChangeEmailForm = ({user, onSuccess}: Props) => {
   }, [success, onSuccess]);
 
   if (success) {
-    return (
-      <SuccessWrap>
-        <CheckIcon
-          color="success"
-          sx={{
-            animation: `700ms linear infinite alternate ${bouncing}`,
-            width: '50px',
-            height: '50px',
-            marginBottom: '15px',
-          }}
-        />
-        <TitleH6>Email modificata con successo!</TitleH6>
-      </SuccessWrap>
-    );
+    return <FormSuccess label="Email modificata con successo!" />;
   }
 
   return (
@@ -141,21 +128,3 @@ const Wrap = styled(Box)(() => ({
     justifyContent: 'center',
   },
 }));
-
-const SuccessWrap = styled(Box)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textAlign: 'center',
-  height: '100%',
-}));
-
-const bouncing = keyframes`
-from {
-  transform: translateY(5px);
-}
-to {
-  transform: translateY(0px)
-}
-`;

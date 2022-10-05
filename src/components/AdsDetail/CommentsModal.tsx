@@ -16,11 +16,12 @@ import {Subtitle1, TitleH6} from '../MyTypography';
 import {sleep} from '../../utils/utils';
 
 type Props = {
+  detailId: string;
   isOpen: boolean;
   onClose: () => void;
 };
 
-const CommentsModal = ({isOpen, onClose}: Props) => {
+const CommentsModal = ({detailId, isOpen, onClose}: Props) => {
   const [comments, setComments] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
@@ -30,7 +31,7 @@ const CommentsModal = ({isOpen, onClose}: Props) => {
   const getComments = useCallback(async () => {
     try {
       setLoading(true);
-      // TODO
+      // TODO - use detailId
       await sleep(3000);
     } catch (e) {
       console.log(e);

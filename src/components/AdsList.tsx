@@ -26,7 +26,7 @@ const AdsList = () => {
   return (
     <>
       <AdsFilter onChange={() => getAdsList(true)} />
-      <PageInner spacingDirection="left">
+      <PageInner spacingHorizontal="left" spacingVertical="top">
         <TitleH6>Risultati di ricerca</TitleH6>
         <List>
           {adsList.map((ads) => {

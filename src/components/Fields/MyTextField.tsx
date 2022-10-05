@@ -6,6 +6,7 @@ import {
   Box,
   styled,
   CircularProgress,
+  Tooltip,
 } from '@mui/material';
 import * as icons from '@mui/icons-material';
 import {useField} from 'react-final-form';
@@ -69,24 +70,26 @@ const MyTextField = ({
     }
     if (props.type === 'password') {
       return (
-        <IconButton
-          aria-label="toggle password visibility"
-          onClick={() => setShowPassword(!showPassword)}
-          onMouseDown={() => setShowPassword(!showPassword)}
-          size="small"
-        >
-          {showPassword ? (
-            <icons.VisibilityOff
-              color={props.color || 'primary'}
-              className="untouchable-icon"
-            />
-          ) : (
-            <icons.Visibility
-              color={props.color || 'primary'}
-              className="untouchable-icon"
-            />
-          )}
-        </IconButton>
+        <Tooltip title={showPassword ? 'Nascondi' : 'Mostra'}>
+          <IconButton
+            aria-label="toggle password visibility"
+            onClick={() => setShowPassword(!showPassword)}
+            onMouseDown={() => setShowPassword(!showPassword)}
+            size="small"
+          >
+            {showPassword ? (
+              <icons.VisibilityOff
+                color={props.color || 'primary'}
+                className="untouchable-icon"
+              />
+            ) : (
+              <icons.Visibility
+                color={props.color || 'primary'}
+                className="untouchable-icon"
+              />
+            )}
+          </IconButton>
+        </Tooltip>
       );
     }
   }, [props, showPassword, loading]);

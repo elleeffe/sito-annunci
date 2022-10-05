@@ -8,6 +8,7 @@ import {
   Paper,
   Button,
   Alert,
+  Tooltip,
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
 import {mockAds} from '../../utils/mocks';
@@ -82,13 +83,15 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
     >
       <ModalInner>
         <StyledPaper>
-          <CloseButton
-            onClick={onClose}
-            color="error"
-            size={match ? 'small' : 'medium'}
-          >
-            <Close />
-          </CloseButton>
+          <Tooltip title="Chiudi">
+            <CloseButton
+              onClick={onClose}
+              color="error"
+              size={match ? 'small' : 'medium'}
+            >
+              <Close />
+            </CloseButton>
+          </Tooltip>
           <TitleH6 isSmall marginBottom="15px">
             Lista preferiti
           </TitleH6>

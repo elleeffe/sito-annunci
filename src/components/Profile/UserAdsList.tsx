@@ -71,7 +71,7 @@ const UserAdsList = () => {
 
   return (
     <>
-      <PageInner spacingDirection="left">
+      <PageInner spacingHorizontal="left" spacingVertical="top">
         <TitleH6>I tuoi annunci</TitleH6>
         <List>
           {loading && !error && (

@@ -77,8 +77,8 @@ const Detail: NextPage = () => {
         />
       </PageIntro>
       <PageBody>
-        <PageInner spacingDirection="right">
-          <AdsGallery cover={detail.cover[0]} />
+        <PageInner spacingHorizontal="right" spacingVertical="bottom">
+          <AdsGallery cover={detail.cover[0]} images={detail.images} />
         </PageInner>
         <Aside>
           <AsideInner></AsideInner>

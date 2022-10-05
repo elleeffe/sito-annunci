@@ -1,5 +1,12 @@
 import {PropsWithChildren} from 'react';
-import {IconButton, Modal, Paper, styled, useMediaQuery} from '@mui/material';
+import {
+  IconButton,
+  Modal,
+  Paper,
+  styled,
+  Tooltip,
+  useMediaQuery,
+} from '@mui/material';
 import {Close} from '@mui/icons-material';
 
 type Props = PropsWithChildren<{isOpen: boolean; onClose: () => void}>;
@@ -14,13 +21,15 @@ const MyModal = ({children, onClose, isOpen}: Props) => {
       sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
     >
       <ModalInner>
-        <CloseButton
-          onClick={onClose}
-          color="error"
-          size={match ? 'small' : 'medium'}
-        >
-          <Close />
-        </CloseButton>
+        <Tooltip title="Chiudi">
+          <CloseButton
+            onClick={onClose}
+            color="error"
+            size={match ? 'small' : 'medium'}
+          >
+            <Close />
+          </CloseButton>
+        </Tooltip>
         {children}
       </ModalInner>
     </Modal>

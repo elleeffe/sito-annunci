@@ -7,6 +7,7 @@ import {
   ButtonProps,
   IconButton,
   Box,
+  Tooltip,
 } from '@mui/material';
 import {ArrowBack, ArrowForward} from '@mui/icons-material';
 import MyButton from './MyButton';
@@ -105,14 +106,16 @@ const MyStepper = ({
             alignItems="flex-end"
             justifyContent="space-between"
           >
-            <IconButton
-              color={buttonColor}
-              disabled={activeStep === 0}
-              onClick={handleBack}
-              size={buttonSize}
-            >
-              <ArrowBack />
-            </IconButton>
+            <Tooltip title="Indietro">
+              <IconButton
+                color={buttonColor}
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                size={buttonSize}
+              >
+                <ArrowBack />
+              </IconButton>
+            </Tooltip>
             {steps[activeStep] && steps[activeStep].button ? (
               <MyButton
                 onClick={handleNext}
@@ -124,14 +127,16 @@ const MyStepper = ({
                 {steps[activeStep]?.button?.label}
               </MyButton>
             ) : (
-              <IconButton
-                color={buttonColor}
-                onClick={handleNext}
-                size={buttonSize}
-                disabled={steps[activeStep].disabled}
-              >
-                <ArrowForward />
-              </IconButton>
+              <Tooltip title="Avanti">
+                <IconButton
+                  color={buttonColor}
+                  onClick={handleNext}
+                  size={buttonSize}
+                  disabled={steps[activeStep].disabled}
+                >
+                  <ArrowForward />
+                </IconButton>
+              </Tooltip>
             )}
           </Box>
         </>

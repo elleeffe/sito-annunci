@@ -118,7 +118,9 @@ const Inner = styled(Container)(() => ({
   height: '100%',
 }));
 
-export const Aside = styled(Box)(({theme}) => ({
+export const Aside = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'mobileOrder',
+})<{mobileOrder?: number}>(({theme, mobileOrder}) => ({
   height: 'calc(100vh - 90px)',
   display: 'flex',
   flexDirection: 'column',
@@ -135,16 +137,25 @@ export const Aside = styled(Box)(({theme}) => ({
     alignItems: 'center',
     justifyContent: 'initial',
     position: 'initial',
+    ...(mobileOrder && {order: mobileOrder}),
   },
 }));
 
 export const PageInner = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'spacingDirection',
-})<{spacingDirection: 'left' | 'right'}>(({theme, spacingDirection}) => ({
+  shouldForwardProp: (prop) =>
+    prop !== 'spacingHorizontal' &&
+    prop !== 'spacingVertical' &&
+    prop !== 'mobileOrder',
+})<{
+  spacingHorizontal: 'left' | 'right';
+  spacingVertical: 'top' | 'bottom';
+  mobileOrder?: number;
+}>(({theme, spacingHorizontal, spacingVertical, mobileOrder}) => ({
   flex: 1,
+  maxWidth: 'calc(100% - 320px)',
   display: 'flex',
   flexDirection: 'column',
-  ...(spacingDirection === 'left'
+  ...(spacingHorizontal === 'left'
     ? {paddingLeft: '20px'}
     : {paddingRight: '20px'}),
 
@@ -153,6 +164,11 @@ export const PageInner = styled(Box, {
     height: 'auto',
     flex: 'initial',
     paddingLeft: '0px',
-    marginTop: '25px',
+    paddingRight: '0px',
+    maxWidth: 'initial',
+    ...(mobileOrder && {order: mobileOrder}),
+    ...(spacingVertical === 'top'
+      ? {paddingTop: '20px'}
+      : {paddingBottom: '20px'}),
   },
 }));

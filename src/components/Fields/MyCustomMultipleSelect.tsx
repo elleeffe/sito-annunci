@@ -7,6 +7,7 @@ import {
   styled,
   Paper,
   Chip,
+  Tooltip,
 } from '@mui/material';
 import * as icons from '@mui/icons-material';
 import {useField} from 'react-final-form';
@@ -91,14 +92,16 @@ const MyCustomMultipleSelect = ({
             },
           }}
         />
-        <IconButton
-          size="medium"
-          sx={{position: 'absolute', top: 0, right: 0}}
-          disabled={!textValue}
-          onClick={handleArea}
-        >
-          <icons.Add color={addIconColor} />
-        </IconButton>
+        <Tooltip title="Aggiungi">
+          <IconButton
+            size="medium"
+            sx={{position: 'absolute', top: 0, right: 0}}
+            disabled={!textValue}
+            onClick={handleArea}
+          >
+            <icons.Add color={addIconColor} />
+          </IconButton>
+        </Tooltip>
       </Box>
       <StyledPaper
         isEmpty={!areas.length}

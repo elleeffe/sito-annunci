@@ -2,7 +2,9 @@ import {useCallback, useEffect, useMemo, useState} from 'react';
 import {mockAds} from '../utils/mocks';
 import {sleep} from '../utils/utils';
 
-const mockAdsList: Ads[] = new Array(10).fill(mockAds);
+const mockAdsList: Ads[] = new Array(20)
+  .fill(mockAds)
+  .map((el, i) => (i < 6 ? {...el, isHighlighted: true} : el));
 
 const mock: {[key: number]: Ads[]} = {
   0: [...mockAdsList],
@@ -96,6 +98,8 @@ const useAdsList = (filters: Filters, orders: Orders) => {
   useEffect(() => {
     getAdsList(false);
   }, []);
+
+  console.log({adsList});
 
   return {
     adsList,

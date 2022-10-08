@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Box, Button, Grid, styled} from '@mui/material';
 import {formatAdsCardText, formatDate} from '../../../utils/utils';
-import {Body1, Subtitle2, TitleH6} from '../../MyTypography';
+import {Body1, Body2, Subtitle1, Subtitle2, TitleH6} from '../../MyTypography';
 import PlaceIcon from '@mui/icons-material/Place';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -10,6 +10,7 @@ import {visibilityOptions} from '../../../utils/config';
 import Favorites from './Favorites';
 import Visibility from './Visibility';
 import {useRouter} from 'next/router';
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 
 type Props = {
   ads: Ads;
@@ -38,98 +39,125 @@ const AdsCard = ({
   );
 
   return (
-    <Wrap
-      container
-      columnSpacing={2}
-      rowSpacing={2}
-      isPreview={isPreview}
-      whiteBg={whiteBg}
-    >
-      {!!onSettings && ads.views !== undefined && (
-        <FullGrid item xs={12} marginBottom="15px" alignItems="center">
-          <VisibilityIcon color="primary" />
-          <Subtitle2 marginLeft="10px">
-            {ads.views}{' '}
-            {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
-          </Subtitle2>
-        </FullGrid>
+    <HighlightedWrap isHighlighted={ads.isHighlighted}>
+      {ads.isHighlighted && (
+        <HighlightedLabel>
+          <LocalFireDepartmentIcon color="error" />
+          <Subtitle1 marginLeft="10px">Super Hot</Subtitle1>
+        </HighlightedLabel>
       )}
-      {!!onFavorite && ads.isFavorite !== undefined && (
-        <Favorites
-          onClick={() => onFavorite(ads.id)}
-          isFavorite={ads.isFavorite}
-          loading={favoriteLoading}
-          error={favoriteError}
-        />
-      )}
-      <Cover
-        item
-        xs={12}
-        md={5}
-        lg={4}
-        sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
-      />
-      <Content item xs={12} md={7} lg={8}>
-        <Title>{formatAdsCardText(ads.title, 10)}</Title>
-        <Description>{formatAdsCardText(ads.description, 20)}</Description>
-        {!!ads.publicationDate && (
-          <Subtitle2 sx={{marginBottom: '5px'}}>
-            {formatDate(ads.publicationDate)}
-          </Subtitle2>
+      <Wrap
+        container
+        columnSpacing={2}
+        rowSpacing={2}
+        isPreview={isPreview}
+        whiteBg={whiteBg}
+      >
+        {!!onSettings && ads.views !== undefined && (
+          <FullGrid item xs={12} marginBottom="15px" alignItems="center">
+            <VisibilityIcon color="primary" />
+            <Subtitle2 marginLeft="10px">
+              {ads.views}{' '}
+              {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
+            </Subtitle2>
+          </FullGrid>
         )}
-        <Info sx={{marginBottom: '5px'}}>{ads.category}</Info>
-        <InfoWrap>
-          <Info divider>{ads.age} anni</Info>
-          <CardAction>
-            <LocationWrap>
-              <PlaceIcon
-                color="primary"
-                sx={{width: '15px', height: '15px', marginRight: '3px'}}
-              />
-              <Info>
-                {ads.city.toUpperCase()}
-                {ads.neighborhood && `, ${ads.neighborhood}`}
-              </Info>
-            </LocationWrap>
-            {!!onSettings ? (
-              <CardButton
-                size="small"
-                color="primary"
-                variant="contained"
-                onClick={onSettings}
-                endIcon={<SettingsIcon />}
-              >
-                Gestisci
-              </CardButton>
-            ) : (
-              <CardButton
-                size="small"
-                color="primary"
-                variant="contained"
-                endIcon={<ArrowForwardIosIcon />}
-                onClick={() =>
-                  router.push(`/categorie/${ads.category}/${ads.id}`)
-                }
-              >
-                Visita
-              </CardButton>
-            )}
-          </CardAction>
-        </InfoWrap>
-      </Content>
-      {!!onSettings &&
-        !!visibilityOption &&
-        ads.visibilityExpiration !== undefined && (
-          <Visibility
-            option={visibilityOption}
-            expiration={ads.visibilityExpiration}
+        {!!onFavorite && ads.isFavorite !== undefined && (
+          <Favorites
+            onClick={() => onFavorite(ads.id)}
+            isFavorite={ads.isFavorite}
+            loading={favoriteLoading}
+            error={favoriteError}
           />
         )}
-    </Wrap>
+        <Cover
+          item
+          xs={12}
+          md={5}
+          lg={4}
+          sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
+        />
+        <Content item xs={12} md={7} lg={8}>
+          <Title isSmall>{formatAdsCardText(ads.title, 10)}</Title>
+          <Description>{formatAdsCardText(ads.description, 20)}</Description>
+          {!!ads.publicationDate && (
+            <Subtitle2 sx={{marginBottom: '5px'}}>
+              {formatDate(ads.publicationDate)}
+            </Subtitle2>
+          )}
+          <Info sx={{marginBottom: '5px'}}>{ads.category}</Info>
+          <InfoWrap>
+            <Info divider>{ads.age} anni</Info>
+            <CardAction>
+              <LocationWrap>
+                <PlaceIcon
+                  color="primary"
+                  sx={{width: '15px', height: '15px', marginRight: '3px'}}
+                />
+                <Info>
+                  {ads.city.toUpperCase()}
+                  {ads.neighborhood && `, ${ads.neighborhood}`}
+                </Info>
+              </LocationWrap>
+              {!!onSettings ? (
+                <CardButton
+                  size="small"
+                  color="primary"
+                  variant="contained"
+                  onClick={onSettings}
+                  endIcon={<SettingsIcon />}
+                >
+                  Gestisci
+                </CardButton>
+              ) : (
+                <CardButton
+                  size="small"
+                  color="primary"
+                  variant="contained"
+                  endIcon={<ArrowForwardIosIcon />}
+                  onClick={() =>
+                    router.push(`/categorie/${ads.category}/${ads.id}`)
+                  }
+                >
+                  Visita
+                </CardButton>
+              )}
+            </CardAction>
+          </InfoWrap>
+        </Content>
+        {!!onSettings &&
+          !!visibilityOption &&
+          ads.visibilityExpiration !== undefined && (
+            <Visibility
+              option={visibilityOption}
+              expiration={ads.visibilityExpiration}
+            />
+          )}
+      </Wrap>
+    </HighlightedWrap>
   );
 };
 
 export default AdsCard;
+
+const HighlightedWrap = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isHighlighted',
+})<{isHighlighted?: boolean}>(({theme, isHighlighted}) => ({
+  borderRadius: '20px',
+  marginTop: '20px',
+
+  ...(isHighlighted && {
+    border: `2px solid ${theme.palette.error.main}`,
+    padding: '10px',
+  }),
+}));
+
+const HighlightedLabel = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: '10px',
+  marginBottom: '5px',
+}));
 
 const Wrap = styled(Grid, {
   shouldForwardProp: (prop) => prop !== 'isPreview' && prop !== 'whiteBg',
@@ -154,10 +182,6 @@ const Wrap = styled(Grid, {
       boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
     },
   }),
-
-  '& + &': {
-    marginTop: '20px',
-  },
 }));
 
 const Cover = styled(Grid)(({theme}) => ({
@@ -176,7 +200,7 @@ const Cover = styled(Grid)(({theme}) => ({
 
   [theme.breakpoints.down('sm')]: {
     height: '25vh',
-    minHeight: '250px',
+    minHeight: '200px',
   },
 }));
 
@@ -201,7 +225,7 @@ const Content = styled(Grid)(({theme}) => ({
   },
 }));
 
-const Description = styled(Body1)(({theme}) => ({
+const Description = styled(Body2)(({theme}) => ({
   [theme.breakpoints.down('md')]: {
     marginBottom: '25px',
   },

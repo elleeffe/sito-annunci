@@ -28,7 +28,7 @@ const AdsList = () => {
       <AdsFilter onChange={() => getAdsList(true)} />
       <PageInner spacingHorizontal="left" spacingVertical="top">
         <TitleH6>Risultati di ricerca</TitleH6>
-        <List>
+        <Box>
           {adsList.map((ads) => {
             const loading =
               ads.id !== undefined ? favoriteLoading === ads.id : false;
@@ -85,17 +85,13 @@ const AdsList = () => {
               </MyButton>
             )}
           </ListFooter>
-        </List>
+        </Box>
       </PageInner>
     </>
   );
 };
 
 export default AdsList;
-
-const List = styled(Box)(() => ({
-  marginTop: '25px',
-}));
 
 const ListFooter = styled(Box)(() => ({
   display: 'flex',

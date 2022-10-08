@@ -70,7 +70,7 @@ const Cover = styled(Grid)(({theme}) => ({
 
   [theme.breakpoints.down('sm')]: {
     height: '25vh',
-    minHeight: '250px',
+    minHeight: '200px',
   },
 }));
 

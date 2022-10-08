@@ -39,6 +39,7 @@ type Ads = {
   visibilityOption?: Visibility;
   visibilityTime?: TimeRange;
   visibilityExpiration?: number;
+  isHighlighted?: boolean;
 };
 
 type VisibilityOption = {

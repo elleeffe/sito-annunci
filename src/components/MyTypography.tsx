@@ -121,7 +121,7 @@ export const Subtitle2 = styled(Typography, {
     prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isPoppins',
 })<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
   lineHeight: 1.3,
-  fontSize: '16px',
+  fontSize: '15px',
   fontWeight: 400,
   ...(isPoppins
     ? {fontFamily: 'Poppins'}
@@ -134,7 +134,7 @@ export const Subtitle2 = styled(Typography, {
         color: theme.palette.text.secondary,
       }),
   [theme.breakpoints.down('md')]: {
-    fontSize: '14px',
+    fontSize: '13px',
   },
 }));
 Subtitle2.defaultProps = {variant: 'subtitle2'};

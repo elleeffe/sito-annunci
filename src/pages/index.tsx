@@ -6,7 +6,7 @@ import CardSlider from '../components/Card/CardSlider';
 import segnapostoCta from '../assets/img/segnaposto-cta.png';
 import HeroBanner from '../components/Hero/HeroBanner';
 import {Subtitle1, TitleH1, TitleH2} from '../components/MyTypography';
-import {cards} from '../utils/config';
+import {categoryCards} from '../utils/config';
 import HomeForm from '../components/Forms/HomeForm';
 
 const Home: NextPage = () => {
@@ -41,7 +41,7 @@ const Home: NextPage = () => {
           </Grid>
         </Grid>
       </Container>
-      <CardSlider cards={cards} autoPlay />
+      <CardSlider cards={categoryCards} autoPlay />
       <HeroBanner
         variant="primary"
         title="Find the talent needed to get your business growing."

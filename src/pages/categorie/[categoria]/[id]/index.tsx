@@ -16,9 +16,13 @@ import {mockAds} from '../../../../utils/mocks';
 import AdsGallery from '../../../../components/AdsDetail/AdsGallery';
 
 import AdsAside from '../../../../components/AdsDetail/AdsAside';
+import HeroBanner from '../../../../components/Hero/HeroBanner';
+import segnapostoCta from '../../../../assets/img/segnaposto-cta.png';
+import ReportModal from '../../../../components/AdsDetail/ReportModal';
 
 const Detail: NextPage = () => {
   const [detail, setDetail] = useState<Ads | null>();
+  const [report, setReport] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -81,11 +85,34 @@ const Detail: NextPage = () => {
       <PageBody>
         <PageInner spacingHorizontal="right" spacingVertical="bottom">
           <AdsGallery cover={detail.cover[0]} images={detail.images} />
-          <TitleH3 marginBottom="15px">{detail.title}</TitleH3>
+          <TitleH3 marginBottom="45px" marginTop="25px">
+            {detail.title}
+          </TitleH3>
           <Body1>{detail.description}</Body1>
         </PageInner>
         <AdsAside detail={detail} />
       </PageBody>
+      <HeroBanner
+        variant="primary"
+        title="Contenuto non appropriato?"
+        subtitle="Invia agli amministratori una segnalazione, visioneremo l'annuncio nel minor tempo possibile."
+        button={{
+          caption: 'Segnala annuncio',
+          action: () => setReport(true),
+          icon: 'ArrowForwardIos',
+        }}
+        img={{
+          src: segnapostoCta.src,
+          alt: 'segnaposto-cta',
+        }}
+      />
+      {report && !!detail.id && (
+        <ReportModal
+          isOpen={report}
+          onClose={() => setReport(false)}
+          detailId={detail.id}
+        />
+      )}
     </Layout>
   );
 };

@@ -4,7 +4,7 @@ type User = {
   phone: string;
 };
 
-type Category = 'categoria-1' | 'categoria-2';
+type Category = 'categoria-1' | 'categoria-2' | 'categoria-3' | 'categoria-4';
 
 type City = 'roma' | 'napoli' | 'milano';
 

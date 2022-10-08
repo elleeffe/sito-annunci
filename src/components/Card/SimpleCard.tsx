@@ -12,6 +12,7 @@ import * as icons from '@mui/icons-material';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import MyIcon from '../MyIcon';
 import {Body2, Subtitle2, TitleH5} from '../MyTypography';
+import {useRouter} from 'next/router';
 
 export type CardItemType = {
   img: {
@@ -22,7 +23,7 @@ export type CardItemType = {
   caption: string;
   button: {
     caption: string;
-    action: () => void;
+    path: string;
     color?: ButtonProps['color'];
     icon?: keyof typeof icons;
     variant?: ButtonProps['variant'];
@@ -35,6 +36,8 @@ type Props = {
 };
 
 const SimpleCard = ({card}: Props) => {
+  const router = useRouter();
+
   return (
     <Card
       sx={{
@@ -70,6 +73,7 @@ const SimpleCard = ({card}: Props) => {
           variant={card.button.variant}
           size="small"
           color={card.button.color}
+          onClick={() => router.push(card.button.path)}
           endIcon={
             <MyIcon
               variant={card.button.variant}

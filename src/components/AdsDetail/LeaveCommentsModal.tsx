@@ -87,6 +87,7 @@ const LeaveCommentsModal = ({detailId, isOpen, onClose}: Props) => {
     }
     (async () => {
       try {
+        // TODO
         // const oldComment = await sleep(1000);
         // setOldComment('Questo è il contenuto del tuo precedente commento');
       } catch (e) {

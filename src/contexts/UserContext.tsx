@@ -20,16 +20,18 @@ export const UserContext = createContext<UserContextType>({
 export const UserProvider = ({children}: {children: JSX.Element}) => {
   const [user, setUser] = useState<User>();
 
-  const router = useRouter();
+  const {asPath, push} = useRouter();
 
   const login = useCallback((user: User) => {
     setUser(user);
   }, []);
 
+  console.log(asPath);
+
   const logout = useCallback(() => {
     setUser(undefined);
-    router.push('/');
-  }, [router]);
+    asPath.includes('profilo') && push('/');
+  }, [push, asPath]);
 
   const update = useCallback((user: User) => {
     setUser(user);

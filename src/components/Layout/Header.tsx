@@ -33,7 +33,7 @@ const Header = ({hidePublish}: Props) => {
   const [mobile, setMobile] = useState<boolean>(false);
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
-  const router = useRouter();
+  const {push} = useRouter();
 
   const {user, logout} = useUser();
 
@@ -83,7 +83,7 @@ const Header = ({hidePublish}: Props) => {
                 endIcon={<Add />}
                 sx={{marginRight: '15px', transition: 'all 100ms linear'}}
                 color="warning"
-                onClick={() => router.push('/pubblica-annuncio')}
+                onClick={() => push('/pubblica-annuncio')}
               >
                 Pubblica annuncio
               </Button>
@@ -95,7 +95,7 @@ const Header = ({hidePublish}: Props) => {
                 sx={{marginRight: '15px', transition: 'all 100ms linear'}}
                 color="warning"
                 onClick={() => {
-                  router.push('/');
+                  push('/');
                   ads && setAds(undefined);
                 }}
               >
@@ -137,7 +137,12 @@ const Header = ({hidePublish}: Props) => {
       >
         {user ? (
           <>
-            <StyledListItemButton onClick={() => router.push('/profilo')}>
+            <StyledListItemButton
+              onClick={() => {
+                push('/profilo');
+                ads && setAds(undefined);
+              }}
+            >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
                 <Person
                   sx={{width: '20px', height: '20px'}}
@@ -146,7 +151,12 @@ const Header = ({hidePublish}: Props) => {
               </ListItemIcon>
               <ListItemText primary="Profilo" className="item-button" />
             </StyledListItemButton>
-            <StyledListItemButton onClick={logout}>
+            <StyledListItemButton
+              onClick={() => {
+                logout();
+                ads && setAds(undefined);
+              }}
+            >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
                 <Logout
                   sx={{width: '20px', height: '20px'}}
@@ -159,12 +169,13 @@ const Header = ({hidePublish}: Props) => {
         ) : (
           <>
             <StyledListItemButton
-              onClick={() =>
-                router.push({
+              onClick={() => {
+                push({
                   pathname: '/auth',
                   query: {tab: 'login'},
-                })
-              }
+                });
+                ads && setAds(undefined);
+              }}
             >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
                 <Login
@@ -175,12 +186,13 @@ const Header = ({hidePublish}: Props) => {
               <ListItemText primary="Accedi" className="item-button" />
             </StyledListItemButton>
             <StyledListItemButton
-              onClick={() =>
-                router.push({
+              onClick={() => {
+                push({
                   pathname: '/auth',
                   query: {tab: 'register'},
-                })
-              }
+                });
+                ads && setAds(undefined);
+              }}
             >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
                 <PersonAddAlt1

@@ -68,9 +68,11 @@ const Wrap = styled(Grid, {
   padding: '50px',
   borderRadius: '25px',
   position: 'relative',
+  margin: '100px auto',
 
   [theme.breakpoints.down('md')]: {
     padding: '25px',
+    margin: '50px auto',
   },
 }));
 
@@ -90,10 +92,7 @@ const ImageWrap = styled(Box)(({theme}) => ({
 }));
 
 const HeroTitle = styled(TitleH3)(({theme}) => ({
-  marginBottom: '25px',
-  [theme.breakpoints.down('md')]: {
-    marginBottom: '15px',
-  },
+  marginBottom: '15px',
 }));
 
 const HeroSubtitle = styled(Subtitle1)(({theme}) => ({

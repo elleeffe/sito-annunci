@@ -7,6 +7,8 @@ export const categoryOptions: {value: Category; label: string}[] = [
     label: 'Categoria 1',
   },
   {value: 'categoria-2', label: 'Categoria 2'},
+  {value: 'categoria-3', label: 'Categoria 3'},
+  {value: 'categoria-4', label: 'Categoria 4'},
 ];
 
 export const cityOptions: {value: City; label: string}[] = [
@@ -78,19 +80,19 @@ export const timeRangeOptions: {value: TimeRange; label: string}[] = [
   {value: 'timerange-2', label: '17:00 - 05:00'},
 ];
 
-export const cards: CardItemType[] = [
+export const categoryCards: CardItemType[] = [
   {
     img: {
       src: segnaposto.src,
       alt: 'segnaposto',
     },
 
-    title: 'Titolo card 1',
+    title: 'Categoria 1',
     caption:
       'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
-      action: () => {},
+      path: '/categorie/categoria-1',
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },
@@ -102,12 +104,12 @@ export const cards: CardItemType[] = [
       alt: 'segnaposto',
     },
 
-    title: 'Titolo card 2',
+    title: 'Categoria 2',
     caption:
       'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
-      action: () => {},
+      path: '/categorie/categoria-2',
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },
@@ -119,12 +121,12 @@ export const cards: CardItemType[] = [
       alt: 'segnaposto',
     },
 
-    title: 'Titolo card 3',
+    title: 'Categoria 3',
     caption:
       'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
-      action: () => {},
+      path: '/categorie/categoria-3',
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },
@@ -136,12 +138,12 @@ export const cards: CardItemType[] = [
       alt: 'segnaposto',
     },
 
-    title: 'Titolo card 4',
+    title: 'Categoria 4',
     caption:
       'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
-      action: () => {},
+      path: '/categorie/categoria-4',
       icon: 'ArrowForwardIos',
       variant: 'contained',
     },

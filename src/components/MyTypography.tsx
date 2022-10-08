@@ -144,7 +144,7 @@ export const Body1 = styled(Typography, {
     prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isPoppins',
 })<Props & {isPoppins?: boolean}>(({theme, isWhite, isPoppins}) => ({
   lineHeight: 1.4,
-  fontSize: '16px',
+  fontSize: '18px',
   fontWeight: 300,
   ...(isPoppins
     ? {fontFamily: 'Poppins'}
@@ -157,7 +157,7 @@ export const Body1 = styled(Typography, {
         color: theme.palette.text.secondary,
       }),
   [theme.breakpoints.down('md')]: {
-    fontSize: '15px',
+    fontSize: '16px',
   },
   [theme.breakpoints.down('sm')]: {
     fontSize: '14px',

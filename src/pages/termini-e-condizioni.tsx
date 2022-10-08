@@ -1,6 +1,6 @@
 import type {NextPage} from 'next';
 import Layout from '../components/Layout';
-import PageIntro from '../components/Layout/PageIntro';
+import {PageIntro} from '../components/Layout';
 import {Subtitle1, TitleH1} from '../components/MyTypography';
 
 const TermsAndCondition: NextPage = () => {

@@ -1,6 +1,6 @@
-import {SyntheticEvent, useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import type {NextPage} from 'next';
-import {Box, Button, Container, Paper, styled, Tab, Tabs} from '@mui/material';
+import {Box, Button, Container, Paper, styled} from '@mui/material';
 import {TitleH6} from '../components/MyTypography';
 import {useRouter} from 'next/router';
 import {ArrowForward, Login, PersonAddAlt1} from '@mui/icons-material';
@@ -9,6 +9,7 @@ import RegisterForm from '../components/Forms/RegisterForm';
 import Layout from '../components/Layout';
 import {useUser} from '../contexts/UserContext';
 import {LoadingScreen} from '../components/Layout/AuthLoading';
+import MyTabs from '../components/MyTabs';
 
 const Auth: NextPage = () => {
   const [mobile, setMobile] = useState<boolean>(false);
@@ -17,13 +18,6 @@ const Auth: NextPage = () => {
   const {user} = useUser();
 
   const router = useRouter();
-
-  const handleChangeTab = useCallback(
-    (event: SyntheticEvent, newValue: number) => {
-      setTab(newValue);
-    },
-    []
-  );
 
   useEffect(() => {
     setTab(() => (router.query.tab === 'register' ? 1 : 0));
@@ -87,40 +81,26 @@ const Auth: NextPage = () => {
         </Box>
         <Box display="flex" justifyContent="center" width="100%">
           <StyledPaper>
-            <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-              <Tabs value={tab} onChange={handleChangeTab} variant="fullWidth">
-                <Tab
-                  label="Accedi"
-                  sx={{textTransform: 'initial'}}
-                  icon={
-                    <Login
-                      sx={{marginLeft: '10px', width: '20px', height: '20px'}}
-                    />
-                  }
-                  iconPosition="end"
-                />
-                <Tab
-                  label="Crea account"
-                  sx={{textTransform: 'initial'}}
-                  icon={
-                    <PersonAddAlt1
-                      sx={{marginLeft: '10px', width: '20px', height: '20px'}}
-                    />
-                  }
-                  iconPosition="end"
-                />
-              </Tabs>
-            </Box>
-            {tab === 0 && (
-              <TabPanel>
-                <LoginForm />
-              </TabPanel>
-            )}
-            {tab === 1 && (
-              <TabPanel>
-                <RegisterForm onFinish={() => setTab(0)} />
-              </TabPanel>
-            )}
+            <MyTabs
+              activeTab={tab}
+              onChange={(newValue) => setTab(newValue)}
+              tabs={[
+                {
+                  button: {
+                    label: 'Accedi',
+                    icon: <Login />,
+                  },
+                  children: <LoginForm />,
+                },
+                {
+                  button: {
+                    label: 'Crea account',
+                    icon: <PersonAddAlt1 />,
+                  },
+                  children: <RegisterForm onSuccess={() => setTab(0)} />,
+                },
+              ]}
+            />
           </StyledPaper>
         </Box>
       </Wrap>
@@ -139,21 +119,9 @@ const Wrap = styled(Box)(({theme}) => ({
   flexDirection: 'column',
 }));
 
-const StyledPaper = styled(Paper)(({theme}) => ({
+const StyledPaper = styled(Paper)(() => ({
   boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
   width: '95%',
   maxWidth: '500px',
   borderRadius: '10px',
-}));
-
-const TabPanel = styled(Box)(({theme}) => ({
-  padding: '15px 25px 25px',
-  textAlign: 'center',
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '450px',
-  overflow: 'auto',
-  '@media (max-height:700px)': {
-    maxHeight: '500px',
-  },
 }));

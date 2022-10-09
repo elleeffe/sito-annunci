@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Box, Button, styled} from '@mui/material';
 import useResponsive from '../../hooks/useResponsive';
-import {backToTop} from '../../utils/utils';
+import {backToTop, formatDate} from '../../utils/utils';
 import MyButton from '../Buttons/MyButton';
 import MyTextButton from '../Buttons/MyTextButton';
 import IconCard from '../Card/IconCard';
@@ -17,6 +17,7 @@ import CommentIcon from '@mui/icons-material/Comment';
 import AddIcon from '@mui/icons-material/Add';
 import CommentsModal from './CommentsModal';
 import LeaveCommentsModal from './LeaveCommentsModal';
+import EventIcon from '@mui/icons-material/Event';
 
 type Props = {detail: Ads};
 
@@ -38,27 +39,42 @@ const AdsAside = ({detail}: Props) => {
               label="Categoria"
             />
             <FlexWrap>
-              <Box display="flex" marginTop="15px">
+              {!!detail.publicationDate && (
+                <DetailWrap>
+                  <EventIcon color="primary" />
+                  <Subtitle2 marginLeft="5px">
+                    {formatDate(detail.publicationDate)}
+                  </Subtitle2>
+                </DetailWrap>
+              )}
+              <DetailWrap>
                 <VisibilityIcon color="primary" />
-                <Subtitle2 marginLeft="10px">
+                <Subtitle2 marginLeft="5px">
                   {detail.views}{' '}
                   {detail.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
                 </Subtitle2>
-              </Box>
-              <FlexWrap>
-                <Box display="flex" marginTop="15px">
-                  <PersonIcon color="primary" />
-                  <Subtitle2 marginLeft="10px">{detail.age} anni</Subtitle2>
-                </Box>
-                <Box display="flex" marginTop="15px">
-                  <RoomIcon color="primary" />
-                  <Subtitle2 marginLeft="10px">
-                    {detail.city.toUpperCase()}
-                    {detail.neighborhood && `, ${detail.neighborhood}`}
-                  </Subtitle2>
-                </Box>
-              </FlexWrap>
-              <Box display="flex" marginTop="15px">
+              </DetailWrap>
+            </FlexWrap>
+            <FlexWrap>
+              <DetailWrap>
+                <PersonIcon color="primary" />
+                <Subtitle2 marginLeft="5px">{detail.age} anni</Subtitle2>
+              </DetailWrap>
+              <DetailWrap>
+                <RoomIcon color="primary" />
+                <Subtitle2 marginLeft="5px">
+                  {detail.city.toUpperCase()}
+                  {detail.neighborhood && `, ${detail.neighborhood}`}
+                </Subtitle2>
+              </DetailWrap>
+            </FlexWrap>
+            {/* {!!ads.publicationDate && (
+            <Subtitle2 sx={{marginBottom: '5px'}}>
+              {formatDate(ads.publicationDate)}
+            </Subtitle2>
+          )} */}
+            <FlexWrap>
+              <DetailWrap>
                 <MyTextButton
                   color="primary"
                   startIcon={<CommentIcon />}
@@ -68,36 +84,38 @@ const AdsAside = ({detail}: Props) => {
                   {detail.views}{' '}
                   {detail.views === 1 ? 'recensione' : 'recensioni'}
                 </MyTextButton>
-              </Box>
+              </DetailWrap>
             </FlexWrap>
           </Box>
-          <Button
-            variant="outlined"
-            color="info"
-            startIcon={<AddIcon />}
-            sx={{marginTop: '15px'}}
-            onClick={() => setShowLeaveComments(true)}
-          >
-            Lascia un recensione
-          </Button>
-          <Button
-            variant="outlined"
-            color="primary"
-            startIcon={<PhoneIphoneIcon />}
-            sx={{marginTop: '15px'}}
-          >
-            Telefono
-          </Button>
-          {detail.whatsapp && (
+          <Box>
             <Button
-              variant="contained"
-              color="success"
-              startIcon={<WhatsAppIcon />}
-              sx={{marginTop: '15px'}}
+              variant="outlined"
+              color="info"
+              startIcon={<AddIcon />}
+              sx={{marginTop: '15px', width: '100%'}}
+              onClick={() => setShowLeaveComments(true)}
             >
-              Whatsapp
+              Lascia un recensione
             </Button>
-          )}
+            <Button
+              variant="outlined"
+              color="primary"
+              startIcon={<PhoneIphoneIcon />}
+              sx={{marginTop: '15px', width: '100%'}}
+            >
+              Telefono
+            </Button>
+            {detail.whatsapp && (
+              <Button
+                variant="contained"
+                color="success"
+                startIcon={<WhatsAppIcon />}
+                sx={{marginTop: '15px', width: '100%'}}
+              >
+                Whatsapp
+              </Button>
+            )}
+          </Box>
         </AsideInner>
         {!isMd && (
           <Box sx={{padding: '0 20px'}} width="100%">
@@ -155,6 +173,7 @@ const AsideInner = styled(Box)(({theme}) => ({
 }));
 
 const FlexWrap = styled(Box)(({theme}) => ({
+  width: '100%',
   display: 'flex',
   flexDirection: 'column',
   flexWrap: 'wrap',
@@ -163,4 +182,14 @@ const FlexWrap = styled(Box)(({theme}) => ({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  [theme.breakpoints.down('sm')]: {
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+  },
+}));
+
+const DetailWrap = styled(Box)(() => ({
+  display: 'flex',
+  marginTop: '15px',
+  alignItems: 'center',
 }));

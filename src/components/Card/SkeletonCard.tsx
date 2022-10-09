@@ -36,7 +36,7 @@ const Wrap = styled(Grid, {
   borderRadius: '20px',
   width: '100%',
   transition: 'all 100ms linear',
-  marginTop: '0px',
+  marginTop: '25px',
   marginLeft: '0px',
 
   ...(whiteBg

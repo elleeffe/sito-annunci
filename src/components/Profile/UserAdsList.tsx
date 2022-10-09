@@ -152,6 +152,5 @@ export default UserAdsList;
 const List = styled(Box)(() => ({
   flex: 1,
   overflow: 'auto',
-  marginTop: '25px',
   paddingBottom: '10px',
 }));

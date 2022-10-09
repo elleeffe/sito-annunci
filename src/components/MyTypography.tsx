@@ -85,10 +85,10 @@ export const TitleH6 = styled(Typography, {
 })<Props & {isSmall?: boolean}>(({theme, isWhite, isSmall}) => ({
   fontWeight: 600,
   lineHeight: 1.3,
-  ...(isSmall ? {fontSize: '24px'} : {fontSize: '30px'}),
+  ...(isSmall ? {fontSize: '22px'} : {fontSize: '28px'}),
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
   [theme.breakpoints.down('md')]: {
-    ...(isSmall ? {fontSize: '20px'} : {fontSize: '26px'}),
+    ...(isSmall ? {fontSize: '18px'} : {fontSize: '24px'}),
   },
 }));
 TitleH6.defaultProps = {variant: 'h6'};

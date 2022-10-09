@@ -115,6 +115,7 @@ const AdsCard = ({
                   color="primary"
                   variant="contained"
                   endIcon={<ArrowForwardIosIcon />}
+                  disabled={isPreview}
                   onClick={() =>
                     router.push(`/categorie/${ads.category}/${ads.id}`)
                   }

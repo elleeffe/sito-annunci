@@ -22,16 +22,16 @@ type FormValues = {
 };
 
 type Props = {
-  onFinish: () => void;
+  onSuccess: () => void;
 };
 
-const RegisterForm = ({onFinish}: Props) => {
+const RegisterForm = ({onSuccess}: Props) => {
   const handleSubmit = useCallback(
     async (values: FormValues) => {
       try {
         // TODO: add api
         console.log({registerValues: values});
-        onFinish();
+        onSuccess();
       } catch (e) {
         console.log(e);
         //TODO
@@ -40,7 +40,7 @@ const RegisterForm = ({onFinish}: Props) => {
         };
       }
     },
-    [onFinish]
+    [onSuccess]
   );
 
   return (

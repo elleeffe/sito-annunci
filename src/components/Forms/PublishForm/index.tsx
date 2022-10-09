@@ -89,6 +89,7 @@ const PublishForm = ({
           values,
           dirty,
         }) => {
+          //   console.log(values);
           return (
             <form onSubmit={handleSubmit} style={{flex: 1}}>
               <MyStepper
@@ -119,7 +120,7 @@ const PublishForm = ({
                     ),
                     loading: submitting,
                     disabled:
-                      user || initialAds
+                      initialAds && !!values?.cover
                         ? false
                         : hasValidationErrors || pristine,
                   },

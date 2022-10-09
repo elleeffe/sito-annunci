@@ -1,4 +1,4 @@
-import {SyntheticEvent, useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {
   IconButton,
   Modal,
@@ -8,8 +8,6 @@ import {
   Paper,
   Alert,
   Tooltip,
-  Tabs,
-  Tab,
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
 import {Body1, TitleH6} from '../MyTypography';
@@ -24,6 +22,7 @@ import {Form} from 'react-final-form';
 import {FORM_ERROR} from 'final-form';
 import {isRequired} from '../../utils/fields';
 import FormSuccess from '../Forms/FormSuccess';
+import MyTabs from '../MyTabs';
 
 type Props = {
   detailId: string;
@@ -39,13 +38,6 @@ const LeaveCommentsModal = ({detailId, isOpen, onClose}: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const match = useMediaQuery('(max-width:600px)');
-
-  const handleChangeTab = useCallback(
-    (event: SyntheticEvent, newValue: number) => {
-      setTab(newValue);
-    },
-    []
-  );
 
   const handleSubmit = useCallback(
     async (values: {comment: string}) => {
@@ -118,44 +110,26 @@ const LeaveCommentsModal = ({detailId, isOpen, onClose}: Props) => {
           </Tooltip>
           {!user ? (
             <>
-              <Box sx={{borderBottom: 1, borderColor: 'divider'}}>
-                <Tabs
-                  value={tab}
-                  onChange={handleChangeTab}
-                  variant="fullWidth"
-                >
-                  <Tab
-                    label="Accedi"
-                    sx={{textTransform: 'initial'}}
-                    icon={
-                      <Login
-                        sx={{marginLeft: '10px', width: '20px', height: '20px'}}
-                      />
-                    }
-                    iconPosition="end"
-                  />
-                  <Tab
-                    label="Crea account"
-                    sx={{textTransform: 'initial'}}
-                    icon={
-                      <PersonAddAlt1
-                        sx={{marginLeft: '10px', width: '20px', height: '20px'}}
-                      />
-                    }
-                    iconPosition="end"
-                  />
-                </Tabs>
-              </Box>
-              {tab === 0 && (
-                <TabPanel>
-                  <LoginForm onSuccess={() => setTab(0)} />
-                </TabPanel>
-              )}
-              {tab === 1 && (
-                <TabPanel>
-                  <RegisterForm onFinish={() => setTab(0)} />
-                </TabPanel>
-              )}
+              <MyTabs
+                activeTab={tab}
+                onChange={(newValue) => setTab(newValue)}
+                tabs={[
+                  {
+                    button: {
+                      label: 'Accedi',
+                      icon: <Login />,
+                    },
+                    children: <LoginForm onSuccess={() => setTab(0)} />,
+                  },
+                  {
+                    button: {
+                      label: 'Crea account',
+                      icon: <PersonAddAlt1 />,
+                    },
+                    children: <RegisterForm onSuccess={() => setTab(0)} />,
+                  },
+                ]}
+              />
             </>
           ) : success ? (
             <FormSuccess
@@ -272,17 +246,5 @@ const CloseButton = styled(IconButton)(({theme}) => ({
   [theme.breakpoints.down('md')]: {
     top: '5px',
     right: '5px',
-  },
-}));
-
-const TabPanel = styled(Box)(({theme}) => ({
-  padding: '15px 25px 25px',
-  textAlign: 'center',
-  display: 'flex',
-  flexDirection: 'column',
-  minHeight: '450px',
-  overflow: 'auto',
-  '@media (max-height:700px)': {
-    maxHeight: '500px',
   },
 }));

@@ -9,7 +9,13 @@ import Layout, {
   PageIntro,
 } from '../../../../components/Layout';
 import {LoadingScreen} from '../../../../components/Layout/AuthLoading';
-import {Body1, TitleH1, TitleH3} from '../../../../components/MyTypography';
+import {
+  Body1,
+  Subtitle1,
+  TitleH1,
+  TitleH3,
+  TitleH6,
+} from '../../../../components/MyTypography';
 import {categoryOptions} from '../../../../utils/config';
 import {sleep} from '../../../../utils/utils';
 import {mockAds} from '../../../../utils/mocks';
@@ -19,6 +25,7 @@ import AdsAside from '../../../../components/AdsDetail/AdsAside';
 import HeroBanner from '../../../../components/Hero/HeroBanner';
 import segnapostoCta from '../../../../assets/img/segnaposto-cta.png';
 import ReportModal from '../../../../components/AdsDetail/ReportModal';
+import {Box, Chip} from '@mui/material';
 
 const Detail: NextPage = () => {
   const [detail, setDetail] = useState<Ads | null>();
@@ -89,6 +96,42 @@ const Detail: NextPage = () => {
             {detail.title}
           </TitleH3>
           <Body1>{detail.description}</Body1>
+          <Subtitle1
+            sx={{
+              marginTop: '25px',
+            }}
+          >
+            <strong>Quartiere:</strong>
+          </Subtitle1>
+          <TitleH6 isSmall sx={{color: 'primary.main'}}>
+            {detail.city.toUpperCase()}
+            {detail.neighborhood && `, ${detail.neighborhood}`}
+          </TitleH6>
+          <Subtitle1
+            sx={{
+              marginTop: '25px',
+              marginBottom: '5px',
+            }}
+          >
+            <strong>Zone limitrofe:</strong>
+          </Subtitle1>
+          <Box display="flex" flexWrap="wrap">
+            {detail.areas &&
+              !!detail.areas.length &&
+              detail.areas.map((area) => (
+                <Chip
+                  color="primary"
+                  key={area}
+                  label={area}
+                  sx={{
+                    marginBottom: '8px',
+                    marginRight: '9px',
+                    color: '#fff',
+                    fontSize: '16px',
+                  }}
+                />
+              ))}
+          </Box>
         </PageInner>
         <AdsAside detail={detail} />
       </PageBody>

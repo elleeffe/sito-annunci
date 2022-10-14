@@ -31,7 +31,7 @@ const ProfileCard = () => {
     'email' | 'phone' | 'password' | 'account' | 'favorites'
   >();
 
-  const {user, logout} = useUser();
+  const {user, logout, update} = useUser();
 
   if (!user) {
     return (
@@ -111,10 +111,18 @@ const ProfileCard = () => {
         onClose={() => setAction(undefined)}
       >
         {action === 'email' && (
-          <ChangeEmailForm onSuccess={() => setAction(undefined)} user={user} />
+          <ChangeEmailForm
+            onClose={() => setAction(undefined)}
+            onSuccess={update}
+            user={user}
+          />
         )}
         {action === 'phone' && (
-          <ChangePhoneForm onSuccess={() => setAction(undefined)} user={user} />
+          <ChangePhoneForm
+            onClose={() => setAction(undefined)}
+            onSuccess={update}
+            user={user}
+          />
         )}
         {action === 'password' && (
           <ChangePasswordForm onSuccess={() => setAction(undefined)} />

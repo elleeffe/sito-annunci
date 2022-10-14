@@ -70,7 +70,7 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
 
   useEffect(() => {
     getUserFavorites();
-  }, [getUserFavorites]);
+  }, []);
 
   return (
     <Modal

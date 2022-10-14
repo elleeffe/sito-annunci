@@ -6,7 +6,6 @@ import {numberValueValidator, passwordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
 import {Subtitle1, TitleH6} from '../MyTypography';
-import {useUser} from '../../contexts/UserContext';
 import FormSuccess from './FormSuccess';
 
 type FormValues = {
@@ -16,20 +15,19 @@ type FormValues = {
 
 type Props = {
   user: User;
-  onSuccess: () => void;
+  onSuccess: (user: User) => void;
+  onClose: () => void;
 };
 
-const ChangePhoneForm = ({onSuccess, user}: Props) => {
+const ChangePhoneForm = ({onSuccess, user, onClose}: Props) => {
   const [success, setSuccess] = useState<boolean>(false);
-
-  const {update} = useUser();
 
   const handleSubmit = useCallback(
     async (values: FormValues) => {
       try {
         console.log(values);
         setSuccess(true);
-        update({...user, phone: values.phone});
+        onSuccess({...user, phone: values.phone});
       } catch (e) {
         console.log(e);
         //TODO
@@ -38,16 +36,16 @@ const ChangePhoneForm = ({onSuccess, user}: Props) => {
         };
       }
     },
-    [user, update]
+    [user, onSuccess]
   );
 
   useEffect(() => {
     if (success) {
       setTimeout(() => {
-        onSuccess();
+        onClose();
       }, 3000);
     }
-  }, [success, onSuccess]);
+  }, [success, onClose]);
 
   if (success) {
     return <FormSuccess label="Telefono modificato con successo!" />;

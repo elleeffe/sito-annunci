@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   IconButton,
   Modal,
@@ -6,23 +6,15 @@ import {
   useMediaQuery,
   Box,
   Paper,
-  Alert,
   Tooltip,
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
-import {Body1, TitleH6} from '../MyTypography';
-import {sleep} from '../../utils/utils';
 import {useUser} from '../../contexts/UserContext';
 import {Login, PersonAddAlt1} from '@mui/icons-material';
 import RegisterForm from '../Forms/RegisterForm';
 import LoginForm from '../Forms/LoginForm';
-import MyButton from '../Buttons/MyButton';
-import MyTextField from '../Fields/MyTextField';
-import {Form} from 'react-final-form';
-import {FORM_ERROR} from 'final-form';
-import {isRequired} from '../../utils/fields';
-import FormSuccess from '../Forms/FormSuccess';
 import MyTabs from '../MyTabs';
+import LeaveCommentsForm from '../Forms/LeaveCommentsForm';
 
 type Props = {
   detailId: string;
@@ -34,44 +26,8 @@ const LeaveCommentsModal = ({detailId, isOpen, onClose}: Props) => {
   const {user} = useUser();
   const [tab, setTab] = useState(0);
   const [oldComment, setOldComment] = useState<string>();
-  const [success, setSuccess] = useState<boolean>(false);
-  const [loading, setLoading] = useState<boolean>(false);
 
   const match = useMediaQuery('(max-width:600px)');
-
-  const handleSubmit = useCallback(
-    async (values: {comment: string}) => {
-      if (loading || !user) {
-        return;
-      }
-      try {
-        setLoading(true);
-        console.log({
-          comment: values.comment,
-          idAdv: detailId,
-          userId: user.id,
-        });
-        // TODO
-        if (!!oldComment) {
-          // change
-          await sleep(1000);
-        } else {
-          // add
-          await sleep(1000);
-        }
-        setSuccess(true);
-      } catch (e) {
-        console.log(e);
-        //TODO
-        return {
-          [FORM_ERROR]: 'Ops, qualcosa è andato storto. Riprovare',
-        };
-      } finally {
-        setLoading(false);
-      }
-    },
-    [loading, user, detailId, oldComment]
-  );
 
   useEffect(() => {
     if (!user) {
@@ -131,66 +87,8 @@ const LeaveCommentsModal = ({detailId, isOpen, onClose}: Props) => {
                 ]}
               />
             </>
-          ) : success ? (
-            <FormSuccess
-              label={
-                !!oldComment
-                  ? 'Recensione modificata con successo!'
-                  : 'Recensione pubblicata con successo!'
-              }
-            />
           ) : (
-            <Form<{comment: string}>
-              initialValues={{comment: oldComment}}
-              onSubmit={handleSubmit}
-            >
-              {({
-                handleSubmit,
-                pristine,
-                submitError,
-                submitting,
-                hasValidationErrors,
-              }) => {
-                return (
-                  <form onSubmit={handleSubmit}>
-                    <TitleH6 isSmall marginBottom="15px">
-                      Lascia una recensione
-                    </TitleH6>
-                    {!oldComment && (
-                      <Body1 marginBottom="25px">
-                        Attenzione, una volta pubblicata una recensione non
-                        potrà più essere cancellata.
-                      </Body1>
-                    )}
-                    {submitError && (
-                      <Alert severity="error" sx={{marginBottom: '25px'}}>
-                        {submitError}
-                      </Alert>
-                    )}
-                    <MyTextField
-                      name="comment"
-                      placeholder="Scrivi qui la tua recensione"
-                      multiline
-                      label="La tua recensione*"
-                      rows={8}
-                      validate={(value) => isRequired(value)}
-                      spacingBottom
-                    />
-                    <MyButton
-                      variant="contained"
-                      onClick={handleSubmit}
-                      sx={{width: '100%'}}
-                      disabled={pristine || hasValidationErrors}
-                      loading={submitting}
-                    >
-                      {!!oldComment
-                        ? 'Modifica recensione'
-                        : 'Pubblica recensione'}
-                    </MyButton>
-                  </form>
-                );
-              }}
-            </Form>
+            <LeaveCommentsForm initialValues={oldComment} advId={detailId} />
           )}
         </StyledPaper>
       </ModalInner>

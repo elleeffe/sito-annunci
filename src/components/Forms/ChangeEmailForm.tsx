@@ -1,7 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import {Form} from 'react-final-form';
 import {FORM_ERROR} from 'final-form';
-import {useUser} from '../../contexts/UserContext';
 import {Alert, Box, styled} from '@mui/material';
 import {emailValidator, passwordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
@@ -17,20 +16,19 @@ type FormValues = {
 
 type Props = {
   user: User;
-  onSuccess: () => void;
+  onSuccess: (user: User) => void;
+  onClose: () => void;
 };
 
-const ChangeEmailForm = ({user, onSuccess}: Props) => {
+const ChangeEmailForm = ({user, onSuccess, onClose}: Props) => {
   const [success, setSuccess] = useState<boolean>(false);
-
-  const {update} = useUser();
 
   const handleSubmit = useCallback(
     async (values: FormValues) => {
       try {
         console.log(values);
         setSuccess(true);
-        update({...user, email: values.newEmail});
+        onSuccess({...user, email: values.newEmail});
       } catch (e) {
         console.log(e);
         //TODO
@@ -39,16 +37,16 @@ const ChangeEmailForm = ({user, onSuccess}: Props) => {
         };
       }
     },
-    [update, user]
+    [onSuccess, user]
   );
 
   useEffect(() => {
     if (success) {
       setTimeout(() => {
-        onSuccess();
+        onClose();
       }, 3000);
     }
-  }, [success, onSuccess]);
+  }, [success, onClose]);
 
   if (success) {
     return <FormSuccess label="Email modificata con successo!" />;

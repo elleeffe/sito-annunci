@@ -2,7 +2,7 @@ import {useCallback, useEffect, useState} from 'react';
 import useResponsive from '../../hooks/useResponsive';
 import {styled, Box, IconButton, Drawer} from '@mui/material';
 import Filters from './Filters';
-import {TitleH6} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import SortIcon from '@mui/icons-material/Sort';
 import MyButton from '../Buttons/MyButton';
@@ -51,14 +51,14 @@ const AdsFilter = ({onChange}: Props) => {
                 <IconButton color="primary" onClick={() => setIsOpen(true)}>
                   <FilterAltIcon />
                 </IconButton>
-                <FilterTitle isSmall>Filtra</FilterTitle>
+                <FilterTitle>Filtra</FilterTitle>
               </Box>
               <Box
                 display="flex"
                 alignItems="center"
                 sx={{transform: 'translateX(16px)'}}
               >
-                <FilterTitle isSmall>Ordina per</FilterTitle>
+                <FilterTitle>Ordina per</FilterTitle>
                 <IconButton color="primary" onClick={() => setIsOpen(true)}>
                   <SortIcon />
                 </IconButton>
@@ -121,7 +121,7 @@ const FilterWrap = styled(Box)(({theme}) => ({
   },
 }));
 
-const FilterTitle = styled(TitleH6)(({theme}) => ({
+const FilterTitle = styled(TitleH5)(({theme}) => ({
   fontWeight: '500',
   marginBottom: '15px',
 

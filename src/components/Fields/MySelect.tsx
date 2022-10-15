@@ -29,6 +29,7 @@ type Props = {
   id: string;
   disabled?: boolean;
   onChange?: (value: any) => void;
+  className?: string;
 };
 
 const MySelect = ({
@@ -43,6 +44,7 @@ const MySelect = ({
   color = 'primary',
   disabled,
   onChange,
+  className,
 }: Props) => {
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -121,6 +123,7 @@ const MySelect = ({
       {label && <InputLabel id={id + '-label'}>{label}</InputLabel>}
       <StyledSelect
         {...input}
+        className={className}
         onChange={handleChange}
         displayEmpty
         renderValue={displaySelected}
@@ -140,7 +143,7 @@ const MySelect = ({
             '& .MuiPaper-root': {
               boxShadow: 'none',
               marginTop: '10px',
-              borderRadius: '10px',
+              borderRadius: '4px',
               borderWidth: '1px',
               borderStyle: 'solid',
               borderColor: 'primary.main',
@@ -180,6 +183,9 @@ const StyledSelect = styled(Select)(({theme}) => ({
       '& .MuiListItemIcon-root': {
         minWidth: 'initial',
         paddingRight: '10px',
+        '& ..MuiTypography-root': {
+          fontSize: '15px',
+        },
       },
     },
   },

@@ -14,7 +14,7 @@ import {Close} from '@mui/icons-material';
 import {mockAds} from '../../utils/mocks';
 import SkeletonCard from '../Card/SkeletonCard';
 import AdsCard from '../Card/AdsCard';
-import {Subtitle1, TitleH6} from '../MyTypography';
+import {TitleH4, TitleH5} from '../MyTypography';
 import {sleep} from '../../utils/utils';
 
 type Props = {
@@ -92,9 +92,7 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
               <Close />
             </CloseButton>
           </Tooltip>
-          <TitleH6 isSmall marginBottom="15px">
-            Lista preferiti
-          </TitleH6>
+          <TitleH4 marginBottom="15px">Lista preferiti</TitleH4>
           <List>
             {loading && !error && (
               <>
@@ -132,7 +130,7 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
                 ))
               ) : (
                 <>
-                  <Subtitle1>Nessun annuncio aggiunto ai preferiti</Subtitle1>
+                  <TitleH5>Nessun annuncio aggiunto ai preferiti</TitleH5>
                 </>
               ))}
           </List>

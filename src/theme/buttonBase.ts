@@ -12,6 +12,12 @@ export const buttonBase: Components['MuiButtonBase'] = {
       '&.MuiIconButton-sizeLarge:not(.MuiAutocomplete-clearIndicator)': {
         padding: '16px',
       },
+      '&.MuiMenuItem-root': {
+        fontSize: 15,
+      },
+      '&.MuiListItem-root': {
+        fontSize: 15,
+      },
     },
   },
 };

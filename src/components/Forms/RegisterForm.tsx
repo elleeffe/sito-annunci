@@ -11,7 +11,7 @@ import {
 import MyCheckbox from '../Fields/MyCheckbox';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
-import {TitleH6} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 
 type FormValues = {
   email: string;
@@ -45,9 +45,7 @@ const RegisterForm = ({onSuccess}: Props) => {
 
   return (
     <>
-      <TitleH6 isSmall sx={{marginBottom: '15px'}}>
-        Crea il tuo account
-      </TitleH6>
+      <TitleH5 sx={{marginBottom: '15px'}}>Crea il tuo account</TitleH5>
       <Form<FormValues> onSubmit={handleSubmit}>
         {({
           handleSubmit,

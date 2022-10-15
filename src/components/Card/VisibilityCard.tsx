@@ -1,5 +1,5 @@
 import {Box, FormControlLabel, Grid, Radio, styled} from '@mui/material';
-import {Body1, Body2, Subtitle1, Subtitle2, TitleH6} from '../MyTypography';
+import {Body1, TitleH5} from '../MyTypography';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
 type Props = {
@@ -28,9 +28,9 @@ const VisibilityCard = ({option, isRadio, value}: Props) => {
           ) : (
             <Box display="flex">
               <RocketLaunchIcon color="primary" />
-              <Subtitle1 gutterBottom marginLeft="10px">
+              <TitleH5 gutterBottom marginLeft="10px">
                 {option.title}
-              </Subtitle1>
+              </TitleH5>
             </Box>
           )}
           <Body1 gutterBottom>{option.subtitle}</Body1>
@@ -43,11 +43,11 @@ const VisibilityCard = ({option, isRadio, value}: Props) => {
           flexDirection="column"
         >
           {option.price.original && (
-            <Subtitle2 sx={{textDecoration: 'line-through'}}>
+            <TitleH5 sx={{textDecoration: 'line-through'}}>
               {option.price.original}
-            </Subtitle2>
+            </TitleH5>
           )}
-          <TitleH6 isSmall>{option.price.actual}</TitleH6>
+          <TitleH5>{option.price.actual}</TitleH5>
         </Grid>
       </Grid>
     </Wrap>
@@ -71,7 +71,7 @@ const Wrap = styled(Box, {
   position: 'relative',
 }));
 
-const CardChip = styled(Body2)(({theme}) => ({
+const CardChip = styled(Body1)(({theme}) => ({
   position: 'absolute',
   top: 0,
   right: '15px',

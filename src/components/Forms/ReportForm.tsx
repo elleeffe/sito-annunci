@@ -6,7 +6,7 @@ import {isRequired} from '../../utils/fields';
 import {sleep} from '../../utils/utils';
 import MyButton from '../Buttons/MyButton';
 import MyTextField from '../Fields/MyTextField';
-import {TitleH6} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 import FormSuccess from './FormSuccess';
 
 type FormValues = {
@@ -63,9 +63,7 @@ const ReportForm = ({advId}: Props) => {
       }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <TitleH6 isSmall marginBottom="15px">
-              Segnalazione annuncio
-            </TitleH6>
+            <TitleH5 marginBottom="15px">Segnalazione annuncio</TitleH5>
             {submitError && (
               <Alert severity="error" sx={{marginBottom: '25px'}}>
                 {submitError}

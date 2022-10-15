@@ -1,6 +1,6 @@
 import {Alert, Box, Button, Modal, styled} from '@mui/material';
 import MyButton from '../Buttons/MyButton';
-import {TitleH6} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 
 type Props = {
   isOpen: boolean;
@@ -22,9 +22,9 @@ const DeleteModal = ({isOpen, onClose, error, loading, onConfirm}: Props) => {
       }}
     >
       <ModalInner>
-        <TitleH6 isSmall marginBottom="25px">
+        <TitleH5 marginBottom="25px">
           Eliminare definitivamente l'annuncio?
-        </TitleH6>
+        </TitleH5>
         {error && (
           <Alert severity="error">Si è verificato un errore, riprovare</Alert>
         )}

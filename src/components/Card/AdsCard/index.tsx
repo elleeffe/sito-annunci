@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Box, Button, Grid, styled} from '@mui/material';
 import {formatAdsCardText, formatDate} from '../../../utils/utils';
-import {Body1, Body2, Subtitle1, Subtitle2, TitleH6} from '../../MyTypography';
+import {Body1, TitleH4, TitleH5} from '../../MyTypography';
 import PlaceIcon from '@mui/icons-material/Place';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -43,7 +43,7 @@ const AdsCard = ({
       {ads.isHighlighted && (
         <HighlightedLabel>
           <LocalFireDepartmentIcon color="error" />
-          <Subtitle1 marginLeft="10px">Super Hot</Subtitle1>
+          <TitleH4 marginLeft="10px">Super Hot</TitleH4>
         </HighlightedLabel>
       )}
       <Wrap
@@ -56,10 +56,10 @@ const AdsCard = ({
         {!!onSettings && ads.views !== undefined && (
           <FullGrid item xs={12} marginBottom="15px" alignItems="center">
             <VisibilityIcon color="primary" />
-            <Subtitle2 marginLeft="10px">
+            <TitleH5 marginLeft="10px">
               {ads.views}{' '}
               {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
-            </Subtitle2>
+            </TitleH5>
           </FullGrid>
         )}
         {!!onFavorite && ads.isFavorite !== undefined && (
@@ -78,12 +78,12 @@ const AdsCard = ({
           sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
         />
         <Content item xs={12} md={7} lg={8}>
-          <Title isSmall>{formatAdsCardText(ads.title, 10)}</Title>
+          <Title>{formatAdsCardText(ads.title, 10)}</Title>
           <Description>{formatAdsCardText(ads.description, 20)}</Description>
           {!!ads.publicationDate && (
-            <Subtitle2 sx={{marginBottom: '5px'}}>
+            <TitleH5 sx={{marginBottom: '5px'}}>
               {formatDate(ads.publicationDate)}
-            </Subtitle2>
+            </TitleH5>
           )}
           <Info sx={{marginBottom: '5px'}}>{ads.category}</Info>
           <InfoWrap>
@@ -205,7 +205,7 @@ const Cover = styled(Grid)(({theme}) => ({
   },
 }));
 
-const Title = styled(TitleH6)(({theme}) => ({
+const Title = styled(TitleH5)(({theme}) => ({
   fontWeight: '500',
   fontSize: '20px',
 
@@ -226,7 +226,7 @@ const Content = styled(Grid)(({theme}) => ({
   },
 }));
 
-const Description = styled(Body2)(({theme}) => ({
+const Description = styled(Body1)(({theme}) => ({
   [theme.breakpoints.down('md')]: {
     marginBottom: '25px',
   },

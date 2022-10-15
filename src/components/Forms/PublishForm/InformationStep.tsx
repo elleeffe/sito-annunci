@@ -11,7 +11,7 @@ import MyCustomMultipleSelect from '../../Fields/MyCustomMultipleSelect';
 import MySelect from '../../Fields/MySelect';
 import MySwitch from '../../Fields/MySwitch';
 import MyTextField from '../../Fields/MyTextField';
-import {Body1, Body2, StyledButton, TitleH6} from '../../MyTypography';
+import {Body1, StyledButton, TitleH5} from '../../MyTypography';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import MyModal from '../../MyModal';
 
@@ -25,8 +25,8 @@ const InformationStep = ({hideConsens, user}: Props) => {
 
   return (
     <Box display="flex" flexDirection="column" marginBottom="30px">
-      <TitleH6 marginBottom="20px">Informazioni annuncio</TitleH6>
-      <Body2 marginBottom="20px">* Campi obbligatori</Body2>
+      <TitleH5 marginBottom="20px">Informazioni annuncio</TitleH5>
+      <Body1 marginBottom="20px">* Campi obbligatori</Body1>
       <Grid container columnSpacing={4} rowSpacing={4} marginBottom="50px">
         <Grid item xs={12}>
           <MyTextField
@@ -89,8 +89,8 @@ const InformationStep = ({hideConsens, user}: Props) => {
           />
         </Grid>
       </Grid>
-      <TitleH6 marginBottom="20px">Dati{!hideConsens && ' e consensi'}</TitleH6>
-      <Body2 marginBottom="20px">* Campi obbligatori</Body2>
+      <TitleH5 marginBottom="20px">Dati{!hideConsens && ' e consensi'}</TitleH5>
+      <Body1 marginBottom="20px">* Campi obbligatori</Body1>
       <Grid container columnSpacing={4} rowSpacing={4} marginBottom="25px">
         <Grid item xs={12}>
           <MyTextField
@@ -142,7 +142,7 @@ const InformationStep = ({hideConsens, user}: Props) => {
               <Body1 marginTop="8px" gutterBottom>
                 <b>Termini, condizioni e informativa sulla privacy*</b>
               </Body1>
-              <Body2>
+              <Body1>
                 Ho letto{' '}
                 <StyledButton isSmall type="button">
                   Termini e condizioni d’uso
@@ -153,7 +153,7 @@ const InformationStep = ({hideConsens, user}: Props) => {
                 </StyledButton>{' '}
                 e autorizzo il trattamento dei miei dati personali per la
                 fornitura di questo servizio web.
-              </Body2>
+              </Body1>
             </Grid>
           </Grid>
           <StyledGrid container item xs={12}>
@@ -164,7 +164,7 @@ const InformationStep = ({hideConsens, user}: Props) => {
               <Body1 marginTop="8px" gutterBottom>
                 <b>Categorie speciali di dati personali</b>
               </Body1>
-              <Body2>
+              <Body1>
                 Autorizzo l'elaborazione dei miei dati personali appartenenti a
                 Categorie speciali &#40;es. stile di vita e comportamento
                 sessuale&#41; al fine di pubblicare un annuncio su questo sito
@@ -175,7 +175,7 @@ const InformationStep = ({hideConsens, user}: Props) => {
                 &#41;. Se l'autorizzazione non viene data, assicurati che il tuo
                 annuncio non contenga alcun dato personale appartenente a
                 Categorie speciali.
-              </Body2>
+              </Body1>
             </Grid>
           </StyledGrid>
           <Grid container item xs={12}>
@@ -186,17 +186,17 @@ const InformationStep = ({hideConsens, user}: Props) => {
               <Body1 marginTop="8px" gutterBottom>
                 <b>Comunicazioni Marketing</b>
               </Body1>
-              <Body2>
+              <Body1>
                 Autorizzo la Società al trattamento dei miei dati di contatto
                 per finalità di marketing e comunicazione pubblicitaria &#40;
                 <StyledButton isSmall type="button">
                   Informativa sulla privacy
                 </StyledButton>
                 &#41;.
-              </Body2>
+              </Body1>
             </Grid>
           </Grid>
-          <Body2 marginTop="30px" sx={{color: 'text.disabled'}}>
+          <Body1 marginTop="30px" sx={{color: 'text.disabled'}}>
             Gli ultimi due permessi sono <b>facoltativi</b>, per maggiori
             informazioni o per revocare il consenso alla Società, vi invitiamo a
             consultare l’informativa sul{' '}
@@ -206,7 +206,7 @@ const InformationStep = ({hideConsens, user}: Props) => {
             . La revoca del consenso non influirà sulla legalità di qualsiasi
             attività di trattamento da noi effettuata prima del ritiro di tale
             consenso.
-          </Body2>
+          </Body1>
         </>
       )}
       <MyModal isOpen={modal} onClose={() => setModal(false)}>

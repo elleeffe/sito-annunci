@@ -8,7 +8,7 @@ import {
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
 import {Alert, Box} from '@mui/material';
-import {Body2, TitleH6} from '../MyTypography';
+import {Body1, TitleH5} from '../MyTypography';
 import {FORM_ERROR} from 'final-form';
 import MyCheckbox from '../Fields/MyCheckbox';
 
@@ -102,12 +102,12 @@ const RecoveryForm = ({onClose}: Props) => {
                     flexDirection: 'column',
                   }}
                 >
-                  <TitleH6 isSmall sx={{marginBottom: '15px'}}>
+                  <TitleH5 sx={{marginBottom: '15px'}}>
                     Recupero credenziali
-                  </TitleH6>
-                  <Body2 sx={{marginBottom: '20px'}}>
+                  </TitleH5>
+                  <Body1 sx={{marginBottom: '20px'}}>
                     Invieremo un codice segreto all'email che inserisci.
-                  </Body2>
+                  </Body1>
                   {submitError && (
                     <Alert severity="error" sx={{marginBottom: '25px'}}>
                       {submitError}
@@ -140,12 +140,10 @@ const RecoveryForm = ({onClose}: Props) => {
                     flexDirection: 'column',
                   }}
                 >
-                  <TitleH6 isSmall sx={{marginBottom: '15px'}}>
-                    Verifica codice
-                  </TitleH6>
-                  <Body2 sx={{marginBottom: '20px'}}>
+                  <TitleH5 sx={{marginBottom: '15px'}}>Verifica codice</TitleH5>
+                  <Body1 sx={{marginBottom: '20px'}}>
                     Inserisci il codice segreto ricevuto per SMS
-                  </Body2>
+                  </Body1>
                   {submitError && (
                     <Alert severity="error" sx={{marginBottom: '25px'}}>
                       {submitError}
@@ -179,12 +177,12 @@ const RecoveryForm = ({onClose}: Props) => {
                     flexDirection: 'column',
                   }}
                 >
-                  <TitleH6 isSmall sx={{marginBottom: '15px'}}>
+                  <TitleH5 sx={{marginBottom: '15px'}}>
                     Effettua l'accesso
-                  </TitleH6>
-                  <Body2 sx={{marginBottom: '20px'}}>
+                  </TitleH5>
+                  <Body1 sx={{marginBottom: '20px'}}>
                     Ti abbiamo inviato un SMS con le credenziali del tuo account
-                  </Body2>
+                  </Body1>
                   {submitError && (
                     <Alert severity="error" sx={{marginBottom: '25px'}}>
                       {submitError}

@@ -11,7 +11,7 @@ import {
 import * as icons from '@mui/icons-material';
 import {useField} from 'react-final-form';
 import {muiErrorConverter} from '../../utils/fields';
-import {Body2} from '../MyTypography';
+import {Body1} from '../MyTypography';
 
 type Props = TextFieldProps & {
   name: string;
@@ -21,6 +21,7 @@ type Props = TextFieldProps & {
   instructions?: boolean;
   label?: string;
   loading?: boolean;
+  className?: string;
 };
 
 const MyTextField = ({
@@ -124,39 +125,26 @@ const MyTextField = ({
             marginTop: spacingBottom ? '35px' : '25px',
           }}
         >
-          <Body2 gutterBottom>La tua password deve avere:</Body2>
-          <Instruction
-            isSmall
-            gutterBottom
-            isActive={input.value.search(/[a-z]/) > -1}
-          >
+          <Body1 gutterBottom>La tua password deve avere:</Body1>
+          <Instruction gutterBottom isActive={input.value.search(/[a-z]/) > -1}>
             <icons.Check />
             <span>
               Una lettera <b>minuscola</b>
             </span>
           </Instruction>
-          <Instruction
-            isSmall
-            gutterBottom
-            isActive={input.value.search(/[A-Z]/) > -1}
-          >
+          <Instruction gutterBottom isActive={input.value.search(/[A-Z]/) > -1}>
             <icons.Check />
             <span>
               Una lettera <b>maiuscola</b>
             </span>
           </Instruction>
-          <Instruction
-            isSmall
-            gutterBottom
-            isActive={input.value.search(/[0-9]/) > -1}
-          >
+          <Instruction gutterBottom isActive={input.value.search(/[0-9]/) > -1}>
             <icons.Check />
             <span>
               Un <b>numero</b>
             </span>
           </Instruction>
           <Instruction
-            isSmall
             gutterBottom
             isActive={input.value.search(/[!£?@#$%^&*]/) > -1}
           >
@@ -165,7 +153,7 @@ const MyTextField = ({
               Un carattere <b>speciale</b>
             </span>
           </Instruction>
-          <Instruction isSmall gutterBottom isActive={input.value.length >= 8}>
+          <Instruction gutterBottom isActive={input.value.length >= 8}>
             <icons.Check />
             <span>
               Minimo <b>8 caratteri</b>
@@ -179,7 +167,7 @@ const MyTextField = ({
 
 export default MyTextField;
 
-const Instruction = styled(Body2, {
+const Instruction = styled(Body1, {
   shouldForwardProp: (prop) => prop !== 'isActive',
 })<{isActive: boolean}>(({theme, isActive}) => ({
   display: 'flex',

@@ -4,7 +4,7 @@ import {useUser} from '../../contexts/UserContext';
 import {CircularProgress, Box, styled, Paper, Button} from '@mui/material';
 
 import Layout from '.';
-import {Body1, StyledButton, Subtitle1, TitleH3} from '../MyTypography';
+import {Body1, StyledButton, TitleH5, TitleH3} from '../MyTypography';
 import {useRouter} from 'next/router';
 import {mockUser} from '../../utils/mocks';
 import {sleep} from '../../utils/utils';
@@ -67,9 +67,9 @@ const AuthLoading = ({children}: PropsWithChildren) => {
         <ModalInner>
           <Box textAlign="center">
             <TitleH3 gutterBottom>Sos incontri</TitleH3>
-            <Subtitle1 textTransform="uppercase" marginBottom="15px">
+            <TitleH5 textTransform="uppercase" marginBottom="15px">
               Contenuti per adulti
-            </Subtitle1>
+            </TitleH5>
             <StyledBody1>
               Questo sito contiene immagini e contenuti rivolti ad un pubblico
               adulto ed è accessibile solo a persone che abbiano raggiunto la

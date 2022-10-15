@@ -5,7 +5,7 @@ import {isRequired} from '../../../utils/fields';
 import MyRadioCard from '../../Fields/MyRadioCard';
 import MySelect from '../../Fields/MySelect';
 import MiniHeroBanner from '../../Hero/MiniHeroBanner';
-import {Body1, Subtitle1, Subtitle2, TitleH6} from '../../MyTypography';
+import {Body1, TitleH3, TitleH4, TitleH5} from '../../MyTypography';
 import MyModal from '../../MyModal';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 
@@ -30,17 +30,17 @@ const VisibilityStep = ({
   return (
     <>
       <Box display="flex" flexDirection="column" marginBottom="30px">
-        <TitleH6 marginBottom="20px">
+        <TitleH3 marginBottom="20px">
           Più visibilità per il tuo annuncio
-        </TitleH6>
+        </TitleH3>
         {!!visibilityExpiration && currentOption ? (
           <ExpirationWrap>
             <StyledRocketIcon color="primary" />
             <Box>
-              <Subtitle1 gutterBottom>
+              <TitleH4 gutterBottom>
                 Opzione {currentOption.title} già attiva per questo annuncio
-              </Subtitle1>
-              <Subtitle2 gutterBottom>{visibilityExpiration}</Subtitle2>
+              </TitleH4>
+              <TitleH5 gutterBottom>{visibilityExpiration}</TitleH5>
               <Body1>
                 Potrai rinnovare il piano di visibilità una volta terminato
                 quello corrente.

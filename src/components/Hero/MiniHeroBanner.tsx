@@ -1,6 +1,6 @@
 import {useMemo} from 'react';
 import {styled, Box} from '@mui/material';
-import {Body2, StyledButton, Subtitle1} from '../MyTypography';
+import {Body1, StyledButton, TitleH5} from '../MyTypography';
 
 type Props = {
   variant: 'primary' | 'secondary';
@@ -30,9 +30,9 @@ const MiniHeroBanner = ({
   return (
     <Wrap variant={variant} spacingBottom={spacingBottom}>
       {chip && <HeroChip>{chip}</HeroChip>}
-      <Subtitle1 gutterBottom isWhite={variant === 'primary'}>
+      <TitleH5 gutterBottom isWhite={variant === 'primary'}>
         {title}
-      </Subtitle1>
+      </TitleH5>
       <StyledButton onClick={button.action} sx={{color: buttonColor}}>
         {button.caption}
       </StyledButton>
@@ -55,7 +55,7 @@ const Wrap = styled(Box, {
   ...(spacingBottom && {marginBottom: '25px'}),
 }));
 
-const HeroChip = styled(Body2)(({theme}) => ({
+const HeroChip = styled(Body1)(({theme}) => ({
   position: 'absolute',
   top: 0,
   right: '15px',

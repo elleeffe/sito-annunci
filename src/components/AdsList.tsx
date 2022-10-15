@@ -6,7 +6,7 @@ import AdsFilter from './AdsFilter';
 import AdsCard from './Card/AdsCard';
 import {PageInner} from './Layout';
 import MyButton from './Buttons/MyButton';
-import {TitleH6} from './MyTypography';
+import {TitleH5} from './MyTypography';
 
 const AdsList = () => {
   const {user} = useUser();
@@ -27,7 +27,7 @@ const AdsList = () => {
     <>
       <AdsFilter onChange={() => getAdsList(true)} />
       <PageInner spacingHorizontal="left" spacingVertical="top">
-        <TitleH6>Risultati di ricerca</TitleH6>
+        <TitleH5>Risultati di ricerca</TitleH5>
         <Box>
           {adsList.map((ads) => {
             const loading =
@@ -58,14 +58,9 @@ const AdsList = () => {
             )}
             {!listLoading && !listError && !adsList.length && (
               <>
-                <TitleH6
-                  width="100%"
-                  textAlign="center"
-                  marginBottom="15px"
-                  isSmall
-                >
+                <TitleH5 width="100%" textAlign="center" marginBottom="15px">
                   Nessun risultato
-                </TitleH6>
+                </TitleH5>
                 <MyButton
                   onClick={() => getAdsList(true)}
                   color="primary"

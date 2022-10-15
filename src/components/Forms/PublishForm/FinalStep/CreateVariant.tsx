@@ -1,6 +1,6 @@
 import {Box, keyframes, styled} from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
-import {TitleH6, Subtitle1} from '../../../MyTypography';
+import {TitleH4, TitleH5} from '../../../MyTypography';
 import {useAdsContext} from '../../../../contexts/AdsContext';
 import {useEffect} from 'react';
 
@@ -22,11 +22,11 @@ const CreateVariant = () => {
           marginBottom: '15px',
         }}
       />
-      <TitleH6 marginBottom="5px">Annuncio caricato con successo!</TitleH6>
-      <Subtitle1 sx={{maxWidth: '600px'}}>
+      <TitleH4 marginBottom="5px">Annuncio caricato con successo!</TitleH4>
+      <TitleH5 sx={{maxWidth: '600px'}}>
         A breve ti invieremo una mail con il link per completare il caricamento
         del tuo annuncio e procedere con eventuali pagamenti.
-      </Subtitle1>
+      </TitleH5>
     </Wrap>
   );
 };

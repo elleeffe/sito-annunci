@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import {useRouter} from 'next/router';
 import MyButton from '../../Buttons/MyButton';
-import {StyledButton, Subtitle1, Subtitle2, TitleH6} from '../../MyTypography';
+import {StyledButton, TitleH4, TitleH5} from '../../MyTypography';
 import AdsCard from '../../Card/AdsCard';
 import VisibilityCard from '../../Card/VisibilityCard';
 import {visibilityOptions} from '../../../utils/config';
@@ -65,16 +65,16 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
 
   return (
     <Wrap>
-      <TitleH6 marginBottom="20px">Riepilogo annuncio</TitleH6>
+      <TitleH5 marginBottom="20px">Riepilogo annuncio</TitleH5>
       {!isLogged &&
         (showPayment ? (
           <Overlay>
             <Box>
-              <TitleH6 marginBottom="20px">Collega un account</TitleH6>
-              <Subtitle1 marginBottom="20px">
+              <TitleH5 marginBottom="20px">Collega un account</TitleH5>
+              <TitleH5 marginBottom="20px">
                 Hai selezionato opzioni di visibilità per cui è necessario
                 collegare un account all'annuncio prima della creazione
-              </Subtitle1>
+              </TitleH5>
               <MyButton
                 onClick={() => handleConnection('login')}
                 variant="contained"
@@ -109,72 +109,72 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
         <>
           {visibilityOption && (
             <>
-              <StyledTitleH6 marginBottom="10px">
+              <StyledTitleH5 marginBottom="10px">
                 Piano visibilità scelto
-              </StyledTitleH6>
+              </StyledTitleH5>
               <VisibilityCard option={visibilityOption} />
             </>
           )}
-          <StyledTitleH6 marginBottom="15px" marginTop="35px">
+          <StyledTitleH5 marginBottom="15px" marginTop="35px">
             Anteprima ricerca
-          </StyledTitleH6>
+          </StyledTitleH5>
           <AdsCard ads={currentAds} isPreview />
-          <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+          <StyledTitleH5 marginBottom="5px" marginTop="35px">
             Titolo annuncio
-          </StyledTitleH6>
-          <Subtitle1>{currentAds.title}</Subtitle1>
-          <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+          </StyledTitleH5>
+          <TitleH4>{currentAds.title}</TitleH4>
+          <StyledTitleH5 marginBottom="5px" marginTop="35px">
             Descrizione annuncio
-          </StyledTitleH6>
-          <Subtitle2>{currentAds.description}</Subtitle2>
+          </StyledTitleH5>
+          <TitleH5>{currentAds.description}</TitleH5>
           <Box display="flex" flexWrap="wrap">
             <Box width={isSm ? '100%' : '50%'}>
-              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH5 marginBottom="5px" marginTop="35px">
                 Categoria
-              </StyledTitleH6>
-              <Subtitle2>{currentAds.category}</Subtitle2>
+              </StyledTitleH5>
+              <TitleH5>{currentAds.category}</TitleH5>
             </Box>
             <Box>
-              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH5 marginBottom="5px" marginTop="35px">
                 Email
-              </StyledTitleH6>
-              <Subtitle2>{currentAds.email}</Subtitle2>
+              </StyledTitleH5>
+              <TitleH5>{currentAds.email}</TitleH5>
             </Box>
           </Box>
           <Box display="flex" flexWrap="wrap">
             <Box width={isSm ? '100%' : '50%'}>
-              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH5 marginBottom="5px" marginTop="35px">
                 Telefono
-              </StyledTitleH6>
-              <Subtitle2>{currentAds.phone}</Subtitle2>
+              </StyledTitleH5>
+              <TitleH5>{currentAds.phone}</TitleH5>
             </Box>
             <Box>
-              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH5 marginBottom="5px" marginTop="35px">
                 Whatsapp
-              </StyledTitleH6>
-              <Subtitle2>{currentAds.whatsapp ? 'Si' : 'No'}</Subtitle2>
+              </StyledTitleH5>
+              <TitleH5>{currentAds.whatsapp ? 'Si' : 'No'}</TitleH5>
             </Box>
           </Box>
           <Box display="flex" flexWrap="wrap">
             <Box width={isSm ? '100%' : '50%'}>
-              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH5 marginBottom="5px" marginTop="35px">
                 Età
-              </StyledTitleH6>
-              <Subtitle2>{currentAds.age}</Subtitle2>
+              </StyledTitleH5>
+              <TitleH5>{currentAds.age}</TitleH5>
             </Box>
             <Box>
-              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH5 marginBottom="5px" marginTop="35px">
                 Città
-              </StyledTitleH6>
-              <Subtitle2>
+              </StyledTitleH5>
+              <TitleH5>
                 {currentAds.city.toUpperCase()}
                 {currentAds.neighborhood && `, ${currentAds.neighborhood}`}
-              </Subtitle2>
+              </TitleH5>
             </Box>
           </Box>
-          <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+          <StyledTitleH5 marginBottom="5px" marginTop="35px">
             Aree/Zone vicine
-          </StyledTitleH6>
+          </StyledTitleH5>
           {currentAds.areas && (
             <Box display="flex" flexWrap="wrap">
               {currentAds.areas.map((area) => (
@@ -194,9 +194,9 @@ const ConfirmStep = ({isLogged, showPayment, currentAds}: Props) => {
           )}
           {currentAds.images && (
             <>
-              <StyledTitleH6 isSmall marginBottom="5px" marginTop="35px">
+              <StyledTitleH5 marginBottom="5px" marginTop="35px">
                 Foto annuncio
-              </StyledTitleH6>
+              </StyledTitleH5>
               <ImageList
                 variant="quilted"
                 cols={imageListCols}
@@ -254,7 +254,7 @@ const Overlay = styled(Box)(({theme}) => ({
   },
 }));
 
-const StyledTitleH6 = styled(TitleH6)(({theme}) => ({
+const StyledTitleH5 = styled(TitleH5)(({theme}) => ({
   fontSize: '20px',
   fontWeight: 600,
   [theme.breakpoints.down('md')]: {

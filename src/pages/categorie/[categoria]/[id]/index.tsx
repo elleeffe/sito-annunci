@@ -11,10 +11,10 @@ import Layout, {
 import {LoadingScreen} from '../../../../components/Layout/AuthLoading';
 import {
   Body1,
-  Subtitle1,
+  TitleH4,
   TitleH1,
   TitleH3,
-  TitleH6,
+  TitleH5,
 } from '../../../../components/MyTypography';
 import {categoryOptions} from '../../../../utils/config';
 import {sleep} from '../../../../utils/utils';
@@ -96,25 +96,25 @@ const Detail: NextPage = () => {
             {detail.title}
           </TitleH3>
           <Body1>{detail.description}</Body1>
-          <Subtitle1
+          <TitleH4
             sx={{
               marginTop: '25px',
             }}
           >
             <strong>Quartiere:</strong>
-          </Subtitle1>
-          <TitleH6 isSmall sx={{color: 'primary.main'}}>
+          </TitleH4>
+          <TitleH5 sx={{color: 'primary.main'}}>
             {detail.city.toUpperCase()}
             {detail.neighborhood && `, ${detail.neighborhood}`}
-          </TitleH6>
-          <Subtitle1
+          </TitleH5>
+          <TitleH4
             sx={{
               marginTop: '25px',
               marginBottom: '5px',
             }}
           >
             <strong>Zone limitrofe:</strong>
-          </Subtitle1>
+          </TitleH4>
           <Box display="flex" flexWrap="wrap">
             {detail.areas &&
               !!detail.areas.length &&

@@ -2,7 +2,7 @@ import {ChevronRight} from '@mui/icons-material';
 import {Breadcrumbs, Stack, styled} from '@mui/material';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
-import {Subtitle1} from './MyTypography';
+import {TitleH5} from './MyTypography';
 
 type Props = {
   paths: {label: string; path?: string}[];
@@ -36,7 +36,7 @@ const BreadCrumb = ({paths}: Props) => {
 
 export default BreadCrumb;
 
-const StyledLabel = styled(Subtitle1, {
+const StyledLabel = styled(TitleH5, {
   shouldForwardProp: (prop) => prop !== 'isActive',
 })<{isActive: boolean}>(({theme, isActive}) => ({
   cursor: 'pointer',

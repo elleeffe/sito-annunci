@@ -11,7 +11,7 @@ import {
 import * as icons from '@mui/icons-material';
 import PersonPinIcon from '@mui/icons-material/PersonPin';
 import MyIcon from '../MyIcon';
-import {Body2, Subtitle2, TitleH5} from '../MyTypography';
+import {Body1, TitleH5} from '../MyTypography';
 import {useRouter} from 'next/router';
 
 export type CardItemType = {
@@ -61,12 +61,12 @@ const SimpleCard = ({card}: Props) => {
               color="primary"
               sx={{width: '20px', height: '20px', marginRight: '5px'}}
             />
-            <Subtitle2>
+            <TitleH5>
               <span>{card.totalAds} annunci caricati</span>
-            </Subtitle2>
+            </TitleH5>
           </Box>
         )}
-        <Body2 color="text.secondary">{card.caption}</Body2>
+        <Body1 color="text.secondary">{card.caption}</Body1>
       </CardContent>
       <CardActions sx={{padding: '0px 25px 25px'}}>
         <Button

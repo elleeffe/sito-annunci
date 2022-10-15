@@ -136,7 +136,7 @@ const MyMultipleSelect = ({
             '& .MuiPaper-root': {
               boxShadow: 'none',
               marginTop: '10px',
-              borderRadius: '10px',
+              borderRadius: '4px',
               borderWidth: '1px',
               borderStyle: 'solid',
               borderColor: 'primary.main',

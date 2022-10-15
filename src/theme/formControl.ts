@@ -5,6 +5,8 @@ export const formControl: Components['MuiFormControl'] = {
   styleOverrides: {
     root: {
       '& .MuiInputBase-root': {
+        borderRadius: '4px',
+        background: 'white',
         '&.Mui-focused fieldset': {
           borderWidth: '1px',
         },
@@ -12,7 +14,11 @@ export const formControl: Components['MuiFormControl'] = {
           borderColor: (palette.primary as SimplePaletteColorOptions).main,
         },
       },
+      '& .MuiFormControlLabel-label': {
+        fontSize: 15,
+      },
       '& .MuiInputLabel-formControl': {
+        fontSize: 15,
         transform: 'translate(21px, 14px) scale(1)',
 
         '&.Mui-focused': {

@@ -1,6 +1,6 @@
 import {CircularProgress, Grid, IconButton, styled} from '@mui/material';
 import {useMemo} from 'react';
-import {Subtitle2} from '../../MyTypography';
+import {TitleH5} from '../../MyTypography';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -40,9 +40,9 @@ const Favorites = ({isFavorite, loading, error, onClick}: Props) => {
         </IconButton>
       )}
       {!loading && (
-        <Subtitle2 marginLeft="10px">
+        <TitleH5 marginLeft="10px">
           {error ? 'Si è verificato un errore, riprovare' : favoritesLabel}
-        </Subtitle2>
+        </TitleH5>
       )}
     </FullGrid>
   );

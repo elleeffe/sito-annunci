@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Grid, styled, Box} from '@mui/material';
-import {Subtitle1, Subtitle2, TitleH4, TitleH6} from '../MyTypography';
+import {TitleH4, TitleH5, TitleH6} from '../MyTypography';
 
 const Footer = () => {
   return (
@@ -14,13 +14,13 @@ const Footer = () => {
         <Grid container justifyContent="space-between">
           <Grid item sm={12} md={5} sx={{marginBottom: '50px'}}>
             <TitleH4 gutterBottom>Logo</TitleH4>
-            <Subtitle1 gutterBottom>
+            <TitleH4 gutterBottom>
               328 Queensberry Street, North Melbourne VIC 3051, Australia.
-            </Subtitle1>
-            <TitleH6 sx={{marginTop: '50px'}} gutterBottom>
+            </TitleH4>
+            <TitleH5 sx={{marginTop: '50px'}} gutterBottom>
               Supporto
-            </TitleH6>
-            <Subtitle1 gutterBottom>support@prolancer.com</Subtitle1>
+            </TitleH5>
+            <TitleH4 gutterBottom>support@prolancer.com</TitleH4>
           </Grid>
           <Grid item xs={12} md={5}>
             <Grid container>
@@ -30,25 +30,25 @@ const Footer = () => {
                 </TitleH6>
               </Grid>
               <Grid item xs={6} sm={4} md={6}>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
               </Grid>
               <Grid item xs={6} sm={4} md={6}>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
-                <Subtitle1 gutterBottom>Categoria</Subtitle1>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
+                <TitleH4 gutterBottom>Categoria</TitleH4>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
       </Container>
       <BottomWrap>
-        <Subtitle2>Copyright © 2022 ProLancer All Rights Reserved.</Subtitle2>
+        <TitleH6>Copyright © 2022 ProLancer All Rights Reserved.</TitleH6>
       </BottomWrap>
     </Wrap>
   );

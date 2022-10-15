@@ -6,7 +6,7 @@ import {isRequired} from '../../utils/fields';
 import {sleep} from '../../utils/utils';
 import MyButton from '../Buttons/MyButton';
 import MyTextField from '../Fields/MyTextField';
-import {Body1, TitleH6} from '../MyTypography';
+import {Body1, TitleH5} from '../MyTypography';
 import FormSuccess from './FormSuccess';
 
 type FormValues = {
@@ -81,9 +81,7 @@ const LeaveCommentsForm = ({advId, initialValues}: Props) => {
       }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <TitleH6 isSmall marginBottom="15px">
-              Lascia una recensione
-            </TitleH6>
+            <TitleH5 marginBottom="15px">Lascia una recensione</TitleH5>
             {!initialValues && (
               <Body1 marginBottom="25px">
                 Attenzione, una volta pubblicata una recensione non potrà più

@@ -1,6 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import {Alert, Box, Button, styled} from '@mui/material';
-import {Subtitle1, TitleH6} from '../MyTypography';
+import {TitleH5, TitleH4} from '../MyTypography';
 import SkeletonCard from '../Card/SkeletonCard';
 import {mockAds} from '../../utils/mocks';
 import AdsCard from '../Card/AdsCard';
@@ -72,7 +72,7 @@ const UserAdsList = () => {
   return (
     <>
       <PageInner spacingHorizontal="left" spacingVertical="top">
-        <TitleH6>I tuoi annunci</TitleH6>
+        <TitleH4>I tuoi annunci</TitleH4>
         <List>
           {loading && !error && (
             <>
@@ -108,7 +108,7 @@ const UserAdsList = () => {
               ))
             ) : (
               <>
-                <Subtitle1>Non hai ancora pubblicato nessun annuncio</Subtitle1>
+                <TitleH5>Non hai ancora pubblicato nessun annuncio</TitleH5>
               </>
             ))}
         </List>

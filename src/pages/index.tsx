@@ -5,9 +5,10 @@ import {Box, Container, Grid, styled} from '@mui/material';
 import CardSlider from '../components/Card/CardSlider';
 import segnapostoCta from '../assets/img/segnaposto-cta.png';
 import HeroBanner from '../components/Hero/HeroBanner';
-import {Subtitle1, TitleH1, TitleH2} from '../components/MyTypography';
+import {TitleH1, TitleH2, TitleH3, TitleH4} from '../components/MyTypography';
 import {categoryCards} from '../utils/config';
 import HomeForm from '../components/Forms/HomeForm';
+import homeBg from '../assets/img/home-bg.jpeg';
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -15,16 +16,13 @@ const Home: NextPage = () => {
   return (
     <Layout>
       <Intro>
-        <Container>
-          <Grid container justifyContent="center">
-            <Grid item lg={10} textAlign="center">
-              <TitleH1 gutterBottom isWhite>
-                The Easiest Way to Get Your New Job
-              </TitleH1>
-              <Subtitle1 isWhite>
-                Work with talented people at the most affordable price to get
-                the most out of your time and cost
-              </Subtitle1>
+        <Container sx={{position: 'relative', zIndex: 1}}>
+          <Grid container>
+            <Grid item xs={12}>
+              <TitleH1>Find Nearby Attractions</TitleH1>
+              <TitleH4>
+                Expolore top-rated attractions, activities and more
+              </TitleH4>
               <HomeForm />
             </Grid>
           </Grid>
@@ -34,10 +32,10 @@ const Home: NextPage = () => {
         <Grid container justifyContent="center">
           <Grid item sm={10} md={8} textAlign="center">
             <TitleH2 gutterBottom>Our categories</TitleH2>
-            <Subtitle1>
+            <TitleH3>
               Uniquely promote adaptive quality vectors rather than stand-alone
               e-markets. pontificate alternative architectures whereas iterate.
-            </Subtitle1>
+            </TitleH3>
           </Grid>
         </Grid>
       </Container>
@@ -66,7 +64,21 @@ const Intro = styled(Box)(({theme}) => ({
   minHeight: '100vh',
   display: 'flex',
   alignItems: 'center',
-  background: theme.palette.primary.main,
   paddingTop: '100px',
   paddingBottom: '100px',
+  position: 'relative',
+  backgroundImage: `url(${homeBg.src})`,
+  backgroundSize: 'cover',
+  backgroundRepea: 'no-repeat',
+  backgroundPosition: 'center',
+  '&::after': {
+    content: '""',
+    position: 'absolute',
+    height: '100%',
+    width: '100%',
+    display: 'block',
+    background:
+      'linear-gradient(to right, rgba(255,255,255,0.99) 20%, rgba(255,255,255,0.7) 70%, rgba(255,255,255,0) 95%)',
+    zIndex: 0,
+  },
 }));

@@ -12,7 +12,7 @@ import {
 import {FileUploader} from 'react-drag-drop-files';
 import {useField} from 'react-final-form';
 import {muiErrorConverter} from '../../utils/fields';
-import {Body2} from '../MyTypography';
+import {Body1} from '../MyTypography';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -109,7 +109,7 @@ const MyUploadField = ({
                 sx={{width: '40px', height: '40px', marginRight: '5px'}}
                 color={error ? 'error' : color}
               />
-              <Body2>{props.label}</Body2>
+              <Body1>{props.label}</Body1>
             </Placeholder>
           </FileUploader>
           {!!helperText && <FormHelperText>{helperText}</FormHelperText>}

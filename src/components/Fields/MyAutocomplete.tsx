@@ -27,6 +27,7 @@ type Props = {
   spacingBottom?: boolean;
   label?: string;
   onChange?: (value: any) => void;
+  className?: string;
 };
 
 const MyAutocomplete = ({
@@ -41,6 +42,7 @@ const MyAutocomplete = ({
   spacingBottom,
   label,
   onChange,
+  className,
 }: Props) => {
   const {input, meta} = useField(name, {validate});
   const [searchString, setSearchString] = useState<string>(
@@ -82,6 +84,7 @@ const MyAutocomplete = ({
 
   return (
     <StyledAutocomplete
+      className={className}
       spacingBottom={spacingBottom}
       value={searchString}
       noOptionsText="Nessun risultato"
@@ -149,7 +152,7 @@ const MyAutocomplete = ({
               display: !listOption.length ? 'none' : undefined,
               boxShadow: 'none',
               marginTop: '10px',
-              borderRadius: '10px',
+              borderRadius: '4px',
               borderWidth: '1px',
               borderStyle: 'solid',
               borderColor: `${color}.main`,
@@ -174,7 +177,9 @@ const StyledAutocomplete = styled(Autocomplete, {
 })<{spacingBottom?: boolean}>(({theme, spacingBottom}) => ({
   marginBottom: spacingBottom ? '25px' : undefined,
   '& .MuiAutocomplete-inputRoot': {
-    padding: '6px 9px',
+    paddingTop: '6px',
+    paddingBottom: '6px',
+    paddingLeft: '9px !important',
     paddingRight: '9px !important',
   },
   '& .MuiAutocomplete-endAdornment': {
@@ -193,5 +198,8 @@ const StyledAutocomplete = styled(Autocomplete, {
     '& .MuiTouchRipple-root': {
       display: 'none',
     },
+  },
+  '& .MuiAutocomplete-option': {
+    fontSize: 15,
   },
 }));

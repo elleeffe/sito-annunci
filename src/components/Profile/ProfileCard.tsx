@@ -10,7 +10,7 @@ import {
   ListItemText,
   styled,
 } from '@mui/material';
-import {Subtitle1} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -47,8 +47,8 @@ const ProfileCard = () => {
         <UserWrap>
           <UserInfo>
             <UserIcon color="primary" />
-            <Subtitle1>{user.email}</Subtitle1>
-            <Subtitle1>{user.phone}</Subtitle1>
+            <TitleH5>{user.email}</TitleH5>
+            <TitleH5>{user.phone}</TitleH5>
           </UserInfo>
           <UserMenu>
             <ListItem disablePadding>

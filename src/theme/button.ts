@@ -21,13 +21,13 @@ export const button: Components['MuiButton'] = {
     },
     sizeMedium: {
       padding: '0px 20px',
-      fontSize: '1rem',
+      fontSize: '15px',
       height: '50px',
     },
     sizeSmall: {
       padding: '0 20px',
-      height: '35px',
-      fontSize: '0.9rem',
+      height: '40px',
+      fontSize: '13',
       svg: {
         width: '0.8em',
         height: '0.8em',

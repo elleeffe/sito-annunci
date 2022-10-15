@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {Box, Slider} from '@mui/material';
-import {Subtitle1} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 import {useField} from 'react-final-form';
 
 type Props = {
@@ -22,7 +22,7 @@ const MyRangeField = ({name, label, onChange}: Props) => {
 
   return (
     <>
-      {!!label && <Subtitle1>Età</Subtitle1>}
+      {!!label && <TitleH5>Età</TitleH5>}
       <Box display="flex" justifyContent="center">
         <Slider
           {...input}

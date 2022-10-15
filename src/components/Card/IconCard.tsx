@@ -1,6 +1,6 @@
 import {ReactNode} from 'react';
 import {Box, styled} from '@mui/material';
-import {Body2, Subtitle1} from '../MyTypography';
+import {Body1, TitleH5} from '../MyTypography';
 
 type Props = {
   title: string;
@@ -15,8 +15,8 @@ const IconCard = ({title, label, icon, variant}: Props) => {
       <Inner>
         {icon}
         <Box>
-          <Body2>{label}</Body2>
-          <Subtitle1 sx={{textTransform: 'capitalize'}}>{title}</Subtitle1>
+          <Body1>{label}</Body1>
+          <TitleH5 sx={{textTransform: 'capitalize'}}>{title}</TitleH5>
         </Box>
       </Inner>
     </Wrap>

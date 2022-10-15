@@ -9,6 +9,7 @@ import {select} from './select';
 import {tab} from './tab';
 import {textField} from './textfield';
 import {typography, typographyStyle} from './typography';
+import {iconButton} from './iconButton';
 
 export const theme = createTheme({
   palette: palette,
@@ -23,5 +24,6 @@ export const theme = createTheme({
     MuiTab: tab,
     MuiAlert: alert,
     MuiButtonBase: buttonBase,
+    MuiIconButton: iconButton,
   },
 });

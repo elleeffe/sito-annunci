@@ -3,7 +3,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox, {CheckboxProps} from '@mui/material/Checkbox';
 import {useField} from 'react-final-form';
-import {Body2} from '../MyTypography';
+import {Body1} from '../MyTypography';
 import {FormHelperText} from '@mui/material';
 import {muiErrorConverter} from '../../utils/fields';
 
@@ -49,9 +49,9 @@ const MyCheckbox = ({
           />
         }
         label={
-          <Body2 sx={{marginTop: '7px', textAlign: 'left', marginLeft: '3px'}}>
+          <Body1 sx={{marginTop: '7px', textAlign: 'left', marginLeft: '3px'}}>
             {children}
-          </Body2>
+          </Body1>
         }
       />
       {!!helperText && (

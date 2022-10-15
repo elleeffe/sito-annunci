@@ -3,6 +3,9 @@ import {Components} from '@mui/material/styles/components';
 
 export const typography: TypographyVariantsOptions = {
   fontFamily: ['"Poppins"', '"Rubik"', '"sans-serif"'].join(','),
+  allVariants: {
+    fontSize: 15,
+  },
 };
 
 export const typographyStyle: Components['MuiTypography'] = {

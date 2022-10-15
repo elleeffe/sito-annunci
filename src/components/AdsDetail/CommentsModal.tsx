@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
 import SkeletonCard from '../Card/SkeletonCard';
-import {Subtitle1, TitleH6} from '../MyTypography';
+import {TitleH5, TitleH4} from '../MyTypography';
 import {sleep} from '../../utils/utils';
 
 type Props = {
@@ -65,9 +65,7 @@ const CommentsModal = ({detailId, isOpen, onClose}: Props) => {
               <Close />
             </CloseButton>
           </Tooltip>
-          <TitleH6 isSmall marginBottom="15px">
-            Tutti i commenti
-          </TitleH6>
+          <TitleH4 marginBottom="15px">Tutti i commenti</TitleH4>
           <List>
             {loading && !error && (
               <>
@@ -93,7 +91,7 @@ const CommentsModal = ({detailId, isOpen, onClose}: Props) => {
                 comments.map((el, i) => <Box key={i}>commento + {i + 1}</Box>)
               ) : (
                 <>
-                  <Subtitle1>Nessun commento</Subtitle1>
+                  <TitleH5>Nessun commento</TitleH5>
                 </>
               ))}
           </List>

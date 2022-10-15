@@ -5,14 +5,15 @@ export const textField: Components['MuiTextField'] = {
   styleOverrides: {
     root: {
       '& .MuiInputBase-root': {
-        borderRadius: '28px',
+        borderRadius: '4px',
         paddingLeft: '15px',
         input: {
-          padding: '13.5px 15px 13.5px 6px',
+          padding: '13.5px 15px 13.5px 0px',
+          fontSize: '15px',
         },
       },
       '& .MuiInputBase-multiline': {
-        borderRadius: '15px',
+        borderRadius: '4px',
       },
       '& .Mui-error': {
         '& .Mui-SvgIcon-root:not(.untouchable-icon)': {

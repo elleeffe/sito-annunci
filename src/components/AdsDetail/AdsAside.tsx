@@ -6,7 +6,6 @@ import MyButton from '../Buttons/MyButton';
 import MyTextButton from '../Buttons/MyTextButton';
 import IconCard from '../Card/IconCard';
 import {Aside} from '../Layout';
-import {Subtitle2} from '../MyTypography';
 import PersonIcon from '@mui/icons-material/Person';
 import RoomIcon from '@mui/icons-material/Room';
 import CategoryIcon from '@mui/icons-material/Category';
@@ -18,6 +17,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CommentsModal from './CommentsModal';
 import LeaveCommentsModal from './LeaveCommentsModal';
 import EventIcon from '@mui/icons-material/Event';
+import {TitleH4} from '../MyTypography';
 
 type Props = {detail: Ads};
 
@@ -42,36 +42,36 @@ const AdsAside = ({detail}: Props) => {
               {!!detail.publicationDate && (
                 <DetailWrap>
                   <EventIcon color="primary" />
-                  <Subtitle2 marginLeft="5px">
+                  <TitleH4 marginLeft="5px">
                     {formatDate(detail.publicationDate)}
-                  </Subtitle2>
+                  </TitleH4>
                 </DetailWrap>
               )}
               <DetailWrap>
                 <VisibilityIcon color="primary" />
-                <Subtitle2 marginLeft="5px">
+                <TitleH4 marginLeft="5px">
                   {detail.views}{' '}
                   {detail.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
-                </Subtitle2>
+                </TitleH4>
               </DetailWrap>
             </FlexWrap>
             <FlexWrap>
               <DetailWrap>
                 <PersonIcon color="primary" />
-                <Subtitle2 marginLeft="5px">{detail.age} anni</Subtitle2>
+                <TitleH4 marginLeft="5px">{detail.age} anni</TitleH4>
               </DetailWrap>
               <DetailWrap>
                 <RoomIcon color="primary" />
-                <Subtitle2 marginLeft="5px">
+                <TitleH4 marginLeft="5px">
                   {detail.city.toUpperCase()}
                   {detail.neighborhood && `, ${detail.neighborhood}`}
-                </Subtitle2>
+                </TitleH4>
               </DetailWrap>
             </FlexWrap>
             {/* {!!ads.publicationDate && (
-            <Subtitle2 sx={{marginBottom: '5px'}}>
+            <TitleH4 sx={{marginBottom: '5px'}}>
               {formatDate(ads.publicationDate)}
-            </Subtitle2>
+            </TitleH4>
           )} */}
             <FlexWrap>
               <DetailWrap>

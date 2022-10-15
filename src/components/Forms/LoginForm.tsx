@@ -7,7 +7,7 @@ import {
 } from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
-import {Body2, TitleH6} from '../MyTypography';
+import {Body1, TitleH5} from '../MyTypography';
 import HelpIcon from '@mui/icons-material/Help';
 import {styled, Box, Alert} from '@mui/material';
 import MyCheckbox from '../Fields/MyCheckbox';
@@ -74,9 +74,7 @@ const LoginForm = ({onSuccess}: Props) => {
 
   return (
     <>
-      <TitleH6 isSmall sx={{marginBottom: '15px'}}>
-        Accedi al tuo account
-      </TitleH6>
+      <TitleH5 sx={{marginBottom: '15px'}}>Accedi al tuo account</TitleH5>
       <Form<FormValues> onSubmit={handleSubmit}>
         {({
           handleSubmit,
@@ -143,7 +141,7 @@ const LoginForm = ({onSuccess}: Props) => {
 
 export default LoginForm;
 
-const Helper = styled(Body2)(() => ({
+const Helper = styled(Body1)(() => ({
   cursor: 'pointer',
   display: 'flex',
   alignItems: 'center',

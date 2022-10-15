@@ -5,7 +5,7 @@ import {Alert, Box, styled} from '@mui/material';
 import {passwordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
-import {Subtitle1, TitleH6} from '../MyTypography';
+import {TitleH5, TitleH6} from '../MyTypography';
 
 type FormValues = {
   password: string;
@@ -45,10 +45,10 @@ const DeleteAccountForm = ({onSuccess}: Props) => {
         }) => (
           <form onSubmit={handleSubmit}>
             <TitleH6>Elimina account</TitleH6>
-            <Subtitle1 marginBottom="25px">
+            <TitleH5 marginBottom="25px">
               Stai per eliminare questo account e tutte le informazioni ad esso
               collegate
-            </Subtitle1>
+            </TitleH5>
             <Alert
               severity="warning"
               sx={{marginBottom: '25px', textAlign: 'left'}}

@@ -3,7 +3,7 @@ import * as icons from '@mui/icons-material';
 import {Box, Button, Container, Grid, styled} from '@mui/material';
 import MyIcon from '../MyIcon';
 import Image from 'next/image';
-import {Subtitle1, TitleH3} from '../MyTypography';
+import {TitleH4, TitleH3} from '../MyTypography';
 
 type Props = {
   variant: 'primary' | 'secondary';
@@ -95,7 +95,7 @@ const HeroTitle = styled(TitleH3)(({theme}) => ({
   marginBottom: '15px',
 }));
 
-const HeroSubtitle = styled(Subtitle1)(({theme}) => ({
+const HeroSubtitle = styled(TitleH4)(({theme}) => ({
   marginBottom: '25px',
   [theme.breakpoints.down('md')]: {
     marginBottom: '15px',

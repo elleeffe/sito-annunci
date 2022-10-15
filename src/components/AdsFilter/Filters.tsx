@@ -5,7 +5,7 @@ import {categoryOptions, cityOptions} from '../../utils/config';
 import MyRangeField from '../Fields/MyRangeField';
 import MySelect from '../Fields/MySelect';
 import MyTextField from '../Fields/MyTextField';
-import {TitleH6} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 import MyAutocomplete from '../Fields/MyAutocomplete';
 import MySwitch from '../Fields/MySwitch';
 import {useFiltersContext} from '../../contexts/FiltersContext';
@@ -126,7 +126,7 @@ const Filters = ({onChange}: Props) => {
           return (
             <>
               <Box marginBottom="100px">
-                <FilterTitle isSmall>Filtra</FilterTitle>
+                <FilterTitle>Filtra</FilterTitle>
                 <MyAutocomplete
                   name="city"
                   placeholder="Città"
@@ -159,7 +159,7 @@ const Filters = ({onChange}: Props) => {
                 />
               </Box>
               <Box>
-                <FilterTitle isSmall>Ordina per età</FilterTitle>
+                <FilterTitle>Ordina per età</FilterTitle>
                 <MySwitch
                   name="age"
                   label="Indifferente"
@@ -179,9 +179,7 @@ const Filters = ({onChange}: Props) => {
                   value="old"
                   onChange={handleAgeOrder}
                 />
-                <FilterTitle isSmall marginTop="20px">
-                  Ordina per data
-                </FilterTitle>
+                <FilterTitle marginTop="20px">Ordina per data</FilterTitle>
                 <MySwitch
                   name="publicationDate"
                   label="Pubblicati di recente"
@@ -215,7 +213,7 @@ const Filters = ({onChange}: Props) => {
 
 export default Filters;
 
-const FilterTitle = styled(TitleH6)(({theme}) => ({
+const FilterTitle = styled(TitleH5)(({theme}) => ({
   fontWeight: '500',
   marginBottom: '15px',
 

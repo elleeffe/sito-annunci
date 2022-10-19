@@ -17,7 +17,7 @@ import AddIcon from '@mui/icons-material/Add';
 import CommentsModal from './CommentsModal';
 import LeaveCommentsModal from './LeaveCommentsModal';
 import EventIcon from '@mui/icons-material/Event';
-import {TitleH4} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 
 type Props = {detail: Ads};
 
@@ -42,37 +42,32 @@ const AdsAside = ({detail}: Props) => {
               {!!detail.publicationDate && (
                 <DetailWrap>
                   <EventIcon color="primary" />
-                  <TitleH4 marginLeft="5px">
+                  <TitleH5 marginLeft="5px">
                     {formatDate(detail.publicationDate)}
-                  </TitleH4>
+                  </TitleH5>
                 </DetailWrap>
               )}
               <DetailWrap>
                 <VisibilityIcon color="primary" />
-                <TitleH4 marginLeft="5px">
+                <TitleH5 marginLeft="5px">
                   {detail.views}{' '}
                   {detail.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
-                </TitleH4>
+                </TitleH5>
               </DetailWrap>
             </FlexWrap>
             <FlexWrap>
               <DetailWrap>
                 <PersonIcon color="primary" />
-                <TitleH4 marginLeft="5px">{detail.age} anni</TitleH4>
+                <TitleH5 marginLeft="5px">{detail.age} anni</TitleH5>
               </DetailWrap>
               <DetailWrap>
                 <RoomIcon color="primary" />
-                <TitleH4 marginLeft="5px">
+                <TitleH5 marginLeft="5px">
                   {detail.city.toUpperCase()}
                   {detail.neighborhood && `, ${detail.neighborhood}`}
-                </TitleH4>
+                </TitleH5>
               </DetailWrap>
             </FlexWrap>
-            {/* {!!ads.publicationDate && (
-            <TitleH4 sx={{marginBottom: '5px'}}>
-              {formatDate(ads.publicationDate)}
-            </TitleH4>
-          )} */}
             <FlexWrap>
               <DetailWrap>
                 <MyTextButton
@@ -153,7 +148,7 @@ export default AdsAside;
 const AsideInner = styled(Box)(({theme}) => ({
   background: '#fff',
   borderRadius: '20px',
-  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+  border: `1px solid rgba(0,0,0,0.1)`,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',

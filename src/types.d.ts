@@ -75,3 +75,12 @@ type Orders = {
   age: 'young' | 'old' | 'none';
   publicationDate: 'latest' | 'oldest';
 };
+
+type MyRoute = {
+  label: string;
+  path?: string;
+  submenu?: {
+    label: string;
+    path: string;
+  }[];
+};

@@ -121,7 +121,7 @@ const MyCustomMultipleSelect = ({
             />
           ))
         ) : (
-          <Body1 sx={{color: 'text.disabled', fontWeight: '400'}} isPoppins>
+          <Body1 sx={{color: 'text.disabled', fontWeight: '400'}}>
             Aree selezionate
           </Body1>
         )}

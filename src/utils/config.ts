@@ -1,6 +1,23 @@
 import segnaposto from '../assets/img/segnaposto.jpeg';
 import {CardItemType} from '../components/Card/SimpleCard';
 
+export const routes: MyRoute[] = [
+  {
+    path: '/',
+    label: 'Home',
+  },
+  {path: '/categorie', label: 'Esplora'},
+  {
+    label: 'Categorie',
+    submenu: [
+      {path: '/categorie/categoria-1', label: 'Categoria 1'},
+      {path: '/categorie/categoria-2', label: 'Categoria 2'},
+      {path: '/categorie/categoria-3', label: 'Categoria 3'},
+      {path: '/categorie/categoria-4', label: 'Categoria 1'},
+    ],
+  },
+];
+
 export const categoryOptions: {value: Category; label: string}[] = [
   {
     value: 'categoria-1',

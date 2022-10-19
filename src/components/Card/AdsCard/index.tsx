@@ -170,6 +170,7 @@ const Wrap = styled(Grid, {
   transition: 'all 100ms linear',
   marginTop: '0px',
   marginLeft: '0px',
+  border: `1px solid rgba(0,0,0,0.1)`,
   ...(whiteBg
     ? {
         background: '#fff',
@@ -206,7 +207,6 @@ const Cover = styled(Grid)(({theme}) => ({
 }));
 
 const Title = styled(TitleH5)(({theme}) => ({
-  fontWeight: '500',
   fontSize: '20px',
 
   [theme.breakpoints.down('md')]: {
@@ -268,7 +268,6 @@ const LocationWrap = styled(Box)(({theme}) => ({
 const Info = styled(Body1, {
   shouldForwardProp: (prop) => prop !== 'divider',
 })<{divider?: boolean}>(({theme, divider}) => ({
-  fontWeight: '700',
   lineHeight: 1.2,
   ...(divider && {
     paddingRight: '10px',

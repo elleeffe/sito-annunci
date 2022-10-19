@@ -100,7 +100,7 @@ export default AdsFilter;
 const FilterWrap = styled(Box)(({theme}) => ({
   background: '#fff',
   borderRadius: '20px',
-  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+  border: `1px solid rgba(0,0,0,0.1)`,
   padding: '20px',
   overflow: 'overlay',
   flex: 1,

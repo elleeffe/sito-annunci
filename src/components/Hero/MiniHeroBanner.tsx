@@ -50,7 +50,7 @@ const Wrap = styled(Box, {
 }>(({theme, variant, spacingBottom}) => ({
   backgroundColor: theme.palette[variant].main,
   padding: '15px',
-  borderRadius: '15px',
+  borderRadius: '4px',
   position: 'relative',
   ...(spacingBottom && {marginBottom: '25px'}),
 }));

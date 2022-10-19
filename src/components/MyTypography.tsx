@@ -9,7 +9,7 @@ export const TitleH1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite, isEllipsis}) => ({
   fontWeight: 300,
-  lineHeight: 1.5,
+  lineHeight: 1.3,
   fontSize: '36px',
   ...(isEllipsis && {
     textOverflow: 'ellipsis',
@@ -25,7 +25,7 @@ export const TitleH2 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
-  lineHeight: 1.5,
+  lineHeight: 1.3,
   fontSize: '30px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -35,7 +35,7 @@ export const TitleH3 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 300,
-  lineHeight: 1.5,
+  lineHeight: 1.3,
   fontSize: '24px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -45,7 +45,7 @@ export const TitleH4 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 300,
-  lineHeight: 1.5,
+  lineHeight: 1.3,
   fontSize: '20px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -55,7 +55,7 @@ export const TitleH5 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 300,
-  lineHeight: 1.5,
+  lineHeight: 1.3,
   fontSize: '16px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -64,18 +64,37 @@ TitleH5.defaultProps = {variant: 'h5'};
 export const TitleH6 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
-  fontWeight: 400,
-  lineHeight: 1.5,
+  fontWeight: 300,
+  lineHeight: 1.3,
   fontSize: '12px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
 TitleH6.defaultProps = {variant: 'h6'};
 
+export const Subtitle = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+})<Props>(({theme, isWhite}) => ({
+  fontWeight: 300,
+  lineHeight: 1.5,
+  fontSize: '21px',
+  marginLeft: 'auto',
+  marginRight: 'auto',
+  span: {
+    color: theme.palette.primary.main,
+  },
+  ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.secondary}),
+  [theme.breakpoints.down('md')]: {
+    maxWidth: '600px',
+  },
+}));
+
+TitleH6.defaultProps = {variant: 'subtitle1'};
+
 export const Body1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   lineHeight: 1.6,
-  fontSize: '16px',
+  fontSize: '15px',
   fontWeight: 300,
   fontFamily: 'Poppins',
   ...(isWhite
@@ -90,7 +109,7 @@ export const ExternalLink = styled('a', {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   lineHeight: 1.6,
-  fontSize: '16px',
+  fontSize: '15px',
   fontWeight: 300,
   fontFamily: 'Poppins',
   ...(isWhite

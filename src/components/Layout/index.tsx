@@ -77,8 +77,11 @@ const Layout = ({
 
 export default Layout;
 
-export const PageBody = ({children}: PropsWithChildren<{}>) => (
-  <Container>
+export const PageBody = ({
+  children,
+  className,
+}: PropsWithChildren<{className?: string}>) => (
+  <Container className={className}>
     <PageBodyWrap>{children}</PageBodyWrap>
   </Container>
 );

@@ -3,15 +3,20 @@ import {Swiper, SwiperSlide} from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
-import {Container, styled} from '@mui/material';
+import {Box, styled} from '@mui/material';
 import {Pagination, Autoplay} from 'swiper';
 import SimpleCard, {CardItemType} from './SimpleCard';
 
-type Props = {autoPlay: boolean; cards: CardItemType[]};
+type Props = {
+  autoPlay: boolean;
+  cards: CardItemType[];
+  spacingTop?: boolean;
+  spacingBottom?: boolean;
+};
 
-const CardSlider = ({cards, autoPlay}: Props) => {
+const CardSlider = ({cards, autoPlay, spacingBottom, spacingTop}: Props) => {
   return (
-    <Wrap>
+    <Wrap spacingBottom={spacingBottom} spacingTop={spacingTop}>
       <Swiper
         spaceBetween={20}
         slidesPerView="auto"
@@ -19,10 +24,14 @@ const CardSlider = ({cards, autoPlay}: Props) => {
           540: {
             slidesPerView: 2,
           },
-          998: {
+          850: {
             slidesPerView: 3,
           },
+          1100: {
+            slidesPerView: 4,
+          },
         }}
+        centeredSlides
         modules={[Pagination, Autoplay]}
         pagination={{clickable: true}}
         autoplay={
@@ -36,9 +45,11 @@ const CardSlider = ({cards, autoPlay}: Props) => {
       >
         {cards.map((card) => {
           return (
-            <SwiperSlide key={card.title}>
-              <SimpleCard card={card} />
-            </SwiperSlide>
+            <>
+              <SwiperSlide key={card.title}>
+                <SimpleCard card={card} />
+              </SwiperSlide>
+            </>
           );
         })}
       </Swiper>
@@ -48,8 +59,16 @@ const CardSlider = ({cards, autoPlay}: Props) => {
 
 export default CardSlider;
 
-const Wrap = styled(Container)(({theme}) => ({
+const Wrap = styled(Box, {
+  shouldForwardProp: (prop) =>
+    prop !== 'spacingTop' && prop !== 'spacingBottom',
+})<{
+  spacingTop?: boolean;
+  spacingBottom?: boolean;
+}>(({theme, spacingTop, spacingBottom}) => ({
   padding: '50px 0',
+  ...(spacingBottom && {marginBottom: '100px'}),
+  ...(spacingTop && {marginTop: '100px'}),
   '& .swiper-slide': {
     display: 'flex',
     alignItems: 'center',

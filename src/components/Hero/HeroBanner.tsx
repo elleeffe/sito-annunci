@@ -1,14 +1,13 @@
-import React, {useMemo} from 'react';
+import React from 'react';
 import * as icons from '@mui/icons-material';
 import {Box, Button, Container, Grid, styled} from '@mui/material';
 import MyIcon from '../MyIcon';
-import Image from 'next/image';
-import {TitleH4, TitleH3} from '../MyTypography';
+import {TitleH4, TitleH2} from '../MyTypography';
 
 type Props = {
-  variant: 'primary' | 'secondary';
   title: string;
   subtitle: string;
+  morePadding?: boolean;
   button: {
     caption: string;
     action: () => void;
@@ -16,88 +15,80 @@ type Props = {
   };
   img: {
     src: string;
-    alt: string;
   };
 };
 
-const HeroBanner = ({variant, title, subtitle, button, img}: Props) => {
-  const buttonColor = useMemo(() => {
-    if (variant === 'primary') {
-      return 'warning';
-    }
-    return 'primary';
-  }, [variant]);
-
+const HeroBanner = ({title, subtitle, button, img, morePadding}: Props) => {
   return (
-    <Container>
-      <Wrap container variant={variant}>
-        <Grid item sm={11} md={10} lg={8}>
-          <HeroTitle isWhite={variant === 'primary'}>{title}</HeroTitle>
-          <HeroSubtitle isWhite={variant === 'primary'}>
-            {subtitle}
-          </HeroSubtitle>
-          <Button
-            variant="contained"
-            onClick={button.action}
-            color={buttonColor}
-            endIcon={
-              <MyIcon
-                variant="contained"
-                color={buttonColor}
-                icon={button.icon}
-              />
-            }
-          >
-            {button.caption}
-          </Button>
-        </Grid>
-        <ImageWrap>
-          <Image src={img.src} alt={img.alt} layout="fill" />
-        </ImageWrap>
-      </Wrap>
-    </Container>
+    <Wrap sx={{backgroundImage: `url(${img.src})`}} morePadding={morePadding}>
+      <Container>
+        <Inner container>
+          <Grid item sm={11} md={10} lg={8}>
+            <TitleH2 as="h4" isWhite marginBottom="25px">
+              {title}
+            </TitleH2>
+            <HeroSubtitle isWhite>{subtitle}</HeroSubtitle>
+            <Button
+              variant="contained"
+              onClick={button.action}
+              color="warning"
+              endIcon={
+                <MyIcon
+                  variant="contained"
+                  color="warning"
+                  icon={button.icon}
+                />
+              }
+            >
+              {button.caption}
+            </Button>
+          </Grid>
+        </Inner>
+      </Container>
+    </Wrap>
   );
 };
 
 export default HeroBanner;
 
-const Wrap = styled(Grid, {
-  shouldForwardProp: (prop) => prop !== 'variant',
-})<{variant: 'primary' | 'secondary'}>(({theme, variant}) => ({
-  backgroundColor: theme.palette[variant].main,
-  padding: '50px',
-  borderRadius: '25px',
+const Wrap = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'morePadding',
+})<{morePadding?: boolean}>(({morePadding}) => ({
+  width: '100%',
+  ...(morePadding
+    ? {paddingTop: '100px', paddingBottom: '100px'}
+    : {paddingTop: '75px', paddingBottom: '75px'}),
+  backgroundSize: 'cover',
+  backgroundAttachment: 'fixed',
+  backgroundPosition: 'center',
+  backgroundRepeat: 'no-repeat',
   position: 'relative',
-  margin: '100px auto',
+
+  '&::after': {
+    content: '""',
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    zIndex: 0,
+    transition: 'inherit',
+    background: 'rgba(0,0,0,0.6)',
+  },
+}));
+
+const Inner = styled(Grid)(({theme}) => ({
+  position: 'relative',
+  zIndex: 1,
 
   [theme.breakpoints.down('md')]: {
-    padding: '25px',
     margin: '50px auto',
   },
 }));
 
-const ImageWrap = styled(Box)(({theme}) => ({
-  position: 'absolute',
-  bottom: 10,
-  right: 10,
-  width: '40vh',
-  height: '30vh',
-  maxHeight: '250px',
-  maxWidth: '300px',
-  minHeight: '100px',
-  minWidth: '150px',
-  [theme.breakpoints.down('md')]: {
-    display: 'none',
-  },
-}));
-
-const HeroTitle = styled(TitleH3)(({theme}) => ({
-  marginBottom: '15px',
-}));
-
 const HeroSubtitle = styled(TitleH4)(({theme}) => ({
-  marginBottom: '25px',
+  marginBottom: '35px',
   [theme.breakpoints.down('md')]: {
-    marginBottom: '15px',
+    marginBottom: '25px',
   },
 }));

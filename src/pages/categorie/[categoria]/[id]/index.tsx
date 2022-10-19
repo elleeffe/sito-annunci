@@ -23,9 +23,9 @@ import AdsGallery from '../../../../components/AdsDetail/AdsGallery';
 
 import AdsAside from '../../../../components/AdsDetail/AdsAside';
 import HeroBanner from '../../../../components/Hero/HeroBanner';
-import segnapostoCta from '../../../../assets/img/segnaposto-cta.png';
+import segnapostoBg from '../../../../assets/img/segnaposto-bg.jpeg';
 import ReportModal from '../../../../components/AdsDetail/ReportModal';
-import {Box, Chip} from '@mui/material';
+import {Box, Chip, styled} from '@mui/material';
 
 const Detail: NextPage = () => {
   const [detail, setDetail] = useState<Ads | null>();
@@ -89,7 +89,7 @@ const Detail: NextPage = () => {
           ]}
         />
       </PageIntro>
-      <PageBody>
+      <StyledPageBody>
         <PageInner spacingHorizontal="right" spacingVertical="bottom">
           <AdsGallery cover={detail.cover[0]} images={detail.images} />
           <TitleH3 marginBottom="45px" marginTop="25px">
@@ -134,9 +134,8 @@ const Detail: NextPage = () => {
           </Box>
         </PageInner>
         <AdsAside detail={detail} />
-      </PageBody>
+      </StyledPageBody>
       <HeroBanner
-        variant="primary"
         title="Contenuto non appropriato?"
         subtitle="Invia agli amministratori una segnalazione, visioneremo l'annuncio nel minor tempo possibile."
         button={{
@@ -145,8 +144,7 @@ const Detail: NextPage = () => {
           icon: 'ArrowForwardIos',
         }}
         img={{
-          src: segnapostoCta.src,
-          alt: 'segnaposto-cta',
+          src: segnapostoBg.src,
         }}
       />
       {report && !!detail.id && (
@@ -161,3 +159,7 @@ const Detail: NextPage = () => {
 };
 
 export default Detail;
+
+const StyledPageBody = styled(PageBody)`
+  margin-bottom: 100px;
+`;

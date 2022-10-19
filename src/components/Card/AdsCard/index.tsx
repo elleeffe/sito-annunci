@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
 import {Box, Button, Grid, styled} from '@mui/material';
 import {formatAdsCardText, formatDate} from '../../../utils/utils';
-import {Body1, TitleH4, TitleH5} from '../../MyTypography';
+import {Body1, TitleH4, TitleH5, TitleH6} from '../../MyTypography';
 import PlaceIcon from '@mui/icons-material/Place';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -81,9 +81,9 @@ const AdsCard = ({
           <Title>{formatAdsCardText(ads.title, 10)}</Title>
           <Description>{formatAdsCardText(ads.description, 20)}</Description>
           {!!ads.publicationDate && (
-            <TitleH5 sx={{marginBottom: '5px'}}>
+            <TitleH6 sx={{marginBottom: '5px'}}>
               {formatDate(ads.publicationDate)}
-            </TitleH5>
+            </TitleH6>
           )}
           <Info sx={{marginBottom: '5px'}}>{ads.category}</Info>
           <InfoWrap>
@@ -207,10 +207,11 @@ const Cover = styled(Grid)(({theme}) => ({
 }));
 
 const Title = styled(TitleH5)(({theme}) => ({
-  fontSize: '20px',
+  fontSize: '17px',
+  fontWeight: '500',
 
   [theme.breakpoints.down('md')]: {
-    fontSize: '18px',
+    fontSize: '15px',
     marginBottom: '20px',
   },
 }));

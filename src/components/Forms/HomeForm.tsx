@@ -96,6 +96,7 @@ const FilterWrap = styled(Grid)(({theme}) => ({
     padding: 0,
     borderRadius: 'initial',
     background: 'transparent',
+    boxShadow: 'initial',
   },
 }));
 

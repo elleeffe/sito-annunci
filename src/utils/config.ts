@@ -105,8 +105,6 @@ export const categoryCards: CardItemType[] = [
     },
 
     title: 'Categoria 1',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
       path: '/categorie/categoria-1',
@@ -122,8 +120,6 @@ export const categoryCards: CardItemType[] = [
     },
 
     title: 'Categoria 2',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
       path: '/categorie/categoria-2',
@@ -139,8 +135,6 @@ export const categoryCards: CardItemType[] = [
     },
 
     title: 'Categoria 3',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
       path: '/categorie/categoria-3',
@@ -156,8 +150,6 @@ export const categoryCards: CardItemType[] = [
     },
 
     title: 'Categoria 4',
-    caption:
-      'Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging across all continents except Antarctica',
     button: {
       caption: 'Scopri di più',
       path: '/categorie/categoria-4',

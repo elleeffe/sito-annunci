@@ -12,7 +12,7 @@ const mock: {[key: number]: Ads[]} = {
   2: [...mockAdsList],
 };
 
-const useAdsList = (filters: Filters, orders: Orders) => {
+const useAdsList = (filters: Filters, order: Order) => {
   const [pagination, setPagination] = useState<number>(0);
   const [list, setList] = useState<Ads[]>([]);
   const [listError, setListError] = useState<boolean>(false);
@@ -76,24 +76,24 @@ const useAdsList = (filters: Filters, orders: Orders) => {
   const adsList = useMemo(() => {
     return list
       .sort((a, b) => {
-        if (orders.age === 'young') {
+        if (order === 'young-age') {
           return parseInt(a.age) - parseInt(b.age);
         }
-        if (orders.age === 'old') {
+        if (order === 'adult-age') {
           return parseInt(b.age) - parseInt(a.age);
         }
         return -1;
       })
       .sort((a, b) => {
         if (a.publicationDate && b.publicationDate) {
-          if (orders.publicationDate === 'oldest') {
+          if (order === 'oldest') {
             return (a.publicationDate || 0) - (b.publicationDate || 0);
           }
           return -1;
         }
         return -1;
       });
-  }, [list, orders]);
+  }, [list, order]);
 
   useEffect(() => {
     getAdsList(false);

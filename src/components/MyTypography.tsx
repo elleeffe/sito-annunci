@@ -44,8 +44,8 @@ TitleH3.defaultProps = {variant: 'h3'};
 export const TitleH4 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
-  fontWeight: 300,
-  lineHeight: 1.3,
+  fontWeight: 400,
+  lineHeight: 1.4,
   fontSize: '20px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));

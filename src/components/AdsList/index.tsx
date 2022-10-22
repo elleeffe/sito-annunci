@@ -1,17 +1,18 @@
 import {styled, Box, CircularProgress} from '@mui/material';
-import {useFiltersContext} from '../contexts/FiltersContext';
-import {useUser} from '../contexts/UserContext';
-import useAdsList from '../hooks/useAdsList';
-import AdsFilter from './AdsFilter';
-import AdsCard from './Card/AdsCard';
-import {PageInner} from './Layout';
-import MyButton from './Buttons/MyButton';
-import {TitleH5} from './MyTypography';
+import {useFiltersContext} from '../../contexts/FiltersContext';
+import {useUser} from '../../contexts/UserContext';
+import useAdsList from '../../hooks/useAdsList';
+import Filters from './Filters';
+import AdsCard from '../Card/AdsCard';
+import {PageInner} from '../Layout';
+import MyButton from '../Buttons/MyButton';
+import {TitleH5} from '../MyTypography';
+import ListHeader from './ListHeader';
 
 const AdsList = () => {
   const {user} = useUser();
 
-  const {filters, orders} = useFiltersContext();
+  const {filters, order} = useFiltersContext();
 
   const {
     adsList,
@@ -21,13 +22,16 @@ const AdsList = () => {
     handleFavorite,
     favoriteError,
     favoriteLoading,
-  } = useAdsList(filters, orders);
+  } = useAdsList(filters, order);
 
   return (
     <>
-      <AdsFilter onChange={() => getAdsList(true)} />
-      <PageInner spacingHorizontal="left" spacingVertical="top">
-        <TitleH5>Risultati di ricerca</TitleH5>
+      <PageInner
+        spacingHorizontal="right"
+        spacingVertical="top"
+        mobileOrder={2}
+      >
+        <ListHeader />
         <Box>
           {adsList.map((ads) => {
             const loading =
@@ -82,6 +86,7 @@ const AdsList = () => {
           </ListFooter>
         </Box>
       </PageInner>
+      <Filters onChange={() => getAdsList(true)} />
     </>
   );
 };
@@ -94,4 +99,5 @@ const ListFooter = styled(Box)(() => ({
   alignItems: 'center',
   flexWrap: 'wrap',
   marginTop: '25px',
+  marginBottom: '25px',
 }));

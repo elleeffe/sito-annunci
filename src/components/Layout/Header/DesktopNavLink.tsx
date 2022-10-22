@@ -21,6 +21,7 @@ const DesktopNavLink = ({route}: Props) => {
       if (!path) {
         setAnchorEl(event.currentTarget);
       } else {
+        setAnchorEl(undefined);
         push(path);
       }
     },
@@ -64,6 +65,7 @@ const DesktopNavLink = ({route}: Props) => {
               boxShadow: '0 5px 20px 5px rgb(35 38 58 / 10%)',
               '& .MuiList-root': {
                 minWidth: '200px',
+                padding: '0',
               },
             },
           }}
@@ -94,7 +96,7 @@ const DesktopNavLink = ({route}: Props) => {
 
 export default DesktopNavLink;
 
-export const LinkButton = styled(Button, {
+const LinkButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'isActive',
 })<{isActive: boolean}>(({theme, isActive}) => ({
   fontSize: '15px',
@@ -110,7 +112,7 @@ export const LinkButton = styled(Button, {
   },
 }));
 
-const StyledMenuItem = styled(MenuItem, {
+export const StyledMenuItem = styled(MenuItem, {
   shouldForwardProp: (prop) => prop !== 'isActive',
 })<{isActive: boolean}>(({theme, isActive}) => ({
   padding: ' 10px 15px',

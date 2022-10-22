@@ -65,7 +65,7 @@ const Home: NextPage = () => {
               luctus, finibus tellus ut, convallis eros sollicitudin turpis.
             </Body1>
           </Column>
-          <Column xs={10} sm={8} md={4}>
+          <Column xs={10} sm={8} md={4} isCenter>
             <ColumnIcon />
             <TitleH4 marginBottom="10px">Find Interesting Place</TitleH4>
             <Body1>
@@ -134,15 +134,39 @@ const ColumnWrap = styled(Grid)(({theme}) => ({
   },
 }));
 
-const Column = styled(Grid)(({theme}) => ({
+const Column = styled(Grid, {
+  shouldForwardProp: (prop) => prop !== 'isCenter',
+})<{isCenter?: boolean}>(({theme, isCenter}) => ({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
   textAlign: 'center',
   padding: '0 20px',
+  position: 'relative',
+  ...(isCenter && {
+    '&::after, &::before': {
+      content: '""',
+      width: '50%',
+      height: '1px',
+      background: '#e9e9e9',
+      position: 'absolute',
+      top: '50px',
+    },
+    '&::after': {
+      left: '-25%',
+    },
+    '&::before': {
+      right: '-25%',
+    },
+  }),
 
   [theme.breakpoints.down('md')]: {
     marginBottom: '100px',
+    ...(isCenter && {
+      '&::after, &::before': {
+        display: 'none',
+      },
+    }),
   },
 }));
 

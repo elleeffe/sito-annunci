@@ -71,10 +71,7 @@ type Filters = {
   keyword?: string;
 };
 
-type Orders = {
-  age: 'young' | 'old' | 'none';
-  publicationDate: 'latest' | 'oldest';
-};
+type Order = 'adult-age' | 'young-age' | 'latest' | 'oldest';
 
 type MyRoute = {
   label: string;

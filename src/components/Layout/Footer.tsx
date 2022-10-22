@@ -9,8 +9,8 @@ const Footer = () => {
     <Wrap>
       <Container
         sx={{
-          paddingTop: '80px',
-          paddingBottom: '80px',
+          paddingTop: '150px',
+          paddingBottom: '75px',
         }}
       >
         <Grid container justifyContent="space-between">

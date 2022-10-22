@@ -13,9 +13,10 @@ export const routes: MyRoute[] = [
       {path: '/categorie/categoria-1', label: 'Categoria 1'},
       {path: '/categorie/categoria-2', label: 'Categoria 2'},
       {path: '/categorie/categoria-3', label: 'Categoria 3'},
-      {path: '/categorie/categoria-4', label: 'Categoria 1'},
+      {path: '/categorie/categoria-4', label: 'Categoria 4'},
     ],
   },
+  {path: '/termini-e-condizioni', label: 'La nostra policy'},
 ];
 
 export const categoryOptions: {value: Category; label: string}[] = [

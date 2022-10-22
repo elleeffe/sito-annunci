@@ -1,9 +1,11 @@
-import React, {PropsWithChildren, useMemo} from 'react';
+import React, {PropsWithChildren, useEffect, useMemo, useState} from 'react';
 import Head from 'next/head';
 import logo from '../../../public/logo.svg';
 import Header from './Header';
 import Footer from './Footer';
-import {Box, Container, styled} from '@mui/material';
+import {Box, Container, IconButton, styled} from '@mui/material';
+import {ArrowUpward} from '@mui/icons-material';
+import {backToTop} from '../../utils/utils';
 
 interface Props extends PropsWithChildren<{}> {
   hideHeader?: boolean;
@@ -27,6 +29,8 @@ const Layout = ({
   twitter,
   children,
 }: Props) => {
+  const [showButton, setShowButton] = useState<boolean>(false);
+
   const pageTitle = useMemo(
     () =>
       title ? `${title} | Secret Jungle` : 'Secret Jungle - Annunci selvaggi',
@@ -37,6 +41,18 @@ const Layout = ({
     () => (description ? description : 'Secret Jungle - Annunci selvaggi'),
     [description]
   );
+
+  useEffect(() => {
+    const checkScroll = () => {
+      if (window.scrollY >= 500) {
+        setShowButton(true);
+      } else {
+        setShowButton(false);
+      }
+    };
+    window.addEventListener('scroll', checkScroll);
+    return () => window.removeEventListener('scroll', checkScroll);
+  });
 
   return (
     <>
@@ -71,11 +87,29 @@ const Layout = ({
       {!hideHeader && <Header hidePublish={hidePublish} />}
       {children}
       {!hideHeader && <Footer />}
+      {showButton && (
+        <BackToTopButton size="small" onClick={backToTop}>
+          <ArrowUpward sx={{color: '#fff'}} />
+        </BackToTopButton>
+      )}
     </>
   );
 };
 
 export default Layout;
+
+const BackToTopButton = styled(IconButton)(({theme}) => ({
+  background: theme.palette.primary.main,
+  position: 'fixed',
+  bottom: '15px',
+  right: '25px',
+  '&:hover': {
+    background: theme.palette.primary.main,
+  },
+  svg: {
+    color: theme.palette.background.default,
+  },
+}));
 
 export const PageBody = ({
   children,
@@ -92,6 +126,7 @@ const PageBodyWrap = styled(Box)(({theme}) => ({
   flexWrap: 'wrap',
   alignItems: 'flex-start',
   position: 'relative',
+  justifyContent: 'space-between',
 
   [theme.breakpoints.down('md')]: {
     marginTop: '25px',
@@ -137,11 +172,12 @@ export const Aside = styled(Box, {
   [theme.breakpoints.down('md')]: {
     width: '100%',
     height: 'auto',
-    flexDirection: 'row',
-    alignItems: 'center',
+    // flexDirection: 'row',
+    // alignItems: 'center',
     justifyContent: 'initial',
     position: 'initial',
     ...(mobileOrder && {order: mobileOrder}),
+    marginBottom: '50px',
   },
 }));
 
@@ -156,7 +192,7 @@ export const PageInner = styled(Box, {
   mobileOrder?: number;
 }>(({theme, spacingHorizontal, spacingVertical, mobileOrder}) => ({
   flex: 1,
-  maxWidth: 'calc(100% - 320px)',
+  maxWidth: 'calc(100% - 330px)',
   display: 'flex',
   flexDirection: 'column',
   ...(spacingHorizontal === 'left'

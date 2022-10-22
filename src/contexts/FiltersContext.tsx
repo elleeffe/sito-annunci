@@ -10,8 +10,8 @@ import {
 export type FiltersContextType = {
   filters: Filters;
   setFilters: Dispatch<SetStateAction<Filters>>;
-  orders: Orders;
-  setOrders: Dispatch<SetStateAction<Orders>>;
+  order: Order;
+  setOrder: Dispatch<SetStateAction<Order>>;
   initialCategory?: Category;
 };
 
@@ -23,11 +23,8 @@ export const FiltersContext = createContext<FiltersContextType>({
     keyword: '',
   },
   setFilters: () => {},
-  orders: {
-    age: 'none',
-    publicationDate: 'latest',
-  },
-  setOrders: () => {},
+  order: 'latest',
+  setOrder: () => {},
 });
 
 export const FiltersProvider = ({
@@ -40,10 +37,7 @@ export const FiltersProvider = ({
   category?: Category;
   keyword?: string;
 }>) => {
-  const [orders, setOrders] = useState<Orders>({
-    age: 'none',
-    publicationDate: 'latest',
-  });
+  const [order, setOrder] = useState<Order>('latest');
   const [filters, setFilters] = useState<Filters>(() => ({
     ageRange: [18, 60],
     city,
@@ -54,8 +48,8 @@ export const FiltersProvider = ({
   return (
     <FiltersContext.Provider
       value={{
-        orders,
-        setOrders,
+        order,
+        setOrder,
         filters,
         setFilters,
         initialCategory: category,

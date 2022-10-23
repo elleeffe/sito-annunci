@@ -1,36 +1,50 @@
 import {PropsWithChildren} from 'react';
-import {
-  IconButton,
-  Modal,
-  Paper,
-  styled,
-  Tooltip,
-  useMediaQuery,
-} from '@mui/material';
+import {Box, IconButton, Modal, Paper, styled, Tooltip} from '@mui/material';
 import {Close} from '@mui/icons-material';
+import {TitleH4, TitleH5} from './MyTypography';
+import useResponsive from '../hooks/useResponsive';
 
-type Props = PropsWithChildren<{isOpen: boolean; onClose: () => void}>;
+type Props = PropsWithChildren<{
+  title: string;
+  isOpen: boolean;
+  onClose?: () => void;
+  size?: 'small' | 'normal' | 'large';
+  className?: string;
+}>;
 
-const MyModal = ({children, onClose, isOpen}: Props) => {
-  const match = useMediaQuery('(max-width:600px)');
+const MyModal = ({
+  children,
+  onClose,
+  isOpen,
+  title,
+  size = 'normal',
+  className,
+}: Props) => {
+  const {isMd} = useResponsive();
 
   return (
     <Modal
       open={isOpen}
       onClose={onClose}
       sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
+      className={className}
     >
-      <ModalInner>
-        <Tooltip title="Chiudi">
-          <CloseButton
-            onClick={onClose}
-            color="error"
-            size={match ? 'small' : 'medium'}
-          >
-            <Close />
-          </CloseButton>
-        </Tooltip>
-        {children}
+      <ModalInner size={size}>
+        <Heading>
+          {isMd ? <TitleH5>{title}</TitleH5> : <TitleH4>{title}</TitleH4>}
+          {!!onClose && (
+            <Tooltip title="Chiudi">
+              <IconButton
+                onClick={onClose}
+                color="error"
+                size={isMd ? 'small' : 'medium'}
+              >
+                <Close />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Heading>
+        <Body>{children}</Body>
       </ModalInner>
     </Modal>
   );
@@ -38,35 +52,47 @@ const MyModal = ({children, onClose, isOpen}: Props) => {
 
 export default MyModal;
 
-const ModalInner = styled(Paper)(({theme}) => ({
-  width: '90vw',
-  height: '95vh',
-  maxWidth: '700px',
+const ModalInner = styled(Paper, {
+  shouldForwardProp: (prop) => prop !== 'size',
+})<{size?: 'small' | 'normal' | 'large'}>(({theme, size}) => ({
+  width: '95vw',
+  ...(size !== 'small' ? {height: '90vh'} : {height: 'auto'}),
+  ...(size === 'large'
+    ? {maxWidth: '900px'}
+    : size === 'normal'
+    ? {maxWidth: '700px'}
+    : {maxWidth: '500px'}),
   maxHeight: '630px',
-  borderRadius: '15px',
+  borderRadius: '4px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'space-between',
   flexDirection: 'column',
   boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  textAlign: 'center',
-  padding: '70px 25px',
-  overflow: 'auto',
+  overflow: 'hidden',
   position: 'relative',
+}));
+
+const Heading = styled(Box)(({theme}) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  background: '#f6f6f6',
+  padding: '15px 25px',
+  width: '100%',
 
   [theme.breakpoints.down('md')]: {
-    padding: '40px 15px',
+    padding: '15px',
   },
 }));
 
-const CloseButton = styled(IconButton)(({theme}) => ({
-  position: 'absolute',
-  top: '20px',
-  left: '20px',
-  zIndex: 1,
+const Body = styled(Box)(({theme}) => ({
+  padding: '25px',
+  width: '100%',
+  flex: 1,
+  overflow: 'auto',
 
   [theme.breakpoints.down('md')]: {
-    top: '15px',
-    left: '15px',
+    padding: '15px',
   },
 }));

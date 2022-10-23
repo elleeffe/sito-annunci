@@ -81,12 +81,11 @@ const LeaveCommentsForm = ({advId, initialValues}: Props) => {
       }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <TitleH5 marginBottom="15px">Lascia una recensione</TitleH5>
             {!initialValues && (
-              <Body1 marginBottom="25px">
+              <Alert severity="warning" sx={{marginBottom: '25px'}}>
                 Attenzione, una volta pubblicata una recensione non potrà più
                 essere cancellata.
-              </Body1>
+              </Alert>
             )}
             {submitError && (
               <Alert severity="error" sx={{marginBottom: '25px'}}>

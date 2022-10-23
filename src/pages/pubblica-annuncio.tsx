@@ -1,6 +1,6 @@
 import React, {useCallback} from 'react';
 import type {NextPage} from 'next';
-import {Box, styled} from '@mui/material';
+import {Box, Container, styled} from '@mui/material';
 import Layout from '../components/Layout';
 import PublishForm from '../components/Forms/PublishForm';
 import {useAdsContext} from '../contexts/AdsContext';
@@ -16,11 +16,13 @@ const Publish: NextPage = () => {
   return (
     <Layout hidePublish>
       <Wrap>
-        <PublishForm
-          initialAds={ads}
-          onChangeStep={handleChangeStep}
-          finalVariant="create"
-        />
+        <StyledContainer>
+          <PublishForm
+            initialAds={ads}
+            onChangeStep={handleChangeStep}
+            finalVariant="create"
+          />
+        </StyledContainer>
       </Wrap>
     </Layout>
   );
@@ -36,4 +38,11 @@ const Wrap = styled(Box)(({theme}) => ({
   background: theme.palette.primary.main,
   display: 'flex',
   flexDirection: 'column',
+}));
+
+const StyledContainer = styled(Container)(({theme}) => ({
+  borderRadius: '4px',
+  background: theme.palette.background.default,
+  padding: '25px 15px',
+  maxWidth: '95vw',
 }));

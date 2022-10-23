@@ -5,7 +5,7 @@ import {Alert, Box, styled} from '@mui/material';
 import {emailValidator, passwordValidator} from '../../utils/fields';
 import MyTextField from '../Fields/MyTextField';
 import MyButton from '../Buttons/MyButton';
-import {TitleH5, TitleH6} from '../MyTypography';
+import {TitleH5} from '../MyTypography';
 import FormSuccess from './FormSuccess';
 
 type FormValues = {
@@ -64,7 +64,6 @@ const ChangeEmailForm = ({user, onSuccess, onClose}: Props) => {
           values,
         }) => (
           <form onSubmit={handleSubmit}>
-            <TitleH6>Modifica email</TitleH6>
             <TitleH5 marginBottom="25px">
               Stai per modificare l'email associata a questo account
             </TitleH5>

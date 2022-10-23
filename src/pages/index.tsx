@@ -57,7 +57,7 @@ const Home: NextPage = () => {
           <br /> Discover some of the most popular listings in Sydney.
         </Subtitle>
         <ColumnWrap container>
-          <Column xs={10} sm={8} md={4}>
+          <Column item xs={10} sm={8} md={4}>
             <ColumnIcon />
             <TitleH4 marginBottom="10px">Find Interesting Place</TitleH4>
             <Body1>
@@ -65,7 +65,7 @@ const Home: NextPage = () => {
               luctus, finibus tellus ut, convallis eros sollicitudin turpis.
             </Body1>
           </Column>
-          <Column xs={10} sm={8} md={4} isCenter>
+          <Column item xs={10} sm={8} md={4} isCenter>
             <ColumnIcon />
             <TitleH4 marginBottom="10px">Find Interesting Place</TitleH4>
             <Body1>
@@ -73,7 +73,7 @@ const Home: NextPage = () => {
               luctus, finibus tellus ut, convallis eros sollicitudin turpis.
             </Body1>
           </Column>
-          <Column xs={10} sm={8} md={4}>
+          <Column item xs={10} sm={8} md={4}>
             <ColumnIcon />
             <TitleH4 marginBottom="10px">Find Interesting Place</TitleH4>
             <Body1>

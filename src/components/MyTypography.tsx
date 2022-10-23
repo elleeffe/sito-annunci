@@ -132,6 +132,7 @@ export const StyledButton = styled('button', {
   background: 'transparent',
   cursor: 'pointer',
   padding: 0,
+  fontFamily: 'Poppins',
   ...(isSmall
     ? {fontSize: '13px'}
     : {

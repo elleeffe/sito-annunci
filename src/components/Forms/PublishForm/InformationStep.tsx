@@ -209,7 +209,7 @@ const InformationStep = ({hideConsens, user}: Props) => {
           </Body1>
         </>
       )}
-      <MyModal isOpen={modal} onClose={() => setModal(false)}>
+      <MyModal isOpen={modal} onClose={() => setModal(false)} title="Whatsapp">
         Aggiungere screen di annuncio con tasto whatsapp + spiegazione
       </MyModal>
     </Box>

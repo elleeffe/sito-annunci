@@ -1,8 +1,7 @@
 import {useState} from 'react';
 import {Box, Button, styled} from '@mui/material';
 import useResponsive from '../../hooks/useResponsive';
-import {backToTop, formatDate} from '../../utils/utils';
-import MyButton from '../Buttons/MyButton';
+import {formatDate} from '../../utils/utils';
 import MyTextButton from '../Buttons/MyTextButton';
 import IconCard from '../Card/IconCard';
 import {Aside} from '../Layout';
@@ -18,6 +17,7 @@ import CommentsModal from './CommentsModal';
 import LeaveCommentsModal from './LeaveCommentsModal';
 import EventIcon from '@mui/icons-material/Event';
 import {TitleH5} from '../MyTypography';
+import MyModal from '../MyModal';
 
 type Props = {detail: Ads};
 
@@ -112,18 +112,6 @@ const AdsAside = ({detail}: Props) => {
             )}
           </Box>
         </AsideInner>
-        {!isMd && (
-          <Box sx={{padding: '0 20px'}} width="100%">
-            <MyButton
-              color="primary"
-              variant="contained"
-              onClick={backToTop}
-              sx={{width: '100%'}}
-            >
-              Torna in cima
-            </MyButton>
-          </Box>
-        )}
       </Aside>
       {!!detail.id && showComments && (
         <CommentsModal

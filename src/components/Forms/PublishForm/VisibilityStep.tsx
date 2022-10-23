@@ -76,7 +76,11 @@ const VisibilityStep = ({
           />
         )}
       </Box>
-      <MyModal isOpen={modal} onClose={() => setModal(false)}>
+      <MyModal
+        isOpen={modal}
+        onClose={() => setModal(false)}
+        title="Piano visibilità"
+      >
         Reference bakeka incontri - step visibilità
       </MyModal>
     </>

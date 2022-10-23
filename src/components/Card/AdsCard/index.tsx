@@ -144,19 +144,22 @@ export default AdsCard;
 const HighlightedWrap = styled(Box, {
   shouldForwardProp: (prop) => prop !== 'isHighlighted',
 })<{isHighlighted?: boolean}>(({theme, isHighlighted}) => ({
-  borderRadius: '20px',
-  marginTop: '20px',
+  borderRadius: '4px',
 
   ...(isHighlighted && {
     border: `2px solid ${theme.palette.error.main}`,
     padding: '10px',
   }),
+
+  '& + &': {
+    marginTop: '20px',
+  },
 }));
 
 const HighlightedLabel = styled(Box)(() => ({
   display: 'flex',
   alignItems: 'center',
-  padding: '10px',
+  padding: '4px',
   marginBottom: '5px',
 }));
 
@@ -164,7 +167,7 @@ const Wrap = styled(Grid, {
   shouldForwardProp: (prop) => prop !== 'isPreview' && prop !== 'whiteBg',
 })<{isPreview?: boolean; whiteBg?: boolean}>(({theme, isPreview, whiteBg}) => ({
   padding: '15px',
-  borderRadius: '20px',
+  borderRadius: '4px',
   width: '100%',
   display: 'flex',
   transition: 'all 100ms linear',
@@ -187,7 +190,7 @@ const Wrap = styled(Grid, {
 }));
 
 const Cover = styled(Grid)(({theme}) => ({
-  borderRadius: '15px',
+  borderRadius: '4px',
   height: '200px',
   backgroundPosition: 'center',
   backgroundSize: 'cover',

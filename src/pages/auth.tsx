@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import type {NextPage} from 'next';
 import {Box, Button, Container, Paper, styled} from '@mui/material';
-import {TitleH6} from '../components/MyTypography';
+import {TitleH3} from '../components/MyTypography';
 import {useRouter} from 'next/router';
 import {ArrowForward, Login, PersonAddAlt1} from '@mui/icons-material';
 import LoginForm from '../components/Forms/LoginForm';
@@ -10,6 +10,7 @@ import Layout from '../components/Layout';
 import {useUser} from '../contexts/UserContext';
 import {LoadingScreen} from '../components/Layout/AuthLoading';
 import MyTabs from '../components/MyTabs';
+import Link from 'next/link';
 
 const Auth: NextPage = () => {
   const [mobile, setMobile] = useState<boolean>(false);
@@ -68,7 +69,11 @@ const Auth: NextPage = () => {
               justifyContent: 'space-between',
             }}
           >
-            <TitleH6>Logo</TitleH6>
+            <Link href="/">
+              <TitleH3 sx={{cursor: 'pointer', marginRight: '25px'}}>
+                Logo
+              </TitleH3>
+            </Link>
             <Button
               endIcon={<ArrowForward />}
               size={mobile ? 'small' : 'medium'}
@@ -123,5 +128,5 @@ const StyledPaper = styled(Paper)(() => ({
   boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
   width: '95%',
   maxWidth: '500px',
-  borderRadius: '10px',
+  borderRadius: '4px',
 }));

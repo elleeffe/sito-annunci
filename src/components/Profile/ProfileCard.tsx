@@ -26,10 +26,18 @@ import StarIcon from '@mui/icons-material/Star';
 import FavoritesModal from './FavoritesModal';
 import {Aside} from '../Layout';
 
+type Action = 'email' | 'phone' | 'password' | 'account' | 'favorites';
+
+const modalTitles: Record<Action, string> = {
+  email: 'Modifica email',
+  account: 'Elimina account',
+  phone: 'Modifica telefono',
+  password: 'Modifica password',
+  favorites: '',
+};
+
 const ProfileCard = () => {
-  const [action, setAction] = useState<
-    'email' | 'phone' | 'password' | 'account' | 'favorites'
-  >();
+  const [action, setAction] = useState<Action>();
 
   const {user, logout, update} = useUser();
 
@@ -109,6 +117,8 @@ const ProfileCard = () => {
       <MyModal
         isOpen={!!action && action !== 'favorites'}
         onClose={() => setAction(undefined)}
+        title={!!action ? modalTitles[action] : ''}
+        size={action === 'account' ? 'small' : 'normal'}
       >
         {action === 'email' && (
           <ChangeEmailForm

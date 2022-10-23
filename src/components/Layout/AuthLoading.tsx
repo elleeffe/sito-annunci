@@ -8,6 +8,7 @@ import {Body1, StyledButton, TitleH5, TitleH3} from '../MyTypography';
 import {useRouter} from 'next/router';
 import {mockUser} from '../../utils/mocks';
 import {sleep} from '../../utils/utils';
+import MyModal from '../MyModal';
 
 export const LoadingScreen = () => (
   <Wrap>
@@ -34,7 +35,7 @@ const AuthLoading = ({children}: PropsWithChildren) => {
         // const response = await axios.post('/api/check-session');
         // login(response.data);
         const response = await sleep(1000);
-        login(mockUser);
+        // login(mockUser);
         setLoading(false);
       } catch (e) {
         setTimeout(() => setLoading(false), 1000);
@@ -63,13 +64,11 @@ const AuthLoading = ({children}: PropsWithChildren) => {
 
   if (modal) {
     return (
-      <ModalWrap>
-        <ModalInner>
-          <Box textAlign="center">
+      <Wrap isBlue>
+        <MyModal isOpen={true} title="Avviso agli utenti">
+          <Box>
             <TitleH3 gutterBottom>Sos incontri</TitleH3>
-            <TitleH5 textTransform="uppercase" marginBottom="15px">
-              Contenuti per adulti
-            </TitleH5>
+            <TitleH5 marginBottom="10px">Contenuti per adulti</TitleH5>
             <StyledBody1>
               Questo sito contiene immagini e contenuti rivolti ad un pubblico
               adulto ed è accessibile solo a persone che abbiano raggiunto la
@@ -93,34 +92,37 @@ const AuthLoading = ({children}: PropsWithChildren) => {
               accettare le Condizioni d'uso e di esonerare Sos incontri da
               qualsiasi responsabilità derivante dall'uso del sito.
             </StyledBody1>
+            <StyledBody1>
+              Per leggere la nostra privacy policy ed i nostri termini e
+              condizioni{' '}
+              <StyledButton
+                onClick={() => {
+                  router.push({
+                    pathname: '/termini-e-condizioni',
+                    query: {permission: true},
+                  });
+                }}
+              >
+                clicca qui
+              </StyledButton>
+              .
+            </StyledBody1>
           </Box>
           <ButtonWrap>
-            <Box display="flex" marginBottom="25px">
-              <Button variant="contained" size="small" onClick={handleEnter}>
-                Accedi al sito
-              </Button>
-              <Button
-                variant="text"
-                color="error"
-                size="small"
-                sx={{marginLeft: '25px'}}
-              >
-                <a href="https://google.com">Abbandona</a>
-              </Button>
-            </Box>
-            <StyledButton
-              onClick={() => {
-                router.push({
-                  pathname: '/termini-e-condizioni',
-                  query: {permission: true},
-                });
-              }}
+            <Button
+              variant="text"
+              color="error"
+              size="small"
+              sx={{marginRight: '25px'}}
             >
-              Leggi termini e condizioni
-            </StyledButton>
+              <a href="https://google.com">Abbandona sito</a>
+            </Button>
+            <Button variant="contained" size="small" onClick={handleEnter}>
+              Accetta e continua
+            </Button>
           </ButtonWrap>
-        </ModalInner>
-      </ModalWrap>
+        </MyModal>
+      </Wrap>
     );
   }
 
@@ -129,7 +131,9 @@ const AuthLoading = ({children}: PropsWithChildren) => {
 
 export default AuthLoading;
 
-const Wrap = styled(Box)(({theme}) => ({
+const Wrap = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isBlue',
+})<{isBlue?: boolean}>(({theme, isBlue}) => ({
   width: '100vw',
   height: '100vh',
   position: 'fixed',
@@ -139,47 +143,17 @@ const Wrap = styled(Box)(({theme}) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  background: theme.palette.background.default,
-}));
-
-const ModalWrap = styled(Box)(({theme}) => ({
-  width: '100vw',
-  height: '100vh',
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  background: theme.palette.primary.main,
-}));
-
-const ModalInner = styled(Paper)(({theme}) => ({
-  width: '90vw',
-  height: '95vh',
-  maxWidth: '700px',
-  maxHeight: '630px',
-  borderRadius: '15px',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  flexDirection: 'column',
-  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  textAlign: 'center',
-  padding: '25px',
-  overflow: 'auto',
-
-  [theme.breakpoints.down('md')]: {
-    padding: '15px',
-  },
+  ...(isBlue
+    ? {background: theme.palette.primary.main}
+    : {background: theme.palette.background.default}),
 }));
 
 const StyledBody1 = styled(Body1)(() => ({
-  marginBottom: '20px',
+  marginBottom: '10px',
 }));
 
 const ButtonWrap = styled(Box)(() => ({
   display: 'flex',
   justifyContent: 'center',
-  flexDirection: 'column',
+  marginTop: '25px',
 }));

@@ -72,19 +72,13 @@ const Detail: NextPage = () => {
   return (
     <Layout title={detail.title}>
       <PageIntro>
-        <TitleH1 isWhite isEllipsis>
-          {detail.title}
-        </TitleH1>
+        <TitleH1 isWhite>{detail.title}</TitleH1>
         <BreadCrumb
           paths={[
             {label: 'Categorie', path: '/categorie'},
             {
               label: category.label,
               path: `/categorie/${router.query.categoria}`,
-            },
-            {
-              label: detail.title,
-              path: `/categorie/${router.query.categoria}/${detail.id}`,
             },
           ]}
         />

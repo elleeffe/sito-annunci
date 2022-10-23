@@ -2,11 +2,18 @@ import {Box, Grid, Skeleton, styled} from '@mui/material';
 
 type Props = {
   whiteBg?: boolean;
+  spacingTop?: boolean;
 };
 
-const SkeletonCard = ({whiteBg}: Props) => {
+const SkeletonCard = ({whiteBg, spacingTop}: Props) => {
   return (
-    <Wrap container whiteBg={whiteBg} columnSpacing={2} rowSpacing={2}>
+    <Wrap
+      container
+      whiteBg={whiteBg}
+      columnSpacing={2}
+      rowSpacing={2}
+      spacingTop={spacingTop}
+    >
       <Cover item xs={12} md={5} lg={4}>
         <SkeletonCover variant="rectangular" />
       </Cover>
@@ -30,30 +37,32 @@ const SkeletonCard = ({whiteBg}: Props) => {
 export default SkeletonCard;
 
 const Wrap = styled(Grid, {
-  shouldForwardProp: (prop) => prop !== 'whiteBg',
-})<{whiteBg?: boolean}>(({theme, whiteBg}) => ({
-  padding: '15px',
-  borderRadius: '20px',
-  width: '100%',
-  transition: 'all 100ms linear',
-  marginTop: '25px',
-  marginLeft: '0px',
+  shouldForwardProp: (prop) => prop !== 'whiteBg' && prop !== 'spacingTop',
+})<{whiteBg?: boolean; spacingTop?: boolean}>(
+  ({theme, whiteBg, spacingTop}) => ({
+    borderRadius: '4px',
+    width: '100%',
+    transition: 'all 100ms linear',
+    ...(spacingTop && {marginTop: '25px'}),
+    marginLeft: 0,
+    marginTop: 0,
 
-  ...(whiteBg
-    ? {
-        background: '#fff',
-      }
-    : {
-        background: '#F8FAFB',
-      }),
+    ...(whiteBg
+      ? {
+          background: '#fff',
+        }
+      : {
+          background: '#F8FAFB',
+        }),
 
-  '& + &': {
-    marginTop: '20px',
-  },
-}));
+    '& + &': {
+      marginTop: '20px',
+    },
+  })
+);
 
 const Cover = styled(Grid)(({theme}) => ({
-  borderRadius: '15px',
+  borderRadius: '4px',
   height: '200px',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
@@ -75,7 +84,7 @@ const Cover = styled(Grid)(({theme}) => ({
 }));
 
 const SkeletonCover = styled(Skeleton)(() => ({
-  borderRadius: '15px',
+  borderRadius: '4px',
   width: '100%',
   height: '100%',
 }));

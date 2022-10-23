@@ -1,21 +1,11 @@
 import {useCallback, useEffect, useState} from 'react';
-import {
-  IconButton,
-  Modal,
-  styled,
-  useMediaQuery,
-  Box,
-  Paper,
-  Button,
-  Alert,
-  Tooltip,
-} from '@mui/material';
-import {Close} from '@mui/icons-material';
+import {useMediaQuery, Button, Alert} from '@mui/material';
 import {mockAds} from '../../utils/mocks';
 import SkeletonCard from '../Card/SkeletonCard';
 import AdsCard from '../Card/AdsCard';
-import {TitleH4, TitleH5} from '../MyTypography';
+import {TitleH4} from '../MyTypography';
 import {sleep} from '../../utils/utils';
+import MyModal from '../MyModal';
 
 type Props = {
   isOpen: boolean;
@@ -73,124 +63,48 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
   }, []);
 
   return (
-    <Modal
-      open={isOpen}
+    <MyModal
+      isOpen={isOpen}
       onClose={onClose}
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-      }}
+      title="I tuoi preferiti"
+      size="large"
     >
-      <ModalInner>
-        <StyledPaper>
-          <Tooltip title="Chiudi">
-            <CloseButton
-              onClick={onClose}
-              color="error"
-              size={match ? 'small' : 'medium'}
-            >
-              <Close />
-            </CloseButton>
-          </Tooltip>
-          <TitleH4 marginBottom="15px">Lista preferiti</TitleH4>
-          <List>
-            {loading && !error && (
-              <>
-                <SkeletonCard whiteBg />
-                <SkeletonCard whiteBg />
-              </>
-            )}
-            {!loading && error && (
-              <Alert
-                severity="error"
-                action={
-                  <Button
-                    color="inherit"
-                    size="small"
-                    onClick={getUserFavorites}
-                  >
-                    Riprova
-                  </Button>
-                }
-              >
-                Si è verificato un errore, riprovare.
-              </Alert>
-            )}
-            {!loading &&
-              !error &&
-              (!!ads.length ? (
-                ads.map((el) => (
-                  <AdsCard
-                    ads={el}
-                    key={el.id}
-                    onFavorite={() => handleRemove(el.id)}
-                    favoriteError={!!removeError && removeError === el.id}
-                    favoriteLoading={!!removeLoading && removeLoading === el.id}
-                  />
-                ))
-              ) : (
-                <>
-                  <TitleH5>Nessun annuncio aggiunto ai preferiti</TitleH5>
-                </>
-              ))}
-          </List>
-        </StyledPaper>
-      </ModalInner>
-    </Modal>
+      {loading && !error && (
+        <>
+          <SkeletonCard whiteBg />
+          <SkeletonCard whiteBg />
+        </>
+      )}
+      {!loading && error && (
+        <Alert
+          severity="error"
+          action={
+            <Button color="inherit" size="small" onClick={getUserFavorites}>
+              Riprova
+            </Button>
+          }
+        >
+          Si è verificato un errore, riprovare.
+        </Alert>
+      )}
+      {!loading &&
+        !error &&
+        (!!ads.length ? (
+          ads.map((el) => (
+            <AdsCard
+              ads={el}
+              key={el.id}
+              onFavorite={() => handleRemove(el.id)}
+              favoriteError={!!removeError && removeError === el.id}
+              favoriteLoading={!!removeLoading && removeLoading === el.id}
+            />
+          ))
+        ) : (
+          <>
+            <TitleH4>Nessun annuncio aggiunto ai preferiti</TitleH4>
+          </>
+        ))}
+    </MyModal>
   );
 };
 export default FavoritesModal;
-
-const ModalInner = styled(Box)(({theme}) => ({
-  display: 'flex',
-  height: 'calc(100% - 10vh)',
-  marginTop: '5vh',
-  overflow: 'hidden',
-  position: 'relative',
-  padding: '0 15px',
-  flex: 1,
-
-  [theme.breakpoints.down('sm')]: {
-    padding: '0 5px',
-  },
-}));
-
-const StyledPaper = styled(Paper)(({theme}) => ({
-  boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-  width: '95%',
-  maxWidth: '900px',
-  borderRadius: '10px',
-  margin: '0 auto',
-  padding: ' 25px',
-  display: 'flex',
-  flexDirection: 'column',
-  position: 'relative',
-  overflow: 'hidden',
-
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-  },
-
-  [theme.breakpoints.down('sm')]: {
-    padding: '20px 10px',
-  },
-}));
-
-const CloseButton = styled(IconButton)(({theme}) => ({
-  position: 'absolute',
-  top: '0px',
-  right: '0px',
-  zIndex: 1,
-
-  [theme.breakpoints.down('md')]: {
-    top: '5px',
-    right: '5px',
-  },
-}));
-
-const List = styled(Box)(() => ({
-  flex: 1,
-  overflow: 'auto',
-}));

@@ -1,5 +1,5 @@
 import {Box, keyframes, styled} from '@mui/material';
-import {TitleH6} from '../MyTypography';
+import {TitleH4} from '../MyTypography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 type Props = {label: string};
@@ -16,7 +16,7 @@ const FormSuccess = ({label}: Props) => {
           marginBottom: '15px',
         }}
       />
-      <TitleH6>{label}</TitleH6>
+      <TitleH4>{label}</TitleH4>
     </SuccessWrap>
   );
 };
@@ -30,6 +30,7 @@ const SuccessWrap = styled(Box)(() => ({
   justifyContent: 'center',
   textAlign: 'center',
   height: '100%',
+  padding: '50px 0',
 }));
 
 const bouncing = keyframes`

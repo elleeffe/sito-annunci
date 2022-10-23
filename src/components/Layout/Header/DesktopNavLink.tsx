@@ -103,6 +103,7 @@ const LinkButton = styled(Button, {
   fontWeight: '300',
   padding: '2px 15px',
   height: 'auto',
+  marginLeft: '10px',
   ...(isActive
     ? {color: theme.palette.primary.main}
     : {color: theme.palette.text.secondary}),

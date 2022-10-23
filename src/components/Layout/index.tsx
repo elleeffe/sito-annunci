@@ -192,7 +192,7 @@ export const PageInner = styled(Box, {
   mobileOrder?: number;
 }>(({theme, spacingHorizontal, spacingVertical, mobileOrder}) => ({
   flex: 1,
-  maxWidth: 'calc(100% - 330px)',
+  maxWidth: 'calc(100% - 315px)',
   display: 'flex',
   flexDirection: 'column',
   ...(spacingHorizontal === 'left'

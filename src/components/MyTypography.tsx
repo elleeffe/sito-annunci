@@ -8,7 +8,7 @@ type Props = {
 export const TitleH1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite, isEllipsis}) => ({
-  fontWeight: 300,
+  fontWeight: 400,
   lineHeight: 1.3,
   fontSize: '36px',
   ...(isEllipsis && {
@@ -34,7 +34,7 @@ TitleH2.defaultProps = {variant: 'h2'};
 export const TitleH3 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
-  fontWeight: 300,
+  fontWeight: 400,
   lineHeight: 1.3,
   fontSize: '24px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
@@ -54,8 +54,8 @@ TitleH4.defaultProps = {variant: 'h4'};
 export const TitleH5 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
-  fontWeight: 300,
-  lineHeight: 1.3,
+  fontWeight: 400,
+  lineHeight: 1.5,
   fontSize: '16px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -64,8 +64,8 @@ TitleH5.defaultProps = {variant: 'h5'};
 export const TitleH6 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
-  fontWeight: 300,
-  lineHeight: 1.3,
+  fontWeight: 400,
+  lineHeight: 1.5,
   fontSize: '12px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -74,7 +74,7 @@ TitleH6.defaultProps = {variant: 'h6'};
 export const Subtitle = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
-  fontWeight: 300,
+  fontWeight: 400,
   lineHeight: 1.5,
   fontSize: '21px',
   marginLeft: 'auto',
@@ -95,7 +95,7 @@ export const Body1 = styled(Typography, {
 })<Props>(({theme, isWhite}) => ({
   lineHeight: 1.6,
   fontSize: '15px',
-  fontWeight: 300,
+  fontWeight: 400,
   fontFamily: 'Poppins',
   ...(isWhite
     ? {color: '#fff'}
@@ -105,12 +105,27 @@ export const Body1 = styled(Typography, {
 }));
 Body1.defaultProps = {variant: 'body1'};
 
+export const Body2 = styled(Typography, {
+  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+})<Props>(({theme, isWhite}) => ({
+  lineHeight: 1.6,
+  fontSize: '14px',
+  fontWeight: 400,
+  fontFamily: 'Poppins',
+  ...(isWhite
+    ? {color: '#fff'}
+    : {
+        color: theme.palette.text.secondary,
+      }),
+}));
+Body2.defaultProps = {variant: 'body2'};
+
 export const ExternalLink = styled('a', {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   lineHeight: 1.6,
   fontSize: '15px',
-  fontWeight: 300,
+  fontWeight: 400,
   fontFamily: 'Poppins',
   ...(isWhite
     ? {color: '#fff'}

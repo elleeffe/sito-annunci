@@ -1,7 +1,7 @@
 import React, {useMemo} from 'react';
-import {Box, Button, Grid, styled} from '@mui/material';
+import {Box, Button, Chip, Grid, styled} from '@mui/material';
 import {formatAdsCardText, formatDate} from '../../../utils/utils';
-import {Body1, TitleH4, TitleH5, TitleH6} from '../../MyTypography';
+import {Body2, TitleH5, TitleH6} from '../../MyTypography';
 import PlaceIcon from '@mui/icons-material/Place';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -11,6 +11,7 @@ import Favorites from './Favorites';
 import Visibility from './Visibility';
 import {useRouter} from 'next/router';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import useResponsive from '../../../hooks/useResponsive';
 
 type Props = {
   ads: Ads;
@@ -33,173 +34,179 @@ const AdsCard = ({
 }: Props) => {
   const router = useRouter();
 
+  const {isMd} = useResponsive();
+
   const visibilityOption = useMemo(
     () => visibilityOptions.find((el) => el.value === ads.visibilityOption),
     [ads]
   );
 
   return (
-    <HighlightedWrap isHighlighted={ads.isHighlighted}>
+    <Wrap
+      container
+      columnSpacing={2}
+      rowSpacing={2}
+      isPreview={isPreview}
+      whiteBg={whiteBg}
+      isHighlighted={ads.isHighlighted}
+    >
       {ads.isHighlighted && (
-        <HighlightedLabel>
-          <LocalFireDepartmentIcon color="error" />
-          <TitleH4 marginLeft="10px">Super Hot</TitleH4>
-        </HighlightedLabel>
+        <HotWrap>
+          <LocalFireDepartmentIcon sx={{width: 15, height: 15}} />
+          <HotLabel>Super Hot</HotLabel>
+        </HotWrap>
       )}
-      <Wrap
-        container
-        columnSpacing={2}
-        rowSpacing={2}
-        isPreview={isPreview}
-        whiteBg={whiteBg}
-      >
-        {!!onSettings && ads.views !== undefined && (
-          <FullGrid item xs={12} marginBottom="15px" alignItems="center">
-            <VisibilityIcon color="primary" />
-            <TitleH5 marginLeft="10px">
-              {ads.views}{' '}
-              {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
-            </TitleH5>
-          </FullGrid>
-        )}
-        {!!onFavorite && ads.isFavorite !== undefined && (
-          <Favorites
-            onClick={() => onFavorite(ads.id)}
-            isFavorite={ads.isFavorite}
-            loading={favoriteLoading}
-            error={favoriteError}
+      {!!onSettings && !!ads.publicationDate && (
+        <PublicationWrap>
+          <PublicationLabel>{formatDate(ads.publicationDate)}</PublicationLabel>
+        </PublicationWrap>
+      )}
+      {!!onSettings && ads.views !== undefined && (
+        <FullGrid item xs={12} marginBottom="15px">
+          <VisibilityIcon color="primary" />
+          <TitleH5 marginLeft="10px">
+            {ads.views}{' '}
+            {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
+          </TitleH5>
+        </FullGrid>
+      )}
+
+      <Cover
+        item
+        xs={12}
+        md={5}
+        sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
+      />
+      <Content item xs={12} md={7}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="space-between"
+          marginBottom="10px"
+          width="100%"
+        >
+          <Chip label={ads.category} color="primary" size="small" />
+          <Box display="flex" alignItems="center">
+            <Body2>{ads.age} anni</Body2>
+            {!!onFavorite && ads.isFavorite !== undefined && (
+              <Favorites
+                onClick={() => onFavorite(ads.id)}
+                isFavorite={ads.isFavorite}
+                loading={favoriteLoading}
+                error={favoriteError}
+              />
+            )}
+          </Box>
+        </Box>
+        <Title>{formatAdsCardText(ads.title, isMd ? 25 : 13)}</Title>
+        <Body2>{formatAdsCardText(ads.description, isMd ? 40 : 20)}</Body2>
+        <InfoWrap>
+          <CardAction>
+            <LocationWrap>
+              <PlaceIcon
+                color="primary"
+                sx={{width: '17px', height: '17px', marginRight: '5px'}}
+              />
+              <Body2>
+                {ads.city.toUpperCase()}
+                {ads.neighborhood && ` - ${ads.neighborhood}`}
+              </Body2>
+            </LocationWrap>
+            {!!onSettings ? (
+              <CardButton
+                size="small"
+                color="primary"
+                variant="text"
+                onClick={onSettings}
+                endIcon={<SettingsIcon />}
+              >
+                Gestisci
+              </CardButton>
+            ) : (
+              <CardButton
+                size="small"
+                color="primary"
+                variant="text"
+                endIcon={<ArrowForwardIosIcon />}
+                disabled={isPreview}
+                onClick={() =>
+                  router.push(`/categorie/${ads.category}/${ads.id}`)
+                }
+              >
+                Visita
+              </CardButton>
+            )}
+          </CardAction>
+        </InfoWrap>
+      </Content>
+      {!!onSettings &&
+        !!visibilityOption &&
+        ads.visibilityExpiration !== undefined && (
+          <Visibility
+            option={visibilityOption}
+            expiration={ads.visibilityExpiration}
           />
         )}
-        <Cover
-          item
-          xs={12}
-          md={5}
-          lg={4}
-          sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
-        />
-        <Content item xs={12} md={7} lg={8}>
-          <Title>{formatAdsCardText(ads.title, 10)}</Title>
-          <Description>{formatAdsCardText(ads.description, 20)}</Description>
-          {!!ads.publicationDate && (
-            <TitleH6 sx={{marginBottom: '5px'}}>
-              {formatDate(ads.publicationDate)}
-            </TitleH6>
-          )}
-          <Info sx={{marginBottom: '5px'}}>{ads.category}</Info>
-          <InfoWrap>
-            <Info divider>{ads.age} anni</Info>
-            <CardAction>
-              <LocationWrap>
-                <PlaceIcon
-                  color="primary"
-                  sx={{width: '15px', height: '15px', marginRight: '3px'}}
-                />
-                <Info>
-                  {ads.city.toUpperCase()}
-                  {ads.neighborhood && `, ${ads.neighborhood}`}
-                </Info>
-              </LocationWrap>
-              {!!onSettings ? (
-                <CardButton
-                  size="small"
-                  color="primary"
-                  variant="contained"
-                  onClick={onSettings}
-                  endIcon={<SettingsIcon />}
-                >
-                  Gestisci
-                </CardButton>
-              ) : (
-                <CardButton
-                  size="small"
-                  color="primary"
-                  variant="contained"
-                  endIcon={<ArrowForwardIosIcon />}
-                  disabled={isPreview}
-                  onClick={() =>
-                    router.push(`/categorie/${ads.category}/${ads.id}`)
-                  }
-                >
-                  Visita
-                </CardButton>
-              )}
-            </CardAction>
-          </InfoWrap>
-        </Content>
-        {!!onSettings &&
-          !!visibilityOption &&
-          ads.visibilityExpiration !== undefined && (
-            <Visibility
-              option={visibilityOption}
-              expiration={ads.visibilityExpiration}
-            />
-          )}
-      </Wrap>
-    </HighlightedWrap>
+    </Wrap>
   );
 };
 
 export default AdsCard;
 
-const HighlightedWrap = styled(Box, {
-  shouldForwardProp: (prop) => prop !== 'isHighlighted',
-})<{isHighlighted?: boolean}>(({theme, isHighlighted}) => ({
-  borderRadius: '4px',
-
-  ...(isHighlighted && {
-    border: `2px solid ${theme.palette.error.main}`,
-    padding: '10px',
-  }),
-
-  '& + &': {
-    marginTop: '20px',
-  },
-}));
-
-const HighlightedLabel = styled(Box)(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  padding: '4px',
-  marginBottom: '5px',
-}));
-
 const Wrap = styled(Grid, {
-  shouldForwardProp: (prop) => prop !== 'isPreview' && prop !== 'whiteBg',
-})<{isPreview?: boolean; whiteBg?: boolean}>(({theme, isPreview, whiteBg}) => ({
-  padding: '15px',
-  borderRadius: '4px',
-  width: '100%',
-  display: 'flex',
-  transition: 'all 100ms linear',
-  marginTop: '0px',
-  marginLeft: '0px',
-  border: `1px solid rgba(0,0,0,0.1)`,
-  ...(whiteBg
-    ? {
-        background: '#fff',
-      }
-    : {
-        background: '#F8FAFB',
-      }),
+  shouldForwardProp: (prop) =>
+    prop !== 'isPreview' && prop !== 'whiteBg' && prop !== 'isHighlighted',
+})<{isPreview?: boolean; whiteBg?: boolean; isHighlighted?: boolean}>(
+  ({theme, isPreview, whiteBg, isHighlighted}) => ({
+    borderRadius: '4px',
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    transition: 'all 100ms linear',
+    marginLeft: '0px',
+    border: `1px solid rgba(0,0,0,0.1)`,
+    position: 'relative',
+    marginTop: '25px',
+    height: '260px',
+    overflow: 'hidden',
 
-  ...(!isPreview && {
-    '&:hover': {
-      boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+    ...(whiteBg
+      ? {
+          background: '#fff',
+        }
+      : {
+          background: '#F8FAFB',
+        }),
+
+    ...(isHighlighted && {
+      border: `2px solid ${theme.palette.error.main}`,
+    }),
+
+    ...(!isPreview && {
+      '&:hover': {
+        boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
+      },
+    }),
+
+    [theme.breakpoints.down('lg')]: {
+      height: '300px',
     },
-  }),
-}));
+
+    [theme.breakpoints.down('md')]: {
+      height: 'auto',
+    },
+  })
+);
 
 const Cover = styled(Grid)(({theme}) => ({
-  borderRadius: '4px',
-  height: '200px',
   backgroundPosition: 'center',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
+  height: '100%',
 
   [theme.breakpoints.down('md')]: {
     height: '35vh',
     marginRight: '0px',
-    marginBottom: '25px',
     minHeight: '380px',
   },
 
@@ -210,29 +217,20 @@ const Cover = styled(Grid)(({theme}) => ({
 }));
 
 const Title = styled(TitleH5)(({theme}) => ({
-  fontSize: '17px',
   fontWeight: '500',
-
-  [theme.breakpoints.down('md')]: {
-    fontSize: '15px',
-    marginBottom: '20px',
-  },
+  marginBottom: '10px',
 }));
 
 const Content = styled(Grid)(({theme}) => ({
+  height: '100%',
+  padding: '20px !important',
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  paddingTop: '0px !important',
+  alignItems: 'flex-start',
 
   [theme.breakpoints.down('md')]: {
-    paddingLeft: '0px !important',
-  },
-}));
-
-const Description = styled(Body1)(({theme}) => ({
-  [theme.breakpoints.down('md')]: {
-    marginBottom: '25px',
+    height: 'auto',
   },
 }));
 
@@ -253,6 +251,10 @@ const CardAction = styled(Box)(({theme}) => ({
   justifyContent: 'space-between',
   flex: 1,
 
+  [theme.breakpoints.down('md')]: {
+    marginTop: '10px',
+  },
+
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
     alignItems: 'initial',
@@ -269,26 +271,6 @@ const LocationWrap = styled(Box)(({theme}) => ({
   },
 }));
 
-const Info = styled(Body1, {
-  shouldForwardProp: (prop) => prop !== 'divider',
-})<{divider?: boolean}>(({theme, divider}) => ({
-  lineHeight: 1.2,
-  ...(divider && {
-    paddingRight: '10px',
-    marginRight: '5px',
-    borderRight: `2px solid ${theme.palette.text.secondary}`,
-  }),
-
-  [theme.breakpoints.down('md')]: {
-    ...(divider && {
-      paddingRight: '0',
-      marginRight: '0',
-      borderRight: 'unset',
-      marginBottom: '10px',
-    }),
-  },
-}));
-
 const CardButton = styled(Button)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
     marginTop: '25px',
@@ -299,4 +281,39 @@ const FullGrid = styled(Grid)(() => ({
   display: 'flex',
   paddingLeft: '0px !important',
   paddingTop: '0px !important',
+}));
+
+const HotWrap = styled(Box)(({theme}) => ({
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  padding: '5px 10px 7px',
+  color: 'white',
+  display: 'flex',
+  alignItems: 'center',
+  background: theme.palette.error.main,
+  borderBottomRightRadius: '4px',
+}));
+
+const HotLabel = styled(TitleH6)(() => ({
+  color: 'white',
+  fontWeight: '500',
+  marginLeft: '5px',
+}));
+
+const PublicationWrap = styled(Box)(({theme}) => ({
+  position: 'absolute',
+  top: 0,
+  right: 0,
+  padding: '5px 10px 7px',
+  color: 'white',
+  display: 'flex',
+  alignItems: 'center',
+  background: theme.palette.text.secondary,
+  borderBottomLeftRadius: '4px',
+}));
+
+const PublicationLabel = styled(TitleH6)(() => ({
+  color: 'white',
+  fontWeight: '500',
 }));

@@ -35,7 +35,7 @@ const AuthLoading = ({children}: PropsWithChildren) => {
         // const response = await axios.post('/api/check-session');
         // login(response.data);
         const response = await sleep(1000);
-        // login(mockUser);
+        login(mockUser);
         setLoading(false);
       } catch (e) {
         setTimeout(() => setLoading(false), 1000);

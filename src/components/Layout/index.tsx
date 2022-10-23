@@ -169,7 +169,7 @@ export const Aside = styled(Box, {
   left: 0,
   width: '300px',
 
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     width: '100%',
     height: 'auto',
     // flexDirection: 'row',
@@ -199,7 +199,7 @@ export const PageInner = styled(Box, {
     ? {paddingLeft: '20px'}
     : {paddingRight: '20px'}),
 
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     width: '100%',
     height: 'auto',
     flex: 'initial',

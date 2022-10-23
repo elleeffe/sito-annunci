@@ -1,6 +1,4 @@
-import {CircularProgress, Grid, IconButton, styled} from '@mui/material';
-import {useMemo} from 'react';
-import {TitleH5} from '../../MyTypography';
+import {CircularProgress, IconButton, Tooltip, Box} from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import StarIcon from '@mui/icons-material/Star';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
@@ -13,45 +11,29 @@ type Props = {
 };
 
 const Favorites = ({isFavorite, loading, error, onClick}: Props) => {
-  const favoritesLabel = useMemo(() => {
-    if (isFavorite) {
-      return 'Rimuovi dai preferiti';
-    }
-    return 'Aggiungi ai preferiti';
-  }, [isFavorite]);
-
   return (
-    <FullGrid item xs={12} marginBottom="15px" alignItems="center">
-      {!loading && !error && (
-        <IconButton color="warning" size="small" onClick={onClick}>
-          {isFavorite ? <StarIcon /> : <StarBorderIcon />}
-        </IconButton>
-      )}
-      {loading && (
-        <CircularProgress
-          size={25}
-          sx={{svg: {width: 25, height: 25}}}
-          color="warning"
-        />
-      )}
-      {error && (
-        <IconButton color="error" size="small" onClick={onClick}>
-          <RefreshIcon />
-        </IconButton>
-      )}
-      {!loading && (
-        <TitleH5 marginLeft="10px">
-          {error ? 'Si è verificato un errore, riprovare' : favoritesLabel}
-        </TitleH5>
-      )}
-    </FullGrid>
+    <Tooltip
+      title={isFavorite ? 'Rimuovi dai preferiti' : 'Aggiungi ai preferiti'}
+    >
+      <Box sx={{marginLeft: '10px'}} display="flex">
+        {!loading && !error && (
+          <IconButton color="warning" size="small" onClick={onClick}>
+            {isFavorite ? <StarIcon /> : <StarBorderIcon />}
+          </IconButton>
+        )}
+        {loading && (
+          <Box padding="8px 10px">
+            <CircularProgress size={20} color="warning" />
+          </Box>
+        )}
+        {error && (
+          <IconButton color="error" size="small" onClick={onClick}>
+            <RefreshIcon />
+          </IconButton>
+        )}
+      </Box>
+    </Tooltip>
   );
 };
 
 export default Favorites;
-
-const FullGrid = styled(Grid)(() => ({
-  display: 'flex',
-  paddingLeft: '0px !important',
-  paddingTop: '0px !important',
-}));

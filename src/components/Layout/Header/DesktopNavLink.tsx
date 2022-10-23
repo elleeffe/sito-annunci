@@ -100,7 +100,7 @@ const LinkButton = styled(Button, {
   shouldForwardProp: (prop) => prop !== 'isActive',
 })<{isActive: boolean}>(({theme, isActive}) => ({
   fontSize: '15px',
-  fontWeight: '300',
+  fontWeight: '400',
   padding: '2px 15px',
   height: 'auto',
   marginLeft: '10px',

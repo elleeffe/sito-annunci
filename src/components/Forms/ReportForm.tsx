@@ -63,7 +63,6 @@ const ReportForm = ({advId}: Props) => {
       }) => {
         return (
           <form onSubmit={handleSubmit}>
-            <TitleH5 marginBottom="15px">Segnalazione annuncio</TitleH5>
             {submitError && (
               <Alert severity="error" sx={{marginBottom: '25px'}}>
                 {submitError}

@@ -3,6 +3,7 @@ import {Container, Grid, styled, Box} from '@mui/material';
 import {Body1, ExternalLink, TitleH3, TitleH5} from '../MyTypography';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import Link from 'next/link';
+import {routes} from '../../utils/config';
 
 const Footer = () => {
   return (
@@ -36,74 +37,39 @@ const Footer = () => {
           </Grid>
           <Grid item xs={12} md={5}>
             <Grid container>
-              <Grid item xs={12}>
+              <Grid item xs={6}>
+                <TitleH3 gutterBottom sx={{marginTop: '10px'}}>
+                  Link Utili
+                </TitleH3>
+                {routes.map((route) => {
+                  if (route.label === 'Categorie') {
+                    return null;
+                  }
+                  return (
+                    <Link passHref href={route.path || '/'} key={route.label}>
+                      <StyledLink>
+                        <span>{route.label}</span>
+                      </StyledLink>
+                    </Link>
+                  );
+                })}
+              </Grid>
+              <Grid item xs={6}>
                 <TitleH3 gutterBottom sx={{marginTop: '10px'}}>
                   Categorie
                 </TitleH3>
-              </Grid>
-              <Grid item xs={6} sm={4}>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-              </Grid>
-              <Grid item xs={6} sm={4}>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
-                <Link passHref href="/categorie">
-                  <StyledLink>
-                    <span>Categoria</span>
-                  </StyledLink>
-                </Link>
+                {routes.map((route) => {
+                  if (route.label !== 'Categorie') {
+                    return null;
+                  }
+                  return route.submenu?.map((el) => (
+                    <Link passHref href={el.path || '/'} key={el.label}>
+                      <StyledLink>
+                        <span>{el.label}</span>
+                      </StyledLink>
+                    </Link>
+                  ));
+                })}
               </Grid>
             </Grid>
           </Grid>
@@ -140,7 +106,7 @@ const StyledLink = styled('a')(({theme}) => ({
   position: 'relative',
   marginBottom: '8px',
   color: theme.palette.text.secondary,
-  fontWeight: '300',
+  fontWeight: '400',
 
   span: {
     transition: 'all 200ms linear',

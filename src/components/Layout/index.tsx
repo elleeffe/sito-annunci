@@ -121,7 +121,7 @@ export const PageBody = ({
 );
 
 const PageBodyWrap = styled(Box)(({theme}) => ({
-  marginTop: '100px',
+  marginTop: '50px',
   display: 'flex',
   flexWrap: 'wrap',
   alignItems: 'flex-start',
@@ -133,20 +133,25 @@ const PageBodyWrap = styled(Box)(({theme}) => ({
   },
 }));
 
-export const PageIntro = ({children}: PropsWithChildren<{}>) => {
+export const PageIntro = ({
+  children,
+  isFree,
+}: PropsWithChildren<{isFree?: boolean}>) => {
   return (
     <>
-      <PageIntroWrap>
+      <PageIntroWrap isFree={isFree}>
         <Inner>{children}</Inner>
       </PageIntroWrap>
     </>
   );
 };
 
-const PageIntroWrap = styled(Box)(({theme}) => ({
+const PageIntroWrap = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'isFree',
+})<{isFree?: boolean}>(({theme, isFree}) => ({
   background: theme.palette.primary.main,
-  height: '250px',
-  marginTop: '60px',
+  marginTop: '65px',
+  ...(isFree ? {padding: '50px 0'} : {height: '200px'}),
 }));
 
 const Inner = styled(Container)(() => ({
@@ -177,7 +182,7 @@ export const Aside = styled(Box, {
     justifyContent: 'initial',
     position: 'initial',
     ...(mobileOrder && {order: mobileOrder}),
-    marginBottom: '50px',
+    marginBottom: '25px',
   },
 }));
 

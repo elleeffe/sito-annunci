@@ -6,7 +6,6 @@ import {isRequired} from '../../utils/fields';
 import {sleep} from '../../utils/utils';
 import MyButton from '../Buttons/MyButton';
 import MyTextField from '../Fields/MyTextField';
-import {Body1, TitleH5} from '../MyTypography';
 import FormSuccess from './FormSuccess';
 
 type FormValues = {

@@ -9,13 +9,7 @@ import Layout, {
   PageIntro,
 } from '../../../../components/Layout';
 import {LoadingScreen} from '../../../../components/Layout/AuthLoading';
-import {
-  Body1,
-  TitleH4,
-  TitleH1,
-  TitleH3,
-  TitleH5,
-} from '../../../../components/MyTypography';
+import {Body1, TitleH3, TitleH5} from '../../../../components/MyTypography';
 import {categoryOptions} from '../../../../utils/config';
 import {sleep} from '../../../../utils/utils';
 import {mockAds} from '../../../../utils/mocks';
@@ -71,8 +65,7 @@ const Detail: NextPage = () => {
 
   return (
     <Layout title={detail.title}>
-      <PageIntro>
-        <TitleH1 isWhite>{detail.title}</TitleH1>
+      <PageIntro isFree>
         <BreadCrumb
           paths={[
             {label: 'Categorie', path: '/categorie'},
@@ -80,35 +73,54 @@ const Detail: NextPage = () => {
               label: category.label,
               path: `/categorie/${router.query.categoria}`,
             },
+            {
+              label: detail.id || '',
+              path: `/categorie/${router.query.categoria}/${detail.id}`,
+            },
           ]}
         />
       </PageIntro>
       <StyledPageBody>
         <PageInner spacingHorizontal="right" spacingVertical="bottom">
           <AdsGallery cover={detail.cover[0]} images={detail.images} />
-          <TitleH3 marginBottom="45px" marginTop="25px">
+          <TitleH3 marginBottom="15px" marginTop="15px">
             {detail.title}
           </TitleH3>
           <Body1>{detail.description}</Body1>
-          <TitleH4
-            sx={{
-              marginTop: '25px',
-            }}
-          >
-            <strong>Quartiere:</strong>
-          </TitleH4>
-          <TitleH5 sx={{color: 'primary.main'}}>
-            {detail.city.toUpperCase()}
-            {detail.neighborhood && `, ${detail.neighborhood}`}
-          </TitleH5>
-          <TitleH4
+          <Box display="flex" flexWrap="wrap">
+            <TitleH5
+              sx={{
+                marginTop: '25px',
+                marginRight: '25px',
+                span: {
+                  color: 'primary.main',
+                },
+              }}
+            >
+              Città: <span>{detail.city.toUpperCase()}</span>
+            </TitleH5>
+
+            <TitleH5
+              sx={{
+                marginTop: '25px',
+                span: {
+                  color: 'primary.main',
+                },
+              }}
+            >
+              Quartiere:{' '}
+              <span>{detail.neighborhood && `${detail.neighborhood}`}</span>
+            </TitleH5>
+          </Box>
+
+          <TitleH5
             sx={{
               marginTop: '25px',
               marginBottom: '5px',
             }}
           >
-            <strong>Zone limitrofe:</strong>
-          </TitleH4>
+            Zone limitrofe:
+          </TitleH5>
           <Box display="flex" flexWrap="wrap">
             {detail.areas &&
               !!detail.areas.length &&
@@ -154,6 +166,9 @@ const Detail: NextPage = () => {
 
 export default Detail;
 
-const StyledPageBody = styled(PageBody)`
-  margin-bottom: 100px;
-`;
+const StyledPageBody = styled(PageBody)(({theme}) => ({
+  marginBottom: '100px',
+  [theme.breakpoints.down('md')]: {
+    marginBottom: '50px',
+  },
+}));

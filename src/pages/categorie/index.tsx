@@ -14,6 +14,7 @@ const Categories: NextPage = () => {
       <PageIntro>
         <TitleH1 isWhite>Tutte le categorie</TitleH1>
         <BreadCrumb
+          spacing
           paths={[{label: 'Tutte le categorie', path: '/categorie'}]}
         />
       </PageIntro>

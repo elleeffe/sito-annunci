@@ -1,7 +1,7 @@
 import {Box, Grid, styled} from '@mui/material';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import {formatVisibilityExpiration} from '../../../utils/utils';
-import {Body1, TitleH5} from '../../MyTypography';
+import {Body2} from '../../MyTypography';
 
 type Props = {
   option: VisibilityOption;
@@ -10,24 +10,18 @@ type Props = {
 
 const Visibility = ({option, expiration}: Props) => {
   return (
-    <FullGrid item xs={12} marginTop="15px" alignItems="flex-start">
+    <Box display="flex" marginBottom="15px">
       <RocketLaunchIcon color="primary" />
       <Box display="flex" flex={1} flexWrap="wrap">
-        <TitleH5 marginLeft="10px">{option.title}</TitleH5>
-        <Body1 marginLeft="6px">
+        <Body2 marginLeft="10px">{option.title}</Body2>
+        <Body2 marginLeft="6px">
           - {option.subtitle}{' '}
           {!!formatVisibilityExpiration(expiration) &&
             `(${formatVisibilityExpiration(expiration)})`}
-        </Body1>
+        </Body2>
       </Box>
-    </FullGrid>
+    </Box>
   );
 };
 
 export default Visibility;
-
-const FullGrid = styled(Grid)(() => ({
-  display: 'flex',
-  paddingLeft: '0px !important',
-  paddingTop: '0px !important',
-}));

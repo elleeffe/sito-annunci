@@ -1,13 +1,10 @@
 import {useState} from 'react';
-import {Box, Button, styled} from '@mui/material';
-import useResponsive from '../../hooks/useResponsive';
+import {Box, Button, Chip, styled} from '@mui/material';
 import {formatDate} from '../../utils/utils';
 import MyTextButton from '../Buttons/MyTextButton';
-import IconCard from '../Card/IconCard';
 import {Aside} from '../Layout';
-import PersonIcon from '@mui/icons-material/Person';
 import RoomIcon from '@mui/icons-material/Room';
-import CategoryIcon from '@mui/icons-material/Category';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
@@ -17,7 +14,6 @@ import CommentsModal from './CommentsModal';
 import LeaveCommentsModal from './LeaveCommentsModal';
 import EventIcon from '@mui/icons-material/Event';
 import {TitleH5} from '../MyTypography';
-import MyModal from '../MyModal';
 
 type Props = {detail: Ads};
 
@@ -25,31 +21,24 @@ const AdsAside = ({detail}: Props) => {
   const [showComments, setShowComments] = useState<boolean>(false);
   const [showLeaveComments, setShowLeaveComments] = useState<boolean>(false);
 
-  const {isMd} = useResponsive();
-
   return (
     <>
       <Aside>
         <AsideInner>
           <Box flex={1}>
-            <IconCard
-              variant="primary"
-              icon={<CategoryIcon />}
-              title={detail.category as string}
-              label="Categoria"
-            />
+            <Chip label={detail.category} color="primary" />
             <FlexWrap>
               {!!detail.publicationDate && (
                 <DetailWrap>
-                  <EventIcon color="primary" />
-                  <TitleH5 marginLeft="5px">
+                  <AccessTimeIcon color="primary" />
+                  <TitleH5 marginLeft="10px">
                     {formatDate(detail.publicationDate)}
                   </TitleH5>
                 </DetailWrap>
               )}
               <DetailWrap>
                 <VisibilityIcon color="primary" />
-                <TitleH5 marginLeft="5px">
+                <TitleH5 marginLeft="10px">
                   {detail.views}{' '}
                   {detail.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
                 </TitleH5>
@@ -57,12 +46,12 @@ const AdsAside = ({detail}: Props) => {
             </FlexWrap>
             <FlexWrap>
               <DetailWrap>
-                <PersonIcon color="primary" />
-                <TitleH5 marginLeft="5px">{detail.age} anni</TitleH5>
+                <EventIcon color="primary" />
+                <TitleH5 marginLeft="10px">{detail.age} anni</TitleH5>
               </DetailWrap>
               <DetailWrap>
                 <RoomIcon color="primary" />
-                <TitleH5 marginLeft="5px">
+                <TitleH5 marginLeft="10px">
                   {detail.city.toUpperCase()}
                   {detail.neighborhood && `, ${detail.neighborhood}`}
                 </TitleH5>
@@ -134,13 +123,9 @@ const AdsAside = ({detail}: Props) => {
 export default AdsAside;
 
 const AsideInner = styled(Box)(({theme}) => ({
-  background: '#fff',
-  borderRadius: '20px',
-  border: `1px solid rgba(0,0,0,0.1)`,
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  padding: '20px',
   overflow: 'overlay',
   flex: 1,
   marginBottom: '20px',
@@ -148,6 +133,7 @@ const AsideInner = styled(Box)(({theme}) => ({
   [theme.breakpoints.down('md')]: {
     width: '100%',
     height: 'auto',
+    marginBottom: '0px',
   },
 
   [theme.breakpoints.down('sm')]: {
@@ -173,6 +159,6 @@ const FlexWrap = styled(Box)(({theme}) => ({
 
 const DetailWrap = styled(Box)(() => ({
   display: 'flex',
-  marginTop: '15px',
+  marginTop: '20px',
   alignItems: 'center',
 }));

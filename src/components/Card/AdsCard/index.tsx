@@ -16,6 +16,7 @@ import useResponsive from '../../../hooks/useResponsive';
 type Props = {
   ads: Ads;
   isPreview?: boolean;
+  isProfile?: boolean;
   whiteBg?: boolean;
   onSettings?: (event: React.MouseEvent<HTMLElement>) => void;
   onFavorite?: (id?: string) => void;
@@ -31,6 +32,7 @@ const AdsCard = ({
   onFavorite,
   favoriteError,
   favoriteLoading,
+  isProfile,
 }: Props) => {
   const router = useRouter();
 
@@ -49,6 +51,7 @@ const AdsCard = ({
       isPreview={isPreview}
       whiteBg={whiteBg}
       isHighlighted={ads.isHighlighted}
+      isProfile={isProfile}
     >
       {ads.isHighlighted && (
         <HotWrap>
@@ -61,23 +64,22 @@ const AdsCard = ({
           <PublicationLabel>{formatDate(ads.publicationDate)}</PublicationLabel>
         </PublicationWrap>
       )}
-      {!!onSettings && ads.views !== undefined && (
-        <FullGrid item xs={12} marginBottom="15px">
-          <VisibilityIcon color="primary" />
-          <TitleH5 marginLeft="10px">
-            {ads.views}{' '}
-            {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
-          </TitleH5>
-        </FullGrid>
-      )}
-
       <Cover
         item
         xs={12}
         md={5}
         sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
+        isProfile={isProfile}
       />
       <Content item xs={12} md={7}>
+        {!!onSettings &&
+          !!visibilityOption &&
+          ads.visibilityExpiration !== undefined && (
+            <Visibility
+              option={visibilityOption}
+              expiration={ads.visibilityExpiration}
+            />
+          )}
         <Box
           display="flex"
           alignItems="center"
@@ -99,7 +101,18 @@ const AdsCard = ({
           </Box>
         </Box>
         <Title>{formatAdsCardText(ads.title, isMd ? 25 : 13)}</Title>
-        <Body2>{formatAdsCardText(ads.description, isMd ? 40 : 20)}</Body2>
+        <Body2 marginBottom="10px">
+          {formatAdsCardText(ads.description, isMd ? 40 : 20)}
+        </Body2>
+        {!!onSettings && ads.views !== undefined && (
+          <Box display="flex" alignItems="center" marginBottom="10px">
+            <VisibilityIcon color="primary" />
+            <Body2 marginLeft="10px">
+              {ads.views}{' '}
+              {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
+            </Body2>
+          </Box>
+        )}
         <InfoWrap>
           <CardAction>
             <LocationWrap>
@@ -139,14 +152,6 @@ const AdsCard = ({
           </CardAction>
         </InfoWrap>
       </Content>
-      {!!onSettings &&
-        !!visibilityOption &&
-        ads.visibilityExpiration !== undefined && (
-          <Visibility
-            option={visibilityOption}
-            expiration={ads.visibilityExpiration}
-          />
-        )}
     </Wrap>
   );
 };
@@ -155,54 +160,66 @@ export default AdsCard;
 
 const Wrap = styled(Grid, {
   shouldForwardProp: (prop) =>
-    prop !== 'isPreview' && prop !== 'whiteBg' && prop !== 'isHighlighted',
-})<{isPreview?: boolean; whiteBg?: boolean; isHighlighted?: boolean}>(
-  ({theme, isPreview, whiteBg, isHighlighted}) => ({
-    borderRadius: '4px',
-    width: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    transition: 'all 100ms linear',
-    marginLeft: '0px',
-    border: `1px solid rgba(0,0,0,0.1)`,
-    position: 'relative',
-    marginTop: '25px',
-    height: '260px',
-    overflow: 'hidden',
+    prop !== 'isPreview' &&
+    prop !== 'whiteBg' &&
+    prop !== 'isHighlighted' &&
+    prop !== 'isProfile',
+})<{
+  isPreview?: boolean;
+  whiteBg?: boolean;
+  isHighlighted?: boolean;
+  isProfile?: boolean;
+}>(({theme, isPreview, whiteBg, isHighlighted, isProfile}) => ({
+  borderRadius: '4px',
+  width: '100%',
+  display: 'flex',
+  alignItems: 'center',
+  transition: 'all 100ms linear',
+  marginLeft: '0px',
+  border: `1px solid rgba(0,0,0,0.1)`,
+  position: 'relative',
+  marginTop: '25px',
 
-    ...(whiteBg
-      ? {
-          background: '#fff',
-        }
-      : {
-          background: '#F8FAFB',
-        }),
+  ...(!isProfile && {overflow: 'hidden', height: '260px'}),
 
-    ...(isHighlighted && {
-      border: `2px solid ${theme.palette.error.main}`,
-    }),
+  ...(whiteBg
+    ? {
+        background: '#fff',
+      }
+    : {
+        background: '#F8FAFB',
+      }),
 
-    ...(!isPreview && {
-      '&:hover': {
-        boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
-      },
-    }),
+  ...(isHighlighted && {
+    border: `2px solid ${theme.palette.error.main}`,
+  }),
 
-    [theme.breakpoints.down('lg')]: {
-      height: '300px',
+  ...(!isPreview && {
+    '&:hover': {
+      boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
     },
+  }),
 
-    [theme.breakpoints.down('md')]: {
-      height: 'auto',
-    },
-  })
-);
+  [theme.breakpoints.down('lg')]: {
+    ...(!isProfile && {height: '260px'}),
+  },
 
-const Cover = styled(Grid)(({theme}) => ({
+  [theme.breakpoints.down('md')]: {
+    height: 'auto',
+  },
+}));
+
+const Cover = styled(Grid, {
+  shouldForwardProp: (prop) => prop !== 'isProfile',
+})<{isProfile?: boolean}>(({theme, isProfile}) => ({
   backgroundPosition: 'center',
   backgroundSize: 'cover',
   backgroundRepeat: 'no-repeat',
-  height: '100%',
+  ...(isProfile ? {height: '320px'} : {height: '100%'}),
+
+  [theme.breakpoints.down('lg')]: {
+    ...(isProfile ? {height: '320px'} : {height: '100%'}),
+  },
 
   [theme.breakpoints.down('md')]: {
     height: '35vh',
@@ -277,12 +294,6 @@ const CardButton = styled(Button)(({theme}) => ({
   },
 }));
 
-const FullGrid = styled(Grid)(() => ({
-  display: 'flex',
-  paddingLeft: '0px !important',
-  paddingTop: '0px !important',
-}));
-
 const HotWrap = styled(Box)(({theme}) => ({
   position: 'absolute',
   top: 0,
@@ -311,6 +322,7 @@ const PublicationWrap = styled(Box)(({theme}) => ({
   alignItems: 'center',
   background: theme.palette.text.secondary,
   borderBottomLeftRadius: '4px',
+  bordertTopLeftRadius: '4px',
 }));
 
 const PublicationLabel = styled(TitleH6)(() => ({

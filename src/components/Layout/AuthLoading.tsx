@@ -1,7 +1,7 @@
 import {useState, useEffect, useCallback, PropsWithChildren} from 'react';
 import axios from 'axios';
 import {useUser} from '../../contexts/UserContext';
-import {CircularProgress, Box, styled, Paper, Button} from '@mui/material';
+import {CircularProgress, Box, styled, Button} from '@mui/material';
 
 import Layout from '.';
 import {Body1, StyledButton, TitleH5, TitleH3} from '../MyTypography';

@@ -1,14 +1,4 @@
 import {useEffect, useState} from 'react';
-import {
-  IconButton,
-  Modal,
-  styled,
-  useMediaQuery,
-  Box,
-  Paper,
-  Tooltip,
-} from '@mui/material';
-import {Close} from '@mui/icons-material';
 import {useUser} from '../../contexts/UserContext';
 import {Login, PersonAddAlt1} from '@mui/icons-material';
 import RegisterForm from '../Forms/RegisterForm';
@@ -27,8 +17,6 @@ const LeaveCommentsModal = ({detailId, isOpen, onClose}: Props) => {
   const {user} = useUser();
   const [tab, setTab] = useState(0);
   const [oldComment, setOldComment] = useState<string>();
-
-  const match = useMediaQuery('(max-width:600px)');
 
   useEffect(() => {
     if (!user) {

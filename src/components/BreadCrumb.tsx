@@ -6,13 +6,14 @@ import {TitleH5} from './MyTypography';
 
 type Props = {
   paths: {label: string; path?: string}[];
+  spacing?: boolean;
 };
 
-const BreadCrumb = ({paths}: Props) => {
+const BreadCrumb = ({paths, spacing}: Props) => {
   const {asPath} = useRouter();
 
   return (
-    <Stack spacing={2} marginTop="10px">
+    <Stack spacing={2} marginTop={spacing ? '20px' : undefined}>
       <Breadcrumbs
         separator={<ChevronRight sx={{color: '#fff'}} />}
         aria-label="breadcrumb"

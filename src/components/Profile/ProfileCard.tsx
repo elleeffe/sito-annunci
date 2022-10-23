@@ -147,7 +147,7 @@ export default ProfileCard;
 
 const UserWrap = styled(Box)(({theme}) => ({
   background: '#fff',
-  borderRadius: '20px',
+  borderRadius: '4px',
   boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
   display: 'flex',
   flexDirection: 'column',
@@ -155,7 +155,7 @@ const UserWrap = styled(Box)(({theme}) => ({
   height: '100%',
   overflow: 'auto',
 
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     width: '100%',
     height: 'auto',
     flexDirection: 'row',
@@ -174,9 +174,9 @@ const UserInfo = styled(Box)(({theme}) => ({
   alignItems: 'center',
   padding: '20px',
 
-  [theme.breakpoints.down('md')]: {
+  [theme.breakpoints.down('lg')]: {
     justifyContent: 'center',
-    borderRight: `1px solid ${theme.palette.text.disabled}`,
+    borderRight: `1px solid #f6f6f6`,
   },
 
   [theme.breakpoints.down('sm')]: {

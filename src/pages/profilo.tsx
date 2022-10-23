@@ -8,6 +8,7 @@ import {useUser} from '../contexts/UserContext';
 import {LoadingScreen} from '../components/Layout/AuthLoading';
 import ProfileCard from '../components/Profile/ProfileCard';
 import UserAdsList from '../components/Profile/UserAdsList';
+import {styled} from '@mui/material';
 
 const Profile: NextPage = () => {
   const {user} = useUser();
@@ -34,12 +35,19 @@ const Profile: NextPage = () => {
         <TitleH1 isWhite>Profilo</TitleH1>
         <BreadCrumb paths={[{label: 'Profilo', path: '/profilo'}]} />
       </PageIntro>
-      <PageBody>
+      <StyledPageBody>
         <ProfileCard />
         <UserAdsList />
-      </PageBody>
+      </StyledPageBody>
     </Layout>
   );
 };
 
 export default Profile;
+
+const StyledPageBody = styled(PageBody)(({theme}) => ({
+  marginBottom: '100px',
+  [theme.breakpoints.down('md')]: {
+    marginBottom: '50px',
+  },
+}));

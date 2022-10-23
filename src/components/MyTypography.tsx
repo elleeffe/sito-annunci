@@ -9,7 +9,7 @@ export const TitleH1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite, isEllipsis}) => ({
   fontWeight: 400,
-  lineHeight: 1.3,
+  lineHeight: 1.5,
   fontSize: '36px',
   ...(isEllipsis && {
     textOverflow: 'ellipsis',
@@ -35,7 +35,7 @@ export const TitleH3 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
-  lineHeight: 1.3,
+  lineHeight: 1.5,
   fontSize: '24px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -45,7 +45,7 @@ export const TitleH4 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
-  lineHeight: 1.4,
+  lineHeight: 1.5,
   fontSize: '20px',
   ...(isWhite ? {color: '#fff'} : {color: theme.palette.text.primary}),
 }));
@@ -94,7 +94,7 @@ export const Body1 = styled(Typography, {
   shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
 })<Props>(({theme, isWhite}) => ({
   lineHeight: 1.6,
-  fontSize: '15px',
+  fontSize: '16px',
   fontWeight: 400,
   fontFamily: 'Poppins',
   ...(isWhite

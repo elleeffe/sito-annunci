@@ -24,7 +24,7 @@ const HeroBanner = ({title, subtitle, button, img, morePadding}: Props) => {
       <Container>
         <Inner container>
           <Grid item sm={11} md={10} lg={8}>
-            <TitleH2 as="h4" isWhite marginBottom="25px">
+            <TitleH2 as="h4" isWhite marginBottom="20px">
               {title}
             </TitleH2>
             <HeroSubtitle isWhite>{subtitle}</HeroSubtitle>

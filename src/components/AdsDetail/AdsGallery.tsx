@@ -29,7 +29,7 @@ const AdsGallery = ({cover, images}: Props) => {
         <SliderWrap>
           <Swiper
             slidesPerView="auto"
-            spaceBetween={30}
+            spaceBetween={20}
             freeMode={true}
             pagination={{
               clickable: true,
@@ -76,13 +76,13 @@ const AdsGallery = ({cover, images}: Props) => {
 export default AdsGallery;
 
 const Cover = styled(Box)(({theme}) => ({
-  marginBottom: '25px',
+  marginBottom: '15px',
   width: '100%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   background: theme.palette.primary.main,
-  borderRadius: '20px',
+  borderRadius: '4px',
   overflow: 'hidden',
 
   img: {
@@ -110,7 +110,7 @@ const SliderInner = styled(Box)(({theme}) => ({
   width: '300px',
   height: '150px',
   background: theme.palette.primary.main,
-  borderRadius: '10px',
+  borderRadius: '4px',
   overflow: 'hidden',
   position: 'relative',
 
@@ -121,7 +121,7 @@ const SliderInner = styled(Box)(({theme}) => ({
 
   [theme.breakpoints.down('md')]: {
     width: '200px',
-    height: '100px',
+    height: '120px',
   },
 }));
 

@@ -24,8 +24,6 @@ const FavoritesModal = ({isOpen, onClose}: Props) => {
   const [removeLoading, setRemoveLoading] = useState<string>();
   const [removeError, setRemoveError] = useState<string>();
 
-  const match = useMediaQuery('(max-width:600px)');
-
   const getUserFavorites = useCallback(async () => {
     try {
       setLoading(true);

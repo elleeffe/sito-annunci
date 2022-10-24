@@ -1,19 +1,17 @@
 import {useEffect, useState} from 'react';
 import type {NextPage} from 'next';
-import {Box, Button, Container, Paper, styled} from '@mui/material';
-import {TitleH3} from '../components/MyTypography';
+import {Box, Paper, styled} from '@mui/material';
+
 import {useRouter} from 'next/router';
-import {ArrowForward, Login, PersonAddAlt1} from '@mui/icons-material';
+import {Login, PersonAddAlt1} from '@mui/icons-material';
 import LoginForm from '../components/Forms/LoginForm';
 import RegisterForm from '../components/Forms/RegisterForm';
 import Layout from '../components/Layout';
 import {useUser} from '../contexts/UserContext';
 import {LoadingScreen} from '../components/Layout/AuthLoading';
 import MyTabs from '../components/MyTabs';
-import Link from 'next/link';
 
 const Auth: NextPage = () => {
-  const [mobile, setMobile] = useState<boolean>(false);
   const [tab, setTab] = useState(0);
 
   const {user} = useUser();
@@ -22,16 +20,6 @@ const Auth: NextPage = () => {
 
   useEffect(() => {
     setTab(() => (router.query.tab === 'register' ? 1 : 0));
-    const handleResize = () =>
-      setMobile(window.matchMedia('(max-width: 600px)').matches);
-
-    window.addEventListener('resize', handleResize);
-
-    handleResize();
-
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
   }, [router.query]);
 
   useEffect(() => {
@@ -49,41 +37,8 @@ const Auth: NextPage = () => {
   }
 
   return (
-    <Layout hideHeader>
+    <Layout>
       <Wrap>
-        <Box
-          display="flex"
-          alignItems="space-between"
-          sx={{
-            background: '#fff',
-            height: '70px',
-            width: '100%',
-            marginBottom: '25px',
-          }}
-        >
-          <Container
-            sx={{
-              height: '100%',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-            }}
-          >
-            <Link href="/">
-              <TitleH3 sx={{cursor: 'pointer', marginRight: '25px'}}>
-                Logo
-              </TitleH3>
-            </Link>
-            <Button
-              endIcon={<ArrowForward />}
-              size={mobile ? 'small' : 'medium'}
-              sx={{transition: 'all 100ms linear'}}
-              onClick={() => router.push('/')}
-            >
-              {router.query.tab ? 'Torna ' : 'Vai '} al sito
-            </Button>
-          </Container>
-        </Box>
         <Box display="flex" justifyContent="center" width="100%">
           <StyledPaper>
             <MyTabs
@@ -117,11 +72,12 @@ export default Auth;
 
 const Wrap = styled(Box)(({theme}) => ({
   width: '100vw',
-  height: '100vh',
-  minHeight: '600px',
+  minHeight: '100vh',
   background: theme.palette.primary.main,
   display: 'flex',
   flexDirection: 'column',
+  paddingTop: '100px',
+  paddingBottom: '50px',
 }));
 
 const StyledPaper = styled(Paper)(() => ({

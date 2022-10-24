@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
-import {useMediaQuery, Button, Alert} from '@mui/material';
+import {Button, Alert} from '@mui/material';
 import {mockAds} from '../../utils/mocks';
 import SkeletonCard from '../Card/SkeletonCard';
 import AdsCard from '../Card/AdsCard';

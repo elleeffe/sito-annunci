@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Grid, styled, Box} from '@mui/material';
-import {Body1, ExternalLink, TitleH3, TitleH5} from '../MyTypography';
+import {Body1, Body2, ExternalLink, TitleH3, TitleH5} from '../MyTypography';
 import AlternateEmailIcon from '@mui/icons-material/AlternateEmail';
 import Link from 'next/link';
 import {routes} from '../../utils/config';
@@ -8,12 +8,7 @@ import {routes} from '../../utils/config';
 const Footer = () => {
   return (
     <Wrap>
-      <Container
-        sx={{
-          paddingTop: '150px',
-          paddingBottom: '75px',
-        }}
-      >
+      <StyledContainer>
         <Grid container justifyContent="space-between">
           <Grid item sm={12} md={5} sx={{marginBottom: '50px'}}>
             <TitleH3 gutterBottom>Logo</TitleH3>
@@ -74,9 +69,9 @@ const Footer = () => {
             </Grid>
           </Grid>
         </Grid>
-      </Container>
+      </StyledContainer>
       <BottomWrap>
-        <TitleH5>Copyright © 2022 ProLancer All Rights Reserved.</TitleH5>
+        <Body2>Copyright © 2022 ProLancer All Rights Reserved.</Body2>
       </BottomWrap>
     </Wrap>
   );
@@ -86,9 +81,14 @@ export default Footer;
 
 const Wrap = styled(Box)(({theme}) => ({
   borderTop: '1px solid rgba(0,0,0,0.1)',
+}));
 
-  [theme.breakpoints.down('sm')]: {
-    marginTop: '50px',
+const StyledContainer = styled(Container)(({theme}) => ({
+  paddingTop: '150px',
+  paddingBottom: '75px',
+
+  [theme.breakpoints.down('md')]: {
+    paddingTop: '75px',
   },
 }));
 

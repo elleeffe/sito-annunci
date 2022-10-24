@@ -102,7 +102,7 @@ const BackToTopButton = styled(IconButton)(({theme}) => ({
   background: theme.palette.primary.main,
   position: 'fixed',
   bottom: '15px',
-  right: '25px',
+  right: '20px',
   '&:hover': {
     background: theme.palette.primary.main,
   },

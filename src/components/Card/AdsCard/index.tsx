@@ -34,7 +34,7 @@ const AdsCard = ({
 }: Props) => {
   const router = useRouter();
 
-  const {isMd} = useResponsive();
+  const {isSm, isMd} = useResponsive();
 
   const visibilityOption = useMemo(
     () => visibilityOptions.find((el) => el.value === ads.visibilityOption),
@@ -61,7 +61,6 @@ const AdsCard = ({
           <PublicationLabel>{formatDate(ads.publicationDate)}</PublicationLabel>
         </PublicationWrap>
       )}
-
       {!!onSettings && ads.views !== undefined && (
         <ViewsWrap>
           <VisibilityIcon sx={{color: 'white', width: 17, height: 17}} />
@@ -86,13 +85,7 @@ const AdsCard = ({
               expiration={ads.visibilityExpiration}
             />
           )}
-        <Box
-          display="flex"
-          alignItems="center"
-          justifyContent="space-between"
-          marginBottom="10px"
-          width="100%"
-        >
+        <CategoryWrap>
           <Chip label={ads.category} color="primary" size="small" />
           <Box display="flex" alignItems="center">
             {!onSettings && <Body2>{ads.age} anni</Body2>}
@@ -105,7 +98,7 @@ const AdsCard = ({
               />
             )}
           </Box>
-        </Box>
+        </CategoryWrap>
         <Title>{formatAdsCardText(ads.title, isMd ? 25 : 13)}</Title>
         {!onSettings && (
           <Body2 marginBottom="10px">
@@ -145,7 +138,7 @@ const AdsCard = ({
                   router.push(`/categorie/${ads.category}/${ads.id}`)
                 }
               >
-                Visita
+                {isSm ? 'Visita annuncio' : 'Visita'}
               </CardButton>
             )}
           </CardAction>
@@ -264,9 +257,7 @@ const CardAction = styled(Box)(({theme}) => ({
   },
 
   [theme.breakpoints.down('sm')]: {
-    flexDirection: 'column',
-    alignItems: 'initial',
-    justifyContent: 'initial',
+    display: 'block',
   },
 }));
 
@@ -281,7 +272,8 @@ const LocationWrap = styled(Box)(({theme}) => ({
 
 const CardButton = styled(Button)(({theme}) => ({
   [theme.breakpoints.down('sm')]: {
-    marginTop: '25px',
+    marginTop: '15px',
+    marginLeft: '-15px',
   },
 }));
 
@@ -344,4 +336,16 @@ const ViewsWrap = styled(Box)(({theme}) => ({
 const ViewsLabel = styled(TitleH6)(() => ({
   color: 'white',
   fontWeight: '500',
+}));
+
+const CategoryWrap = styled(Box)(({theme}) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  marginBottom: '10px',
+  width: '100%',
+
+  [theme.breakpoints.down('md')]: {
+    marginBottom: '15px',
+  },
 }));

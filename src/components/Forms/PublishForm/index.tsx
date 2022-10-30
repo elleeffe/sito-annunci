@@ -70,7 +70,7 @@ const PublishForm = ({initialAds, onChangeStep, finalVariant}: Props) => {
         values,
         dirty,
       }) => {
-        //   console.log(values);
+        // console.log({values});
         return (
           <form onSubmit={handleSubmit} style={{flex: 1}}>
             <TitleH4 marginBottom="25px">

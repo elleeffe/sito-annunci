@@ -98,7 +98,7 @@ const RegisterForm = ({onSuccess}: Props) => {
               disabled={pristine || hasValidationErrors}
               variant="contained"
               loading={submitting}
-              sx={{width: '100%'}}
+              sx={{width: '100%', marginBottom: '25px'}}
               type="submit"
             >
               Crea account

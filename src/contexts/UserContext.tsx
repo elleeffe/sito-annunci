@@ -26,11 +26,9 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
     setUser(user);
   }, []);
 
-  console.log(asPath);
-
   const logout = useCallback(() => {
     setUser(undefined);
-    asPath.includes('profilo') && push('/');
+    asPath !== '/profilo' && push('/');
   }, [push, asPath]);
 
   const update = useCallback((user: User) => {

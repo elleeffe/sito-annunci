@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useMemo, useState} from 'react';
 import {Box, Button, styled} from '@mui/material';
 import {Form} from 'react-final-form';
 import {categoryOptions, cityOptions} from '../../utils/config';
@@ -59,6 +59,8 @@ const Filters = ({onChange}: Props) => {
     [setFilters, onChange, initialCategory]
   );
 
+  const initialValues = useMemo(() => ({...filters}), []);
+
   useEffect(() => {
     const timeout = setTimeout(
       () => {
@@ -90,8 +92,8 @@ const Filters = ({onChange}: Props) => {
 
   return (
     <Aside mobileOrder={1}>
-      <Form<Filters> onSubmit={console.log} initialValues={filters}>
-        {({values, form}) => {
+      <Form<Filters> onSubmit={console.log} initialValues={initialValues}>
+        {({values, form, pristine}) => {
           console.log({values});
           return (
             <Box>
@@ -104,6 +106,7 @@ const Filters = ({onChange}: Props) => {
                   onClick={() => {
                     handleReset(form);
                   }}
+                  disabled={pristine}
                 >
                   Pulisci
                 </Button>

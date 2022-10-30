@@ -107,14 +107,16 @@ const MyStepper = ({
             justifyContent="space-between"
           >
             <Tooltip title="Indietro">
-              <IconButton
-                color={buttonColor}
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                size={buttonSize}
-              >
-                <ArrowBack />
-              </IconButton>
+              <span>
+                <IconButton
+                  color={buttonColor}
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  size={buttonSize}
+                >
+                  <ArrowBack />
+                </IconButton>
+              </span>
             </Tooltip>
             {steps[activeStep] && steps[activeStep].button ? (
               <MyButton
@@ -128,14 +130,16 @@ const MyStepper = ({
               </MyButton>
             ) : (
               <Tooltip title="Avanti">
-                <IconButton
-                  color={buttonColor}
-                  onClick={handleNext}
-                  size={buttonSize}
-                  disabled={steps[activeStep].disabled}
-                >
-                  <ArrowForward />
-                </IconButton>
+                <span>
+                  <IconButton
+                    color={buttonColor}
+                    onClick={handleNext}
+                    size={buttonSize}
+                    disabled={steps[activeStep].disabled}
+                  >
+                    <ArrowForward />
+                  </IconButton>
+                </span>
               </Tooltip>
             )}
           </Box>

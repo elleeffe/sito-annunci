@@ -33,7 +33,7 @@ const AdsList = () => {
       >
         <ListHeader />
         <Box>
-          {adsList.map((ads) => {
+          {adsList.map((ads, i) => {
             const loading =
               ads.id !== undefined ? favoriteLoading === ads.id : false;
             const error =
@@ -41,7 +41,7 @@ const AdsList = () => {
             return (
               <AdsCard
                 ads={ads}
-                key={ads.id}
+                key={'adv-card-' + i}
                 whiteBg
                 onFavorite={user ? handleFavorite : undefined}
                 favoriteError={error}

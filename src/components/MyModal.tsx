@@ -10,6 +10,7 @@ type Props = PropsWithChildren<{
   onClose?: () => void;
   size?: 'small' | 'normal' | 'large';
   className?: string;
+  noInnerSpacing?: boolean;
 }>;
 
 const MyModal = ({
@@ -19,6 +20,7 @@ const MyModal = ({
   title,
   size = 'normal',
   className,
+  noInnerSpacing,
 }: Props) => {
   const {isMd} = useResponsive();
 
@@ -44,7 +46,7 @@ const MyModal = ({
             </Tooltip>
           )}
         </Heading>
-        <Body>{children}</Body>
+        <Body noSpacing={noInnerSpacing}>{children}</Body>
       </ModalInner>
     </Modal>
   );
@@ -86,13 +88,14 @@ const Heading = styled(Box)(({theme}) => ({
   },
 }));
 
-const Body = styled(Box)(({theme}) => ({
-  padding: '25px',
+const Body = styled(Box, {
+  shouldForwardProp: (prop) => prop !== 'noSpacing',
+})<{noSpacing?: boolean}>(({theme, noSpacing}) => ({
+  ...(!noSpacing && {padding: '25px', overflow: 'auto'}),
   width: '100%',
   flex: 1,
-  overflow: 'auto',
 
   [theme.breakpoints.down('md')]: {
-    padding: '15px',
+    ...(!noSpacing && {padding: '15px'}),
   },
 }));

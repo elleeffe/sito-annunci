@@ -73,6 +73,7 @@ const DesktopUserMenu = ({isScrolled}: Props) => {
               onClick={() => {
                 push('/profilo');
                 ads && setAds(undefined);
+                setAnchorEl(null);
               }}
             >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
@@ -87,6 +88,7 @@ const DesktopUserMenu = ({isScrolled}: Props) => {
               onClick={() => {
                 logout();
                 ads && setAds(undefined);
+                setAnchorEl(null);
               }}
             >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
@@ -107,6 +109,7 @@ const DesktopUserMenu = ({isScrolled}: Props) => {
                   query: {tab: 'login'},
                 });
                 ads && setAds(undefined);
+                setAnchorEl(null);
               }}
             >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>
@@ -124,6 +127,7 @@ const DesktopUserMenu = ({isScrolled}: Props) => {
                   query: {tab: 'register'},
                 });
                 ads && setAds(undefined);
+                setAnchorEl(null);
               }}
             >
               <ListItemIcon sx={{minWidth: 'initial', marginRight: '15px'}}>

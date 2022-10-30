@@ -69,7 +69,7 @@ const MyAutocomplete = ({
   const listOption = useMemo(
     () =>
       onType
-        ? options
+        ? []
         : options.filter((option) =>
             option.value.includes(searchString.toLowerCase())
           ),
@@ -99,10 +99,9 @@ const MyAutocomplete = ({
       loading={loading}
       loadingText="Ricerca in corso..."
       disableClearable={searchString === ''}
-      getOptionLabel={(option) => (option as Option).value || ''}
-      isOptionEqualToValue={(option, value) =>
-        (option as Option).value === value
-      }
+      isOptionEqualToValue={(option, value) => {
+        return (option as Option).label === value;
+      }}
       onBlur={() => {
         input.onBlur();
         setHover(false);

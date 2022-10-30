@@ -43,13 +43,11 @@ const CardSlider = ({cards, autoPlay, spacingBottom, spacingTop}: Props) => {
         loop
         scrollbar={{draggable: true}}
       >
-        {cards.map((card) => {
+        {cards.map((card, i) => {
           return (
-            <>
-              <SwiperSlide key={card.title}>
-                <SimpleCard card={card} />
-              </SwiperSlide>
-            </>
+            <SwiperSlide key={card.title + i}>
+              <SimpleCard card={card} />
+            </SwiperSlide>
           );
         })}
       </Swiper>

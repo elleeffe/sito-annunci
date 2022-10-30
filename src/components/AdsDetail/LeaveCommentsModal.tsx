@@ -6,6 +6,7 @@ import LoginForm from '../Forms/LoginForm';
 import MyTabs from '../MyTabs';
 import LeaveCommentsForm from '../Forms/LeaveCommentsForm';
 import MyModal from '../MyModal';
+import {styled} from '@mui/material';
 
 type Props = {
   detailId: string;
@@ -34,7 +35,12 @@ const LeaveCommentsModal = ({detailId, isOpen, onClose}: Props) => {
   }, [user]);
 
   return (
-    <MyModal isOpen={isOpen} onClose={onClose} title="Lascia una recensione">
+    <MyModal
+      isOpen={isOpen}
+      onClose={onClose}
+      title="Lascia una recensione"
+      noInnerSpacing={!user}
+    >
       {!user ? (
         <>
           <MyTabs

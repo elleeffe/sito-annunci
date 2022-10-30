@@ -16,7 +16,6 @@ import useResponsive from '../../../hooks/useResponsive';
 type Props = {
   ads: Ads;
   isPreview?: boolean;
-  isProfile?: boolean;
   whiteBg?: boolean;
   onSettings?: (event: React.MouseEvent<HTMLElement>) => void;
   onFavorite?: (id?: string) => void;
@@ -32,7 +31,6 @@ const AdsCard = ({
   onFavorite,
   favoriteError,
   favoriteLoading,
-  isProfile,
 }: Props) => {
   const router = useRouter();
 
@@ -51,7 +49,6 @@ const AdsCard = ({
       isPreview={isPreview}
       whiteBg={whiteBg}
       isHighlighted={ads.isHighlighted}
-      isProfile={isProfile}
     >
       {ads.isHighlighted && (
         <HotWrap>
@@ -64,12 +61,21 @@ const AdsCard = ({
           <PublicationLabel>{formatDate(ads.publicationDate)}</PublicationLabel>
         </PublicationWrap>
       )}
+
+      {!!onSettings && ads.views !== undefined && (
+        <ViewsWrap>
+          <VisibilityIcon sx={{color: 'white', width: 17, height: 17}} />
+          <ViewsLabel marginLeft="10px">
+            {ads.views}{' '}
+            {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
+          </ViewsLabel>
+        </ViewsWrap>
+      )}
       <Cover
         item
         xs={12}
         md={5}
         sx={{backgroundImage: `url(${ads.cover[0].base64})`}}
-        isProfile={isProfile}
       />
       <Content item xs={12} md={7}>
         {!!onSettings &&
@@ -89,7 +95,7 @@ const AdsCard = ({
         >
           <Chip label={ads.category} color="primary" size="small" />
           <Box display="flex" alignItems="center">
-            <Body2>{ads.age} anni</Body2>
+            {!onSettings && <Body2>{ads.age} anni</Body2>}
             {!!onFavorite && ads.isFavorite !== undefined && (
               <Favorites
                 onClick={() => onFavorite(ads.id)}
@@ -101,17 +107,10 @@ const AdsCard = ({
           </Box>
         </Box>
         <Title>{formatAdsCardText(ads.title, isMd ? 25 : 13)}</Title>
-        <Body2 marginBottom="10px">
-          {formatAdsCardText(ads.description, isMd ? 40 : 20)}
-        </Body2>
-        {!!onSettings && ads.views !== undefined && (
-          <Box display="flex" alignItems="center" marginBottom="10px">
-            <VisibilityIcon color="primary" />
-            <Body2 marginLeft="10px">
-              {ads.views}{' '}
-              {ads.views === 1 ? 'visualizzazione' : 'visualizzazioni'}
-            </Body2>
-          </Box>
+        {!onSettings && (
+          <Body2 marginBottom="10px">
+            {formatAdsCardText(ads.description, isMd ? 40 : 20)}
+          </Body2>
         )}
         <InfoWrap>
           <CardAction>
@@ -160,16 +159,12 @@ export default AdsCard;
 
 const Wrap = styled(Grid, {
   shouldForwardProp: (prop) =>
-    prop !== 'isPreview' &&
-    prop !== 'whiteBg' &&
-    prop !== 'isHighlighted' &&
-    prop !== 'isProfile',
+    prop !== 'isPreview' && prop !== 'whiteBg' && prop !== 'isHighlighted',
 })<{
   isPreview?: boolean;
   whiteBg?: boolean;
   isHighlighted?: boolean;
-  isProfile?: boolean;
-}>(({theme, isPreview, whiteBg, isHighlighted, isProfile}) => ({
+}>(({theme, isPreview, whiteBg, isHighlighted}) => ({
   borderRadius: '4px',
   width: '100%',
   display: 'flex',
@@ -179,8 +174,8 @@ const Wrap = styled(Grid, {
   border: `1px solid rgba(0,0,0,0.1)`,
   position: 'relative',
   marginTop: '25px',
-
-  ...(!isProfile && {overflow: 'hidden', height: '260px'}),
+  overflow: 'hidden',
+  height: '260px',
 
   ...(whiteBg
     ? {
@@ -199,10 +194,6 @@ const Wrap = styled(Grid, {
       boxShadow: '0 0.125rem 0.25rem rgba(0, 0, 0, 0.08)',
     },
   }),
-
-  [theme.breakpoints.down('lg')]: {
-    ...(!isProfile && {height: '260px'}),
-  },
 
   [theme.breakpoints.down('md')]: {
     height: 'auto',
@@ -315,17 +306,42 @@ const HotLabel = styled(TitleH6)(() => ({
 const PublicationWrap = styled(Box)(({theme}) => ({
   position: 'absolute',
   top: 0,
-  right: 0,
+  left: 0,
   padding: '5px 10px 7px',
   color: 'white',
   display: 'flex',
   alignItems: 'center',
   background: theme.palette.text.secondary,
-  borderBottomLeftRadius: '4px',
-  bordertTopLeftRadius: '4px',
+  borderBottomRightRadius: '4px',
+  bordertTopRightRadius: '4px',
 }));
 
 const PublicationLabel = styled(TitleH6)(() => ({
+  color: 'white',
+  fontWeight: '500',
+}));
+
+const ViewsWrap = styled(Box)(({theme}) => ({
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  padding: '5px 10px 7px',
+  color: 'white',
+  display: 'flex',
+  alignItems: 'center',
+  background: theme.palette.primary.main,
+  borderBottomLeftRadius: '4px',
+  borderTopRightRadius: '4px',
+
+  [theme.breakpoints.down('md')]: {
+    bottom: 'unset',
+    left: 'unset',
+    top: 0,
+    right: 0,
+  },
+}));
+
+const ViewsLabel = styled(TitleH6)(() => ({
   color: 'white',
   fontWeight: '500',
 }));

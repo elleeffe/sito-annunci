@@ -100,7 +100,6 @@ const UserAdsList = () => {
                   ads={el}
                   key={el.id}
                   whiteBg
-                  isProfile
                   onSettings={(e) => {
                     handleClick(e);
                     setClickedAd(el.id);

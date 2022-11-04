@@ -41,11 +41,13 @@ const Footer = () => {
                     return null;
                   }
                   return (
-                    <Link passHref href={route.path || '/'} key={route.label}>
-                      <StyledLink>
-                        <span>{route.label}</span>
-                      </StyledLink>
-                    </Link>
+                    <StyledLink
+                      passHref
+                      href={route.path || '/'}
+                      key={route.label}
+                    >
+                      <span>{route.label}</span>
+                    </StyledLink>
                   );
                 })}
               </Grid>
@@ -58,11 +60,9 @@ const Footer = () => {
                     return null;
                   }
                   return route.submenu?.map((el) => (
-                    <Link passHref href={el.path || '/'} key={el.label}>
-                      <StyledLink>
-                        <span>{el.label}</span>
-                      </StyledLink>
-                    </Link>
+                    <StyledLink passHref href={el.path || '/'} key={el.label}>
+                      <span>{el.label}</span>
+                    </StyledLink>
                   ));
                 })}
               </Grid>
@@ -98,7 +98,7 @@ const BottomWrap = styled(Box)(({theme}) => ({
   textAlign: 'center',
 }));
 
-const StyledLink = styled('a')(({theme}) => ({
+const StyledLink = styled(Link)(({theme}) => ({
   fontSize: 16,
   fontFamily: 'Poppins',
   display: 'block',

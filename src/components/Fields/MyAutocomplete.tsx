@@ -70,8 +70,10 @@ const MyAutocomplete = ({
     () =>
       onType
         ? []
-        : options.filter((option) =>
-            option.value.includes(searchString.toLowerCase())
+        : [{value: '', label: 'Seleziona una città'}].concat(
+            options.filter((option) =>
+              option.value.includes(searchString.toLowerCase())
+            )
           ),
     [options, searchString, onType]
   );
@@ -102,6 +104,9 @@ const MyAutocomplete = ({
       isOptionEqualToValue={(option, value) => {
         return (option as Option).label === value;
       }}
+      getOptionDisabled={(option) =>
+        (option as Option).value === listOption[0].value
+      }
       onBlur={() => {
         input.onBlur();
         setHover(false);

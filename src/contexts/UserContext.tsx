@@ -1,10 +1,19 @@
-import {useState, useContext, createContext, useCallback} from 'react';
+import {
+  useState,
+  useContext,
+  createContext,
+  useCallback,
+  useEffect,
+} from 'react';
 import {ThemeProvider} from '@mui/material';
 import {theme} from '../theme';
 import {useRouter} from 'next/router';
+import {sleep} from '../utils/utils';
+import {mockUser} from '../utils/mocks';
 
 export type UserContextType = {
   user?: User;
+  loading: boolean;
   login: (user: User) => void;
   logout: () => void;
   update: (user: User) => void;
@@ -12,6 +21,7 @@ export type UserContextType = {
 
 export const UserContext = createContext<UserContextType>({
   user: undefined,
+  loading: true,
   login: () => {},
   logout: () => {},
   update: () => {},
@@ -19,6 +29,7 @@ export const UserContext = createContext<UserContextType>({
 
 export const UserProvider = ({children}: {children: JSX.Element}) => {
   const [user, setUser] = useState<User>();
+  const [loading, setLoading] = useState<boolean>(true);
 
   const {asPath, push} = useRouter();
 
@@ -35,10 +46,26 @@ export const UserProvider = ({children}: {children: JSX.Element}) => {
     setUser(user);
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      try {
+        // const response = await axios.post('/api/check-session');
+        // login(response.data);
+        // await sleep(1000);
+        setUser(mockUser);
+      } catch (e) {
+        console.error(e);
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, []);
+
   return (
     <UserContext.Provider
       value={{
         user,
+        loading,
         login,
         logout,
         update,

@@ -37,5 +37,3 @@ yarn-error.log*
 # sitemap
 /public/*.xml
 /public/robots.txt
-
-.swc

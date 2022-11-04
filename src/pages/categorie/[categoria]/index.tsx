@@ -1,38 +1,24 @@
-import type {NextPage} from 'next';
+import type {GetServerSideProps, NextPage} from 'next';
 import {useRouter} from 'next/router';
-import {useEffect, useMemo} from 'react';
 import AdsList from '../../../components/AdsList';
 import BreadCrumb from '../../../components/BreadCrumb';
 import Layout, {PageBody, PageIntro} from '../../../components/Layout';
-import {LoadingScreen} from '../../../components/Layout/AuthLoading';
 import {TitleH1} from '../../../components/MyTypography';
 import {FiltersProvider} from '../../../contexts/FiltersContext';
 import {categoryOptions} from '../../../utils/config';
 
-const Category: NextPage = () => {
+type PageProps = {
+  category: {
+    value: Category;
+    label: string;
+  };
+};
+
+const Category: NextPage<PageProps> = ({category}) => {
   const router = useRouter();
 
-  const category = useMemo(
-    () => categoryOptions.find((el) => el.value === router.query.categoria),
-    [router]
-  );
-
-  useEffect(() => {
-    if (!category) {
-      router.push('/categorie');
-    }
-  }, [router, category]);
-
-  if (!category) {
-    return (
-      <Layout>
-        <LoadingScreen />
-      </Layout>
-    );
-  }
-
   return (
-    <Layout>
+    <Layout title={category.label}>
       <PageIntro>
         <TitleH1 isWhite>{category.label}</TitleH1>
         <BreadCrumb
@@ -41,7 +27,7 @@ const Category: NextPage = () => {
             {label: 'Categorie', path: '/categorie'},
             {
               label: category.label,
-              path: `/categorie/${router.query.categoria}`,
+              path: `/categorie/${category.value}`,
             },
           ]}
         />
@@ -60,3 +46,25 @@ const Category: NextPage = () => {
 };
 
 export default Category;
+
+export const getServerSideProps: GetServerSideProps<PageProps | any> = async (
+  context
+) => {
+  const {query} = context;
+
+  if (
+    'categoria' in query &&
+    typeof query.categoria === 'string' &&
+    !!categoryOptions.find((el) => el.value === query.categoria)
+  ) {
+    return {
+      props: {
+        category: categoryOptions.find((el) => el.value === query.categoria),
+      },
+    };
+  }
+
+  return {
+    notFound: true,
+  };
+};

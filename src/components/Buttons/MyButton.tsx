@@ -21,9 +21,10 @@ const MyButton = ({
   }, [size]);
 
   return (
-    <Button {...props} size={size} onClick={onClick}>
+    <Button {...props} size={size} onClick={onClick} role="button">
       {loading ? (
         <CircularProgress
+          aria-label="loader"
           size={loaderSize}
           sx={{svg: {width: loaderSize, height: loaderSize}}}
         />

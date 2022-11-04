@@ -1,4 +1,5 @@
-import {useState} from 'react';
+/* eslint-disable react/prop-types */
+import {useCallback, useEffect, useState} from 'react';
 import type {GetServerSideProps, NextPage} from 'next';
 import {useRouter} from 'next/router';
 import axios from 'axios';
@@ -8,7 +9,12 @@ import Layout, {
   PageInner,
   PageIntro,
 } from '../../../../components/Layout';
-import {Body1, TitleH3, TitleH5} from '../../../../components/MyTypography';
+import {
+  Body1,
+  TitleH3,
+  TitleH4,
+  TitleH5,
+} from '../../../../components/MyTypography';
 import {categoryOptions} from '../../../../utils/config';
 import {sleep} from '../../../../utils/utils';
 import {mockAds} from '../../../../utils/mocks';
@@ -18,7 +24,9 @@ import AdsAside from '../../../../components/AdsDetail/AdsAside';
 import HeroBanner from '../../../../components/Hero/HeroBanner';
 import segnapostoBg from '../../../../assets/img/segnaposto-bg.jpeg';
 import ReportModal from '../../../../components/AdsDetail/ReportModal';
-import {Box, Chip, styled} from '@mui/material';
+import {Alert, Box, Button, Chip, styled} from '@mui/material';
+import SkeletonCard from '../../../../components/Card/SkeletonCard';
+import CommentIcon from '@mui/icons-material/Comment';
 
 type PageProps = {
   adv: Ads;
@@ -30,6 +38,23 @@ type PageProps = {
 
 const Detail: NextPage<PageProps> = ({adv, category}) => {
   const [report, setReport] = useState<boolean>(false);
+  const [comments, setComments] = useState<any[]>();
+  const [error, setError] = useState<boolean>(false);
+
+  const getComments = useCallback(async () => {
+    try {
+      // TODO - use detailId
+      await sleep(3000);
+      setComments([]);
+    } catch (e) {
+      console.log(e);
+      setError(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    getComments();
+  }, []);
 
   const router = useRouter();
 
@@ -56,7 +81,7 @@ const Detail: NextPage<PageProps> = ({adv, category}) => {
           <TitleH3 marginBottom="15px" marginTop="15px">
             {adv.title}
           </TitleH3>
-          <Body1>{adv.description}</Body1>
+          <Body1 isThin>{adv.description}</Body1>
           <Box display="flex" flexWrap="wrap">
             <TitleH5
               sx={{
@@ -108,6 +133,34 @@ const Detail: NextPage<PageProps> = ({adv, category}) => {
                 />
               ))}
           </Box>
+          <Box marginTop="75px">
+            <TitleH3 marginBottom="15px">
+              Recensioni{' '}
+              {comments && !!comments.length && `(${comments.length})`}
+            </TitleH3>
+            {!comments && !error && <SkeletonCard whiteBg />}
+            {error && (
+              <Alert
+                severity="error"
+                action={
+                  <Button color="inherit" size="small" onClick={getComments}>
+                    Riprova
+                  </Button>
+                }
+              >
+                Si è verificato un errore, riprovare.
+              </Alert>
+            )}
+            {comments &&
+              !error &&
+              (!!comments.length ? (
+                comments.map((el, i) => (
+                  <Box key={i}>recensione + {i + 1} (UI da fare)</Box>
+                ))
+              ) : (
+                <Body1>Nessuna recensione</Body1>
+              ))}
+          </Box>
         </PageInner>
         <AdsAside detail={adv} />
       </StyledPageBody>
@@ -140,8 +193,6 @@ export const getServerSideProps: GetServerSideProps<PageProps | any> = async (
   context
 ) => {
   const {query} = context;
-
-  console.log(query);
 
   if (
     'id' in query &&

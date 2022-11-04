@@ -6,7 +6,6 @@ import LoginForm from '../Forms/LoginForm';
 import MyTabs from '../MyTabs';
 import LeaveCommentsForm from '../Forms/LeaveCommentsForm';
 import MyModal from '../MyModal';
-import {styled} from '@mui/material';
 
 type Props = {
   detailId: string;

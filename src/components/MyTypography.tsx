@@ -3,10 +3,12 @@ import {styled, Typography} from '@mui/material';
 type Props = {
   isWhite?: boolean;
   isEllipsis?: boolean;
+  isThin?: boolean;
 };
 
 export const TitleH1 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite, isEllipsis}) => ({
   fontWeight: 400,
   lineHeight: 1.5,
@@ -22,7 +24,8 @@ export const TitleH1 = styled(Typography, {
 TitleH1.defaultProps = {variant: 'h1'};
 
 export const TitleH2 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
   lineHeight: 1.3,
@@ -32,7 +35,8 @@ export const TitleH2 = styled(Typography, {
 TitleH2.defaultProps = {variant: 'h2'};
 
 export const TitleH3 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
   lineHeight: 1.5,
@@ -42,7 +46,8 @@ export const TitleH3 = styled(Typography, {
 TitleH3.defaultProps = {variant: 'h3'};
 
 export const TitleH4 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
   lineHeight: 1.5,
@@ -52,7 +57,8 @@ export const TitleH4 = styled(Typography, {
 TitleH4.defaultProps = {variant: 'h4'};
 
 export const TitleH5 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
   lineHeight: 1.5,
@@ -62,7 +68,8 @@ export const TitleH5 = styled(Typography, {
 TitleH5.defaultProps = {variant: 'h5'};
 
 export const TitleH6 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
   lineHeight: 1.5,
@@ -72,7 +79,8 @@ export const TitleH6 = styled(Typography, {
 TitleH6.defaultProps = {variant: 'h6'};
 
 export const Subtitle = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   fontWeight: 400,
   lineHeight: 1.5,
@@ -91,22 +99,24 @@ export const Subtitle = styled(Typography, {
 TitleH6.defaultProps = {variant: 'subtitle1'};
 
 export const Body1 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
-})<Props>(({theme, isWhite}) => ({
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
+})<Props>(({theme, isWhite, isThin}) => ({
   lineHeight: 1.6,
   fontSize: '16px',
-  fontWeight: 400,
   fontFamily: 'Poppins',
   ...(isWhite
     ? {color: '#fff'}
     : {
         color: theme.palette.text.secondary,
       }),
+  ...(isThin ? {fontWeight: 300} : {fontWeight: 400}),
 }));
 Body1.defaultProps = {variant: 'body1'};
 
 export const Body2 = styled(Typography, {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   lineHeight: 1.6,
   fontSize: '14px',
@@ -121,7 +131,8 @@ export const Body2 = styled(Typography, {
 Body2.defaultProps = {variant: 'body2'};
 
 export const ExternalLink = styled('a', {
-  shouldForwardProp: (prop) => prop !== 'isWhite' && prop !== 'isEllipsis',
+  shouldForwardProp: (prop) =>
+    prop !== 'isWhite' && prop !== 'isEllipsis' && prop !== 'isThin',
 })<Props>(({theme, isWhite}) => ({
   lineHeight: 1.6,
   fontSize: '15px',

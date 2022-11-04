@@ -8,9 +8,7 @@ import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
-import CommentIcon from '@mui/icons-material/Comment';
 import AddIcon from '@mui/icons-material/Add';
-import CommentsModal from './CommentsModal';
 import LeaveCommentsModal from './LeaveCommentsModal';
 import EventIcon from '@mui/icons-material/Event';
 import {TitleH5} from '../MyTypography';
@@ -18,7 +16,6 @@ import {TitleH5} from '../MyTypography';
 type Props = {detail: Ads};
 
 const AdsAside = ({detail}: Props) => {
-  const [showComments, setShowComments] = useState<boolean>(false);
   const [showLeaveComments, setShowLeaveComments] = useState<boolean>(false);
 
   return (
@@ -26,7 +23,7 @@ const AdsAside = ({detail}: Props) => {
       <Aside>
         <AsideInner>
           <Box flex={1}>
-            <Chip label={detail.category} color="primary" />
+            <StyledChip label={detail.category} color="primary" />
             <FlexWrap>
               {!!detail.publicationDate && (
                 <DetailWrap>
@@ -57,24 +54,11 @@ const AdsAside = ({detail}: Props) => {
                 </TitleH5>
               </DetailWrap>
             </FlexWrap>
-            <FlexWrap>
-              <DetailWrap>
-                <MyTextButton
-                  color="primary"
-                  startIcon={<CommentIcon />}
-                  tooltip="Mostra recensioni"
-                  onClick={() => setShowComments(true)}
-                >
-                  {detail.views}{' '}
-                  {detail.views === 1 ? 'recensione' : 'recensioni'}
-                </MyTextButton>
-              </DetailWrap>
-            </FlexWrap>
           </Box>
           <Box>
             <Button
               variant="outlined"
-              color="info"
+              color="warning"
               startIcon={<AddIcon />}
               sx={{marginTop: '15px', width: '100%'}}
               onClick={() => setShowLeaveComments(true)}
@@ -102,13 +86,6 @@ const AdsAside = ({detail}: Props) => {
           </Box>
         </AsideInner>
       </Aside>
-      {!!detail.id && showComments && (
-        <CommentsModal
-          detailId={detail.id}
-          isOpen={showComments}
-          onClose={() => setShowComments(false)}
-        />
-      )}
       {!!detail.id && showLeaveComments && (
         <LeaveCommentsModal
           detailId={detail.id}
@@ -161,4 +138,13 @@ const DetailWrap = styled(Box)(() => ({
   display: 'flex',
   marginTop: '20px',
   alignItems: 'center',
+}));
+
+const StyledChip = styled(Chip)(() => ({
+  height: '35px',
+  span: {
+    paddingLeft: '14px',
+    paddingRight: '14px',
+    fontSize: '15px',
+  },
 }));
